@@ -1,0 +1,35 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateSubOfficeTblTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('sub_office_tbl', function (Blueprint $table) {
+           $table->id();
+            $table->unsignedBigInteger('main_office_id');
+            $table->string('sub_office_name');
+
+            $table->timestamps(); // created_at, updated_at
+            $table->softDeletes(); // deleted_at
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('sub_office_tbl');
+    }
+}
