@@ -289,7 +289,7 @@ public function get_data_reserve_tracking(Request $request){
 
         // --- Handle Route To (sync) ---
         // Delete all existing routes for this document
-        IncomingDocumentRoute::where('document_id', $document->id)->delete();
+      //  IncomingDocumentRoute::where('document_id', $document->id)->delete();
 
         // Insert new routes if provided
         if ($request->has('route_to') && is_array($request->route_to)) {
