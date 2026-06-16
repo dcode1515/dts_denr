@@ -19,6 +19,7 @@ Route::get('/', function () {
 /*AUTH*/
 Route::get('/', [App\Http\Controllers\Auth\AuthController::class, 'login']);
 Route::post('/api/login', [App\Http\Controllers\Auth\AuthController::class, 'post_login']);
+Route::post('/logout', [App\Http\Controllers\Auth\AuthController::class, 'logout'])->name('logout');
 
 /*END AUTH*/
 
@@ -47,4 +48,12 @@ Route::post('/api/document-type', [App\Http\Controllers\Admin\AdminController::c
 Route::put('/api/document-type/{id}', [App\Http\Controllers\Admin\AdminController::class, 'update_document_type']);
 Route::delete('/api/document-type/{id}', [App\Http\Controllers\Admin\AdminController::class, 'delete_document_type']);
 Route::get('/incoming-documents', [App\Http\Controllers\Admin\AdminController::class, 'incoming_documents'])->name('admin.incoming.documents');
+Route::post('/api/reserve-tracking', [App\Http\Controllers\Admin\AdminController::class, 'storeReserveTracking']);
+Route::get('/api/reserve-tracking', [App\Http\Controllers\Admin\AdminController::class, 'get_data_reserve_tracking']);
+Route::get('/create-incoming/{id}', [App\Http\Controllers\Admin\AdminController::class, 'create_incoming']);
+Route::get('/api/get/document-type', [App\Http\Controllers\Admin\AdminController::class, 'documentType']);
+Route::get('/api/route-office', [App\Http\Controllers\Admin\AdminController::class, 'route_office']);
+Route::put('/api/update-document/{id}', [App\Http\Controllers\Admin\AdminController::class, 'update_document']);
+
+
 /*END ADMIN RECORDS*/

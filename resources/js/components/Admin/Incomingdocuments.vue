@@ -916,109 +916,203 @@
     </div>
 
     <!-- ================= MY TRACKING MODAL ================= -->
-    <div
-      v-if="showMyTrackingModal"
-      class="modal-overlay"
-      @click.self="closeMyTrackingModal"
-    >
-      <div class="modal-dialog enhanced-modal" style="max-width: 1000px">
-        <div class="modal-content square-modal">
-          <div
-            class="modal-header-enhanced square-header"
-            style="background: #2d6a4f"
-          >
-            <div class="d-flex align-items-center">
-              <div class="modal-icon-wrapper square-icon">
-                <i class="bi bi-bookmark-check"></i>
-              </div>
-              <div>
-                <h5 class="modal-title">My Tracking</h5>
-                <small class="modal-subtitle"
-                  >Documents assigned to your tracking</small
-                >
-              </div>
-            </div>
-            <button
-              type="button"
-              class="btn-close-custom square-close"
-              @click="closeMyTrackingModal"
-            >
-              <i class="bi bi-x-lg"></i>
-            </button>
+    <!-- ================= MY TRACKING MODAL ================= -->
+   <!-- ================= MY TRACKING MODAL ================= -->
+<div
+  v-if="showMyTrackingModal"
+  class="modal-overlay"
+  @click.self="closeMyTrackingModal"
+>
+  <div class="modal-dialog enhanced-modal tracking-modal" style="max-width: 1500px">
+    <div class="modal-content square-modal">
+      <div
+        class="modal-header-enhanced square-header"
+        style="background: #2d6a4f"
+      >
+        <div class="d-flex align-items-center">
+          <div class="modal-icon-wrapper square-icon">
+            <i class="bi bi-bookmark-check"></i>
           </div>
-          <div class="modal-body-enhanced">
-            <div class="table-responsive">
-              <table class="office-table">
-                <thead>
-                  <tr>
-                    <th style="width: 5%">#</th>
-                    <th style="width: 15%">Tracking No.</th>
-                    <th style="width: 18%">Document Type</th>
-                    <th style="width: 22%">Subject/Title</th>
-                    <th style="width: 15%">Sender/Origin</th>
-                    <th style="width: 15%">Date Received</th>
-                    <th style="width: 10%">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-if="myTrackingDocuments.length === 0">
-                    <td colspan="7" class="text-center py-5">
-                      <div class="empty-state">
-                        <i
-                          class="bi bi-folder2-open"
-                          style="font-size: 3rem; color: #9ca3af"
-                        ></i>
-                        <p class="mt-2 text-muted">
-                          No documents in your tracking
-                        </p>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr v-for="(doc, index) in myTrackingDocuments" :key="doc.id">
-                    <td class="text-center">
-                      <span class="row-number">{{ index + 1 }}</span>
-                    </td>
-                    <td>
-                      <span class="tracking-number">{{
-                        doc.tracking_number
-                      }}</span>
-                    </td>
-                    <td>
-                      <span class="doc-type-badge">{{
-                        doc.document_type
-                      }}</span>
-                    </td>
-                    <td>
-                      <div class="subject-text">
-                        {{ doc.subject || doc.title }}
-                      </div>
-                    </td>
-                    <td>
-                      <div class="sender-text">
-                        <i class="bi bi-person-circle sender-icon"></i
-                        >{{ doc.sender_name || doc.origin }}
-                      </div>
-                    </td>
-                    <td>
-                      <div class="date-received">
-                        <i class="bi bi-calendar3 date-icon"></i
-                        >{{ formatDate(doc.date_received || doc.created_at) }}
-                      </div>
-                    </td>
-                    <td>
-                      <span
-                        :class="['status-badge', getStatusClass(doc.status)]"
-                        >{{ doc.status }}</span
-                      >
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+          <div>
+            <h5 class="modal-title">My Tracking</h5>
+            <small class="modal-subtitle"
+              >Documents assigned to your tracking</small
+            >
+          </div>
+        </div>
+        <button
+          type="button"
+          class="btn-close-custom square-close"
+          @click="closeMyTrackingModal"
+        >
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+      <div class="modal-body-enhanced tracking-modal-body">
+        <!-- Search and Reserve Button Row -->
+        <div class="my-tracking-controls sticky-top-controls">
+          <div class="search-box-wrapper" style="flex: 1; max-width: 800px">
+            <div class="search-box">
+              <i class="bi bi-search search-icon"></i>
+              <input
+                type="text"
+                v-model="myTrackingSearch"
+                @input="applyFilters"
+                class="search-input"
+                placeholder="Search tracking documents..."
+              />
+              <button
+                v-if="myTrackingSearch"
+                @click="clearSearch"
+                class="search-clear-btn"
+              >
+                <i class="bi bi-x-circle"></i>
+              </button>
             </div>
+          </div>
+          <button
+            type="button"
+            class="btn-reserve-tracking-forest"
+            @click="reserveTracking"
+            :disabled="reserving"
+          >
+            <span
+              v-if="reserving"
+              class="spinner-border spinner-border-sm me-1"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            <svg
+              v-else
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              class="me-1"
+            >
+              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+            </svg>
+            {{ reserving ? "Reserving..." : "Reserve Tracking" }}
+          </button>
+        </div>
+
+        <!-- Scrollable Table Container -->
+        <div class="tracking-table-scroll">
+          <div class="table-responsive">
+            <table class="office-table">
+              <thead>
+                <tr>
+                  <th style="width: 5%">#</th>
+                  <th style="width: 15%">Tracking No.</th>
+                  <th style="width: 10%">Status</th>
+                  <th style="width: 10%">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-if="loading && trackings.data.length === 0">
+                  <td colspan="6" class="text-center">
+                    <div class="loader-spinner"></div>
+                    Loading...
+                  </td>
+                </tr>
+                <tr v-else-if="!loading && trackings.data.length === 0">
+                  <td colspan="6" class="text-center">
+                    <div class="empty-state">
+                      <i class="bi bi-inbox" style="font-size: 3rem; color: #9ca3af"></i>
+                      <p class="mt-2 text-muted">No Reserve Tracking Found</p>
+                    </div>
+                  </td>
+                </tr>
+                <tr
+                  v-for="(tracking, index) in trackings.data"
+                  :key="tracking.id"
+                >
+                  <td class="text-center">
+                    <span class="row-number">
+                      {{
+                        (trackings.current_page - 1) * trackings.per_page +
+                        index +
+                        1
+                      }}</span
+                    >
+                  </td>
+                  <td>
+                    <span class="tracking-number">{{
+                      tracking.tracking_number
+                    }}</span>
+                  </td>
+                  <td>
+                    <span :class="['status-badge', getStatusClass(tracking.status)]">
+                      {{ tracking.status }}
+                    </span>
+                  </td>
+                  <td>
+                   <a :href="`/dts_denr/create-incoming/${tracking.id}`" class="btn-action btn-view" title="View Details">
+                    <i class="bi bi-plus-circle me-1"></i> Create Incoming
+                  </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-wrapper tracking-pagination" v-if="trackings.total > 0">
+          <div class="pagination-info">
+            Showing {{ trackings.from }} to {{ trackings.to }} of
+            {{ trackings.total }} entries
+          </div>
+          <div class="pagination-buttons">
+            <button
+              @click="changePageTracking(1)"
+              :disabled="trackings.current_page === 1"
+              class="page-btn"
+            >
+              <i class="bi bi-chevron-double-left"></i>
+            </button>
+            <button
+              @click="changePageTracking(trackings.current_page - 1)"
+              :disabled="trackings.current_page === 1"
+              class="page-btn"
+            >
+              <i class="bi bi-chevron-left"></i>
+            </button>
+
+            <button
+              v-for="page in displayedPagesTracking"
+              :key="page"
+              @click="changePageTracking(page)"
+              :class="[
+                'page-btn',
+                { active: trackings.current_page === page },
+              ]"
+            >
+              {{ page }}
+            </button>
+
+            <button
+              @click="changePageTracking(trackings.current_page + 1)"
+              :disabled="trackings.current_page === trackings.last_page"
+              class="page-btn"
+            >
+              <i class="bi bi-chevron-right"></i>
+            </button>
+            <button
+              @click="changePageTracking(trackings.last_page)"
+              :disabled="trackings.current_page === trackings.last_page"
+              class="page-btn"
+            >
+              <i class="bi bi-chevron-double-right"></i>
+            </button>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
 
     <!-- ================= CREATE DOCUMENT MODAL ================= -->
     <div
@@ -1434,6 +1528,8 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
+
 export default {
   name: "IncomingDocumentsList",
   props: {
@@ -1450,10 +1546,11 @@ export default {
     "view-document",
     "download-document",
     "create-document",
+    "tracking-reserved",
   ],
   data() {
     return {
-      activeTab: "in-progress", // Reverted to default In Progress
+      activeTab: "in-progress",
       currentDateTime: "",
       dateTimeInterval: null,
       showCreateModal: false,
@@ -1461,6 +1558,19 @@ export default {
       showMyTrackingModal: false,
       selectedDocument: null,
       creating: false,
+      reserving: false,
+      loading: false,
+      myTrackingSearch: "",
+
+      trackings: {
+        data: [],
+        current_page: 1,
+        from: 1,
+        to: 1,
+        last_page: 1,
+        per_page: 10,
+        total: 0,
+      },
 
       // ===== MY TRACKING DOCUMENTS =====
       myTrackingDocuments: [
@@ -1483,6 +1593,36 @@ export default {
           date_received: "2024-01-19T10:30:00",
           description: "ECC application review for ABC Corp.",
           status: "For-Release",
+        },
+        {
+          id: 16,
+          tracking_number: "TRK-2024-016",
+          document_type: "Memorandum",
+          subject: "Policy Update on Waste Segregation",
+          sender_name: "Administrative Division",
+          date_received: "2024-01-28T09:45:00",
+          description: "Updated policy memorandum.",
+          status: "In-Progress",
+        },
+        {
+          id: 17,
+          tracking_number: "TRK-2024-017",
+          document_type: "Report",
+          subject: "Quarterly Environmental Compliance",
+          sender_name: "Compliance Monitoring",
+          date_received: "2024-01-29T14:30:00",
+          description: "Q4 compliance report.",
+          status: "For-Release",
+        },
+        {
+          id: 18,
+          tracking_number: "TRK-2024-018",
+          document_type: "Letter",
+          subject: "Request for Technical Workshop",
+          sender_name: "Local Government Unit",
+          date_received: "2024-01-30T11:00:00",
+          description: "Workshop request letter.",
+          status: "In-Progress",
         },
       ],
 
@@ -1683,6 +1823,24 @@ export default {
     };
   },
   computed: {
+     displayedPagesTracking() {
+      const pages = [];
+      const total = this.trackings.last_page;
+      const current = this.trackings.current_page;
+      const delta = 2;
+      for (let i = 1; i <= total; i++) {
+        if (
+          i === 1 ||
+          i === total ||
+          (i >= current - delta && i <= current + delta)
+        ) {
+          pages.push(i);
+        } else if (pages[pages.length - 1] !== "...") {
+          pages.push("...");
+        }
+      }
+      return pages;
+    },
     documentTypes() {
       const types = new Set();
       const allDocs = [
@@ -1695,6 +1853,8 @@ export default {
       });
       return Array.from(types).sort();
     },
+
+    // ===== MY TRACKING FILTERED =====
 
     // ===== IN-PROGRESS COMPUTED =====
     filteredInProgress() {
@@ -1871,6 +2031,7 @@ export default {
     },
   },
   mounted() {
+    this.getDataTracking();
     this.updateDateTime();
     this.dateTimeInterval = setInterval(() => this.updateDateTime(), 1000);
   },
@@ -1879,6 +2040,45 @@ export default {
     if (this.notification.timeout) clearTimeout(this.notification.timeout);
   },
   methods: {
+    async getDataTracking(page = 1) {
+      try {
+        this.loading = true;
+        const response = await axios.get("/dts_denr/api/reserve-tracking", {
+          params: {
+            page: page,
+            per_page: this.perPage,
+            search: this.myTrackingSearch,
+          },
+        });
+        this.trackings = response.data.data;
+      } catch (error) {
+        console.error("Error fetching office data:", error);
+        this.showNotification(
+          "Failed to load office data. Please try again.",
+          "error"
+        );
+      } finally {
+        this.loading = false;
+      }
+    },
+    applyFilters() {
+      this.currentPage = 1;
+      this.getDataTracking(1);
+    },
+    clearSearch() {
+      this.myTrackingSearch = "";
+      this.currentPage = 1;
+      this.getDataTracking(1);
+    },
+     changePageTracking(page) {
+      if (
+        page >= 1 &&
+        page <= this.trackings.last_page &&
+        page !== this.trackings.current_page
+      ) {
+        this.getDataTracking(page);
+      }
+    },
     switchTab(tab) {
       this.activeTab = tab;
     },
@@ -1920,10 +2120,12 @@ export default {
       this.showCreateModal = false;
     },
     openMyTrackingModal() {
+      this.myTrackingSearch = "";
       this.showMyTrackingModal = true;
     },
     closeMyTrackingModal() {
       this.showMyTrackingModal = false;
+      this.myTrackingSearch = "";
     },
     resetCreateForm() {
       this.createForm = {
@@ -1954,6 +2156,134 @@ export default {
     },
     downloadDocument(doc) {
       this.$emit("download-document", doc);
+    },
+    async reserveTracking() {
+      // Show SweetAlert confirmation
+      const result = await Swal.fire({
+        title: "Reserve Tracking?",
+        text: "Are you sure you want to add this reserve tracking?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#1a4731",
+        cancelButtonColor: "#6b7280",
+        confirmButtonText: "Yes, reserve it!",
+        cancelButtonText: "Cancel",
+        reverseButtons: true,
+        customClass: {
+          popup: "swal-square-popup",
+          title: "swal-title",
+          confirmButton: "swal-confirm-btn",
+          cancelButton: "swal-cancel-btn",
+        },
+      });
+
+      // If user confirmed
+      if (result.isConfirmed) {
+        this.reserving = true;
+
+        try {
+          // Prepare data for the API
+          const payload = {
+            tracking_ids: this.myTrackingDocuments.map((doc) => doc.id),
+          };
+
+          // Make the API call
+          const response = await fetch("/dts_denr/api/reserve-tracking", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+              "X-CSRF-TOKEN":
+                document
+                  .querySelector('meta[name="csrf-token"]')
+                  ?.getAttribute("content") || "",
+            },
+            body: JSON.stringify(payload),
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.message || "Failed to reserve tracking");
+          }
+
+          // Success - NO timer, waits for user to click OK
+          await Swal.fire({
+            title: "Reserved!",
+            text: data.message || "Tracking has been reserved successfully.",
+            icon: "success",
+            confirmButtonColor: "#1a4731",
+            confirmButtonText: "OK",
+          });
+
+          // After user clicks OK, reload the data
+          await this.getDataTracking();
+
+          // Emit event
+          this.$emit("tracking-reserved", data);
+
+          // Show notification
+          this.showNotification("Tracking reserved successfully!", "success");
+        } catch (error) {
+          // Error handling
+          console.error("Reserve tracking error:", error);
+
+          await Swal.fire({
+            title: "Error!",
+            text:
+              error.message || "Failed to reserve tracking. Please try again.",
+            icon: "error",
+            confirmButtonColor: "#1a4731",
+            confirmButtonText: "OK",
+          });
+
+          this.showNotification(
+            error.message || "Failed to reserve tracking",
+            "error"
+          );
+        } finally {
+          this.reserving = false;
+        }
+      }
+    },
+
+    // Add this new method to load/reload my tracking documents
+    async loadMyTrackingDocuments() {
+      try {
+        const response = await fetch("/dts_denr/api/my-tracking", {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "X-CSRF-TOKEN":
+              document
+                .querySelector('meta[name="csrf-token"]')
+                ?.getAttribute("content") || "",
+          },
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || "Failed to load tracking documents");
+        }
+
+        // Update the myTrackingDocuments array with fresh data from server
+        if (data.data) {
+          this.myTrackingDocuments = data.data.map((doc) => ({
+            id: doc.id,
+            tracking_number: doc.tracking_number,
+            document_type: doc.document_type || "N/A",
+            subject: doc.subject || "N/A",
+            sender_name: doc.sender_name || "N/A",
+            date_received: doc.date_received || doc.created_at,
+            description: doc.description || "",
+            status: doc.status,
+          }));
+        }
+      } catch (error) {
+        console.error("Load tracking documents error:", error);
+        this.showNotification("Failed to reload tracking documents", "error");
+      }
     },
     submitCreateForm() {
       this.creating = true;
@@ -2286,6 +2616,52 @@ export default {
   transform: translateY(0);
 }
 
+/* ===== MY TRACKING CONTROLS ===== */
+.my-tracking-controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Reserve Tracking Forest Green Button */
+.btn-reserve-tracking-forest {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #1a4731 0%, #2d6a4f 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(26, 71, 49, 0.4);
+  font-family: "Inter", sans-serif;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.btn-reserve-tracking-forest:hover:not(:disabled) {
+  background: linear-gradient(135deg, #0d281a 0%, #1e4d2b 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(26, 71, 49, 0.5);
+}
+
+.btn-reserve-tracking-forest:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(26, 71, 49, 0.3);
+}
+
+.btn-reserve-tracking-forest:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
 /* Active Filters */
 .active-filters {
   display: flex;
@@ -2446,6 +2822,7 @@ export default {
 .square-close:hover {
   background: rgba(255, 255, 255, 0.3);
 }
+
 .modal-body-enhanced {
   padding: 24px;
   background: #f9fafb;
@@ -2929,6 +3306,25 @@ select.form-input {
   }
 }
 
+/* Status Badges */
+.status-in-progress {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fbbf24;
+}
+
+.status-for-release {
+  background: #dbeafe;
+  color: #1e40af;
+  border: 1px solid #60a5fa;
+}
+
+.status-released {
+  background: #d1fae5;
+  color: #065f46;
+  border: 1px solid #34d399;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
   .tabs-vertical-container {
@@ -2990,6 +3386,10 @@ select.form-input {
     width: 100%;
     justify-content: center;
   }
+  .my-tracking-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }
 @media (max-width: 576px) {
   .pagination-wrapper {
@@ -3018,6 +3418,278 @@ select.form-input {
   .enhanced-modal {
     max-width: 95%;
     margin: 0 10px;
+  }
+}
+/* ===== MY TRACKING MODAL ENHANCEMENTS ===== */
+.tracking-modal {
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+}
+
+.tracking-modal .modal-content {
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.tracking-modal-body {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 20px;
+  max-height: calc(85vh - 80px); /* Adjust based on header height */
+}
+
+.sticky-top-controls {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #f9fafb;
+  padding-bottom: 16px;
+  margin-bottom: 8px;
+  flex-shrink: 0;
+}
+
+.tracking-table-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: auto;
+  min-height: 200px;
+  max-height: calc(85vh - 250px); /* Adjust to leave space for pagination */
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+/* Custom scrollbar for the tracking table */
+.tracking-table-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.tracking-table-scroll::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.tracking-table-scroll::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 4px;
+}
+
+.tracking-table-scroll::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Firefox scrollbar */
+.tracking-table-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #94a3b8 #f1f5f9;
+}
+
+/* Fix table header in scrollable area */
+.tracking-table-scroll .table-responsive {
+  margin-top: 0;
+}
+
+.tracking-table-scroll .office-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: #f8fafc;
+}
+
+.tracking-table-scroll .office-table thead th {
+  background: #f8fafc;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.tracking-pagination {
+  flex-shrink: 0;
+  padding-top: 12px;
+  border-top: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+/* Empty state in scrollable area */
+.tracking-table-scroll .empty-state {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+/* ===== RESPONSIVE ENHANCEMENTS ===== */
+@media (max-width: 1200px) {
+  .tracking-modal {
+    max-width: 95% !important;
+    margin: 0 15px;
+  }
+  
+  .tracking-table-scroll {
+    max-height: calc(80vh - 250px);
+  }
+}
+
+@media (max-width: 768px) {
+  .tracking-modal {
+    max-width: 98% !important;
+    margin: 0 5px;
+  }
+  
+  .tracking-modal-body {
+    padding: 16px;
+    max-height: calc(80vh - 60px);
+  }
+  
+  .my-tracking-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .my-tracking-controls .search-box-wrapper {
+    max-width: 100% !important;
+  }
+  
+  .btn-reserve-tracking-forest {
+    width: 100%;
+    justify-content: center;
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+  
+  .tracking-table-scroll {
+    max-height: calc(75vh - 250px);
+  }
+  
+  .tracking-table-scroll .office-table {
+    font-size: 12px;
+  }
+  
+  .tracking-table-scroll .office-table th,
+  .tracking-table-scroll .office-table td {
+    padding: 8px 10px;
+  }
+  
+  .tracking-pagination {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+  
+  .pagination-buttons {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .tracking-modal-body {
+    padding: 12px;
+  }
+  
+  .sticky-top-controls {
+    padding-bottom: 12px;
+  }
+  
+  .tracking-table-scroll {
+    max-height: calc(70vh - 250px);
+  }
+  
+  .tracking-table-scroll .office-table thead {
+    display: none; /* Hide table header on very small screens */
+  }
+  
+  .tracking-table-scroll .office-table tbody tr {
+    display: block;
+    margin-bottom: 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 12px;
+    background: white;
+  }
+  
+  .tracking-table-scroll .office-table tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border: none;
+    border-bottom: 1px solid #f3f4f6;
+    text-align: right;
+  }
+  
+  .tracking-table-scroll .office-table tbody td:last-child {
+    border-bottom: none;
+  }
+  
+  .tracking-table-scroll .office-table tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #374151;
+    margin-right: 8px;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+  
+  .tracking-table-scroll .office-table tbody td.text-center {
+    text-align: right;
+    justify-content: flex-end;
+  }
+  
+  .pagination-info {
+    font-size: 12px;
+  }
+  
+  .page-btn {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 400px) {
+  .modal-header-enhanced {
+    padding: 12px 16px;
+  }
+  
+  .modal-title {
+    font-size: 1rem;
+  }
+  
+  .modal-subtitle {
+    font-size: 0.75rem;
+  }
+  
+  .square-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1.2rem;
+  }
+  
+  .tracking-table-scroll .office-table {
+    font-size: 11px;
+  }
+}
+
+/* Landscape mode optimization */
+@media (max-height: 600px) and (orientation: landscape) {
+  .tracking-modal {
+    max-height: 95vh;
+  }
+  
+  .tracking-modal-body {
+    max-height: calc(95vh - 80px);
+  }
+  
+  .tracking-table-scroll {
+    max-height: calc(90vh - 250px);
+  }
+  
+  .sticky-top-controls {
+    padding-bottom: 8px;
+  }
+  
+  .my-tracking-controls {
+    flex-direction: row;
+    gap: 8px;
   }
 }
 </style>

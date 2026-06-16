@@ -5064,6 +5064,625 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Admin/Createincoming.vue?vue&type=script&lang=js":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Admin/Createincoming.vue?vue&type=script&lang=js ***!
+  \**************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    incoming: {
+      type: [Object, String, Array],
+      "default": function _default() {
+        return {};
+      }
+    }
+  },
+  data: function data() {
+    return {
+      documentTypes: [],
+      routeOptions: [],
+      currentStep: 1,
+      completedSteps: [],
+      steps: [{
+        id: 1,
+        label: "Info"
+      }, {
+        id: 2,
+        label: "Review"
+      }],
+      formData: {
+        document_type: "",
+        document_classification: "",
+        sender_name: "",
+        subject: "",
+        date_received: "",
+        time_received: "",
+        route_to: [],
+        attachment: null
+      },
+      uploadedFile: null,
+      errors: {},
+      validationRules: {
+        document_type: {
+          required: true
+        },
+        document_classification: {
+          required: true
+        },
+        sender_name: {
+          required: true,
+          min: 2,
+          max: 100
+        },
+        subject: {
+          required: true,
+          min: 5
+        },
+        date_received: {
+          required: true
+        },
+        time_received: {
+          required: true
+        },
+        route_to: {
+          required: true,
+          minArray: 1
+        },
+        attachment: {
+          required: true
+        }
+      },
+      showModal: false,
+      toast: {
+        show: false,
+        message: "",
+        type: "success"
+      },
+      previewUrl: null,
+      isLoading: false,
+      loadingMessage: "",
+      showSuccessModal: false,
+      generatedTrackingNumber: "",
+      copied: false
+    };
+  },
+  computed: {
+    incomingData: function incomingData() {
+      if (typeof this.incoming === "string") {
+        try {
+          return JSON.parse(this.incoming);
+        } catch (e) {
+          return {};
+        }
+      }
+      return this.incoming || {};
+    },
+    progressWidth: function progressWidth() {
+      return (this.currentStep - 1) / (this.steps.length - 1) * 100;
+    }
+  },
+  methods: {
+    getImageUrlLogo: function getImageUrlLogo() {
+      return "/dts_denr/storage/app/public/logo/denr1.png";
+    },
+    getInitialDate: function getInitialDate() {
+      var now = new Date();
+      var year = now.getFullYear();
+      var month = String(now.getMonth() + 1).padStart(2, "0");
+      var day = String(now.getDate()).padStart(2, "0");
+      return "".concat(year, "-").concat(month, "-").concat(day);
+    },
+    getInitialTime: function getInitialTime() {
+      var now = new Date();
+      var hours = String(now.getHours()).padStart(2, "0");
+      var minutes = String(now.getMinutes()).padStart(2, "0");
+      return "".concat(hours, ":").concat(minutes);
+    },
+    formatDisplayDate: function formatDisplayDate(dateStr) {
+      if (!dateStr) return "—";
+      var options = {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      };
+      return new Date(dateStr + "T00:00:00").toLocaleDateString("en-US", options);
+    },
+    formatDisplayTime: function formatDisplayTime(timeStr) {
+      if (!timeStr) return "—";
+      var _timeStr$split = timeStr.split(":"),
+        _timeStr$split2 = _slicedToArray(_timeStr$split, 2),
+        hours = _timeStr$split2[0],
+        minutes = _timeStr$split2[1];
+      var date = new Date();
+      date.setHours(hours, minutes);
+      return date.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+    },
+    capitalizeFirst: function capitalizeFirst(string) {
+      if (!string) return "";
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    },
+    getRouteIcon: function getRouteIcon(route) {
+      var option = this.routeOptions.find(function (r) {
+        return r.value === route;
+      });
+      return option ? option.icon : "bi bi-building";
+    },
+    getRouteLabel: function getRouteLabel(route) {
+      var option = this.routeOptions.find(function (r) {
+        return r.value === route;
+      });
+      return option ? option.label : route;
+    },
+    fetchDocumentTypes: function fetchDocumentTypes() {
+      var _this = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var response, data, _t;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.p = _context.n) {
+            case 0:
+              _context.p = 0;
+              _context.n = 1;
+              return axios.get("/dts_denr/api/get/document-type");
+            case 1:
+              response = _context.v;
+              data = response.data;
+              if (data.data && Array.isArray(data.data)) {
+                data = data.data;
+              } else if (!Array.isArray(data)) {
+                data = [];
+              }
+              _this.documentTypes = data;
+              _context.n = 3;
+              break;
+            case 2:
+              _context.p = 2;
+              _t = _context.v;
+              console.error("Error fetching Document Types:", _t);
+              _this.showToast("Failed to load Document Types. Please refresh the page.", "error");
+              _this.documentTypes = [];
+            case 3:
+              return _context.a(2);
+          }
+        }, _callee, null, [[0, 2]]);
+      }))();
+    },
+    fetchRouteOffices: function fetchRouteOffices() {
+      var _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        var response, data, _t2;
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.p = _context2.n) {
+            case 0:
+              _context2.p = 0;
+              _context2.n = 1;
+              return axios.get("/dts_denr/api/route-office");
+            case 1:
+              response = _context2.v;
+              data = response.data;
+              if (data.data && Array.isArray(data.data)) {
+                data = data.data;
+              } else if (!Array.isArray(data)) {
+                data = [];
+              }
+              _this2.routeOptions = data.map(function (office) {
+                return {
+                  value: office.id,
+                  label: office.sub_office_name,
+                  icon: "bi bi-building"
+                };
+              });
+              _context2.n = 3;
+              break;
+            case 2:
+              _context2.p = 2;
+              _t2 = _context2.v;
+              console.error("Error fetching Route Offices:", _t2);
+              _this2.showToast("Failed to load Route Offices. Please refresh the page.", "error");
+              _this2.routeOptions = [];
+            case 3:
+              return _context2.a(2);
+          }
+        }, _callee2, null, [[0, 2]]);
+      }))();
+    },
+    getSelectedDocumentTypeName: function getSelectedDocumentTypeName() {
+      var _this3 = this;
+      var selected = this.documentTypes.find(function (d) {
+        return d.id == _this3.formData.document_type;
+      });
+      return selected ? selected.document_type_name || "Unnamed" : "—";
+    },
+    validateField: function validateField(fieldName) {
+      if (fieldName === "attachment") {
+        if (!this.uploadedFile) {
+          this.errors.attachment = "Attachment is required.";
+          return false;
+        } else {
+          delete this.errors.attachment;
+          return true;
+        }
+      }
+      if (fieldName === "route_to") {
+        if (!this.formData.route_to || this.formData.route_to.length === 0) {
+          this.errors.route_to = "Please select at least one route.";
+          return false;
+        } else {
+          delete this.errors.route_to;
+          return true;
+        }
+      }
+      var value = this.formData[fieldName];
+      var rules = this.validationRules[fieldName];
+      if (!rules) {
+        delete this.errors[fieldName];
+        return true;
+      }
+      var error = null;
+      if (rules.required && (!value || value.toString().trim() === "")) {
+        error = this.getFieldLabel(fieldName) + " is required.";
+      } else if (value && rules.min && value.length < rules.min) {
+        error = this.getFieldLabel(fieldName) + " must be at least ".concat(rules.min, " characters.");
+      } else if (value && rules.max && value.length > rules.max) {
+        error = this.getFieldLabel(fieldName) + " must not exceed ".concat(rules.max, " characters.");
+      }
+      if (error) {
+        this.errors[fieldName] = error;
+        return false;
+      } else {
+        delete this.errors[fieldName];
+        return true;
+      }
+    },
+    validateStep: function validateStep(step) {
+      var _this4 = this;
+      var map = {
+        1: ["document_type", "document_classification", "sender_name", "subject", "date_received", "time_received", "route_to", "attachment"]
+      };
+      var ok = true;
+      (map[step] || []).forEach(function (f) {
+        if (!_this4.validateField(f)) ok = false;
+      });
+      return ok;
+    },
+    getFieldLabel: function getFieldLabel(f) {
+      return {
+        document_type: "Document Type",
+        document_classification: "Document Classification",
+        sender_name: "Sender Name",
+        subject: "Subject",
+        date_received: "Date Received",
+        time_received: "Time Received",
+        route_to: "Route To",
+        attachment: "Attachment"
+      }[f] || f;
+    },
+    nextStep: function nextStep() {
+      if (this.validateStep(this.currentStep)) {
+        if (!this.completedSteps.includes(this.currentStep)) {
+          this.completedSteps.push(this.currentStep);
+        }
+        if (this.currentStep < this.steps.length) {
+          this.currentStep++;
+        }
+      } else {
+        this.showToast("Please fill in all required fields correctly.", "error");
+      }
+    },
+    prevStep: function prevStep() {
+      if (this.currentStep > 1 && !this.isLoading) this.currentStep--;
+    },
+    goToStep: function goToStep(step) {
+      if (this.isLoading) return;
+      if (step < this.currentStep) {
+        this.currentStep = step;
+      } else if (step > this.currentStep) {
+        var ok = true;
+        for (var i = this.currentStep; i < step; i++) {
+          if (!this.validateStep(i)) {
+            ok = false;
+            this.showToast("Please complete Step ".concat(i, " first."), "error");
+            break;
+          }
+        }
+        if (ok) this.currentStep = step;
+      }
+    },
+    handleSubmit: function handleSubmit() {
+      var _this5 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        var formData, documentId, _yield$Promise$all, _yield$Promise$all2, response, errors, firstError, _t3;
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.p = _context3.n) {
+            case 0:
+              if (!_this5.validateStep(1)) {
+                _context3.n = 5;
+                break;
+              }
+              _context3.p = 1;
+              _this5.isLoading = true;
+              _this5.loadingMessage = "Updating your document...";
+              formData = new FormData(); // Spoof PUT request for Laravel
+              formData.append("_method", "PUT");
+
+              // Map fields correctly
+              formData.append("document_type", _this5.formData.document_type);
+              formData.append("document_classification", _this5.formData.document_classification);
+              formData.append("sender_name", _this5.formData.sender_name);
+              formData.append("subject", _this5.formData.subject);
+              formData.append("date_received", _this5.formData.date_received);
+              formData.append("time_received", _this5.formData.time_received);
+
+              // Handle file attachment
+              if (_this5.uploadedFile) {
+                formData.append("draft_attachment", _this5.uploadedFile);
+              }
+              if (_this5.formData.route_to && _this5.formData.route_to.length > 0) {
+                _this5.formData.route_to.forEach(function (officeId) {
+                  formData.append("route_to[]", officeId); // key is route_to[]
+                });
+              }
+
+              // Get document ID from props
+              documentId = _this5.incomingData.id;
+              _context3.n = 2;
+              return Promise.all([axios.post("/dts_denr/api/update-document/".concat(documentId), formData, {
+                headers: {
+                  "Content-Type": "multipart/form-data"
+                }
+              }), new Promise(function (resolve) {
+                return setTimeout(resolve, 3000);
+              })]);
+            case 2:
+              _yield$Promise$all = _context3.v;
+              _yield$Promise$all2 = _slicedToArray(_yield$Promise$all, 1);
+              response = _yield$Promise$all2[0];
+              _this5.isLoading = false;
+              if (response.data.success) {
+                _this5.generatedTrackingNumber = response.data.data.tracking_number;
+                _this5.showSuccessModal = true;
+                document.body.style.overflow = "hidden";
+              } else {
+                _this5.showToast(response.data.message || "Failed to update document.", "error");
+              }
+              _context3.n = 4;
+              break;
+            case 3:
+              _context3.p = 3;
+              _t3 = _context3.v;
+              _this5.isLoading = false;
+              if (_t3.response) {
+                if (_t3.response.data.errors) {
+                  errors = _t3.response.data.errors;
+                  firstError = Object.values(errors)[0];
+                  _this5.showToast(Array.isArray(firstError) ? firstError[0] : firstError, "error");
+                } else {
+                  _this5.showToast(_t3.response.data.message || "Server error occurred.", "error");
+                }
+              } else if (_t3.request) {
+                _this5.showToast("Network error. Please check your connection.", "error");
+              } else {
+                _this5.showToast("An unexpected error occurred.", "error");
+              }
+              console.error("Submission error:", _t3);
+            case 4:
+              _context3.n = 6;
+              break;
+            case 5:
+              _this5.showToast("Please complete all steps correctly.", "error");
+              _this5.currentStep = 1;
+            case 6:
+              return _context3.a(2);
+          }
+        }, _callee3, null, [[1, 3]]);
+      }))();
+    },
+    copyTrackingNumber: function copyTrackingNumber() {
+      var _this6 = this;
+      var numberToCopy = this.generatedTrackingNumber || this.incomingData && this.incomingData.tracking_number;
+      if (numberToCopy) {
+        navigator.clipboard.writeText(numberToCopy).then(function () {
+          _this6.copied = true;
+          setTimeout(function () {
+            _this6.copied = false;
+          }, 2000);
+        })["catch"](function () {
+          _this6.showToast("Failed to copy tracking number", "error");
+        });
+      }
+    },
+    closeSuccessModal: function closeSuccessModal() {
+      this.showSuccessModal = false;
+      document.body.style.overflow = "";
+      this.resetForm();
+      this.showToast("Document updated successfully!", "success");
+      setTimeout(function () {
+        window.location.href = "/dts_denr/incoming-documents";
+      }, 100);
+    },
+    triggerFileUpload: function triggerFileUpload() {
+      if (this.$refs.fileInput) {
+        this.$refs.fileInput.value = "";
+      }
+      this.$refs.fileInput.click();
+    },
+    handleFileUpload: function handleFileUpload(e) {
+      var files = Array.from(e.target.files);
+      if (files.length > 0) {
+        this.processSingleFile(files[0]);
+      }
+      if (this.$refs.fileInput) {
+        this.$refs.fileInput.value = "";
+      }
+    },
+    handleDrop: function handleDrop(e) {
+      var files = Array.from(e.dataTransfer.files);
+      if (files.length > 0) {
+        this.processSingleFile(files[0]);
+      }
+    },
+    processSingleFile: function processSingleFile(file) {
+      // 1. Check if the file is a PDF
+      var validTypes = ["application/pdf"];
+      var fileExt = file.name.split(".").pop().toLowerCase();
+      if (!validTypes.includes(file.type) && fileExt !== "pdf") {
+        this.showToast("Invalid file type. Only PDF files are allowed.", "error");
+        return;
+      }
+
+      // 2. Check file size (50GB limit)
+      // 50GB = 50 * 1024 * 1024 * 1024 bytes
+      var maxSize = 50 * 1024 * 1024 * 1024;
+      if (file.size > maxSize) {
+        this.showToast("File size exceeds 50GB limit.", "error");
+        return;
+      }
+      if (this.previewUrl) {
+        URL.revokeObjectURL(this.previewUrl);
+        this.previewUrl = null;
+      }
+      this.uploadedFile = file;
+      this.formData.attachment = file;
+      delete this.errors.attachment;
+      this.showToast("PDF uploaded successfully!", "success");
+    },
+    removeFile: function removeFile() {
+      if (this.previewUrl) {
+        URL.revokeObjectURL(this.previewUrl);
+        this.previewUrl = null;
+      }
+      this.uploadedFile = null;
+      this.formData.attachment = null;
+      if (this.$refs.fileInput) {
+        this.$refs.fileInput.value = "";
+      }
+      this.showToast("File removed.", "success");
+    },
+    getFileIcon: function getFileIcon(n) {
+      var ext = n.split(".").pop().toLowerCase();
+      if (ext === "pdf") return "bi bi-file-earmark-pdf";
+      if (["jpg", "jpeg", "png"].includes(ext)) return "bi bi-file-earmark-image";
+      if (ext === "docx") return "bi bi-file-earmark-word";
+      return "bi bi-file-earmark";
+    },
+    getFileColorClass: function getFileColorClass(n) {
+      var ext = n.split(".").pop().toLowerCase();
+      if (ext === "pdf") return "color-pdf";
+      if (["jpg", "jpeg", "png"].includes(ext)) return "color-img";
+      if (ext === "docx") return "color-doc";
+      return "color-default";
+    },
+    isImageFile: function isImageFile(n) {
+      return ["jpg", "jpeg", "png"].includes(n.split(".").pop().toLowerCase());
+    },
+    getImageUrl: function getImageUrl(f) {
+      if (!this.previewUrl) {
+        this.previewUrl = URL.createObjectURL(f);
+      }
+      return this.previewUrl;
+    },
+    getDocxViewerUrl: function getDocxViewerUrl(f) {
+      var fileUrl = this.getImageUrl(f);
+      return "https://docs.google.com/gview?url=".concat(encodeURIComponent(fileUrl), "&embedded=true");
+    },
+    openInNewTab: function openInNewTab() {
+      if (this.uploadedFile) {
+        var url = this.getImageUrl(this.uploadedFile);
+        window.open(url, "_blank");
+      }
+    },
+    formatFileSize: function formatFileSize(b) {
+      if (b < 1024) return b + " B";
+      if (b < 1048576) return (b / 1024).toFixed(1) + " KB";
+      return (b / 1048576).toFixed(2) + " MB";
+    },
+    openFileModal: function openFileModal() {
+      if (!this.isLoading) {
+        this.showModal = true;
+        document.body.style.overflow = "hidden";
+      }
+    },
+    closeModal: function closeModal() {
+      this.showModal = false;
+      document.body.style.overflow = "";
+    },
+    showToast: function showToast(msg) {
+      var _this7 = this;
+      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "success";
+      this.toast = {
+        show: true,
+        message: msg,
+        type: type
+      };
+      setTimeout(function () {
+        _this7.toast.show = false;
+      }, 3500);
+    },
+    resetForm: function resetForm() {
+      if (this.previewUrl) {
+        URL.revokeObjectURL(this.previewUrl);
+        this.previewUrl = null;
+      }
+      this.formData = {
+        document_type: "",
+        document_classification: "",
+        sender_name: "",
+        subject: "",
+        date_received: this.getInitialDate(),
+        time_received: this.getInitialTime(),
+        route_to: [],
+        attachment: null
+      };
+      this.uploadedFile = null;
+      this.errors = {};
+      this.completedSteps = [];
+      this.currentStep = 1;
+      this.generatedTrackingNumber = "";
+      this.copied = false;
+    }
+  },
+  mounted: function mounted() {
+    var _this8 = this;
+    this.formData.date_received = this.getInitialDate();
+    this.formData.time_received = this.getInitialTime();
+    this.fetchDocumentTypes();
+    this.fetchRouteOffices();
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") {
+        if (_this8.showModal) _this8.closeModal();
+        if (_this8.showSuccessModal) _this8.closeSuccessModal();
+      }
+    });
+  },
+  beforeDestroy: function beforeDestroy() {
+    if (this.previewUrl) {
+      URL.revokeObjectURL(this.previewUrl);
+    }
+    document.removeEventListener("keydown", function () {});
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Admin/Documentype.vue?vue&type=script&lang=js":
 /*!***********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Admin/Documentype.vue?vue&type=script&lang=js ***!
@@ -5506,18 +6125,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
 function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
 function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "IncomingDocumentsList",
   props: {
@@ -5534,11 +6160,10 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       "default": "Track and manage incoming document workflow"
     }
   },
-  emits: ["process-document", "release-document", "view-document", "download-document", "create-document"],
+  emits: ["process-document", "release-document", "view-document", "download-document", "create-document", "tracking-reserved"],
   data: function data() {
     return {
       activeTab: "in-progress",
-      // Reverted to default In Progress
       currentDateTime: "",
       dateTimeInterval: null,
       showCreateModal: false,
@@ -5546,6 +6171,18 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       showMyTrackingModal: false,
       selectedDocument: null,
       creating: false,
+      reserving: false,
+      loading: false,
+      myTrackingSearch: "",
+      trackings: {
+        data: [],
+        current_page: 1,
+        from: 1,
+        to: 1,
+        last_page: 1,
+        per_page: 10,
+        total: 0
+      },
       // ===== MY TRACKING DOCUMENTS =====
       myTrackingDocuments: [{
         id: 2,
@@ -5565,6 +6202,33 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         date_received: "2024-01-19T10:30:00",
         description: "ECC application review for ABC Corp.",
         status: "For-Release"
+      }, {
+        id: 16,
+        tracking_number: "TRK-2024-016",
+        document_type: "Memorandum",
+        subject: "Policy Update on Waste Segregation",
+        sender_name: "Administrative Division",
+        date_received: "2024-01-28T09:45:00",
+        description: "Updated policy memorandum.",
+        status: "In-Progress"
+      }, {
+        id: 17,
+        tracking_number: "TRK-2024-017",
+        document_type: "Report",
+        subject: "Quarterly Environmental Compliance",
+        sender_name: "Compliance Monitoring",
+        date_received: "2024-01-29T14:30:00",
+        description: "Q4 compliance report.",
+        status: "For-Release"
+      }, {
+        id: 18,
+        tracking_number: "TRK-2024-018",
+        document_type: "Letter",
+        subject: "Request for Technical Workshop",
+        sender_name: "Local Government Unit",
+        date_received: "2024-01-30T11:00:00",
+        description: "Workshop request letter.",
+        status: "In-Progress"
       }],
       // ===== IN-PROGRESS TAB DATA =====
       inProgressDocuments: [{
@@ -5745,6 +6409,20 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     };
   },
   computed: {
+    displayedPagesTracking: function displayedPagesTracking() {
+      var pages = [];
+      var total = this.trackings.last_page;
+      var current = this.trackings.current_page;
+      var delta = 2;
+      for (var i = 1; i <= total; i++) {
+        if (i === 1 || i === total || i >= current - delta && i <= current + delta) {
+          pages.push(i);
+        } else if (pages[pages.length - 1] !== "...") {
+          pages.push("...");
+        }
+      }
+      return pages;
+    },
     documentTypes: function documentTypes() {
       var types = new Set();
       var allDocs = [].concat(_toConsumableArray(this.inProgressDocuments), _toConsumableArray(this.forReleaseDocuments), _toConsumableArray(this.releasedDocuments));
@@ -5753,6 +6431,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       });
       return Array.from(types).sort();
     },
+    // ===== MY TRACKING FILTERED =====
     // ===== IN-PROGRESS COMPUTED =====
     filteredInProgress: function filteredInProgress() {
       var _this = this;
@@ -5873,6 +6552,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
   },
   mounted: function mounted() {
     var _this4 = this;
+    this.getDataTracking();
     this.updateDateTime();
     this.dateTimeInterval = setInterval(function () {
       return _this4.updateDateTime();
@@ -5883,6 +6563,59 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     if (this.notification.timeout) clearTimeout(this.notification.timeout);
   },
   methods: {
+    getDataTracking: function getDataTracking() {
+      var _arguments = arguments,
+        _this5 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var page, response, _t;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.p = _context.n) {
+            case 0:
+              page = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 1;
+              _context.p = 1;
+              _this5.loading = true;
+              _context.n = 2;
+              return axios.get("/dts_denr/api/reserve-tracking", {
+                params: {
+                  page: page,
+                  per_page: _this5.perPage,
+                  search: _this5.myTrackingSearch
+                }
+              });
+            case 2:
+              response = _context.v;
+              _this5.trackings = response.data.data;
+              _context.n = 4;
+              break;
+            case 3:
+              _context.p = 3;
+              _t = _context.v;
+              console.error("Error fetching office data:", _t);
+              _this5.showNotification("Failed to load office data. Please try again.", "error");
+            case 4:
+              _context.p = 4;
+              _this5.loading = false;
+              return _context.f(4);
+            case 5:
+              return _context.a(2);
+          }
+        }, _callee, null, [[1, 3, 4, 5]]);
+      }))();
+    },
+    applyFilters: function applyFilters() {
+      this.currentPage = 1;
+      this.getDataTracking(1);
+    },
+    clearSearch: function clearSearch() {
+      this.myTrackingSearch = "";
+      this.currentPage = 1;
+      this.getDataTracking(1);
+    },
+    changePageTracking: function changePageTracking(page) {
+      if (page >= 1 && page <= this.trackings.last_page && page !== this.trackings.current_page) {
+        this.getDataTracking(page);
+      }
+    },
     switchTab: function switchTab(tab) {
       this.activeTab = tab;
     },
@@ -5927,10 +6660,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       this.showCreateModal = false;
     },
     openMyTrackingModal: function openMyTrackingModal() {
+      this.myTrackingSearch = "";
       this.showMyTrackingModal = true;
     },
     closeMyTrackingModal: function closeMyTrackingModal() {
       this.showMyTrackingModal = false;
+      this.myTrackingSearch = "";
     },
     resetCreateForm: function resetCreateForm() {
       this.createForm = {
@@ -5965,8 +6700,170 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     downloadDocument: function downloadDocument(doc) {
       this.$emit("download-document", doc);
     },
+    reserveTracking: function reserveTracking() {
+      var _this6 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        var result, _document$querySelect, payload, response, data, _t2;
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.p = _context2.n) {
+            case 0:
+              _context2.n = 1;
+              return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+                title: "Reserve Tracking?",
+                text: "Are you sure you want to add this reserve tracking?",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonColor: "#1a4731",
+                cancelButtonColor: "#6b7280",
+                confirmButtonText: "Yes, reserve it!",
+                cancelButtonText: "Cancel",
+                reverseButtons: true,
+                customClass: {
+                  popup: "swal-square-popup",
+                  title: "swal-title",
+                  confirmButton: "swal-confirm-btn",
+                  cancelButton: "swal-cancel-btn"
+                }
+              });
+            case 1:
+              result = _context2.v;
+              if (!result.isConfirmed) {
+                _context2.n = 11;
+                break;
+              }
+              _this6.reserving = true;
+              _context2.p = 2;
+              // Prepare data for the API
+              payload = {
+                tracking_ids: _this6.myTrackingDocuments.map(function (doc) {
+                  return doc.id;
+                })
+              }; // Make the API call
+              _context2.n = 3;
+              return fetch("/dts_denr/api/reserve-tracking", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                  "X-CSRF-TOKEN": ((_document$querySelect = document.querySelector('meta[name="csrf-token"]')) === null || _document$querySelect === void 0 ? void 0 : _document$querySelect.getAttribute("content")) || ""
+                },
+                body: JSON.stringify(payload)
+              });
+            case 3:
+              response = _context2.v;
+              _context2.n = 4;
+              return response.json();
+            case 4:
+              data = _context2.v;
+              if (response.ok) {
+                _context2.n = 5;
+                break;
+              }
+              throw new Error(data.message || "Failed to reserve tracking");
+            case 5:
+              _context2.n = 6;
+              return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+                title: "Reserved!",
+                text: data.message || "Tracking has been reserved successfully.",
+                icon: "success",
+                confirmButtonColor: "#1a4731",
+                confirmButtonText: "OK"
+              });
+            case 6:
+              _context2.n = 7;
+              return _this6.getDataTracking();
+            case 7:
+              // Emit event
+              _this6.$emit("tracking-reserved", data);
+
+              // Show notification
+              _this6.showNotification("Tracking reserved successfully!", "success");
+              _context2.n = 10;
+              break;
+            case 8:
+              _context2.p = 8;
+              _t2 = _context2.v;
+              // Error handling
+              console.error("Reserve tracking error:", _t2);
+              _context2.n = 9;
+              return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+                title: "Error!",
+                text: _t2.message || "Failed to reserve tracking. Please try again.",
+                icon: "error",
+                confirmButtonColor: "#1a4731",
+                confirmButtonText: "OK"
+              });
+            case 9:
+              _this6.showNotification(_t2.message || "Failed to reserve tracking", "error");
+            case 10:
+              _context2.p = 10;
+              _this6.reserving = false;
+              return _context2.f(10);
+            case 11:
+              return _context2.a(2);
+          }
+        }, _callee2, null, [[2, 8, 10, 11]]);
+      }))();
+    },
+    // Add this new method to load/reload my tracking documents
+    loadMyTrackingDocuments: function loadMyTrackingDocuments() {
+      var _this7 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        var _document$querySelect2, response, data, _t3;
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.p = _context3.n) {
+            case 0:
+              _context3.p = 0;
+              _context3.n = 1;
+              return fetch("/dts_denr/api/my-tracking", {
+                method: "GET",
+                headers: {
+                  Accept: "application/json",
+                  "X-CSRF-TOKEN": ((_document$querySelect2 = document.querySelector('meta[name="csrf-token"]')) === null || _document$querySelect2 === void 0 ? void 0 : _document$querySelect2.getAttribute("content")) || ""
+                }
+              });
+            case 1:
+              response = _context3.v;
+              _context3.n = 2;
+              return response.json();
+            case 2:
+              data = _context3.v;
+              if (response.ok) {
+                _context3.n = 3;
+                break;
+              }
+              throw new Error(data.message || "Failed to load tracking documents");
+            case 3:
+              // Update the myTrackingDocuments array with fresh data from server
+              if (data.data) {
+                _this7.myTrackingDocuments = data.data.map(function (doc) {
+                  return {
+                    id: doc.id,
+                    tracking_number: doc.tracking_number,
+                    document_type: doc.document_type || "N/A",
+                    subject: doc.subject || "N/A",
+                    sender_name: doc.sender_name || "N/A",
+                    date_received: doc.date_received || doc.created_at,
+                    description: doc.description || "",
+                    status: doc.status
+                  };
+                });
+              }
+              _context3.n = 5;
+              break;
+            case 4:
+              _context3.p = 4;
+              _t3 = _context3.v;
+              console.error("Load tracking documents error:", _t3);
+              _this7.showNotification("Failed to reload tracking documents", "error");
+            case 5:
+              return _context3.a(2);
+          }
+        }, _callee3, null, [[0, 4]]);
+      }))();
+    },
     submitCreateForm: function submitCreateForm() {
-      var _this5 = this;
+      var _this8 = this;
       this.creating = true;
       this.errors = {};
       this.formErrors = {
@@ -5976,35 +6873,35 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 
       // Simulate validation & creation
       setTimeout(function () {
-        if (!_this5.createForm.tracking_number) _this5.errors.tracking_number = "Tracking number is required";
-        if (!_this5.createForm.document_type) _this5.errors.document_type = "Document type is required";
-        if (!_this5.createForm.subject) _this5.errors.subject = "Subject is required";
-        if (!_this5.createForm.sender_name) _this5.errors.sender_name = "Sender is required";
-        if (!_this5.createForm.date_received) _this5.errors.date_received = "Date received is required";
-        if (Object.keys(_this5.errors).length > 0) {
-          _this5.formErrors = {
+        if (!_this8.createForm.tracking_number) _this8.errors.tracking_number = "Tracking number is required";
+        if (!_this8.createForm.document_type) _this8.errors.document_type = "Document type is required";
+        if (!_this8.createForm.subject) _this8.errors.subject = "Subject is required";
+        if (!_this8.createForm.sender_name) _this8.errors.sender_name = "Sender is required";
+        if (!_this8.createForm.date_received) _this8.errors.date_received = "Date received is required";
+        if (Object.keys(_this8.errors).length > 0) {
+          _this8.formErrors = {
             show: true,
             message: "Please fill in all required fields."
           };
-          _this5.creating = false;
+          _this8.creating = false;
           return;
         }
-        _this5.$emit("create-document", _objectSpread({}, _this5.createForm));
-        _this5.closeCreateModal();
-        _this5.resetCreateForm();
-        _this5.showNotification("Document created successfully!", "success");
-        _this5.creating = false;
+        _this8.$emit("create-document", _objectSpread({}, _this8.createForm));
+        _this8.closeCreateModal();
+        _this8.resetCreateForm();
+        _this8.showNotification("Document created successfully!", "success");
+        _this8.creating = false;
       }, 800);
     },
     showNotification: function showNotification(message) {
-      var _this6 = this;
+      var _this9 = this;
       var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "success";
       if (this.notification.timeout) clearTimeout(this.notification.timeout);
       this.notification.show = true;
       this.notification.message = message;
       this.notification.type = type;
       this.notification.timeout = setTimeout(function () {
-        _this6.notification.show = false;
+        _this9.notification.show = false;
       }, 3000);
     }
   }
@@ -7084,6 +7981,1113 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Admin/Createincoming.vue?vue&type=template&id=19dfdfed&scoped=true":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Admin/Createincoming.vue?vue&type=template&id=19dfdfed&scoped=true ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", [_c("transition", {
+    attrs: {
+      name: "fade"
+    }
+  }, [_vm.isLoading ? _c("div", {
+    staticClass: "loading-overlay"
+  }, [_c("div", {
+    staticClass: "loading-content"
+  }, [_c("div", {
+    staticClass: "loading-spinner"
+  }, [_c("div", {
+    staticClass: "spinner-circle"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "spinner-logo"
+  }, [_c("img", {
+    staticStyle: {
+      width: "50px"
+    },
+    attrs: {
+      src: _vm.getImageUrlLogo(),
+      alt: "Logo"
+    }
+  })])]), _vm._v(" "), _c("h4", {
+    staticClass: "loading-title"
+  }, [_vm._v("Processing Your Document")]), _vm._v(" "), _c("p", {
+    staticClass: "loading-message"
+  }, [_vm._v(_vm._s(_vm.loadingMessage))]), _vm._v(" "), _c("div", {
+    staticClass: "loading-progress"
+  }, [_c("div", {
+    staticClass: "loading-bar"
+  })]), _vm._v(" "), _c("p", {
+    staticClass: "loading-hint"
+  }, [_vm._v("\n          Please wait while we generate your tracking number...\n        ")])])]) : _vm._e()]), _vm._v(" "), _c("transition", {
+    attrs: {
+      name: "fade"
+    }
+  }, [_vm.showSuccessModal ? _c("div", {
+    staticClass: "modal-overlay",
+    on: {
+      click: function click($event) {
+        if ($event.target !== $event.currentTarget) return null;
+        return _vm.closeSuccessModal.apply(null, arguments);
+      }
+    }
+  }, [_c("div", {
+    staticClass: "success-modal-box"
+  }, [_c("div", {
+    staticClass: "success-modal-content text-center"
+  }, [_c("div", {
+    staticClass: "success-icon-wrapper"
+  }, [_c("div", {
+    staticClass: "success-icon-circle"
+  }, [_c("i", {
+    staticClass: "bi bi-check-circle-fill"
+  })])]), _vm._v(" "), _c("h3", {
+    staticClass: "success-title"
+  }, [_vm._v("Document Submitted!")]), _vm._v(" "), _c("p", {
+    staticClass: "success-message"
+  }, [_vm._v("\n            Your document has been updated successfully.\n          ")]), _vm._v(" "), _c("div", {
+    staticClass: "tracking-number-box"
+  }, [_c("p", {
+    staticClass: "tracking-label"
+  }, [_vm._v("YOUR TRACKING NUMBER")]), _vm._v(" "), _c("div", {
+    staticClass: "tracking-number-display"
+  }, [_c("span", {
+    staticClass: "tracking-number-text"
+  }, [_vm._v(_vm._s(_vm.generatedTrackingNumber || _vm.incomingData && _vm.incomingData.tracking_number))]), _vm._v(" "), _c("button", {
+    staticClass: "copy-btn",
+    attrs: {
+      title: "Copy tracking number"
+    },
+    on: {
+      click: _vm.copyTrackingNumber
+    }
+  }, [_c("i", {
+    "class": _vm.copied ? "bi bi-check2" : "bi bi-clipboard"
+  })])])]), _vm._v(" "), _c("div", {
+    staticClass: "success-actions"
+  }, [_c("button", {
+    staticClass: "btn-nav btn-next",
+    on: {
+      click: _vm.closeSuccessModal
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-check2 me-1"
+  }), _vm._v(" Done\n            ")])])])])]) : _vm._e()]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-lg-10 mx-auto"
+  }, [_c("div", {
+    staticClass: "wizard-card"
+  }, [_c("div", {
+    staticClass: "wizard-body"
+  }, [_c("div", {
+    staticClass: "progress-wrapper"
+  }, [_c("div", {
+    staticClass: "progress-track"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "progress-fill",
+    style: {
+      width: _vm.progressWidth + "%"
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "step-list"
+  }, _vm._l(_vm.steps, function (step, index) {
+    return _c("div", {
+      key: index,
+      staticClass: "step-node",
+      "class": {
+        active: _vm.currentStep === step.id,
+        completed: _vm.completedSteps.includes(step.id)
+      },
+      on: {
+        click: function click($event) {
+          return _vm.goToStep(step.id);
+        }
+      }
+    }, [_c("div", {
+      staticClass: "step-dot"
+    }, [_vm.completedSteps.includes(step.id) ? _c("i", {
+      staticClass: "bi bi-check-lg"
+    }) : _c("span", [_vm._v(_vm._s(step.id))])]), _vm._v(" "), _c("span", {
+      staticClass: "step-text"
+    }, [_vm._v(_vm._s(step.label))])]);
+  }), 0)]), _vm._v(" "), _c("form", {
+    attrs: {
+      enctype: "multipart/form-data"
+    },
+    on: {
+      submit: function submit($event) {
+        $event.preventDefault();
+        return _vm.handleSubmit.apply(null, arguments);
+      }
+    }
+  }, [_c("div", {
+    staticClass: "step-panel",
+    "class": {
+      "d-none": _vm.currentStep !== 1,
+      "animate-in": _vm.currentStep === 1
+    }
+  }, [_c("div", {
+    staticClass: "row justify-content-center"
+  }, [_c("div", {
+    staticClass: "col-md-10"
+  }, [_vm._m(0), _vm._v(" "), _c("div", {
+    staticClass: "row g-3"
+  }, [_vm.incomingData && _vm.incomingData.tracking_number ? _c("div", {
+    staticClass: "col-md-12"
+  }, [_c("div", {
+    staticClass: "field-group"
+  }, [_c("label", {
+    staticClass: "field-label"
+  }, [_vm._v("Tracking Number")]), _vm._v(" "), _c("div", {
+    staticClass: "input-wrap"
+  }, [_c("i", {
+    staticClass: "bi bi-upc-scan"
+  }), _vm._v(" "), _c("input", {
+    staticClass: "form-input",
+    staticStyle: {
+      background: "#f8fafc",
+      cursor: "default"
+    },
+    attrs: {
+      type: "text",
+      readonly: ""
+    },
+    domProps: {
+      value: _vm.incomingData.tracking_number
+    }
+  })])])]) : _vm._e(), _vm._v(" "), _c("div", {
+    staticClass: "col-md-12"
+  }, [_c("div", {
+    staticClass: "field-group"
+  }, [_vm._m(1), _vm._v(" "), _c("div", {
+    staticClass: "input-wrap"
+  }, [_c("i", {
+    staticClass: "bi bi-list-check"
+  }), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.formData.document_type,
+      expression: "formData.document_type"
+    }],
+    staticClass: "form-input",
+    "class": {
+      "input-error": _vm.errors.document_type
+    },
+    on: {
+      change: [function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.formData, "document_type", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }, function ($event) {
+        return _vm.validateField("document_type");
+      }]
+    }
+  }, [_c("option", {
+    attrs: {
+      value: ""
+    }
+  }, [_vm._v("Select Document Type")]), _vm._v(" "), _vm._l(_vm.documentTypes, function (docType) {
+    return _c("option", {
+      key: docType.id,
+      domProps: {
+        value: docType.id
+      }
+    }, [_vm._v("\n                              " + _vm._s(docType.document_type_name || "Unnamed") + "\n                            ")]);
+  })], 2)]), _vm._v(" "), _vm.errors.document_type ? _c("div", {
+    staticClass: "field-error"
+  }, [_c("i", {
+    staticClass: "bi bi-exclamation-circle"
+  }), _vm._v("\n                          " + _vm._s(_vm.errors.document_type) + "\n                        ")]) : _vm._e()])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-12"
+  }, [_c("div", {
+    staticClass: "field-group"
+  }, [_vm._m(2), _vm._v(" "), _c("div", {
+    staticClass: "classification-radio-group"
+  }, [_c("label", {
+    staticClass: "classification-radio-item",
+    "class": {
+      selected: _vm.formData.document_classification === "general",
+      "input-error": _vm.errors.document_classification && !_vm.formData.document_classification
+    }
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.formData.document_classification,
+      expression: "formData.document_classification"
+    }],
+    staticClass: "classification-radio",
+    attrs: {
+      type: "radio",
+      value: "General"
+    },
+    domProps: {
+      checked: _vm._q(_vm.formData.document_classification, "General")
+    },
+    on: {
+      change: [function ($event) {
+        return _vm.$set(_vm.formData, "document_classification", "General");
+      }, function ($event) {
+        return _vm.validateField("document_classification");
+      }]
+    }
+  }), _vm._v(" "), _vm._m(3)]), _vm._v(" "), _c("label", {
+    staticClass: "classification-radio-item",
+    "class": {
+      selected: _vm.formData.document_classification === "confidential",
+      "input-error": _vm.errors.document_classification && !_vm.formData.document_classification
+    }
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.formData.document_classification,
+      expression: "formData.document_classification"
+    }],
+    staticClass: "classification-radio",
+    attrs: {
+      type: "radio",
+      value: "Confidential"
+    },
+    domProps: {
+      checked: _vm._q(_vm.formData.document_classification, "Confidential")
+    },
+    on: {
+      change: [function ($event) {
+        return _vm.$set(_vm.formData, "document_classification", "Confidential");
+      }, function ($event) {
+        return _vm.validateField("document_classification");
+      }]
+    }
+  }), _vm._v(" "), _vm._m(4)])]), _vm._v(" "), _vm.errors.document_classification ? _c("div", {
+    staticClass: "field-error"
+  }, [_c("i", {
+    staticClass: "bi bi-exclamation-circle"
+  }), _vm._v("\n                          " + _vm._s(_vm.errors.document_classification) + "\n                        ")]) : _vm._e()])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-12"
+  }, [_c("div", {
+    staticClass: "field-group"
+  }, [_vm._m(5), _vm._v(" "), _c("div", {
+    staticClass: "input-wrap"
+  }, [_c("i", {
+    staticClass: "bi bi-person"
+  }), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.formData.sender_name,
+      expression: "formData.sender_name"
+    }],
+    staticClass: "form-input",
+    "class": {
+      "input-error": _vm.errors.sender_name
+    },
+    attrs: {
+      type: "text",
+      placeholder: "Enter sender's full name"
+    },
+    domProps: {
+      value: _vm.formData.sender_name
+    },
+    on: {
+      blur: function blur($event) {
+        return _vm.validateField("sender_name");
+      },
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.formData, "sender_name", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _vm.errors.sender_name ? _c("div", {
+    staticClass: "field-error"
+  }, [_c("i", {
+    staticClass: "bi bi-exclamation-circle"
+  }), _vm._v("\n                          " + _vm._s(_vm.errors.sender_name) + "\n                        ")]) : _vm._e()])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-12"
+  }, [_c("div", {
+    staticClass: "field-group"
+  }, [_vm._m(6), _vm._v(" "), _c("div", {
+    staticClass: "input-wrap input-wrap-textarea"
+  }, [_c("i", {
+    staticClass: "bi bi-journal-text"
+  }), _vm._v(" "), _c("textarea", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.formData.subject,
+      expression: "formData.subject"
+    }],
+    staticClass: "form-input",
+    "class": {
+      "input-error": _vm.errors.subject
+    },
+    attrs: {
+      rows: "3",
+      placeholder: "Enter document subject..."
+    },
+    domProps: {
+      value: _vm.formData.subject
+    },
+    on: {
+      blur: function blur($event) {
+        return _vm.validateField("subject");
+      },
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.formData, "subject", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _vm.errors.subject ? _c("div", {
+    staticClass: "field-error"
+  }, [_c("i", {
+    staticClass: "bi bi-exclamation-circle"
+  }), _vm._v("\n                          " + _vm._s(_vm.errors.subject) + "\n                        ")]) : _vm._e()])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "field-group"
+  }, [_vm._m(7), _vm._v(" "), _c("div", {
+    staticClass: "input-wrap"
+  }, [_c("i", {
+    staticClass: "bi bi-calendar-date"
+  }), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.formData.date_received,
+      expression: "formData.date_received"
+    }],
+    staticClass: "form-input",
+    "class": {
+      "input-error": _vm.errors.date_received
+    },
+    attrs: {
+      type: "date"
+    },
+    domProps: {
+      value: _vm.formData.date_received
+    },
+    on: {
+      change: function change($event) {
+        return _vm.validateField("date_received");
+      },
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.formData, "date_received", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _vm.errors.date_received ? _c("div", {
+    staticClass: "field-error"
+  }, [_c("i", {
+    staticClass: "bi bi-exclamation-circle"
+  }), _vm._v("\n                          " + _vm._s(_vm.errors.date_received) + "\n                        ")]) : _vm._e()])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "field-group"
+  }, [_vm._m(8), _vm._v(" "), _c("div", {
+    staticClass: "input-wrap"
+  }, [_c("i", {
+    staticClass: "bi bi-clock"
+  }), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.formData.time_received,
+      expression: "formData.time_received"
+    }],
+    staticClass: "form-input",
+    "class": {
+      "input-error": _vm.errors.time_received
+    },
+    attrs: {
+      type: "time"
+    },
+    domProps: {
+      value: _vm.formData.time_received
+    },
+    on: {
+      change: function change($event) {
+        return _vm.validateField("time_received");
+      },
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.formData, "time_received", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _vm.errors.time_received ? _c("div", {
+    staticClass: "field-error"
+  }, [_c("i", {
+    staticClass: "bi bi-exclamation-circle"
+  }), _vm._v("\n                          " + _vm._s(_vm.errors.time_received) + "\n                        ")]) : _vm._e()])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-12"
+  }, [_c("div", {
+    staticClass: "field-group"
+  }, [_vm._m(9), _vm._v(" "), _c("div", {
+    staticClass: "route-checklist"
+  }, _vm._l(_vm.routeOptions, function (route) {
+    return _c("label", {
+      key: route.value,
+      staticClass: "route-checkbox-item"
+    }, [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.formData.route_to,
+        expression: "formData.route_to"
+      }],
+      staticClass: "route-checkbox",
+      attrs: {
+        type: "checkbox"
+      },
+      domProps: {
+        value: route.value,
+        checked: Array.isArray(_vm.formData.route_to) ? _vm._i(_vm.formData.route_to, route.value) > -1 : _vm.formData.route_to
+      },
+      on: {
+        change: [function ($event) {
+          var $$a = _vm.formData.route_to,
+            $$el = $event.target,
+            $$c = $$el.checked ? true : false;
+          if (Array.isArray($$a)) {
+            var $$v = route.value,
+              $$i = _vm._i($$a, $$v);
+            if ($$el.checked) {
+              $$i < 0 && _vm.$set(_vm.formData, "route_to", $$a.concat([$$v]));
+            } else {
+              $$i > -1 && _vm.$set(_vm.formData, "route_to", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            }
+          } else {
+            _vm.$set(_vm.formData, "route_to", $$c);
+          }
+        }, function ($event) {
+          return _vm.validateField("route_to");
+        }]
+      }
+    }), _vm._v(" "), _c("span", {
+      staticClass: "route-checkbox-label"
+    }, [_c("i", {
+      "class": route.icon + " me-2"
+    }), _vm._v("\n                              " + _vm._s(route.label) + "\n                            ")])]);
+  }), 0), _vm._v(" "), _vm.errors.route_to ? _c("div", {
+    staticClass: "field-error"
+  }, [_c("i", {
+    staticClass: "bi bi-exclamation-circle"
+  }), _vm._v("\n                          " + _vm._s(_vm.errors.route_to) + "\n                        ")]) : _vm._e()])]), _vm._v(" "), _c("div", {
+    staticClass: "col-12"
+  }, [_vm._m(10), _vm._v(" "), !_vm.uploadedFile ? _c("div", {
+    staticClass: "dropzone",
+    on: {
+      click: _vm.triggerFileUpload,
+      dragover: function dragover($event) {
+        $event.preventDefault();
+      },
+      drop: function drop($event) {
+        $event.preventDefault();
+        return _vm.handleDrop.apply(null, arguments);
+      }
+    }
+  }, [_c("input", {
+    ref: "fileInput",
+    staticClass: "d-none",
+    attrs: {
+      type: "file",
+      accept: ".pdf,.jpg,.jpeg,.png,.docx"
+    },
+    on: {
+      change: _vm.handleFileUpload
+    }
+  }), _vm._v(" "), _vm._m(11)]) : _vm._e(), _vm._v(" "), _vm.uploadedFile ? _c("div", {
+    staticClass: "single-file-card"
+  }, [_c("div", {
+    staticClass: "file-info"
+  }, [_c("div", {
+    staticClass: "file-icon-wrap",
+    "class": _vm.getFileColorClass(_vm.uploadedFile.name)
+  }, [_c("i", {
+    "class": _vm.getFileIcon(_vm.uploadedFile.name)
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "file-details"
+  }, [_c("div", {
+    staticClass: "file-name"
+  }, [_vm._v("\n                              " + _vm._s(_vm.uploadedFile.name) + "\n                            ")]), _vm._v(" "), _c("div", {
+    staticClass: "file-size"
+  }, [_vm._v("\n                              " + _vm._s(_vm.formatFileSize(_vm.uploadedFile.size)) + "\n                            ")])])]), _vm._v(" "), _c("div", {
+    staticClass: "file-actions"
+  }, [_c("button", {
+    staticClass: "btn-icon btn-icon-view",
+    attrs: {
+      type: "button",
+      title: "View"
+    },
+    on: {
+      click: _vm.openFileModal
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-eye"
+  })]), _vm._v(" "), _c("button", {
+    staticClass: "btn-icon btn-icon-replace",
+    attrs: {
+      type: "button",
+      title: "Replace"
+    },
+    on: {
+      click: _vm.triggerFileUpload
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-arrow-repeat"
+  })]), _vm._v(" "), _c("button", {
+    staticClass: "btn-icon btn-icon-remove",
+    attrs: {
+      type: "button",
+      title: "Remove"
+    },
+    on: {
+      click: _vm.removeFile
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-x-lg"
+  })])])]) : _vm._e(), _vm._v(" "), _vm.errors.attachment ? _c("div", {
+    staticClass: "field-error"
+  }, [_c("i", {
+    staticClass: "bi bi-exclamation-circle"
+  }), _vm._v("\n                        " + _vm._s(_vm.errors.attachment) + "\n                      ")]) : _vm._e()])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "step-panel",
+    "class": {
+      "d-none": _vm.currentStep !== 2,
+      "animate-in": _vm.currentStep === 2
+    }
+  }, [_vm._m(12), _vm._v(" "), _c("div", {
+    staticClass: "review-card"
+  }, [_vm.incomingData && _vm.incomingData.tracking_number ? _c("div", {
+    staticClass: "review-tracking-highlight"
+  }, [_c("div", {
+    staticClass: "d-flex align-items-center justify-content-between"
+  }, [_vm._m(13), _vm._v(" "), _c("span", {
+    staticClass: "review-tracking-number"
+  }, [_vm._v(_vm._s(_vm.incomingData.tracking_number))])])]) : _vm._e(), _vm._v(" "), _c("div", {
+    staticClass: "review-group"
+  }, [_vm._m(14), _vm._v(" "), _c("div", {
+    staticClass: "row g-3"
+  }, [_c("div", {
+    staticClass: "col-md-7"
+  }, [_c("div", {
+    staticClass: "review-item"
+  }, [_c("div", {
+    staticClass: "review-label"
+  }, [_vm._v("Document Type")]), _vm._v(" "), _c("div", {
+    staticClass: "review-value review-highlight"
+  }, [_vm._v("\n                          " + _vm._s(_vm.getSelectedDocumentTypeName() || "—") + "\n                        ")])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-5"
+  }, [_c("div", {
+    staticClass: "review-item"
+  }, [_c("div", {
+    staticClass: "review-label"
+  }, [_vm._v("Classification")]), _vm._v(" "), _c("div", {
+    staticClass: "review-value"
+  }, [_vm.formData.document_classification ? _c("span", {
+    "class": _vm.formData.document_classification === "confidential" ? "badge-confidential" : "badge-general"
+  }, [_c("i", {
+    staticClass: "me-1",
+    "class": _vm.formData.document_classification === "confidential" ? "bi bi-shield-lock-fill" : "bi bi-file-earmark-text"
+  }), _vm._v("\n                            " + _vm._s(_vm.capitalizeFirst(_vm.formData.document_classification)) + "\n                          ")]) : _c("span", {
+    staticClass: "text-muted"
+  }, [_vm._v("—")])])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "review-group"
+  }, [_vm._m(15), _vm._v(" "), _c("div", {
+    staticClass: "row g-3"
+  }, [_c("div", {
+    staticClass: "col-md-4"
+  }, [_c("div", {
+    staticClass: "review-item"
+  }, [_c("div", {
+    staticClass: "review-label"
+  }, [_vm._v("Sender Name")]), _vm._v(" "), _c("div", {
+    staticClass: "review-value review-bold"
+  }, [_vm._v("\n                          " + _vm._s(_vm.formData.sender_name || "—") + "\n                        ")])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-8"
+  }, [_c("div", {
+    staticClass: "review-item"
+  }, [_c("div", {
+    staticClass: "review-label"
+  }, [_vm._v("Subject")]), _vm._v(" "), _c("div", {
+    staticClass: "review-value subject-text"
+  }, [_vm._v("\n                          " + _vm._s(_vm.formData.subject || "—") + "\n                        ")])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "review-group border-bottom-0"
+  }, [_vm._m(16), _vm._v(" "), _c("div", {
+    staticClass: "row g-3"
+  }, [_c("div", {
+    staticClass: "col-md-5"
+  }, [_c("div", {
+    staticClass: "review-item"
+  }, [_c("div", {
+    staticClass: "review-label"
+  }, [_vm._v("Date & Time Received")]), _vm._v(" "), _c("div", {
+    staticClass: "review-value review-bold"
+  }, [_vm.formData.date_received && _vm.formData.time_received ? _c("span", {
+    staticClass: "datetime-badge"
+  }, [_c("i", {
+    staticClass: "bi bi-calendar-check me-1"
+  }), _vm._v("\n                            " + _vm._s(_vm.formatDisplayDate(_vm.formData.date_received)) + "\n                            "), _c("i", {
+    staticClass: "bi bi-clock ms-2 me-1"
+  }), _vm._v("\n                            " + _vm._s(_vm.formatDisplayTime(_vm.formData.time_received)) + "\n                          ")]) : _c("span", {
+    staticClass: "text-muted"
+  }, [_vm._v("—")])])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("div", {
+    staticClass: "review-item"
+  }, [_c("div", {
+    staticClass: "review-label"
+  }, [_vm._v("Route To")]), _vm._v(" "), _c("div", {
+    staticClass: "review-value"
+  }, [_vm.formData.route_to.length > 0 ? _c("div", {
+    staticClass: "route-badges"
+  }, _vm._l(_vm.formData.route_to, function (route) {
+    return _c("span", {
+      key: route,
+      staticClass: "route-badge"
+    }, [_c("i", {
+      "class": _vm.getRouteIcon(route) + " me-1"
+    }), _vm._v("\n                              " + _vm._s(_vm.getRouteLabel(route)) + "\n                            ")]);
+  }), 0) : _c("span", {
+    staticClass: "text-muted"
+  }, [_vm._v("—")])])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3"
+  }, [_c("div", {
+    staticClass: "review-item"
+  }, [_c("div", {
+    staticClass: "review-label"
+  }, [_vm._v("Attachment")]), _vm._v(" "), _c("div", {
+    staticClass: "review-value"
+  }, [_vm.uploadedFile ? _c("div", {
+    staticClass: "review-file-badge"
+  }, [_c("div", {
+    staticClass: "file-icon-wrap-sm",
+    "class": _vm.getFileColorClass(_vm.uploadedFile.name)
+  }, [_c("i", {
+    "class": _vm.getFileIcon(_vm.uploadedFile.name)
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "review-file-info"
+  }, [_c("span", {
+    staticClass: "file-name-sm"
+  }, [_vm._v(_vm._s(_vm.uploadedFile.name))])]), _vm._v(" "), _c("button", {
+    staticClass: "btn-link-sm",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: _vm.openFileModal
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-eye me-1"
+  }), _vm._v("View\n                            ")])]) : _c("span", {
+    staticClass: "text-muted"
+  }, [_vm._v("—")])])])])])])]), _vm._v(" "), _vm._m(17)]), _vm._v(" "), _c("div", {
+    staticClass: "wizard-nav"
+  }, [_c("button", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.currentStep !== 1,
+      expression: "currentStep !== 1"
+    }],
+    staticClass: "btn-nav btn-prev",
+    attrs: {
+      type: "button",
+      disabled: _vm.isLoading
+    },
+    on: {
+      click: _vm.prevStep
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-arrow-left"
+  }), _vm._v(" Previous\n              ")]), _vm._v(" "), _c("div", {
+    staticClass: "nav-right"
+  }, [_c("button", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.currentStep !== 2,
+      expression: "currentStep !== 2"
+    }],
+    staticClass: "btn-nav btn-next",
+    attrs: {
+      type: "button",
+      disabled: _vm.isLoading
+    },
+    on: {
+      click: _vm.nextStep
+    }
+  }, [_vm._v("\n                  Next Step "), _c("i", {
+    staticClass: "bi bi-arrow-right"
+  })]), _vm._v(" "), _c("button", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.currentStep === 2,
+      expression: "currentStep === 2"
+    }],
+    staticClass: "btn-nav btn-submit",
+    attrs: {
+      type: "submit",
+      disabled: _vm.isLoading
+    }
+  }, [!_vm.isLoading ? _c("span", [_c("i", {
+    staticClass: "bi bi-check2-all"
+  }), _vm._v(" Submit\n                  ")]) : _vm._e(), _vm._v(" "), _vm.isLoading ? _c("span", [_c("span", {
+    staticClass: "spinner-border spinner-border-sm me-2"
+  }), _vm._v("\n                    Submitting...\n                  ")]) : _vm._e()])])])])])])])]), _vm._v(" "), _vm.showModal && !_vm.isLoading ? _c("div", {
+    staticClass: "modal-overlay",
+    on: {
+      click: function click($event) {
+        if ($event.target !== $event.currentTarget) return null;
+        return _vm.closeModal.apply(null, arguments);
+      }
+    }
+  }, [_c("transition", {
+    attrs: {
+      name: "modal"
+    }
+  }, [_vm.showModal ? _c("div", {
+    staticClass: "modal-box"
+  }, [_c("div", {
+    staticClass: "modal-head"
+  }, [_c("div", {
+    staticClass: "d-flex align-items-center gap-2"
+  }, [_c("i", {
+    staticClass: "bi bi-eye"
+  }), _vm._v(" "), _c("h6", {
+    staticClass: "mb-0 fw-semibold"
+  }, [_vm._v("View Attachment")])]), _vm._v(" "), _c("button", {
+    staticClass: "btn-close-modal",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: _vm.closeModal
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-x-lg"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_vm.uploadedFile ? _c("div", {
+    staticClass: "preview-area"
+  }, [_vm.isImageFile(_vm.uploadedFile.name) ? _c("div", {
+    staticClass: "preview-image-wrap"
+  }, [_c("img", {
+    staticClass: "preview-image",
+    attrs: {
+      src: _vm.getImageUrl(_vm.uploadedFile),
+      alt: _vm.uploadedFile.name
+    }
+  })]) : _vm.uploadedFile.type === "application/pdf" ? _c("div", {
+    staticClass: "preview-pdf-wrap"
+  }, [_c("embed", {
+    staticClass: "preview-pdf",
+    attrs: {
+      src: _vm.getImageUrl(_vm.uploadedFile),
+      type: "application/pdf"
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "pdf-fallback"
+  }, [_c("p", {
+    staticClass: "text-muted small mb-2"
+  }, [_vm._v("\n                  If PDF doesn't display, you can view it in a new tab.\n                ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn-nav btn-next btn-sm",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: _vm.openInNewTab
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-box-arrow-up-right me-1"
+  }), _vm._v(" Open in New\n                  Tab\n                ")])])]) : _vm.uploadedFile.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ? _c("div", {
+    staticClass: "preview-docx-wrap"
+  }, [_c("iframe", {
+    staticClass: "preview-docx",
+    attrs: {
+      src: _vm.getDocxViewerUrl(_vm.uploadedFile),
+      frameborder: "0"
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "docx-fallback"
+  }, [_c("p", {
+    staticClass: "text-muted small mb-2"
+  }, [_vm._v("\n                  If document doesn't display properly, you can view it in a\n                  new tab.\n                ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn-nav btn-next btn-sm",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: _vm.openInNewTab
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-box-arrow-up-right me-1"
+  }), _vm._v(" Open in New\n                  Tab\n                ")])])]) : _c("div", {
+    staticClass: "preview-placeholder"
+  }, [_c("div", {
+    staticClass: "placeholder-icon",
+    "class": _vm.getFileColorClass(_vm.uploadedFile.name)
+  }, [_c("i", {
+    "class": _vm.getFileIcon(_vm.uploadedFile.name)
+  })]), _vm._v(" "), _c("h5", {
+    staticClass: "fw-semibold mt-3 mb-1"
+  }, [_vm._v(_vm._s(_vm.uploadedFile.name))]), _vm._v(" "), _c("p", {
+    staticClass: "text-muted small mb-0"
+  }, [_vm._v("\n                " + _vm._s(_vm.formatFileSize(_vm.uploadedFile.size)) + "\n              ")]), _vm._v(" "), _c("p", {
+    staticClass: "text-muted small mt-2 mb-3"
+  }, [_vm._v("\n                Preview not available for this file type.\n              ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn-nav btn-next btn-sm",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: _vm.openInNewTab
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-box-arrow-up-right me-1"
+  }), _vm._v(" Open in New Tab\n              ")])])]) : _c("div", {
+    staticClass: "preview-empty"
+  }, [_c("i", {
+    staticClass: "bi bi-folder2-open"
+  }), _vm._v(" "), _c("p", [_vm._v("No file selected")])]), _vm._v(" "), _vm.uploadedFile ? _c("div", {
+    staticClass: "file-info-bar mt-3"
+  }, [_c("div", {
+    staticClass: "d-flex align-items-center gap-2"
+  }, [_c("div", {
+    staticClass: "file-icon-wrap",
+    "class": _vm.getFileColorClass(_vm.uploadedFile.name)
+  }, [_c("i", {
+    "class": _vm.getFileIcon(_vm.uploadedFile.name)
+  })]), _vm._v(" "), _c("div", [_c("div", {
+    staticClass: "file-name"
+  }, [_vm._v(_vm._s(_vm.uploadedFile.name))]), _vm._v(" "), _c("div", {
+    staticClass: "file-size"
+  }, [_vm._v("\n                  " + _vm._s(_vm.formatFileSize(_vm.uploadedFile.size)) + "\n                ")])])])]) : _vm._e()]), _vm._v(" "), _c("div", {
+    staticClass: "modal-foot"
+  }, [_c("button", {
+    staticClass: "btn-nav btn-prev",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: _vm.closeModal
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-x-lg me-1"
+  }), _vm._v(" Close\n          ")]), _vm._v(" "), _vm.uploadedFile ? _c("button", {
+    staticClass: "btn-nav btn-next btn-sm",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: _vm.openInNewTab
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-box-arrow-up-right me-1"
+  }), _vm._v(" Open in New Tab\n          ")]) : _vm._e()])]) : _vm._e()])], 1) : _vm._e(), _vm._v(" "), _c("transition", {
+    attrs: {
+      name: "toast"
+    }
+  }, [_vm.toast.show ? _c("div", {
+    staticClass: "toast-notification",
+    "class": _vm.toast.type
+  }, [_c("i", {
+    "class": _vm.toast.type === "success" ? "bi bi-check-circle-fill" : "bi bi-exclamation-triangle-fill"
+  }), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.toast.message))])]) : _vm._e()])], 1);
+};
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "section-head"
+  }, [_c("div", {
+    staticClass: "section-icon"
+  }, [_c("i", {
+    staticClass: "bi bi-file-earmark-text"
+  })]), _vm._v(" "), _c("div", [_c("h6", [_vm._v("Document Information")]), _vm._v(" "), _c("p", [_vm._v("Provide the basic information for this document.")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("label", {
+    staticClass: "field-label"
+  }, [_vm._v("Document Type "), _c("span", {
+    staticClass: "req"
+  }, [_vm._v("*")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("label", {
+    staticClass: "field-label"
+  }, [_vm._v("Document Classification\n                          "), _c("span", {
+    staticClass: "req"
+  }, [_vm._v("*")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "radio-card-content"
+  }, [_c("div", {
+    staticClass: "radio-icon general-icon"
+  }, [_c("i", {
+    staticClass: "bi bi-file-earmark-text"
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "radio-text"
+  }, [_c("span", {
+    staticClass: "radio-label"
+  }, [_vm._v("General")]), _vm._v(" "), _c("span", {
+    staticClass: "radio-description"
+  }, [_vm._v("Standard document")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "radio-card-content"
+  }, [_c("div", {
+    staticClass: "radio-icon confidential-icon"
+  }, [_c("i", {
+    staticClass: "bi bi-shield-lock-fill"
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "radio-text"
+  }, [_c("span", {
+    staticClass: "radio-label"
+  }, [_vm._v("Confidential")]), _vm._v(" "), _c("span", {
+    staticClass: "radio-description"
+  }, [_vm._v("Restricted access")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("label", {
+    staticClass: "field-label"
+  }, [_vm._v("Sender Name "), _c("span", {
+    staticClass: "req"
+  }, [_vm._v("*")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("label", {
+    staticClass: "field-label"
+  }, [_vm._v("Subject "), _c("span", {
+    staticClass: "req"
+  }, [_vm._v("*")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("label", {
+    staticClass: "field-label"
+  }, [_vm._v("Date Received "), _c("span", {
+    staticClass: "req"
+  }, [_vm._v("*")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("label", {
+    staticClass: "field-label"
+  }, [_vm._v("Time Received "), _c("span", {
+    staticClass: "req"
+  }, [_vm._v("*")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("label", {
+    staticClass: "field-label"
+  }, [_vm._v("Route To "), _c("span", {
+    staticClass: "req"
+  }, [_vm._v("*")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("label", {
+    staticClass: "field-label"
+  }, [_vm._v("Attachment "), _c("span", {
+    staticClass: "req"
+  }, [_vm._v("*")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "dropzone-content"
+  }, [_c("div", {
+    staticClass: "dropzone-icon"
+  }, [_c("i", {
+    staticClass: "bi bi-cloud-arrow-up"
+  })]), _vm._v(" "), _c("h6", {
+    staticClass: "fw-semibold mb-1"
+  }, [_vm._v("\n                            Click to upload or drag file here\n                          ")]), _vm._v(" "), _c("p", {
+    staticClass: "text-muted small mb-0"
+  }, [_vm._v("\n                            PDF, JPG, PNG, DOCX (Max 5MB)\n                          ")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "section-head"
+  }, [_c("div", {
+    staticClass: "section-icon"
+  }, [_c("i", {
+    staticClass: "bi bi-clipboard-check"
+  })]), _vm._v(" "), _c("div", [_c("h6", [_vm._v("Review & Confirm")]), _vm._v(" "), _c("p", [_vm._v("\n                    Please verify all information below before submission.\n                  ")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "d-flex align-items-center gap-2"
+  }, [_c("i", {
+    staticClass: "bi bi-upc-scan"
+  }), _vm._v(" "), _c("span", {
+    staticClass: "review-tracking-label"
+  }, [_vm._v("Tracking Number")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "review-group-title"
+  }, [_c("i", {
+    staticClass: "bi bi-tag-fill"
+  }), _vm._v(" Document Details\n                  ")]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "review-group-title"
+  }, [_c("i", {
+    staticClass: "bi bi-person-vcard"
+  }), _vm._v(" Sender & Content\n                  ")]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "review-group-title"
+  }, [_c("i", {
+    staticClass: "bi bi-signpost-split-fill"
+  }), _vm._v(" Receipt, Routing\n                    & Attachment\n                  ")]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "alert-note"
+  }, [_c("i", {
+    staticClass: "bi bi-exclamation-triangle-fill"
+  }), _vm._v(" "), _c("span", [_vm._v("Once submitted, you cannot edit the document. Please ensure\n                  all details are correct.")])]);
+}];
+render._withStripped = true;
+
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Admin/Documentype.vue?vue&type=template&id=4a989df8&scoped=true":
 /*!**********************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Admin/Documentype.vue?vue&type=template&id=4a989df8&scoped=true ***!
@@ -8133,7 +10137,7 @@ var render = function render() {
       domProps: {
         value: type
       }
-    }, [_vm._v("\n                      " + _vm._s(type) + "\n                    ")]);
+    }, [_vm._v("\n                        " + _vm._s(type) + "\n                      ")]);
   })], 2)])]), _vm._v(" "), _c("div", {
     staticClass: "dropdown"
   }, [_c("button", {
@@ -8166,7 +10170,7 @@ var render = function render() {
       x2: "19",
       y2: "12"
     }
-  })]), _vm._v("\n                  My Document\n                ")]), _vm._v(" "), _c("ul", {
+  })]), _vm._v("\n                    My Document\n                  ")]), _vm._v(" "), _c("ul", {
     staticClass: "dropdown-menu dropdown-menu-end shadow-sm border-0"
   }, [_c("li", [_c("a", {
     staticClass: "dropdown-item py-2",
@@ -8226,11 +10230,11 @@ var render = function render() {
         _vm.inProgressDocTypeFilter = "";
       }
     }
-  }, [_vm._v("\n                Clear All\n              ")])]) : _vm._e(), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                  Clear All\n                ")])]) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "results-summary"
   }, [_c("span", {
     staticClass: "results-count"
-  }, [_vm._v(_vm._s(_vm.filteredInProgress.length))]), _vm._v("\n              document(s) found in "), _c("strong", [_vm._v("In Progress")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v(_vm._s(_vm.filteredInProgress.length))]), _vm._v("\n                document(s) found in "), _c("strong", [_vm._v("In Progress")])])]), _vm._v(" "), _c("div", {
     staticClass: "table-responsive"
   }, [_c("table", {
     staticClass: "office-table"
@@ -8249,7 +10253,7 @@ var render = function render() {
     }
   }), _vm._v(" "), _c("p", {
     staticClass: "mt-2 text-muted"
-  }, [_vm._v("\n                        " + _vm._s(_vm.inProgressSearch || _vm.inProgressDocTypeFilter ? "No documents match your filters" : "No In Progress Documents") + "\n                      ")])])])]) : _vm._e(), _vm._v(" "), _vm._l(_vm.paginatedInProgress, function (doc, index) {
+  }, [_vm._v("\n                          " + _vm._s(_vm.inProgressSearch || _vm.inProgressDocTypeFilter ? "No documents match your filters" : "No In Progress Documents") + "\n                        ")])])])]) : _vm._e(), _vm._v(" "), _vm._l(_vm.paginatedInProgress, function (doc, index) {
     return _c("tr", {
       key: doc.id
     }, [_c("td", {
@@ -8262,15 +10266,15 @@ var render = function render() {
       staticClass: "doc-type-badge"
     }, [_vm._v(_vm._s(doc.document_type))])]), _vm._v(" "), _c("td", [_c("div", {
       staticClass: "subject-text"
-    }, [_vm._v("\n                      " + _vm._s(doc.subject || doc.title) + "\n                    ")])]), _vm._v(" "), _c("td", [_c("div", {
+    }, [_vm._v("\n                        " + _vm._s(doc.subject || doc.title) + "\n                      ")])]), _vm._v(" "), _c("td", [_c("div", {
       staticClass: "sender-text"
     }, [_c("i", {
       staticClass: "bi bi-person-circle sender-icon"
-    }), _vm._v(_vm._s(doc.sender_name || doc.origin) + "\n                    ")])]), _vm._v(" "), _c("td", [_c("div", {
+    }), _vm._v(_vm._s(doc.sender_name || doc.origin) + "\n                      ")])]), _vm._v(" "), _c("td", [_c("div", {
       staticClass: "date-received"
     }, [_c("i", {
       staticClass: "bi bi-calendar3 date-icon"
-    }), _vm._v(_vm._s(_vm.formatDate(doc.date_received || doc.created_at)) + "\n                    ")])]), _vm._v(" "), _c("td", [_c("div", {
+    }), _vm._v(_vm._s(_vm.formatDate(doc.date_received || doc.created_at)) + "\n                      ")])]), _vm._v(" "), _c("td", [_c("div", {
       staticClass: "action-buttons"
     }, [_c("button", {
       staticClass: "btn-action btn-view",
@@ -8313,7 +10317,7 @@ var render = function render() {
     staticClass: "pagination-wrapper"
   }, [_c("div", {
     staticClass: "pagination-info"
-  }, [_vm._v("\n              Showing " + _vm._s(_vm.inProgressStartItem) + " to " + _vm._s(_vm.inProgressEndItem) + " of\n              " + _vm._s(_vm.filteredInProgress.length) + " entries\n            ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                Showing " + _vm._s(_vm.inProgressStartItem) + " to " + _vm._s(_vm.inProgressEndItem) + " of\n                " + _vm._s(_vm.filteredInProgress.length) + " entries\n              ")]), _vm._v(" "), _c("div", {
     staticClass: "pagination-buttons"
   }, [_c("button", {
     staticClass: "page-btn",
@@ -8350,7 +10354,7 @@ var render = function render() {
           _vm.inProgressCurrentPage = page;
         }
       }
-    }, [_vm._v("\n                " + _vm._s(page) + "\n              ")]);
+    }, [_vm._v("\n                  " + _vm._s(page) + "\n                ")]);
   }), _vm._v(" "), _c("button", {
     staticClass: "page-btn",
     attrs: {
@@ -8504,7 +10508,7 @@ var render = function render() {
       domProps: {
         value: type
       }
-    }, [_vm._v("\n                      " + _vm._s(type) + "\n                    ")]);
+    }, [_vm._v("\n                        " + _vm._s(type) + "\n                      ")]);
   })], 2)])])]), _vm._v(" "), _vm.forReleaseSearch || _vm.forReleaseDocTypeFilter ? _c("div", {
     staticClass: "active-filters"
   }, [_c("span", {
@@ -8543,11 +10547,11 @@ var render = function render() {
         _vm.forReleaseDocTypeFilter = "";
       }
     }
-  }, [_vm._v("\n                Clear All\n              ")])]) : _vm._e(), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                  Clear All\n                ")])]) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "results-summary"
   }, [_c("span", {
     staticClass: "results-count"
-  }, [_vm._v(_vm._s(_vm.filteredForRelease.length))]), _vm._v("\n              document(s) found in "), _c("strong", [_vm._v("For Release")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v(_vm._s(_vm.filteredForRelease.length))]), _vm._v("\n                document(s) found in "), _c("strong", [_vm._v("For Release")])])]), _vm._v(" "), _c("div", {
     staticClass: "table-responsive"
   }, [_c("table", {
     staticClass: "office-table"
@@ -8566,7 +10570,7 @@ var render = function render() {
     }
   }), _vm._v(" "), _c("p", {
     staticClass: "mt-2 text-muted"
-  }, [_vm._v("\n                        " + _vm._s(_vm.forReleaseSearch || _vm.forReleaseDocTypeFilter ? "No documents match your filters" : "No For Release Documents") + "\n                      ")])])])]) : _vm._e(), _vm._v(" "), _vm._l(_vm.paginatedForRelease, function (doc, index) {
+  }, [_vm._v("\n                          " + _vm._s(_vm.forReleaseSearch || _vm.forReleaseDocTypeFilter ? "No documents match your filters" : "No For Release Documents") + "\n                        ")])])])]) : _vm._e(), _vm._v(" "), _vm._l(_vm.paginatedForRelease, function (doc, index) {
     return _c("tr", {
       key: doc.id
     }, [_c("td", {
@@ -8579,15 +10583,15 @@ var render = function render() {
       staticClass: "doc-type-badge"
     }, [_vm._v(_vm._s(doc.document_type))])]), _vm._v(" "), _c("td", [_c("div", {
       staticClass: "subject-text"
-    }, [_vm._v("\n                      " + _vm._s(doc.subject || doc.title) + "\n                    ")])]), _vm._v(" "), _c("td", [_c("div", {
+    }, [_vm._v("\n                        " + _vm._s(doc.subject || doc.title) + "\n                      ")])]), _vm._v(" "), _c("td", [_c("div", {
       staticClass: "sender-text"
     }, [_c("i", {
       staticClass: "bi bi-person-circle sender-icon"
-    }), _vm._v(_vm._s(doc.sender_name || doc.origin) + "\n                    ")])]), _vm._v(" "), _c("td", [_c("div", {
+    }), _vm._v(_vm._s(doc.sender_name || doc.origin) + "\n                      ")])]), _vm._v(" "), _c("td", [_c("div", {
       staticClass: "date-received"
     }, [_c("i", {
       staticClass: "bi bi-calendar3 date-icon"
-    }), _vm._v(_vm._s(_vm.formatDate(doc.date_received || doc.created_at)) + "\n                    ")])]), _vm._v(" "), _c("td", [_c("div", {
+    }), _vm._v(_vm._s(_vm.formatDate(doc.date_received || doc.created_at)) + "\n                      ")])]), _vm._v(" "), _c("td", [_c("div", {
       staticClass: "action-buttons"
     }, [_c("button", {
       staticClass: "btn-action btn-view",
@@ -8630,7 +10634,7 @@ var render = function render() {
     staticClass: "pagination-wrapper"
   }, [_c("div", {
     staticClass: "pagination-info"
-  }, [_vm._v("\n              Showing " + _vm._s(_vm.forReleaseStartItem) + " to " + _vm._s(_vm.forReleaseEndItem) + " of\n              " + _vm._s(_vm.filteredForRelease.length) + " entries\n            ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                Showing " + _vm._s(_vm.forReleaseStartItem) + " to " + _vm._s(_vm.forReleaseEndItem) + " of\n                " + _vm._s(_vm.filteredForRelease.length) + " entries\n              ")]), _vm._v(" "), _c("div", {
     staticClass: "pagination-buttons"
   }, [_c("button", {
     staticClass: "page-btn",
@@ -8667,7 +10671,7 @@ var render = function render() {
           _vm.forReleaseCurrentPage = page;
         }
       }
-    }, [_vm._v("\n                " + _vm._s(page))]);
+    }, [_vm._v("\n                  " + _vm._s(page))]);
   }), _c("button", {
     staticClass: "page-btn",
     attrs: {
@@ -8821,7 +10825,7 @@ var render = function render() {
       domProps: {
         value: type
       }
-    }, [_vm._v("\n                      " + _vm._s(type) + "\n                    ")]);
+    }, [_vm._v("\n                        " + _vm._s(type) + "\n                      ")]);
   })], 2)])])]), _vm._v(" "), _vm.releasedSearch || _vm.releasedDocTypeFilter ? _c("div", {
     staticClass: "active-filters"
   }, [_c("span", {
@@ -8860,11 +10864,11 @@ var render = function render() {
         _vm.releasedDocTypeFilter = "";
       }
     }
-  }, [_vm._v("\n                Clear All\n              ")])]) : _vm._e(), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                  Clear All\n                ")])]) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "results-summary"
   }, [_c("span", {
     staticClass: "results-count"
-  }, [_vm._v(_vm._s(_vm.filteredReleased.length))]), _vm._v("\n              document(s) found in "), _c("strong", [_vm._v("Released")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v(_vm._s(_vm.filteredReleased.length))]), _vm._v("\n                document(s) found in "), _c("strong", [_vm._v("Released")])])]), _vm._v(" "), _c("div", {
     staticClass: "table-responsive"
   }, [_c("table", {
     staticClass: "office-table"
@@ -8883,7 +10887,7 @@ var render = function render() {
     }
   }), _vm._v(" "), _c("p", {
     staticClass: "mt-2 text-muted"
-  }, [_vm._v("\n                        " + _vm._s(_vm.releasedSearch || _vm.releasedDocTypeFilter ? "No documents match your filters" : "No Released Documents") + "\n                      ")])])])]) : _vm._e(), _vm._v(" "), _vm._l(_vm.paginatedReleased, function (doc, index) {
+  }, [_vm._v("\n                          " + _vm._s(_vm.releasedSearch || _vm.releasedDocTypeFilter ? "No documents match your filters" : "No Released Documents") + "\n                        ")])])])]) : _vm._e(), _vm._v(" "), _vm._l(_vm.paginatedReleased, function (doc, index) {
     return _c("tr", {
       key: doc.id
     }, [_c("td", {
@@ -8896,15 +10900,15 @@ var render = function render() {
       staticClass: "doc-type-badge"
     }, [_vm._v(_vm._s(doc.document_type))])]), _vm._v(" "), _c("td", [_c("div", {
       staticClass: "subject-text"
-    }, [_vm._v("\n                      " + _vm._s(doc.subject || doc.title) + "\n                    ")])]), _vm._v(" "), _c("td", [_c("div", {
+    }, [_vm._v("\n                        " + _vm._s(doc.subject || doc.title) + "\n                      ")])]), _vm._v(" "), _c("td", [_c("div", {
       staticClass: "sender-text"
     }, [_c("i", {
       staticClass: "bi bi-person-circle sender-icon"
-    }), _vm._v(_vm._s(doc.sender_name || doc.origin) + "\n                    ")])]), _vm._v(" "), _c("td", [_c("div", {
+    }), _vm._v(_vm._s(doc.sender_name || doc.origin) + "\n                      ")])]), _vm._v(" "), _c("td", [_c("div", {
       staticClass: "date-received"
     }, [_c("i", {
       staticClass: "bi bi-calendar3 date-icon"
-    }), _vm._v(_vm._s(_vm.formatDate(doc.date_received || doc.created_at)) + "\n                    ")])]), _vm._v(" "), _c("td", [_c("div", {
+    }), _vm._v(_vm._s(_vm.formatDate(doc.date_received || doc.created_at)) + "\n                      ")])]), _vm._v(" "), _c("td", [_c("div", {
       staticClass: "action-buttons"
     }, [_c("button", {
       staticClass: "btn-action btn-view",
@@ -8935,7 +10939,7 @@ var render = function render() {
     staticClass: "pagination-wrapper"
   }, [_c("div", {
     staticClass: "pagination-info"
-  }, [_vm._v("\n              Showing " + _vm._s(_vm.releasedStartItem) + " to " + _vm._s(_vm.releasedEndItem) + " of\n              " + _vm._s(_vm.filteredReleased.length) + " entries\n            ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                Showing " + _vm._s(_vm.releasedStartItem) + " to " + _vm._s(_vm.releasedEndItem) + " of\n                " + _vm._s(_vm.filteredReleased.length) + " entries\n              ")]), _vm._v(" "), _c("div", {
     staticClass: "pagination-buttons"
   }, [_c("button", {
     staticClass: "page-btn",
@@ -8972,7 +10976,7 @@ var render = function render() {
           _vm.releasedCurrentPage = page;
         }
       }
-    }, [_vm._v("\n                " + _vm._s(page))]);
+    }, [_vm._v("\n                  " + _vm._s(page))]);
   }), _c("button", {
     staticClass: "page-btn",
     attrs: {
@@ -9006,9 +11010,9 @@ var render = function render() {
       }
     }
   }, [_c("div", {
-    staticClass: "modal-dialog enhanced-modal",
+    staticClass: "modal-dialog enhanced-modal tracking-modal",
     staticStyle: {
-      "max-width": "1000px"
+      "max-width": "1500px"
     }
   }, [_c("div", {
     staticClass: "modal-content square-modal"
@@ -9028,36 +11032,169 @@ var render = function render() {
   }, [_c("i", {
     staticClass: "bi bi-x-lg"
   })])]), _vm._v(" "), _c("div", {
-    staticClass: "modal-body-enhanced"
+    staticClass: "modal-body-enhanced tracking-modal-body"
+  }, [_c("div", {
+    staticClass: "my-tracking-controls sticky-top-controls"
+  }, [_c("div", {
+    staticClass: "search-box-wrapper",
+    staticStyle: {
+      flex: "1",
+      "max-width": "800px"
+    }
+  }, [_c("div", {
+    staticClass: "search-box"
+  }, [_c("i", {
+    staticClass: "bi bi-search search-icon"
+  }), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.myTrackingSearch,
+      expression: "myTrackingSearch"
+    }],
+    staticClass: "search-input",
+    attrs: {
+      type: "text",
+      placeholder: "Search tracking documents..."
+    },
+    domProps: {
+      value: _vm.myTrackingSearch
+    },
+    on: {
+      input: [function ($event) {
+        if ($event.target.composing) return;
+        _vm.myTrackingSearch = $event.target.value;
+      }, _vm.applyFilters]
+    }
+  }), _vm._v(" "), _vm.myTrackingSearch ? _c("button", {
+    staticClass: "search-clear-btn",
+    on: {
+      click: _vm.clearSearch
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-x-circle"
+  })]) : _vm._e()])]), _vm._v(" "), _c("button", {
+    staticClass: "btn-reserve-tracking-forest",
+    attrs: {
+      type: "button",
+      disabled: _vm.reserving
+    },
+    on: {
+      click: _vm.reserveTracking
+    }
+  }, [_vm.reserving ? _c("span", {
+    staticClass: "spinner-border spinner-border-sm me-1",
+    attrs: {
+      role: "status",
+      "aria-hidden": "true"
+    }
+  }) : _c("svg", {
+    staticClass: "me-1",
+    attrs: {
+      width: "18",
+      height: "18",
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: "currentColor",
+      "stroke-width": "2.5"
+    }
+  }, [_c("path", {
+    attrs: {
+      d: "M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"
+    }
+  })]), _vm._v("\n            " + _vm._s(_vm.reserving ? "Reserving..." : "Reserve Tracking") + "\n          ")])]), _vm._v(" "), _c("div", {
+    staticClass: "tracking-table-scroll"
   }, [_c("div", {
     staticClass: "table-responsive"
   }, [_c("table", {
     staticClass: "office-table"
-  }, [_vm._m(8), _vm._v(" "), _c("tbody", [_vm.myTrackingDocuments.length === 0 ? _c("tr", [_vm._m(9)]) : _vm._e(), _vm._v(" "), _vm._l(_vm.myTrackingDocuments, function (doc, index) {
+  }, [_vm._m(8), _vm._v(" "), _c("tbody", [_vm.loading && _vm.trackings.data.length === 0 ? _c("tr", [_vm._m(9)]) : !_vm.loading && _vm.trackings.data.length === 0 ? _c("tr", [_vm._m(10)]) : _vm._e(), _vm._v(" "), _vm._l(_vm.trackings.data, function (tracking, index) {
     return _c("tr", {
-      key: doc.id
+      key: tracking.id
     }, [_c("td", {
       staticClass: "text-center"
     }, [_c("span", {
       staticClass: "row-number"
-    }, [_vm._v(_vm._s(index + 1))])]), _vm._v(" "), _c("td", [_c("span", {
+    }, [_vm._v("\n                      " + _vm._s((_vm.trackings.current_page - 1) * _vm.trackings.per_page + index + 1))])]), _vm._v(" "), _c("td", [_c("span", {
       staticClass: "tracking-number"
-    }, [_vm._v(_vm._s(doc.tracking_number))])]), _vm._v(" "), _c("td", [_c("span", {
-      staticClass: "doc-type-badge"
-    }, [_vm._v(_vm._s(doc.document_type))])]), _vm._v(" "), _c("td", [_c("div", {
-      staticClass: "subject-text"
-    }, [_vm._v("\n                      " + _vm._s(doc.subject || doc.title) + "\n                    ")])]), _vm._v(" "), _c("td", [_c("div", {
-      staticClass: "sender-text"
+    }, [_vm._v(_vm._s(tracking.tracking_number))])]), _vm._v(" "), _c("td", [_c("span", {
+      "class": ["status-badge", _vm.getStatusClass(tracking.status)]
+    }, [_vm._v("\n                      " + _vm._s(tracking.status) + "\n                    ")])]), _vm._v(" "), _c("td", [_c("a", {
+      staticClass: "btn-action btn-view",
+      attrs: {
+        href: "/dts_denr/create-incoming/".concat(tracking.id),
+        title: "View Details"
+      }
     }, [_c("i", {
-      staticClass: "bi bi-person-circle sender-icon"
-    }), _vm._v(_vm._s(doc.sender_name || doc.origin) + "\n                    ")])]), _vm._v(" "), _c("td", [_c("div", {
-      staticClass: "date-received"
-    }, [_c("i", {
-      staticClass: "bi bi-calendar3 date-icon"
-    }), _vm._v(_vm._s(_vm.formatDate(doc.date_received || doc.created_at)) + "\n                    ")])]), _vm._v(" "), _c("td", [_c("span", {
-      "class": ["status-badge", _vm.getStatusClass(doc.status)]
-    }, [_vm._v(_vm._s(doc.status))])])]);
-  })], 2)])])])])])]) : _vm._e(), _vm._v(" "), _vm.showCreateModal ? _c("div", {
+      staticClass: "bi bi-plus-circle me-1"
+    }), _vm._v(" Create Incoming\n                  ")])])]);
+  })], 2)])])]), _vm._v(" "), _vm.trackings.total > 0 ? _c("div", {
+    staticClass: "pagination-wrapper tracking-pagination"
+  }, [_c("div", {
+    staticClass: "pagination-info"
+  }, [_vm._v("\n            Showing " + _vm._s(_vm.trackings.from) + " to " + _vm._s(_vm.trackings.to) + " of\n            " + _vm._s(_vm.trackings.total) + " entries\n          ")]), _vm._v(" "), _c("div", {
+    staticClass: "pagination-buttons"
+  }, [_c("button", {
+    staticClass: "page-btn",
+    attrs: {
+      disabled: _vm.trackings.current_page === 1
+    },
+    on: {
+      click: function click($event) {
+        return _vm.changePageTracking(1);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-chevron-double-left"
+  })]), _vm._v(" "), _c("button", {
+    staticClass: "page-btn",
+    attrs: {
+      disabled: _vm.trackings.current_page === 1
+    },
+    on: {
+      click: function click($event) {
+        return _vm.changePageTracking(_vm.trackings.current_page - 1);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-chevron-left"
+  })]), _vm._v(" "), _vm._l(_vm.displayedPagesTracking, function (page) {
+    return _c("button", {
+      key: page,
+      "class": ["page-btn", {
+        active: _vm.trackings.current_page === page
+      }],
+      on: {
+        click: function click($event) {
+          return _vm.changePageTracking(page);
+        }
+      }
+    }, [_vm._v("\n              " + _vm._s(page) + "\n            ")]);
+  }), _vm._v(" "), _c("button", {
+    staticClass: "page-btn",
+    attrs: {
+      disabled: _vm.trackings.current_page === _vm.trackings.last_page
+    },
+    on: {
+      click: function click($event) {
+        return _vm.changePageTracking(_vm.trackings.current_page + 1);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-chevron-right"
+  })]), _vm._v(" "), _c("button", {
+    staticClass: "page-btn",
+    attrs: {
+      disabled: _vm.trackings.current_page === _vm.trackings.last_page
+    },
+    on: {
+      click: function click($event) {
+        return _vm.changePageTracking(_vm.trackings.last_page);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-chevron-double-right"
+  })])], 2)]) : _vm._e()])])])]) : _vm._e(), _vm._v(" "), _vm.showCreateModal ? _c("div", {
     staticClass: "modal-overlay",
     on: {
       click: function click($event) {
@@ -9071,7 +11208,7 @@ var render = function render() {
     staticClass: "modal-content square-modal"
   }, [_c("div", {
     staticClass: "modal-header-enhanced square-header"
-  }, [_vm._m(10), _vm._v(" "), _c("button", {
+  }, [_vm._m(11), _vm._v(" "), _c("button", {
     staticClass: "btn-close-custom square-close",
     attrs: {
       type: "button",
@@ -9130,7 +11267,7 @@ var render = function render() {
     staticClass: "row g-3"
   }, [_c("div", {
     staticClass: "col-md-6"
-  }, [_vm._m(11), _vm._v(" "), _c("div", {
+  }, [_vm._m(12), _vm._v(" "), _c("div", {
     staticClass: "input-wrap"
   }, [_c("span", {
     staticClass: "input-icon"
@@ -9182,9 +11319,9 @@ var render = function render() {
     }
   })]), _vm._v(" "), _vm.errors.tracking_number ? _c("div", {
     staticClass: "invalid-feedback d-block"
-  }, [_vm._v("\n                  " + _vm._s(_vm.errors.tracking_number) + "\n                ")]) : _vm._e()]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                    " + _vm._s(_vm.errors.tracking_number) + "\n                  ")]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "col-md-6"
-  }, [_vm._m(12), _vm._v(" "), _c("div", {
+  }, [_vm._m(13), _vm._v(" "), _c("div", {
     staticClass: "input-wrap"
   }, [_c("span", {
     staticClass: "input-icon"
@@ -9244,12 +11381,12 @@ var render = function render() {
       domProps: {
         value: type
       }
-    }, [_vm._v("\n                      " + _vm._s(type) + "\n                    ")]);
+    }, [_vm._v("\n                        " + _vm._s(type) + "\n                      ")]);
   })], 2)]), _vm._v(" "), _vm.errors.document_type ? _c("div", {
     staticClass: "invalid-feedback d-block"
-  }, [_vm._v("\n                  " + _vm._s(_vm.errors.document_type) + "\n                ")]) : _vm._e()])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                    " + _vm._s(_vm.errors.document_type) + "\n                  ")]) : _vm._e()])]), _vm._v(" "), _c("div", {
     staticClass: "mt-3"
-  }, [_vm._m(13), _vm._v(" "), _c("div", {
+  }, [_vm._m(14), _vm._v(" "), _c("div", {
     staticClass: "input-wrap"
   }, [_c("span", {
     staticClass: "input-icon"
@@ -9312,11 +11449,11 @@ var render = function render() {
     }
   })]), _vm._v(" "), _vm.errors.subject ? _c("div", {
     staticClass: "invalid-feedback d-block"
-  }, [_vm._v("\n                " + _vm._s(_vm.errors.subject) + "\n              ")]) : _vm._e()]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                  " + _vm._s(_vm.errors.subject) + "\n                ")]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "row g-3 mt-3"
   }, [_c("div", {
     staticClass: "col-md-6"
-  }, [_vm._m(14), _vm._v(" "), _c("div", {
+  }, [_vm._m(15), _vm._v(" "), _c("div", {
     staticClass: "input-wrap"
   }, [_c("span", {
     staticClass: "input-icon"
@@ -9367,9 +11504,9 @@ var render = function render() {
     }
   })]), _vm._v(" "), _vm.errors.sender_name ? _c("div", {
     staticClass: "invalid-feedback d-block"
-  }, [_vm._v("\n                  " + _vm._s(_vm.errors.sender_name) + "\n                ")]) : _vm._e()]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                    " + _vm._s(_vm.errors.sender_name) + "\n                  ")]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "col-md-6"
-  }, [_vm._m(15), _vm._v(" "), _c("div", {
+  }, [_vm._m(16), _vm._v(" "), _c("div", {
     staticClass: "input-wrap"
   }, [_c("span", {
     staticClass: "input-icon"
@@ -9439,7 +11576,7 @@ var render = function render() {
     }
   })]), _vm._v(" "), _vm.errors.date_received ? _c("div", {
     staticClass: "invalid-feedback d-block"
-  }, [_vm._v("\n                  " + _vm._s(_vm.errors.date_received) + "\n                ")]) : _vm._e()])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                    " + _vm._s(_vm.errors.date_received) + "\n                  ")]) : _vm._e()])]), _vm._v(" "), _c("div", {
     staticClass: "mt-3"
   }, [_c("label", {
     staticClass: "form-label-enhanced",
@@ -9512,7 +11649,7 @@ var render = function render() {
     }
   })]), _vm._v(" "), _vm.errors.description ? _c("div", {
     staticClass: "invalid-feedback d-block"
-  }, [_vm._v("\n                " + _vm._s(_vm.errors.description) + "\n              ")]) : _vm._e()]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                  " + _vm._s(_vm.errors.description) + "\n                ")]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "modal-actions"
   }, [_c("button", {
     staticClass: "btn btn-outline-secondary square-btn",
@@ -9525,7 +11662,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "bi bi-arrow-counterclockwise me-1"
-  }), _vm._v(" Reset\n              ")]), _vm._v(" "), _c("div", {
+  }), _vm._v(" Reset\n                ")]), _vm._v(" "), _c("div", {
     staticClass: "d-flex gap-3"
   }, [_c("button", {
     staticClass: "btn btn-light square-btn",
@@ -9536,7 +11673,7 @@ var render = function render() {
     on: {
       click: _vm.closeCreateModal
     }
-  }, [_vm._v("\n                  Cancel\n                ")]), _vm._v(" "), _c("button", {
+  }, [_vm._v("\n                    Cancel\n                  ")]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-save square-btn",
     attrs: {
       type: "submit",
@@ -9550,7 +11687,7 @@ var render = function render() {
     }
   }) : _c("i", {
     staticClass: "bi bi-check2-circle me-1"
-  }), _vm._v("\n                  " + _vm._s(_vm.creating ? "Creating..." : "Create Document") + "\n                ")])])])])])])])]) : _vm._e(), _vm._v(" "), _vm.showViewModal ? _c("div", {
+  }), _vm._v("\n                    " + _vm._s(_vm.creating ? "Creating..." : "Create Document") + "\n                  ")])])])])])])])]) : _vm._e(), _vm._v(" "), _vm.showViewModal ? _c("div", {
     staticClass: "modal-overlay",
     on: {
       click: function click($event) {
@@ -9569,7 +11706,7 @@ var render = function render() {
     staticClass: "modal-header-enhanced square-header"
   }, [_c("div", {
     staticClass: "d-flex align-items-center"
-  }, [_vm._m(16), _vm._v(" "), _c("div", [_c("h5", {
+  }, [_vm._m(17), _vm._v(" "), _c("div", [_c("h5", {
     staticClass: "modal-title"
   }, [_vm._v("Document Details")]), _vm._v(" "), _c("small", {
     staticClass: "modal-subtitle"
@@ -9783,44 +11920,43 @@ var staticRenderFns = [function () {
     }
   }, [_vm._v("Tracking No.")]), _vm._v(" "), _c("th", {
     staticStyle: {
-      width: "18%"
+      width: "10%"
     }
-  }, [_vm._v("Document Type")]), _vm._v(" "), _c("th", {
-    staticStyle: {
-      width: "22%"
-    }
-  }, [_vm._v("Subject/Title")]), _vm._v(" "), _c("th", {
-    staticStyle: {
-      width: "15%"
-    }
-  }, [_vm._v("Sender/Origin")]), _vm._v(" "), _c("th", {
-    staticStyle: {
-      width: "15%"
-    }
-  }, [_vm._v("Date Received")]), _vm._v(" "), _c("th", {
+  }, [_vm._v("Status")]), _vm._v(" "), _c("th", {
     staticStyle: {
       width: "10%"
     }
-  }, [_vm._v("Status")])])]);
+  }, [_vm._v("Action")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("td", {
-    staticClass: "text-center py-5",
+    staticClass: "text-center",
     attrs: {
-      colspan: "7"
+      colspan: "6"
+    }
+  }, [_c("div", {
+    staticClass: "loader-spinner"
+  }), _vm._v("\n                    Loading...\n                  ")]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("td", {
+    staticClass: "text-center",
+    attrs: {
+      colspan: "6"
     }
   }, [_c("div", {
     staticClass: "empty-state"
   }, [_c("i", {
-    staticClass: "bi bi-folder2-open",
+    staticClass: "bi bi-inbox",
     staticStyle: {
       "font-size": "3rem",
       color: "#9ca3af"
     }
   }), _vm._v(" "), _c("p", {
     staticClass: "mt-2 text-muted"
-  }, [_vm._v("\n                        No documents in your tracking\n                      ")])])]);
+  }, [_vm._v("No Reserve Tracking Found")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -12088,7 +14224,7 @@ Vue.component('Mainoffice', (__webpack_require__(/*! ./components/Superadmin/Mai
 Vue.component('Suboffice', (__webpack_require__(/*! ./components/Superadmin/Suboffice.vue */ "./resources/js/components/Superadmin/Suboffice.vue")["default"]));
 Vue.component('Documentype', (__webpack_require__(/*! ./components/Admin/Documentype.vue */ "./resources/js/components/Admin/Documentype.vue")["default"]));
 Vue.component('Incomingdocuments', (__webpack_require__(/*! ./components/Admin/Incomingdocuments.vue */ "./resources/js/components/Admin/Incomingdocuments.vue")["default"]));
-
+Vue.component('Createincoming', (__webpack_require__(/*! ./components/Admin/Createincoming.vue */ "./resources/js/components/Admin/Createincoming.vue")["default"]));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -16615,6 +18751,31 @@ defineJQueryPlugin(Toast);
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Admin/Createincoming.vue?vue&type=style&index=0&id=19dfdfed&scoped=true&lang=css":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Admin/Createincoming.vue?vue&type=style&index=0&id=19dfdfed&scoped=true&lang=css ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap);"]);
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n/* Wizard Styles */\n.wizard-card[data-v-19dfdfed] {\r\n  background: #fff;\r\n  border-radius: 1.125rem;\r\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.06);\r\n  overflow: hidden;\r\n  border: 1px solid rgba(226, 232, 240, 0.7);\n}\n.wizard-body[data-v-19dfdfed] {\r\n  padding: 1.75rem 1.75rem 1.25rem;\n}\n.progress-wrapper[data-v-19dfdfed] {\r\n  position: relative;\r\n  margin: 1.75rem 0 2.25rem;\n}\n.progress-track[data-v-19dfdfed] {\r\n  position: absolute;\r\n  top: 17px;\r\n  left: 48px;\r\n  right: 48px;\r\n  height: 3px;\r\n  background: #e2e8f0;\r\n  border-radius: 2px;\n}\n.progress-fill[data-v-19dfdfed] {\r\n  position: absolute;\r\n  top: 17px;\r\n  left: 48px;\r\n  height: 3px;\r\n  background: linear-gradient(90deg, #0f766e, #14b8a6);\r\n  border-radius: 2px;\r\n  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);\n}\n.step-list[data-v-19dfdfed] {\r\n  position: relative;\r\n  z-index: 1;\r\n  display: flex;\r\n  justify-content: space-around;\r\n  max-width: 400px;\r\n  margin: 0 auto;\n}\n.step-node[data-v-19dfdfed] {\r\n  text-align: center;\r\n  cursor: pointer;\r\n  width: 80px;\r\n  -webkit-user-select: none;\r\n     -moz-user-select: none;\r\n          user-select: none;\n}\n.step-dot[data-v-19dfdfed] {\r\n  width: 36px;\r\n  height: 36px;\r\n  margin: 0 auto 8px;\r\n  background: #fff;\r\n  border: 2px solid #e2e8f0;\r\n  border-radius: 50%;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-weight: 600;\r\n  font-size: 0.8rem;\r\n  color: #94a3b8;\r\n  transition: all 0.3s;\n}\n.step-node.active .step-dot[data-v-19dfdfed] {\r\n  border-color: #0f766e;\r\n  background: #0f766e;\r\n  color: #fff;\r\n  box-shadow: 0 0 0 5px rgba(15, 118, 110, 0.1);\r\n  transform: scale(1.08);\n}\n.step-node.completed .step-dot[data-v-19dfdfed] {\r\n  border-color: #0f766e;\r\n  background: #0f766e;\r\n  color: #fff;\n}\n.step-text[data-v-19dfdfed] {\r\n  font-size: 0.65rem;\r\n  font-weight: 700;\r\n  color: #94a3b8;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.08em;\n}\n.step-node.active .step-text[data-v-19dfdfed] {\r\n  color: #0f766e;\n}\n.section-head[data-v-19dfdfed] {\r\n  display: flex;\r\n  align-items: flex-start;\r\n  gap: 0.75rem;\r\n  margin-bottom: 1.5rem;\n}\n.section-icon[data-v-19dfdfed] {\r\n  width: 36px;\r\n  height: 36px;\r\n  background: rgba(15, 118, 110, 0.07);\r\n  border: 1px solid rgba(15, 118, 110, 0.1);\r\n  border-radius: 0.625rem;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  color: #0f766e;\r\n  font-size: 0.95rem;\r\n  flex-shrink: 0;\r\n  margin-top: 0.1rem;\n}\n.section-head h6[data-v-19dfdfed] {\r\n  font-size: 0.95rem;\r\n  font-weight: 700;\r\n  color: #0f172a;\r\n  margin: 0;\n}\n.section-head p[data-v-19dfdfed] {\r\n  font-size: 0.78rem;\r\n  color: #94a3b8;\r\n  margin: 0.15rem 0 0;\n}\n.field-group[data-v-19dfdfed] {\r\n  margin-bottom: 1.15rem;\n}\n.field-label[data-v-19dfdfed] {\r\n  display: block;\r\n  font-size: 0.75rem;\r\n  font-weight: 600;\r\n  color: #475569;\r\n  margin-bottom: 0.35rem;\n}\n.req[data-v-19dfdfed] {\r\n  color: #dc2626;\r\n  font-weight: 700;\n}\n.input-wrap[data-v-19dfdfed] {\r\n  position: relative;\n}\n.input-wrap > i[data-v-19dfdfed] {\r\n  position: absolute;\r\n  left: 0.85rem;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  color: #b0bec5;\r\n  font-size: 0.88rem;\r\n  z-index: 2;\r\n  pointer-events: none;\n}\n.input-wrap-textarea > i[data-v-19dfdfed] {\r\n  top: 1.15rem;\r\n  transform: none;\n}\n.form-input[data-v-19dfdfed] {\r\n  width: 100%;\r\n  padding: 0.65rem 0.9rem 0.65rem 2.5rem;\r\n  border: 1.5px solid #e2e8f0;\r\n  border-radius: 0.625rem;\r\n  font-size: 0.875rem;\r\n  color: #0f172a;\r\n  background: #fff;\r\n  transition: all 0.2s;\r\n  outline: none;\n}\n.form-input[data-v-19dfdfed]:focus {\r\n  border-color: #0f766e;\r\n  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.07);\n}\n.input-wrap:focus-within > i[data-v-19dfdfed] {\r\n  color: #0f766e;\n}\n.form-input.input-error[data-v-19dfdfed] {\r\n  border-color: #dc2626;\r\n  background: #fef2f2;\n}\n.field-error[data-v-19dfdfed] {\r\n  font-size: 0.72rem;\r\n  color: #dc2626;\r\n  margin-top: 0.25rem;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 0.3rem;\n}\ntextarea.form-input[data-v-19dfdfed] {\r\n  resize: vertical;\r\n  min-height: 76px;\n}\r\n\r\n/* Classification Radio Styles */\n.classification-radio-group[data-v-19dfdfed] {\r\n  display: flex;\r\n  gap: 1rem;\n}\n.classification-radio-item[data-v-19dfdfed] {\r\n  flex: 1;\r\n  position: relative;\r\n  cursor: pointer;\r\n  border: 2px solid #e2e8f0;\r\n  border-radius: 0.875rem;\r\n  padding: 1rem;\r\n  transition: all 0.3s;\r\n  background: #fff;\n}\n.classification-radio-item[data-v-19dfdfed]:hover {\r\n  border-color: #0f766e;\r\n  background: #f0fdf4;\n}\n.classification-radio-item.selected[data-v-19dfdfed] {\r\n  border-color: #0f766e;\r\n  background: rgba(15, 118, 110, 0.04);\n}\n.classification-radio[data-v-19dfdfed] {\r\n  position: absolute;\r\n  opacity: 0;\r\n  width: 0;\r\n  height: 0;\n}\n.radio-card-content[data-v-19dfdfed] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 0.75rem;\n}\n.radio-icon[data-v-19dfdfed] {\r\n  width: 40px;\r\n  height: 40px;\r\n  border-radius: 0.625rem;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1.1rem;\r\n  flex-shrink: 0;\n}\n.general-icon[data-v-19dfdfed] {\r\n  background: rgba(59, 130, 246, 0.1);\r\n  color: #3b82f6;\n}\n.confidential-icon[data-v-19dfdfed] {\r\n  background: rgba(239, 68, 68, 0.1);\r\n  color: #ef4444;\n}\n.radio-label[data-v-19dfdfed] {\r\n  font-size: 0.85rem;\r\n  font-weight: 600;\r\n  display: block;\r\n  color: #334155;\n}\n.radio-description[data-v-19dfdfed] {\r\n  font-size: 0.72rem;\r\n  color: #94a3b8;\r\n  display: block;\n}\r\n\r\n/* Route Checkbox Styles */\n.route-checklist[data-v-19dfdfed] {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  gap: 0.65rem;\n}\n.route-checkbox-item[data-v-19dfdfed] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 0.5rem;\r\n  cursor: pointer;\r\n  padding: 0.5rem 0.9rem;\r\n  border: 1.5px solid #e2e8f0;\r\n  border-radius: 0.5rem;\r\n  transition: all 0.2s;\r\n  background: #fff;\n}\n.route-checkbox-item[data-v-19dfdfed]:hover {\r\n  border-color: #0f766e;\r\n  background: #f0fdf4;\n}\n.route-checkbox[data-v-19dfdfed] {\r\n  accent-color: #0f766e;\r\n  width: 16px;\r\n  height: 16px;\r\n  cursor: pointer;\n}\n.route-checkbox-label[data-v-19dfdfed] {\r\n  font-size: 0.82rem;\r\n  font-weight: 500;\r\n  color: #475569;\r\n  display: flex;\r\n  align-items: center;\n}\r\n\r\n/* Dropzone */\n.dropzone[data-v-19dfdfed] {\r\n  border: 2px dashed #cbd5e1;\r\n  border-radius: 0.875rem;\r\n  padding: 2rem;\r\n  text-align: center;\r\n  cursor: pointer;\r\n  transition: all 0.3s;\r\n  background: #fafbfc;\n}\n.dropzone[data-v-19dfdfed]:hover {\r\n  border-color: #0f766e;\r\n  background: #f0fdf4;\n}\n.dropzone-icon[data-v-19dfdfed] {\r\n  font-size: 2.2rem;\r\n  color: #94a3b8;\r\n  margin-bottom: 0.5rem;\n}\r\n\r\n/* Single File Card */\n.single-file-card[data-v-19dfdfed] {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n  padding: 0.85rem 1rem;\r\n  border: 1.5px solid #e2e8f0;\r\n  border-radius: 0.75rem;\r\n  background: #fff;\r\n  transition: border-color 0.2s;\n}\n.single-file-card[data-v-19dfdfed]:hover {\r\n  border-color: #0f766e;\n}\n.file-info[data-v-19dfdfed] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 0.75rem;\r\n  min-width: 0;\n}\n.file-icon-wrap[data-v-19dfdfed] {\r\n  width: 38px;\r\n  height: 38px;\r\n  border-radius: 0.5rem;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1.1rem;\r\n  flex-shrink: 0;\n}\n.file-icon-wrap.color-pdf[data-v-19dfdfed] {\r\n  background: rgba(239, 68, 68, 0.1);\r\n  color: #ef4444;\n}\n.file-icon-wrap.color-img[data-v-19dfdfed] {\r\n  background: rgba(59, 130, 246, 0.1);\r\n  color: #3b82f6;\n}\n.file-icon-wrap.color-doc[data-v-19dfdfed] {\r\n  background: rgba(99, 102, 241, 0.1);\r\n  color: #6366f1;\n}\n.file-icon-wrap.color-default[data-v-19dfdfed] {\r\n  background: rgba(148, 163, 184, 0.1);\r\n  color: #94a3b8;\n}\n.file-details[data-v-19dfdfed] {\r\n  min-width: 0;\n}\n.file-name[data-v-19dfdfed] {\r\n  font-size: 0.82rem;\r\n  font-weight: 600;\r\n  color: #0f172a;\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  max-width: 220px;\n}\n.file-size[data-v-19dfdfed] {\r\n  font-size: 0.7rem;\r\n  color: #94a3b8;\n}\n.file-actions[data-v-19dfdfed] {\r\n  display: flex;\r\n  gap: 0.35rem;\r\n  flex-shrink: 0;\n}\n.btn-icon[data-v-19dfdfed] {\r\n  width: 32px;\r\n  height: 32px;\r\n  border: none;\r\n  border-radius: 0.375rem;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  cursor: pointer;\r\n  transition: all 0.2s;\r\n  font-size: 0.82rem;\n}\n.btn-icon-view[data-v-19dfdfed] {\r\n  background: rgba(59, 130, 246, 0.1);\r\n  color: #3b82f6;\n}\n.btn-icon-view[data-v-19dfdfed]:hover {\r\n  background: rgba(59, 130, 246, 0.2);\n}\n.btn-icon-replace[data-v-19dfdfed] {\r\n  background: rgba(245, 158, 11, 0.1);\r\n  color: #f59e0b;\n}\n.btn-icon-replace[data-v-19dfdfed]:hover {\r\n  background: rgba(245, 158, 11, 0.2);\n}\n.btn-icon-remove[data-v-19dfdfed] {\r\n  background: rgba(239, 68, 68, 0.1);\r\n  color: #ef4444;\n}\n.btn-icon-remove[data-v-19dfdfed]:hover {\r\n  background: rgba(239, 68, 68, 0.2);\n}\r\n\r\n/* Review Card Enhancements */\n.review-card[data-v-19dfdfed] {\r\n  background: #ffffff;\r\n  border: 1px solid #e2e8f0;\r\n  border-radius: 0.875rem;\r\n  margin-bottom: 1.25rem;\r\n  overflow: hidden;\r\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);\n}\n.review-tracking-highlight[data-v-19dfdfed] {\r\n  background: linear-gradient(\r\n    135deg,\r\n    rgba(15, 118, 110, 0.05),\r\n    rgba(20, 184, 166, 0.08)\r\n  );\r\n  border-bottom: 1px solid #e2e8f0;\r\n  padding: 1rem 1.5rem;\n}\n.review-tracking-label[data-v-19dfdfed] {\r\n  font-size: 0.75rem;\r\n  font-weight: 700;\r\n  color: #64748b;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.05em;\n}\n.review-tracking-number[data-v-19dfdfed] {\r\n  font-family: \"JetBrains Mono\", monospace;\r\n  font-size: 0.95rem;\r\n  font-weight: 700;\r\n  color: #0f766e;\r\n  background: rgba(255, 255, 255, 0.7);\r\n  padding: 0.2rem 0.65rem;\r\n  border-radius: 0.375rem;\r\n  border: 1px solid rgba(15, 118, 110, 0.2);\n}\n.review-group[data-v-19dfdfed] {\r\n  padding: 1.25rem 1.5rem;\r\n  border-bottom: 1px dashed #e2e8f0;\n}\n.review-group.border-bottom-0[data-v-19dfdfed] {\r\n  border-bottom: none;\n}\n.review-group-title[data-v-19dfdfed] {\r\n  font-size: 0.75rem;\r\n  font-weight: 700;\r\n  color: #0f766e;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.06em;\r\n  margin-bottom: 1rem;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 0.5rem;\n}\n.review-item[data-v-19dfdfed] {\r\n  background: #f8fafc;\r\n  border: 1px solid #f1f5f9;\r\n  border-radius: 0.5rem;\r\n  padding: 0.75rem 1rem;\r\n  height: 100%;\n}\n.review-label[data-v-19dfdfed] {\r\n  font-size: 0.68rem;\r\n  font-weight: 600;\r\n  color: #94a3b8;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.05em;\r\n  margin-bottom: 0.35rem;\n}\n.review-value[data-v-19dfdfed] {\r\n  font-size: 0.88rem;\r\n  color: #1e293b;\r\n  font-weight: 500;\r\n  line-height: 1.4;\n}\n.subject-text[data-v-19dfdfed] {\r\n  white-space: pre-wrap;\n}\n.review-highlight[data-v-19dfdfed] {\r\n  font-weight: 700;\r\n  color: #0f766e;\n}\n.review-bold[data-v-19dfdfed] {\r\n  font-weight: 600;\r\n  color: #0f172a;\n}\n.badge-general[data-v-19dfdfed] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  padding: 0.35rem 0.75rem;\r\n  border-radius: 0.375rem;\r\n  font-size: 0.75rem;\r\n  font-weight: 600;\r\n  background: rgba(59, 130, 246, 0.1);\r\n  color: #3b82f6;\n}\n.badge-confidential[data-v-19dfdfed] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  padding: 0.35rem 0.75rem;\r\n  border-radius: 0.375rem;\r\n  font-size: 0.75rem;\r\n  font-weight: 600;\r\n  background: rgba(239, 68, 68, 0.1);\r\n  color: #ef4444;\n}\n.datetime-badge[data-v-19dfdfed] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  font-family: \"JetBrains Mono\", monospace;\r\n  font-size: 0.82rem;\r\n  font-weight: 600;\r\n  color: #0f766e;\r\n  background: rgba(15, 118, 110, 0.05);\r\n  padding: 0.3rem 0.65rem;\r\n  border-radius: 0.375rem;\r\n  border: 1px solid rgba(15, 118, 110, 0.1);\n}\n.route-badges[data-v-19dfdfed] {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  gap: 0.4rem;\n}\n.route-badge[data-v-19dfdfed] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  padding: 0.3rem 0.65rem;\r\n  border-radius: 0.375rem;\r\n  font-size: 0.72rem;\r\n  font-weight: 600;\r\n  background: rgba(15, 118, 110, 0.1);\r\n  color: #0f766e;\r\n  border: 1px solid rgba(15, 118, 110, 0.15);\n}\n.review-file-badge[data-v-19dfdfed] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 0.5rem;\r\n  background: #fff;\r\n  padding: 0.35rem 0.65rem;\r\n  border-radius: 0.375rem;\r\n  border: 1px solid #e2e8f0;\n}\n.file-icon-wrap-sm[data-v-19dfdfed] {\r\n  width: 24px;\r\n  height: 24px;\r\n  border-radius: 0.375rem;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 0.8rem;\r\n  flex-shrink: 0;\n}\n.file-name-sm[data-v-19dfdfed] {\r\n  font-size: 0.78rem;\r\n  font-weight: 600;\r\n  color: #0f172a;\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  max-width: 130px;\r\n  display: inline-block;\n}\n.btn-link-sm[data-v-19dfdfed] {\r\n  background: none;\r\n  border: none;\r\n  color: #0f766e;\r\n  font-size: 0.78rem;\r\n  font-weight: 600;\r\n  cursor: pointer;\r\n  padding: 0;\r\n  transition: color 0.2s;\r\n  margin-left: auto;\r\n  flex-shrink: 0;\n}\n.btn-link-sm[data-v-19dfdfed]:hover {\r\n  color: #0d5f59;\r\n  text-decoration: underline;\n}\n.alert-note[data-v-19dfdfed] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 0.6rem;\r\n  padding: 0.85rem 1rem;\r\n  border-radius: 0.625rem;\r\n  background: #fffbeb;\r\n  border: 1px solid #fde68a;\r\n  font-size: 0.78rem;\r\n  color: #92400e;\n}\n.alert-note i[data-v-19dfdfed] {\r\n  font-size: 1rem;\r\n  color: #f59e0b;\r\n  flex-shrink: 0;\n}\r\n\r\n/* Navigation */\n.wizard-nav[data-v-19dfdfed] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  margin-top: 1.75rem;\r\n  padding-top: 1.25rem;\r\n  border-top: 1px solid #e2e8f0;\n}\n.nav-right[data-v-19dfdfed] {\r\n  display: flex;\r\n  gap: 0.75rem;\r\n  margin-left: auto;\n}\n.btn-nav[data-v-19dfdfed] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  gap: 0.4rem;\r\n  padding: 0.6rem 1.35rem;\r\n  border: none;\r\n  border-radius: 0.625rem;\r\n  font-size: 0.82rem;\r\n  font-weight: 600;\r\n  cursor: pointer;\r\n  transition: all 0.25s;\r\n  outline: none;\n}\n.btn-prev[data-v-19dfdfed] {\r\n  background: #f1f5f9;\r\n  color: #475569;\r\n  border: 1px solid #e2e8f0;\n}\n.btn-prev[data-v-19dfdfed]:hover:not(:disabled) {\r\n  background: #e2e8f0;\n}\n.btn-next[data-v-19dfdfed] {\r\n  background: linear-gradient(135deg, #0f766e, #14b8a6);\r\n  color: #fff;\r\n  box-shadow: 0 2px 8px rgba(15, 118, 110, 0.25);\n}\n.btn-next[data-v-19dfdfed]:hover:not(:disabled) {\r\n  box-shadow: 0 4px 14px rgba(15, 118, 110, 0.35);\r\n  transform: translateY(-1px);\n}\n.btn-submit[data-v-19dfdfed] {\r\n  background: linear-gradient(135deg, #0f766e, #14b8a6);\r\n  color: #fff;\r\n  box-shadow: 0 2px 8px rgba(15, 118, 110, 0.25);\r\n  padding: 0.6rem 1.75rem;\n}\n.btn-submit[data-v-19dfdfed]:hover:not(:disabled) {\r\n  box-shadow: 0 4px 14px rgba(15, 118, 110, 0.35);\r\n  transform: translateY(-1px);\n}\n.btn-nav[data-v-19dfdfed]:disabled {\r\n  opacity: 0.55;\r\n  cursor: not-allowed;\r\n  transform: none !important;\n}\n.btn-sm[data-v-19dfdfed] {\r\n  padding: 0.4rem 0.9rem;\r\n  font-size: 0.75rem;\n}\r\n\r\n/* Modal Overlay */\n.modal-overlay[data-v-19dfdfed] {\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  background: rgba(15, 23, 42, 0.5);\r\n  backdrop-filter: blur(4px);\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  z-index: 1050;\r\n  padding: 1rem;\n}\n.modal-box[data-v-19dfdfed] {\r\n  background: #fff;\r\n  border-radius: 1rem;\r\n  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);\r\n  width: 100%;\r\n  max-width: 640px;\r\n  max-height: 85vh;\r\n  display: flex;\r\n  flex-direction: column;\r\n  overflow: hidden;\n}\n.modal-head[data-v-19dfdfed] {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n  padding: 1rem 1.25rem;\r\n  border-bottom: 1px solid #e2e8f0;\n}\n.btn-close-modal[data-v-19dfdfed] {\r\n  width: 32px;\r\n  height: 32px;\r\n  border: none;\r\n  background: #f1f5f9;\r\n  border-radius: 0.375rem;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  cursor: pointer;\r\n  color: #64748b;\r\n  transition: all 0.2s;\n}\n.btn-close-modal[data-v-19dfdfed]:hover {\r\n  background: #e2e8f0;\r\n  color: #0f172a;\n}\n.modal-body[data-v-19dfdfed] {\r\n  padding: 1.25rem;\r\n  overflow-y: auto;\r\n  flex: 1;\n}\n.modal-foot[data-v-19dfdfed] {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: flex-end;\r\n  gap: 0.65rem;\r\n  padding: 0.85rem 1.25rem;\r\n  border-top: 1px solid #e2e8f0;\n}\r\n\r\n/* Preview Area */\n.preview-image-wrap[data-v-19dfdfed] {\r\n  text-align: center;\n}\n.preview-image[data-v-19dfdfed] {\r\n  max-width: 100%;\r\n  max-height: 400px;\r\n  border-radius: 0.5rem;\r\n  -o-object-fit: contain;\r\n     object-fit: contain;\n}\n.preview-pdf-wrap[data-v-19dfdfed],\r\n.preview-docx-wrap[data-v-19dfdfed] {\r\n  text-align: center;\n}\n.preview-pdf[data-v-19dfdfed],\r\n.preview-docx[data-v-19dfdfed] {\r\n  width: 100%;\r\n  height: 400px;\r\n  border-radius: 0.5rem;\r\n  border: 1px solid #e2e8f0;\n}\n.pdf-fallback[data-v-19dfdfed],\r\n.docx-fallback[data-v-19dfdfed] {\r\n  margin-top: 0.75rem;\n}\n.preview-placeholder[data-v-19dfdfed] {\r\n  text-align: center;\r\n  padding: 2rem 0;\n}\n.placeholder-icon[data-v-19dfdfed] {\r\n  width: 64px;\r\n  height: 64px;\r\n  border-radius: 1rem;\r\n  display: inline-flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1.8rem;\n}\n.preview-empty[data-v-19dfdfed] {\r\n  text-align: center;\r\n  padding: 3rem 0;\r\n  color: #94a3b8;\n}\n.preview-empty i[data-v-19dfdfed] {\r\n  font-size: 2.5rem;\r\n  margin-bottom: 0.5rem;\r\n  display: block;\n}\n.file-info-bar[data-v-19dfdfed] {\r\n  padding: 0.75rem 1rem;\r\n  background: #f8fafc;\r\n  border: 1px solid #e2e8f0;\r\n  border-radius: 0.5rem;\n}\r\n\r\n/* Loading Overlay */\n.loading-overlay[data-v-19dfdfed] {\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  background: rgba(15, 23, 42, 0.7);\r\n  backdrop-filter: blur(8px);\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  z-index: 9999;\n}\n.loading-content[data-v-19dfdfed] {\r\n  text-align: center;\r\n  color: #fff;\r\n  padding: 2.5rem;\r\n  border-radius: 1.125rem;\r\n  background: rgba(255, 255, 255, 0.05);\r\n  backdrop-filter: blur(10px);\r\n  border: 1px solid rgba(255, 255, 255, 0.1);\r\n  max-width: 400px;\r\n  width: 90%;\n}\n.loading-spinner[data-v-19dfdfed] {\r\n  position: relative;\r\n  width: 80px;\r\n  height: 80px;\r\n  margin: 0 auto 1.5rem;\n}\n.spinner-circle[data-v-19dfdfed] {\r\n  width: 80px;\r\n  height: 80px;\r\n  border: 3px solid rgba(255, 255, 255, 0.1);\r\n  border-top-color: #22c55e;\r\n  border-right-color: #15803d;\r\n  border-radius: 50%;\r\n  animation: spin-19dfdfed 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;\n}\n.spinner-logo[data-v-19dfdfed] {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 50%;\r\n  transform: translate(-50%, -50%);\r\n  font-size: 1.5rem;\r\n  color: #22c55e;\r\n  animation: pulse 2s ease-in-out infinite;\n}\n.loading-title[data-v-19dfdfed] {\r\n  font-size: 1.1rem;\r\n  font-weight: 700;\r\n  margin-bottom: 0.5rem;\r\n  color: #fff;\n}\n.loading-message[data-v-19dfdfed] {\r\n  font-size: 0.9rem;\r\n  color: #94a3b8;\r\n  margin-bottom: 1.5rem;\n}\n.loading-progress[data-v-19dfdfed] {\r\n  width: 100%;\r\n  height: 3px;\r\n  background: rgba(255, 255, 255, 0.1);\r\n  border-radius: 2px;\r\n  overflow: hidden;\r\n  margin-bottom: 1rem;\n}\n.loading-bar[data-v-19dfdfed] {\r\n  height: 100%;\r\n  width: 100%;\r\n  background: linear-gradient(90deg, #15803d, #22c55e);\r\n  animation: loadingBar 2.5s ease-in-out infinite;\r\n  border-radius: 2px;\n}\n.loading-hint[data-v-19dfdfed] {\r\n  font-size: 0.75rem;\r\n  color: #64748b;\r\n  margin: 0;\n}\r\n\r\n\r\n/* Success Modal */\n.success-modal-box[data-v-19dfdfed] {\r\n  background: #fff;\r\n  border-radius: 1.25rem;\r\n  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);\r\n  width: 100%;\r\n  max-width: 420px;\r\n  overflow: hidden;\n}\n.success-modal-content[data-v-19dfdfed] {\r\n  padding: 2.5rem 2rem 2rem;\n}\n.success-icon-wrapper[data-v-19dfdfed] {\r\n  margin-bottom: 1.25rem;\n}\n.success-icon-circle[data-v-19dfdfed] {\r\n  width: 72px;\r\n  height: 72px;\r\n  border-radius: 50%;\r\n  background: rgba(15, 118, 110, 0.1);\r\n  display: inline-flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 2rem;\r\n  color: #0f766e;\n}\n.success-title[data-v-19dfdfed] {\r\n  font-size: 1.25rem;\r\n  font-weight: 800;\r\n  color: #0f172a;\r\n  margin-bottom: 0.35rem;\n}\n.success-message[data-v-19dfdfed] {\r\n  font-size: 0.85rem;\r\n  color: #64748b;\r\n  margin-bottom: 1.5rem;\n}\n.tracking-number-box[data-v-19dfdfed] {\r\n  background: #f8fafc;\r\n  border: 1.5px solid #e2e8f0;\r\n  border-radius: 0.75rem;\r\n  padding: 1rem 1.25rem;\r\n  margin-bottom: 1.5rem;\n}\n.tracking-label[data-v-19dfdfed] {\r\n  font-size: 0.65rem;\r\n  font-weight: 700;\r\n  color: #94a3b8;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.1em;\r\n  margin-bottom: 0.35rem;\n}\n.tracking-number-display[data-v-19dfdfed] {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  gap: 0.65rem;\n}\n.tracking-number-text[data-v-19dfdfed] {\r\n  font-family: \"JetBrains Mono\", monospace;\r\n  font-size: 1.25rem;\r\n  font-weight: 700;\r\n  color: #0f766e;\r\n  letter-spacing: 0.05em;\n}\n.copy-btn[data-v-19dfdfed] {\r\n  width: 32px;\r\n  height: 32px;\r\n  border: 1px solid #e2e8f0;\r\n  background: #fff;\r\n  border-radius: 0.375rem;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  cursor: pointer;\r\n  color: #64748b;\r\n  transition: all 0.2s;\n}\n.copy-btn[data-v-19dfdfed]:hover {\r\n  border-color: #0f766e;\r\n  color: #0f766e;\n}\n.success-actions[data-v-19dfdfed] {\r\n  display: flex;\r\n  justify-content: center;\n}\r\n\r\n/* Toast Notification */\n.toast-notification[data-v-19dfdfed] {\r\n  position: fixed;\r\n  top: 1.25rem;\r\n  right: 1.25rem;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 0.6rem;\r\n  padding: 0.75rem 1.25rem;\r\n  border-radius: 0.625rem;\r\n  font-size: 0.82rem;\r\n  font-weight: 600;\r\n  z-index: 9999;\r\n  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);\n}\n.toast-notification.success[data-v-19dfdfed] {\r\n  background: #0f766e;\r\n  color: #fff;\n}\n.toast-notification.error[data-v-19dfdfed] {\r\n  background: #dc2626;\r\n  color: #fff;\n}\r\n\r\n/* Animations */\n.fade-enter-active[data-v-19dfdfed],\r\n.fade-leave-active[data-v-19dfdfed] {\r\n  transition: opacity 0.3s;\n}\n.fade-enter[data-v-19dfdfed],\r\n.fade-leave-to[data-v-19dfdfed] {\r\n  opacity: 0;\n}\n.modal-enter-active[data-v-19dfdfed],\r\n.modal-leave-active[data-v-19dfdfed] {\r\n  transition: all 0.3s;\n}\n.modal-enter[data-v-19dfdfed],\r\n.modal-leave-to[data-v-19dfdfed] {\r\n  opacity: 0;\r\n  transform: scale(0.95);\n}\n.toast-enter-active[data-v-19dfdfed],\r\n.toast-leave-active[data-v-19dfdfed] {\r\n  transition: all 0.3s;\n}\n.toast-enter[data-v-19dfdfed],\r\n.toast-leave-to[data-v-19dfdfed] {\r\n  opacity: 0;\r\n  transform: translateX(30px);\n}\n.animate-in[data-v-19dfdfed] {\r\n  animation: fadeInUp-19dfdfed 0.35s ease-out;\n}\n@keyframes fadeInUp-19dfdfed {\nfrom {\r\n    opacity: 0;\r\n    transform: translateY(10px);\n}\nto {\r\n    opacity: 1;\r\n    transform: translateY(0);\n}\n}\n@keyframes spin-19dfdfed {\nto {\r\n    transform: rotate(360deg);\n}\n}\n@keyframes loadingSlide-19dfdfed {\n0% {\r\n    transform: translateX(-100%);\n}\n100% {\r\n    transform: translateX(350%);\n}\n}\r\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Admin/Documentype.vue?vue&type=style&index=0&id=4a989df8&scoped=true&lang=css":
 /*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Admin/Documentype.vue?vue&type=style&index=0&id=4a989df8&scoped=true&lang=css ***!
@@ -16656,7 +18817,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* ===== CSS Variables ===== */\n[data-v-260abcd7]:root {\r\n  --forest: #1a4731;\r\n  --leaf: #2d6a4f;\r\n  --mint: #52b788;\r\n  --gold: #c9a84c;\r\n  --gold-light: #f0d080;\r\n  --paper: #f4f9f6;\r\n  --charcoal: #1c2b24;\r\n  --muted: #5c7a6b;\r\n  --border: #b7d5c3;\r\n  --white: #ffffff;\r\n  --error: #c0392b;\n}\r\n\r\n/* ===== VERTICAL TABS LAYOUT ===== */\n.tabs-vertical-container[data-v-260abcd7] {\r\n  display: flex;\r\n  gap: 0;\r\n  min-height: 400px;\r\n  background: #ffffff;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 12px;\r\n  overflow: hidden;\r\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);\n}\n.tabs-vertical-nav[data-v-260abcd7] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 250px;\r\n  min-width: 250px;\r\n  background: #f8fafc;\r\n  border-right: 1px solid #e5e7eb;\r\n  padding: 16px;\r\n  gap: 8px;\n}\n.tab-vertical-button[data-v-260abcd7] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 12px;\r\n  padding: 16px;\r\n  background: #ffffff;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 10px;\r\n  cursor: pointer;\r\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\r\n  position: relative;\r\n  overflow: hidden;\n}\n.tab-vertical-button[data-v-260abcd7]::before {\r\n  content: \"\";\r\n  position: absolute;\r\n  left: 0;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  width: 4px;\r\n  height: 0;\r\n  background: linear-gradient(180deg, #2d6a4f, #1e4d2b);\r\n  border-radius: 0 4px 4px 0;\r\n  transition: height 0.3s ease;\n}\n.tab-vertical-button[data-v-260abcd7]:hover {\r\n  background: #f0fdf4;\r\n  border-color: #86efac;\r\n  transform: translateX(4px);\r\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);\n}\n.tab-vertical-button[data-v-260abcd7]:hover::before {\r\n  height: 40%;\n}\n.tab-vertical-button.active[data-v-260abcd7] {\r\n  background: linear-gradient(135deg, #2d6a4f, #1e4d2b);\r\n  border-color: #2d6a4f;\r\n  color: #ffffff;\r\n  transform: translateX(4px);\r\n  box-shadow: 0 8px 25px rgba(45, 106, 79, 0.4);\n}\n.tab-vertical-button.active[data-v-260abcd7]::before {\r\n  height: 60%;\r\n  background: linear-gradient(180deg, #52b788, #ffffff);\n}\n.tab-vertical-icon[data-v-260abcd7] {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 40px;\r\n  height: 40px;\r\n  border-radius: 10px;\r\n  background: #f0fdf4;\r\n  transition: all 0.3s ease;\r\n  flex-shrink: 0;\n}\n.tab-vertical-button.active .tab-vertical-icon[data-v-260abcd7] {\r\n  background: rgba(255, 255, 255, 0.25);\n}\n.tab-vertical-content[data-v-260abcd7] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 2px;\r\n  flex: 1;\n}\n.tab-vertical-label[data-v-260abcd7] {\r\n  font-size: 12px;\r\n  font-weight: 700;\r\n  letter-spacing: 1px;\r\n  color: #374151;\r\n  transition: color 0.3s ease;\n}\n.tab-vertical-button.active .tab-vertical-label[data-v-260abcd7] {\r\n  color: #ffffff;\n}\n.tab-vertical-count[data-v-260abcd7] {\r\n  font-size: 20px;\r\n  font-weight: 800;\r\n  color: #2d6a4f;\r\n  transition: color 0.3s ease;\n}\n.tab-vertical-button.active .tab-vertical-count[data-v-260abcd7] {\r\n  color: #ffffff;\n}\n.tab-vertical-indicator[data-v-260abcd7] {\r\n  position: absolute;\r\n  right: 12px;\r\n  width: 8px;\r\n  height: 8px;\r\n  border-radius: 50%;\r\n  background: #e5e7eb;\r\n  transition: all 0.3s ease;\n}\n.tab-vertical-button:hover .tab-vertical-indicator[data-v-260abcd7] {\r\n  background: #86efac;\n}\n.tab-vertical-button.active .tab-vertical-indicator[data-v-260abcd7] {\r\n  background: #52b788;\r\n  box-shadow: 0 0 10px rgba(82, 183, 136, 0.6);\n}\n.tabs-vertical-body[data-v-260abcd7] {\r\n  flex: 1;\r\n  padding: 20px;\r\n  background: #ffffff;\r\n  min-width: 0;\n}\r\n\r\n/* ===== FILTER CONTROLS ===== */\n.filter-controls[data-v-260abcd7] {\r\n  margin-bottom: 20px;\n}\n.search-filter-row[data-v-260abcd7] {\r\n  display: flex;\r\n  gap: 12px;\r\n  align-items: center;\r\n  flex-wrap: wrap;\n}\n.search-box-wrapper[data-v-260abcd7] {\r\n  flex: 1;\r\n  min-width: 200px;\n}\n.search-box[data-v-260abcd7] {\r\n  position: relative;\r\n  width: 100%;\n}\n.search-icon[data-v-260abcd7] {\r\n  position: absolute;\r\n  left: 12px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  color: #9ca3af;\r\n  z-index: 1;\n}\n.search-input[data-v-260abcd7] {\r\n  width: 100%;\r\n  padding: 10px 35px 10px 36px;\r\n  border: 2px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  font-size: 14px;\r\n  outline: none;\r\n  background: #ffffff;\r\n  transition: all 0.3s ease;\n}\n.search-input[data-v-260abcd7]:focus {\r\n  border-color: #2d6a4f;\r\n  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\n.search-clear-btn[data-v-260abcd7] {\r\n  position: absolute;\r\n  right: 8px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  background: none;\r\n  border: none;\r\n  color: #9ca3af;\r\n  cursor: pointer;\r\n  padding: 4px;\n}\n.search-clear-btn[data-v-260abcd7]:hover {\r\n  color: #ef4444;\n}\n.per-page-wrapper[data-v-260abcd7] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  white-space: nowrap;\n}\n.per-page-label[data-v-260abcd7] {\r\n  font-size: 13px;\r\n  color: #6b7280;\r\n  font-weight: 500;\n}\n.per-page-select[data-v-260abcd7] {\r\n  padding: 8px 12px;\r\n  border: 2px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  font-size: 13px;\r\n  background: #ffffff;\r\n  outline: none;\r\n  cursor: pointer;\r\n  transition: all 0.3s ease;\n}\n.per-page-select[data-v-260abcd7]:focus {\r\n  border-color: #2d6a4f;\n}\n.filter-wrapper[data-v-260abcd7] {\r\n  min-width: 180px;\n}\n.filter-box[data-v-260abcd7] {\r\n  position: relative;\n}\n.filter-icon[data-v-260abcd7] {\r\n  position: absolute;\r\n  left: 12px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  color: #9ca3af;\r\n  z-index: 1;\n}\n.filter-select[data-v-260abcd7] {\r\n  width: 100%;\r\n  padding: 10px 12px 10px 36px;\r\n  border: 2px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  font-size: 13px;\r\n  background: #ffffff;\r\n  outline: none;\r\n  cursor: pointer;\r\n  -webkit-appearance: none;\r\n     -moz-appearance: none;\r\n          appearance: none;\r\n  background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E\");\r\n  background-repeat: no-repeat;\r\n  background-position: right 12px center;\r\n  transition: all 0.3s ease;\n}\n.filter-select[data-v-260abcd7]:focus {\r\n  border-color: #2d6a4f;\r\n  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\r\n\r\n/* ===== CREATE DOCUMENT BUTTON ===== */\n.btn-create-document[data-v-260abcd7] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  padding: 10px 20px;\r\n  background: linear-gradient(135deg, #2d6a4f, #1e4d2b);\r\n  color: #ffffff;\r\n  border: none;\r\n  border-radius: 8px;\r\n  font-size: 13px;\r\n  font-weight: 600;\r\n  cursor: pointer;\r\n  white-space: nowrap;\r\n  transition: all 0.3s ease;\r\n  box-shadow: 0 4px 12px rgba(45, 106, 79, 0.3);\r\n  font-family: \"Inter\", sans-serif;\r\n  letter-spacing: 0.3px;\n}\n.btn-create-document[data-v-260abcd7]:hover {\r\n  background: linear-gradient(135deg, #1e4d2b, #2d6a4f);\r\n  transform: translateY(-2px);\r\n  box-shadow: 0 6px 20px rgba(45, 106, 79, 0.4);\n}\n.btn-create-document[data-v-260abcd7]:active {\r\n  transform: translateY(0);\n}\r\n\r\n/* Active Filters */\n.active-filters[data-v-260abcd7] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  margin-top: 12px;\r\n  padding: 10px 14px;\r\n  background: #f0fdf4;\r\n  border: 1px solid #bbf7d0;\r\n  border-radius: 8px;\r\n  flex-wrap: wrap;\n}\n.active-filters-label[data-v-260abcd7] {\r\n  font-size: 12px;\r\n  font-weight: 600;\r\n  color: #166534;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\n}\n.filter-tag[data-v-260abcd7] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  padding: 4px 10px;\r\n  background: #ffffff;\r\n  border: 1px solid #86efac;\r\n  border-radius: 20px;\r\n  font-size: 12px;\r\n  color: #166534;\r\n  font-weight: 500;\n}\n.filter-tag-close[data-v-260abcd7] {\r\n  background: none;\r\n  border: none;\r\n  color: #6b7280;\r\n  cursor: pointer;\r\n  padding: 0;\r\n  display: flex;\r\n  align-items: center;\n}\n.filter-tag-close[data-v-260abcd7]:hover {\r\n  color: #ef4444;\n}\n.clear-all-filters[data-v-260abcd7] {\r\n  padding: 4px 12px;\r\n  background: none;\r\n  border: 1px solid #86efac;\r\n  border-radius: 6px;\r\n  font-size: 12px;\r\n  color: #166534;\r\n  cursor: pointer;\r\n  font-weight: 600;\r\n  transition: all 0.2s;\n}\n.clear-all-filters[data-v-260abcd7]:hover {\r\n  background: #dcfce7;\r\n  border-color: #166534;\n}\n.results-summary[data-v-260abcd7] {\r\n  margin-top: 10px;\r\n  font-size: 13px;\r\n  color: #6b7280;\n}\n.results-count[data-v-260abcd7] {\r\n  font-weight: 700;\r\n  color: #2d6a4f;\r\n  font-size: 16px;\n}\r\n\r\n/* ===== MODAL OVERLAY ===== */\n.modal-overlay[data-v-260abcd7] {\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background: rgba(0, 0, 0, 0.55);\r\n  backdrop-filter: blur(4px);\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  z-index: 1050;\r\n  animation: fadeIn-260abcd7 0.2s ease-out;\n}\n.enhanced-modal[data-v-260abcd7] {\r\n  width: 100%;\r\n  max-width: 620px;\r\n  margin: 0 15px;\r\n  animation: modalSlideUp-260abcd7 0.3s ease-out;\n}\n@keyframes modalSlideUp-260abcd7 {\nfrom {\r\n    transform: translateY(30px);\r\n    opacity: 0;\n}\nto {\r\n    transform: translateY(0);\r\n    opacity: 1;\n}\n}\n@keyframes fadeIn-260abcd7 {\nfrom {\r\n    opacity: 0;\n}\nto {\r\n    opacity: 1;\n}\n}\n.square-modal[data-v-260abcd7] {\r\n  border: none;\r\n  border-radius: 12px;\r\n  overflow: hidden;\r\n  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);\r\n  background: #fff;\r\n  position: relative;\n}\n.square-header[data-v-260abcd7] {\r\n  background: linear-gradient(135deg, #1e4d2b, #2d6a4f);\r\n  padding: 20px 24px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n  color: white;\r\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n}\n.square-icon[data-v-260abcd7] {\r\n  width: 42px;\r\n  height: 42px;\r\n  background: rgba(255, 255, 255, 0.2);\r\n  border-radius: 10px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1.4rem;\r\n  margin-right: 14px;\n}\n.modal-title[data-v-260abcd7] {\r\n  font-weight: 700;\r\n  font-size: 1.25rem;\n}\n.modal-subtitle[data-v-260abcd7] {\r\n  font-size: 0.85rem;\r\n  opacity: 0.85;\n}\n.square-close[data-v-260abcd7] {\r\n  background: rgba(255, 255, 255, 0.15);\r\n  border: none;\r\n  color: white;\r\n  width: 36px;\r\n  height: 36px;\r\n  border-radius: 8px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  cursor: pointer;\r\n  transition: background 0.2s;\n}\n.square-close[data-v-260abcd7]:hover {\r\n  background: rgba(255, 255, 255, 0.3);\n}\n.modal-body-enhanced[data-v-260abcd7] {\r\n  padding: 24px;\r\n  background: #f9fafb;\n}\n.error-msg[data-v-260abcd7] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  background: #fef0ef;\r\n  border: 1px solid #f5c6c3;\r\n  border-radius: 7px;\r\n  padding: 10px 14px;\r\n  font-size: 12px;\r\n  color: #c0392b;\r\n  margin-bottom: 20px;\r\n  font-weight: 500;\n}\n.form-label-enhanced[data-v-260abcd7] {\r\n  font-weight: 600;\r\n  font-size: 0.9rem;\r\n  color: #1e293b;\r\n  margin-bottom: 6px;\r\n  display: block;\n}\n.required-star[data-v-260abcd7] {\r\n  color: #dc2626;\r\n  margin-left: 3px;\n}\n.input-wrap[data-v-260abcd7] {\r\n  position: relative;\r\n  display: flex;\r\n  align-items: center;\n}\n.input-icon[data-v-260abcd7] {\r\n  position: absolute;\r\n  left: 14px;\r\n  color: #5c7a6b;\r\n  pointer-events: none;\r\n  display: flex;\r\n  z-index: 2;\n}\n.form-input[data-v-260abcd7] {\r\n  width: 100%;\r\n  height: 46px;\r\n  padding: 0 14px 0 42px;\r\n  border: 1.5px solid #b7d5c3;\r\n  border-radius: 8px;\r\n  font-family: \"Inter\", sans-serif;\r\n  font-size: 14px;\r\n  color: #1c2b24;\r\n  background: #f4f9f6;\r\n  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;\r\n  outline: none;\n}\n.form-input[data-v-260abcd7]::-moz-placeholder {\r\n  color: #b0c4b8;\n}\n.form-input[data-v-260abcd7]::placeholder {\r\n  color: #b0c4b8;\n}\n.form-input[data-v-260abcd7]:focus {\r\n  border-color: #2d6a4f;\r\n  background: #ffffff;\r\n  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\n.form-input[data-v-260abcd7]:disabled {\r\n  opacity: 0.7;\r\n  cursor: not-allowed;\n}\n.form-textarea[data-v-260abcd7] {\r\n  height: auto;\r\n  padding-top: 12px;\r\n  padding-left: 42px;\r\n  resize: vertical;\r\n  min-height: 46px;\n}\nselect.form-input[data-v-260abcd7] {\r\n  -webkit-appearance: none;\r\n     -moz-appearance: none;\r\n          appearance: none;\r\n  background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235C7A6B' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E\");\r\n  background-repeat: no-repeat;\r\n  background-position: right 14px center;\r\n  padding-right: 36px;\n}\n.is-invalid[data-v-260abcd7] {\r\n  border-color: #dc2626 !important;\r\n  background: #fff5f5 !important;\n}\n.is-invalid[data-v-260abcd7]:focus {\r\n  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15) !important;\n}\n.invalid-feedback[data-v-260abcd7] {\r\n  color: #dc2626;\r\n  font-size: 0.8rem;\r\n  margin-top: 4px;\n}\n.modal-actions[data-v-260abcd7] {\r\n  margin-top: 24px;\r\n  padding-top: 18px;\r\n  border-top: 1px solid #e5e7eb;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\n}\n.square-btn[data-v-260abcd7] {\r\n  border-radius: 8px !important;\r\n  font-family: \"Inter\", sans-serif;\r\n  font-weight: 600;\r\n  transition: all 0.2s;\n}\n.btn-save[data-v-260abcd7] {\r\n  background: linear-gradient(135deg, #2d6a4f 0%, #1a4731 100%);\r\n  color: white;\r\n  border: none;\r\n  padding: 10px 22px;\r\n  font-weight: 600;\r\n  display: inline-flex;\r\n  align-items: center;\r\n  box-shadow: 0 4px 18px rgba(26, 71, 49, 0.3);\n}\n.btn-save[data-v-260abcd7]:hover {\r\n  box-shadow: 0 6px 24px rgba(26, 71, 49, 0.38);\r\n  transform: translateY(-1px);\n}\n.btn-save[data-v-260abcd7]:disabled {\r\n  opacity: 0.7;\r\n  cursor: not-allowed;\r\n  transform: none;\n}\n.btn-outline-secondary[data-v-260abcd7] {\r\n  border-color: #d1d5db;\r\n  color: #374151;\r\n  padding: 10px 18px;\n}\n.btn-outline-secondary[data-v-260abcd7]:hover {\r\n  background: #f9fafb;\n}\n.btn-light[data-v-260abcd7] {\r\n  background: #f9fafb;\r\n  border-color: #e5e7eb;\r\n  color: #374151;\r\n  padding: 10px 18px;\n}\n.btn-light[data-v-260abcd7]:hover {\r\n  background: #f3f4f6;\n}\r\n\r\n/* Document Details */\n.document-details[data-v-260abcd7] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 16px;\n}\n.detail-row[data-v-260abcd7] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr;\r\n  gap: 16px;\n}\n.detail-item[data-v-260abcd7] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 4px;\n}\n.detail-item.full-width[data-v-260abcd7] {\r\n  grid-column: 1 / -1;\n}\n.detail-item label[data-v-260abcd7] {\r\n  font-size: 12px;\r\n  font-weight: 600;\r\n  color: #6b7280;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\n}\n.detail-item span[data-v-260abcd7] {\r\n  font-size: 14px;\r\n  color: #1e293b;\r\n  font-weight: 500;\n}\r\n\r\n/* Status Badges */\n.status-badge[data-v-260abcd7] {\r\n  display: inline-block;\r\n  padding: 4px 12px;\r\n  border-radius: 20px;\r\n  font-size: 12px;\r\n  font-weight: 600;\n}\n.status-warning[data-v-260abcd7] {\r\n  background: #fef3c7;\r\n  color: #92400e;\r\n  border: 1px solid #fbbf24;\n}\n.status-info[data-v-260abcd7] {\r\n  background: #dbeafe;\r\n  color: #1e40af;\r\n  border: 1px solid #60a5fa;\n}\n.status-success[data-v-260abcd7] {\r\n  background: #d1fae5;\r\n  color: #065f46;\r\n  border: 1px solid #34d399;\n}\n.status-default[data-v-260abcd7] {\r\n  background: #f3f4f6;\r\n  color: #374151;\r\n  border: 1px solid #d1d5db;\n}\r\n\r\n/* ===== NOTIFICATION TOAST ===== */\n.notification-toast[data-v-260abcd7] {\r\n  position: fixed;\r\n  top: 20px;\r\n  right: 20px;\r\n  z-index: 9999;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n  gap: 12px;\r\n  padding: 16px 20px;\r\n  border-radius: 12px;\r\n  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);\r\n  animation: slideInRight-260abcd7 0.3s ease-out;\r\n  min-width: 300px;\r\n  max-width: 500px;\n}\n@keyframes slideInRight-260abcd7 {\nfrom {\r\n    transform: translateX(100%);\r\n    opacity: 0;\n}\nto {\r\n    transform: translateX(0);\r\n    opacity: 1;\n}\n}\n.notification-toast.success[data-v-260abcd7] {\r\n  background: linear-gradient(135deg, #059669, #047857);\r\n  color: white;\n}\n.notification-toast.error[data-v-260abcd7] {\r\n  background: linear-gradient(135deg, #dc2626, #b91c1c);\r\n  color: white;\n}\n.notification-content[data-v-260abcd7] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 10px;\r\n  font-size: 14px;\r\n  font-weight: 500;\n}\n.notification-content i[data-v-260abcd7] {\r\n  font-size: 1.2rem;\n}\n.notification-close[data-v-260abcd7] {\r\n  background: rgba(255, 255, 255, 0.2);\r\n  border: none;\r\n  color: white;\r\n  cursor: pointer;\r\n  padding: 6px;\r\n  border-radius: 6px;\n}\n.notification-close[data-v-260abcd7]:hover {\r\n  background: rgba(255, 255, 255, 0.3);\n}\r\n\r\n/* ===== TABLE ===== */\n.table-responsive[data-v-260abcd7] {\r\n  overflow-x: auto;\r\n  margin-top: 16px;\n}\n.office-table[data-v-260abcd7] {\r\n  width: 100%;\r\n  border-collapse: collapse;\r\n  font-size: 13px;\r\n  background: white;\n}\n.office-table th[data-v-260abcd7],\r\n.office-table td[data-v-260abcd7] {\r\n  border: 1px solid #f3f4f6;\r\n  padding: 12px 14px;\r\n  text-align: left;\r\n  vertical-align: middle;\n}\n.office-table thead th[data-v-260abcd7] {\r\n  background: #f8fafc;\r\n  font-weight: 700;\r\n  color: #374151;\r\n  text-transform: uppercase;\r\n  font-size: 11px;\r\n  letter-spacing: 0.5px;\r\n  border-bottom: 2px solid #e5e7eb;\n}\n.office-table tbody tr[data-v-260abcd7] {\r\n  transition: all 0.2s;\n}\n.office-table tbody tr[data-v-260abcd7]:hover {\r\n  background: #f0fdf4;\r\n  border-color: #86efac;\n}\n.office-table tbody tr[data-v-260abcd7]:nth-child(even) {\r\n  background: #fafafa;\n}\n.office-table tbody tr[data-v-260abcd7]:nth-child(even):hover {\r\n  background: #f0fdf4;\n}\n.row-number[data-v-260abcd7] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 28px;\r\n  height: 28px;\r\n  border-radius: 6px;\r\n  background: #f3f4f6;\r\n  color: #6b7280;\r\n  font-size: 12px;\r\n  font-weight: 600;\n}\n.tracking-number[data-v-260abcd7] {\r\n  font-weight: 700;\r\n  color: #2d6a4f;\r\n  font-family: \"Courier New\", monospace;\r\n  font-size: 13px;\r\n  padding: 2px 8px;\r\n  background: #f0fdf4;\r\n  border-radius: 4px;\n}\n.doc-type-badge[data-v-260abcd7] {\r\n  display: inline-block;\r\n  padding: 3px 10px;\r\n  background: #e0e7ff;\r\n  color: #3730a3;\r\n  border-radius: 4px;\r\n  font-size: 11px;\r\n  font-weight: 600;\r\n  border: 1px solid #c7d2fe;\n}\n.subject-text[data-v-260abcd7] {\r\n  color: #1e293b;\r\n  font-weight: 500;\r\n  line-height: 1.4;\r\n  font-size: 13px;\n}\n.sender-text[data-v-260abcd7] {\r\n  color: #475569;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  font-size: 13px;\n}\n.sender-icon[data-v-260abcd7] {\r\n  color: #94a3b8;\r\n  font-size: 14px;\n}\n.date-received[data-v-260abcd7] {\r\n  color: #64748b;\r\n  font-size: 12px;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\n}\n.date-icon[data-v-260abcd7] {\r\n  color: #94a3b8;\r\n  font-size: 13px;\n}\r\n\r\n/* ===== ACTION BUTTONS ===== */\n.action-buttons[data-v-260abcd7] {\r\n  display: flex;\r\n  gap: 6px;\r\n  align-items: center;\n}\n.btn-action[data-v-260abcd7] {\r\n  background: none;\r\n  border: 1px solid transparent;\r\n  border-radius: 6px;\r\n  padding: 6px 10px;\r\n  cursor: pointer;\r\n  font-size: 0.95rem;\r\n  transition: all 0.2s;\n}\n.btn-view[data-v-260abcd7] {\r\n  color: #6366f1;\r\n  border-color: #c7d2fe;\r\n  background: #eef2ff;\n}\n.btn-view[data-v-260abcd7]:hover {\r\n  background: #ddd6fe;\r\n  transform: scale(1.05);\n}\n.btn-process[data-v-260abcd7] {\r\n  color: #f59e0b;\r\n  border-color: #fde68a;\r\n  background: #fef3c7;\n}\n.btn-process[data-v-260abcd7]:hover {\r\n  background: #fde68a;\r\n  transform: scale(1.05);\n}\n.btn-release[data-v-260abcd7] {\r\n  color: #059669;\r\n  border-color: #a7f3d0;\r\n  background: #d1fae5;\n}\n.btn-release[data-v-260abcd7]:hover {\r\n  background: #a7f3d0;\r\n  transform: scale(1.05);\n}\n.btn-download[data-v-260abcd7] {\r\n  color: #0891b2;\r\n  border-color: #67e8f9;\r\n  background: #cffafe;\n}\n.btn-download[data-v-260abcd7]:hover {\r\n  background: #67e8f9;\r\n  transform: scale(1.05);\n}\r\n\r\n/* ===== PAGINATION ===== */\n.pagination-wrapper[data-v-260abcd7] {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  margin-top: 20px;\r\n  gap: 10px;\n}\n.pagination-info[data-v-260abcd7] {\r\n  font-size: 13px;\r\n  color: #6c757d;\r\n  white-space: nowrap;\r\n  font-weight: 500;\n}\n.pagination-buttons[data-v-260abcd7] {\r\n  display: flex;\r\n  gap: 5px;\r\n  flex-wrap: wrap;\r\n  justify-content: flex-end;\n}\n.page-btn[data-v-260abcd7] {\r\n  border: 2px solid #e5e7eb;\r\n  background: white;\r\n  color: #495057;\r\n  padding: 6px 12px;\r\n  cursor: pointer;\r\n  border-radius: 6px;\r\n  font-size: 13px;\r\n  line-height: 1;\r\n  display: inline-flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  transition: all 0.2s;\r\n  font-weight: 600;\n}\n.page-btn[data-v-260abcd7]:hover:not(:disabled) {\r\n  background: #f0fdf4;\r\n  border-color: #2d6a4f;\r\n  color: #2d6a4f;\n}\n.page-btn.active[data-v-260abcd7] {\r\n  background: #2d6a4f;\r\n  color: white;\r\n  border-color: #2d6a4f;\r\n  box-shadow: 0 2px 8px rgba(45, 106, 79, 0.3);\n}\n.page-btn[data-v-260abcd7]:disabled {\r\n  opacity: 0.5;\r\n  cursor: not-allowed;\n}\n.empty-state[data-v-260abcd7] {\r\n  padding: 20px;\r\n  text-align: center;\n}\n.loader-spinner[data-v-260abcd7] {\r\n  width: 40px;\r\n  height: 40px;\r\n  border: 3px solid #e5e7eb;\r\n  border-top-color: #2d6a4f;\r\n  border-radius: 50%;\r\n  animation: spin-260abcd7 0.8s linear infinite;\r\n  margin: 0 auto 10px;\n}\n@keyframes spin-260abcd7 {\nto {\r\n    transform: rotate(360deg);\n}\n}\r\n\r\n/* ===== RESPONSIVE ===== */\n@media (max-width: 1024px) {\n.tabs-vertical-container[data-v-260abcd7] {\r\n    flex-direction: column;\n}\n.tabs-vertical-nav[data-v-260abcd7] {\r\n    flex-direction: row;\r\n    width: 100%;\r\n    min-width: 100%;\r\n    overflow-x: auto;\r\n    padding: 12px;\r\n    gap: 8px;\r\n    border-right: none;\r\n    border-bottom: 1px solid #e5e7eb;\n}\n.tab-vertical-button[data-v-260abcd7] {\r\n    flex-direction: column;\r\n    min-width: 120px;\r\n    padding: 12px;\r\n    gap: 8px;\n}\n.tab-vertical-button[data-v-260abcd7]::before {\r\n    left: 50%;\r\n    top: auto;\r\n    bottom: 0;\r\n    transform: translateX(-50%);\r\n    width: 0;\r\n    height: 3px;\r\n    border-radius: 4px 4px 0 0;\r\n    transition: width 0.3s ease;\n}\n.tab-vertical-button[data-v-260abcd7]:hover::before {\r\n    width: 40%;\r\n    height: 3px;\n}\n.tab-vertical-button.active[data-v-260abcd7]::before {\r\n    width: 60%;\r\n    height: 3px;\n}\n.tab-vertical-button[data-v-260abcd7]:hover {\r\n    transform: translateY(-2px);\n}\n.tab-vertical-button.active[data-v-260abcd7] {\r\n    transform: translateY(-2px);\n}\n.tab-vertical-indicator[data-v-260abcd7] {\r\n    display: none;\n}\n.tabs-vertical-body[data-v-260abcd7] {\r\n    padding: 16px;\n}\n.search-filter-row[data-v-260abcd7] {\r\n    flex-direction: column;\n}\n.filter-wrapper[data-v-260abcd7] {\r\n    min-width: 100%;\n}\n.btn-create-document[data-v-260abcd7] {\r\n    width: 100%;\r\n    justify-content: center;\n}\n}\n@media (max-width: 576px) {\n.pagination-wrapper[data-v-260abcd7] {\r\n    flex-direction: column;\r\n    align-items: center;\n}\n.pagination-buttons[data-v-260abcd7] {\r\n    justify-content: center;\n}\n.detail-row[data-v-260abcd7] {\r\n    grid-template-columns: 1fr;\n}\n.active-filters[data-v-260abcd7] {\r\n    flex-direction: column;\r\n    align-items: flex-start;\n}\n}\n@media (max-width: 500px) {\n.notification-toast[data-v-260abcd7] {\r\n    left: 10px;\r\n    right: 10px;\r\n    min-width: auto;\r\n    max-width: none;\r\n    top: 10px;\n}\n.enhanced-modal[data-v-260abcd7] {\r\n    max-width: 95%;\r\n    margin: 0 10px;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* ===== CSS Variables ===== */\n[data-v-260abcd7]:root {\r\n  --forest: #1a4731;\r\n  --leaf: #2d6a4f;\r\n  --mint: #52b788;\r\n  --gold: #c9a84c;\r\n  --gold-light: #f0d080;\r\n  --paper: #f4f9f6;\r\n  --charcoal: #1c2b24;\r\n  --muted: #5c7a6b;\r\n  --border: #b7d5c3;\r\n  --white: #ffffff;\r\n  --error: #c0392b;\n}\r\n\r\n/* ===== VERTICAL TABS LAYOUT ===== */\n.tabs-vertical-container[data-v-260abcd7] {\r\n  display: flex;\r\n  gap: 0;\r\n  min-height: 400px;\r\n  background: #ffffff;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 12px;\r\n  overflow: hidden;\r\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);\n}\n.tabs-vertical-nav[data-v-260abcd7] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 250px;\r\n  min-width: 250px;\r\n  background: #f8fafc;\r\n  border-right: 1px solid #e5e7eb;\r\n  padding: 16px;\r\n  gap: 8px;\n}\n.tab-vertical-button[data-v-260abcd7] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 12px;\r\n  padding: 16px;\r\n  background: #ffffff;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 10px;\r\n  cursor: pointer;\r\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\r\n  position: relative;\r\n  overflow: hidden;\n}\n.tab-vertical-button[data-v-260abcd7]::before {\r\n  content: \"\";\r\n  position: absolute;\r\n  left: 0;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  width: 4px;\r\n  height: 0;\r\n  background: linear-gradient(180deg, #2d6a4f, #1e4d2b);\r\n  border-radius: 0 4px 4px 0;\r\n  transition: height 0.3s ease;\n}\n.tab-vertical-button[data-v-260abcd7]:hover {\r\n  background: #f0fdf4;\r\n  border-color: #86efac;\r\n  transform: translateX(4px);\r\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);\n}\n.tab-vertical-button[data-v-260abcd7]:hover::before {\r\n  height: 40%;\n}\n.tab-vertical-button.active[data-v-260abcd7] {\r\n  background: linear-gradient(135deg, #2d6a4f, #1e4d2b);\r\n  border-color: #2d6a4f;\r\n  color: #ffffff;\r\n  transform: translateX(4px);\r\n  box-shadow: 0 8px 25px rgba(45, 106, 79, 0.4);\n}\n.tab-vertical-button.active[data-v-260abcd7]::before {\r\n  height: 60%;\r\n  background: linear-gradient(180deg, #52b788, #ffffff);\n}\n.tab-vertical-icon[data-v-260abcd7] {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 40px;\r\n  height: 40px;\r\n  border-radius: 10px;\r\n  background: #f0fdf4;\r\n  transition: all 0.3s ease;\r\n  flex-shrink: 0;\n}\n.tab-vertical-button.active .tab-vertical-icon[data-v-260abcd7] {\r\n  background: rgba(255, 255, 255, 0.25);\n}\n.tab-vertical-content[data-v-260abcd7] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 2px;\r\n  flex: 1;\n}\n.tab-vertical-label[data-v-260abcd7] {\r\n  font-size: 12px;\r\n  font-weight: 700;\r\n  letter-spacing: 1px;\r\n  color: #374151;\r\n  transition: color 0.3s ease;\n}\n.tab-vertical-button.active .tab-vertical-label[data-v-260abcd7] {\r\n  color: #ffffff;\n}\n.tab-vertical-count[data-v-260abcd7] {\r\n  font-size: 20px;\r\n  font-weight: 800;\r\n  color: #2d6a4f;\r\n  transition: color 0.3s ease;\n}\n.tab-vertical-button.active .tab-vertical-count[data-v-260abcd7] {\r\n  color: #ffffff;\n}\n.tab-vertical-indicator[data-v-260abcd7] {\r\n  position: absolute;\r\n  right: 12px;\r\n  width: 8px;\r\n  height: 8px;\r\n  border-radius: 50%;\r\n  background: #e5e7eb;\r\n  transition: all 0.3s ease;\n}\n.tab-vertical-button:hover .tab-vertical-indicator[data-v-260abcd7] {\r\n  background: #86efac;\n}\n.tab-vertical-button.active .tab-vertical-indicator[data-v-260abcd7] {\r\n  background: #52b788;\r\n  box-shadow: 0 0 10px rgba(82, 183, 136, 0.6);\n}\n.tabs-vertical-body[data-v-260abcd7] {\r\n  flex: 1;\r\n  padding: 20px;\r\n  background: #ffffff;\r\n  min-width: 0;\n}\r\n\r\n/* ===== FILTER CONTROLS ===== */\n.filter-controls[data-v-260abcd7] {\r\n  margin-bottom: 20px;\n}\n.search-filter-row[data-v-260abcd7] {\r\n  display: flex;\r\n  gap: 12px;\r\n  align-items: center;\r\n  flex-wrap: wrap;\n}\n.search-box-wrapper[data-v-260abcd7] {\r\n  flex: 1;\r\n  min-width: 200px;\n}\n.search-box[data-v-260abcd7] {\r\n  position: relative;\r\n  width: 100%;\n}\n.search-icon[data-v-260abcd7] {\r\n  position: absolute;\r\n  left: 12px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  color: #9ca3af;\r\n  z-index: 1;\n}\n.search-input[data-v-260abcd7] {\r\n  width: 100%;\r\n  padding: 10px 35px 10px 36px;\r\n  border: 2px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  font-size: 14px;\r\n  outline: none;\r\n  background: #ffffff;\r\n  transition: all 0.3s ease;\n}\n.search-input[data-v-260abcd7]:focus {\r\n  border-color: #2d6a4f;\r\n  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\n.search-clear-btn[data-v-260abcd7] {\r\n  position: absolute;\r\n  right: 8px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  background: none;\r\n  border: none;\r\n  color: #9ca3af;\r\n  cursor: pointer;\r\n  padding: 4px;\n}\n.search-clear-btn[data-v-260abcd7]:hover {\r\n  color: #ef4444;\n}\n.per-page-wrapper[data-v-260abcd7] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  white-space: nowrap;\n}\n.per-page-label[data-v-260abcd7] {\r\n  font-size: 13px;\r\n  color: #6b7280;\r\n  font-weight: 500;\n}\n.per-page-select[data-v-260abcd7] {\r\n  padding: 8px 12px;\r\n  border: 2px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  font-size: 13px;\r\n  background: #ffffff;\r\n  outline: none;\r\n  cursor: pointer;\r\n  transition: all 0.3s ease;\n}\n.per-page-select[data-v-260abcd7]:focus {\r\n  border-color: #2d6a4f;\n}\n.filter-wrapper[data-v-260abcd7] {\r\n  min-width: 180px;\n}\n.filter-box[data-v-260abcd7] {\r\n  position: relative;\n}\n.filter-icon[data-v-260abcd7] {\r\n  position: absolute;\r\n  left: 12px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  color: #9ca3af;\r\n  z-index: 1;\n}\n.filter-select[data-v-260abcd7] {\r\n  width: 100%;\r\n  padding: 10px 12px 10px 36px;\r\n  border: 2px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  font-size: 13px;\r\n  background: #ffffff;\r\n  outline: none;\r\n  cursor: pointer;\r\n  -webkit-appearance: none;\r\n     -moz-appearance: none;\r\n          appearance: none;\r\n  background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E\");\r\n  background-repeat: no-repeat;\r\n  background-position: right 12px center;\r\n  transition: all 0.3s ease;\n}\n.filter-select[data-v-260abcd7]:focus {\r\n  border-color: #2d6a4f;\r\n  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\r\n\r\n/* ===== CREATE DOCUMENT BUTTON ===== */\n.btn-create-document[data-v-260abcd7] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  padding: 10px 20px;\r\n  background: linear-gradient(135deg, #2d6a4f, #1e4d2b);\r\n  color: #ffffff;\r\n  border: none;\r\n  border-radius: 8px;\r\n  font-size: 13px;\r\n  font-weight: 600;\r\n  cursor: pointer;\r\n  white-space: nowrap;\r\n  transition: all 0.3s ease;\r\n  box-shadow: 0 4px 12px rgba(45, 106, 79, 0.3);\r\n  font-family: \"Inter\", sans-serif;\r\n  letter-spacing: 0.3px;\n}\n.btn-create-document[data-v-260abcd7]:hover {\r\n  background: linear-gradient(135deg, #1e4d2b, #2d6a4f);\r\n  transform: translateY(-2px);\r\n  box-shadow: 0 6px 20px rgba(45, 106, 79, 0.4);\n}\n.btn-create-document[data-v-260abcd7]:active {\r\n  transform: translateY(0);\n}\r\n\r\n/* ===== MY TRACKING CONTROLS ===== */\n.my-tracking-controls[data-v-260abcd7] {\r\n  display: flex;\r\n  gap: 16px;\r\n  align-items: center;\r\n  flex-wrap: wrap;\n}\r\n\r\n/* Reserve Tracking Forest Green Button */\n.btn-reserve-tracking-forest[data-v-260abcd7] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  padding: 12px 24px;\r\n  background: linear-gradient(135deg, #1a4731 0%, #2d6a4f 100%);\r\n  color: #ffffff;\r\n  border: none;\r\n  border-radius: 8px;\r\n  font-size: 14px;\r\n  font-weight: 700;\r\n  cursor: pointer;\r\n  white-space: nowrap;\r\n  transition: all 0.3s ease;\r\n  box-shadow: 0 4px 16px rgba(26, 71, 49, 0.4);\r\n  font-family: \"Inter\", sans-serif;\r\n  letter-spacing: 0.5px;\r\n  text-transform: uppercase;\n}\n.btn-reserve-tracking-forest[data-v-260abcd7]:hover:not(:disabled) {\r\n  background: linear-gradient(135deg, #0d281a 0%, #1e4d2b 100%);\r\n  transform: translateY(-2px);\r\n  box-shadow: 0 8px 24px rgba(26, 71, 49, 0.5);\n}\n.btn-reserve-tracking-forest[data-v-260abcd7]:active:not(:disabled) {\r\n  transform: translateY(0);\r\n  box-shadow: 0 2px 8px rgba(26, 71, 49, 0.3);\n}\n.btn-reserve-tracking-forest[data-v-260abcd7]:disabled {\r\n  opacity: 0.7;\r\n  cursor: not-allowed;\r\n  transform: none;\n}\r\n\r\n/* Active Filters */\n.active-filters[data-v-260abcd7] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  margin-top: 12px;\r\n  padding: 10px 14px;\r\n  background: #f0fdf4;\r\n  border: 1px solid #bbf7d0;\r\n  border-radius: 8px;\r\n  flex-wrap: wrap;\n}\n.active-filters-label[data-v-260abcd7] {\r\n  font-size: 12px;\r\n  font-weight: 600;\r\n  color: #166534;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\n}\n.filter-tag[data-v-260abcd7] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  padding: 4px 10px;\r\n  background: #ffffff;\r\n  border: 1px solid #86efac;\r\n  border-radius: 20px;\r\n  font-size: 12px;\r\n  color: #166534;\r\n  font-weight: 500;\n}\n.filter-tag-close[data-v-260abcd7] {\r\n  background: none;\r\n  border: none;\r\n  color: #6b7280;\r\n  cursor: pointer;\r\n  padding: 0;\r\n  display: flex;\r\n  align-items: center;\n}\n.filter-tag-close[data-v-260abcd7]:hover {\r\n  color: #ef4444;\n}\n.clear-all-filters[data-v-260abcd7] {\r\n  padding: 4px 12px;\r\n  background: none;\r\n  border: 1px solid #86efac;\r\n  border-radius: 6px;\r\n  font-size: 12px;\r\n  color: #166534;\r\n  cursor: pointer;\r\n  font-weight: 600;\r\n  transition: all 0.2s;\n}\n.clear-all-filters[data-v-260abcd7]:hover {\r\n  background: #dcfce7;\r\n  border-color: #166534;\n}\n.results-summary[data-v-260abcd7] {\r\n  margin-top: 10px;\r\n  font-size: 13px;\r\n  color: #6b7280;\n}\n.results-count[data-v-260abcd7] {\r\n  font-weight: 700;\r\n  color: #2d6a4f;\r\n  font-size: 16px;\n}\r\n\r\n/* ===== MODAL OVERLAY ===== */\n.modal-overlay[data-v-260abcd7] {\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background: rgba(0, 0, 0, 0.55);\r\n  backdrop-filter: blur(4px);\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  z-index: 1050;\r\n  animation: fadeIn-260abcd7 0.2s ease-out;\n}\n.enhanced-modal[data-v-260abcd7] {\r\n  width: 100%;\r\n  max-width: 620px;\r\n  margin: 0 15px;\r\n  animation: modalSlideUp-260abcd7 0.3s ease-out;\n}\n@keyframes modalSlideUp-260abcd7 {\nfrom {\r\n    transform: translateY(30px);\r\n    opacity: 0;\n}\nto {\r\n    transform: translateY(0);\r\n    opacity: 1;\n}\n}\n@keyframes fadeIn-260abcd7 {\nfrom {\r\n    opacity: 0;\n}\nto {\r\n    opacity: 1;\n}\n}\n.square-modal[data-v-260abcd7] {\r\n  border: none;\r\n  border-radius: 12px;\r\n  overflow: hidden;\r\n  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);\r\n  background: #fff;\r\n  position: relative;\n}\n.square-header[data-v-260abcd7] {\r\n  background: linear-gradient(135deg, #1e4d2b, #2d6a4f);\r\n  padding: 20px 24px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n  color: white;\r\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n}\n.square-icon[data-v-260abcd7] {\r\n  width: 42px;\r\n  height: 42px;\r\n  background: rgba(255, 255, 255, 0.2);\r\n  border-radius: 10px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1.4rem;\r\n  margin-right: 14px;\n}\n.modal-title[data-v-260abcd7] {\r\n  font-weight: 700;\r\n  font-size: 1.25rem;\n}\n.modal-subtitle[data-v-260abcd7] {\r\n  font-size: 0.85rem;\r\n  opacity: 0.85;\n}\n.square-close[data-v-260abcd7] {\r\n  background: rgba(255, 255, 255, 0.15);\r\n  border: none;\r\n  color: white;\r\n  width: 36px;\r\n  height: 36px;\r\n  border-radius: 8px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  cursor: pointer;\r\n  transition: background 0.2s;\n}\n.square-close[data-v-260abcd7]:hover {\r\n  background: rgba(255, 255, 255, 0.3);\n}\n.modal-body-enhanced[data-v-260abcd7] {\r\n  padding: 24px;\r\n  background: #f9fafb;\n}\n.error-msg[data-v-260abcd7] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  background: #fef0ef;\r\n  border: 1px solid #f5c6c3;\r\n  border-radius: 7px;\r\n  padding: 10px 14px;\r\n  font-size: 12px;\r\n  color: #c0392b;\r\n  margin-bottom: 20px;\r\n  font-weight: 500;\n}\n.form-label-enhanced[data-v-260abcd7] {\r\n  font-weight: 600;\r\n  font-size: 0.9rem;\r\n  color: #1e293b;\r\n  margin-bottom: 6px;\r\n  display: block;\n}\n.required-star[data-v-260abcd7] {\r\n  color: #dc2626;\r\n  margin-left: 3px;\n}\n.input-wrap[data-v-260abcd7] {\r\n  position: relative;\r\n  display: flex;\r\n  align-items: center;\n}\n.input-icon[data-v-260abcd7] {\r\n  position: absolute;\r\n  left: 14px;\r\n  color: #5c7a6b;\r\n  pointer-events: none;\r\n  display: flex;\r\n  z-index: 2;\n}\n.form-input[data-v-260abcd7] {\r\n  width: 100%;\r\n  height: 46px;\r\n  padding: 0 14px 0 42px;\r\n  border: 1.5px solid #b7d5c3;\r\n  border-radius: 8px;\r\n  font-family: \"Inter\", sans-serif;\r\n  font-size: 14px;\r\n  color: #1c2b24;\r\n  background: #f4f9f6;\r\n  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;\r\n  outline: none;\n}\n.form-input[data-v-260abcd7]::-moz-placeholder {\r\n  color: #b0c4b8;\n}\n.form-input[data-v-260abcd7]::placeholder {\r\n  color: #b0c4b8;\n}\n.form-input[data-v-260abcd7]:focus {\r\n  border-color: #2d6a4f;\r\n  background: #ffffff;\r\n  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\n.form-input[data-v-260abcd7]:disabled {\r\n  opacity: 0.7;\r\n  cursor: not-allowed;\n}\n.form-textarea[data-v-260abcd7] {\r\n  height: auto;\r\n  padding-top: 12px;\r\n  padding-left: 42px;\r\n  resize: vertical;\r\n  min-height: 46px;\n}\nselect.form-input[data-v-260abcd7] {\r\n  -webkit-appearance: none;\r\n     -moz-appearance: none;\r\n          appearance: none;\r\n  background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235C7A6B' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E\");\r\n  background-repeat: no-repeat;\r\n  background-position: right 14px center;\r\n  padding-right: 36px;\n}\n.is-invalid[data-v-260abcd7] {\r\n  border-color: #dc2626 !important;\r\n  background: #fff5f5 !important;\n}\n.is-invalid[data-v-260abcd7]:focus {\r\n  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15) !important;\n}\n.invalid-feedback[data-v-260abcd7] {\r\n  color: #dc2626;\r\n  font-size: 0.8rem;\r\n  margin-top: 4px;\n}\n.modal-actions[data-v-260abcd7] {\r\n  margin-top: 24px;\r\n  padding-top: 18px;\r\n  border-top: 1px solid #e5e7eb;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\n}\n.square-btn[data-v-260abcd7] {\r\n  border-radius: 8px !important;\r\n  font-family: \"Inter\", sans-serif;\r\n  font-weight: 600;\r\n  transition: all 0.2s;\n}\n.btn-save[data-v-260abcd7] {\r\n  background: linear-gradient(135deg, #2d6a4f 0%, #1a4731 100%);\r\n  color: white;\r\n  border: none;\r\n  padding: 10px 22px;\r\n  font-weight: 600;\r\n  display: inline-flex;\r\n  align-items: center;\r\n  box-shadow: 0 4px 18px rgba(26, 71, 49, 0.3);\n}\n.btn-save[data-v-260abcd7]:hover {\r\n  box-shadow: 0 6px 24px rgba(26, 71, 49, 0.38);\r\n  transform: translateY(-1px);\n}\n.btn-save[data-v-260abcd7]:disabled {\r\n  opacity: 0.7;\r\n  cursor: not-allowed;\r\n  transform: none;\n}\n.btn-outline-secondary[data-v-260abcd7] {\r\n  border-color: #d1d5db;\r\n  color: #374151;\r\n  padding: 10px 18px;\n}\n.btn-outline-secondary[data-v-260abcd7]:hover {\r\n  background: #f9fafb;\n}\n.btn-light[data-v-260abcd7] {\r\n  background: #f9fafb;\r\n  border-color: #e5e7eb;\r\n  color: #374151;\r\n  padding: 10px 18px;\n}\n.btn-light[data-v-260abcd7]:hover {\r\n  background: #f3f4f6;\n}\r\n\r\n/* Document Details */\n.document-details[data-v-260abcd7] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 16px;\n}\n.detail-row[data-v-260abcd7] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr;\r\n  gap: 16px;\n}\n.detail-item[data-v-260abcd7] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 4px;\n}\n.detail-item.full-width[data-v-260abcd7] {\r\n  grid-column: 1 / -1;\n}\n.detail-item label[data-v-260abcd7] {\r\n  font-size: 12px;\r\n  font-weight: 600;\r\n  color: #6b7280;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\n}\n.detail-item span[data-v-260abcd7] {\r\n  font-size: 14px;\r\n  color: #1e293b;\r\n  font-weight: 500;\n}\r\n\r\n/* Status Badges */\n.status-badge[data-v-260abcd7] {\r\n  display: inline-block;\r\n  padding: 4px 12px;\r\n  border-radius: 20px;\r\n  font-size: 12px;\r\n  font-weight: 600;\n}\n.status-warning[data-v-260abcd7] {\r\n  background: #fef3c7;\r\n  color: #92400e;\r\n  border: 1px solid #fbbf24;\n}\n.status-info[data-v-260abcd7] {\r\n  background: #dbeafe;\r\n  color: #1e40af;\r\n  border: 1px solid #60a5fa;\n}\n.status-success[data-v-260abcd7] {\r\n  background: #d1fae5;\r\n  color: #065f46;\r\n  border: 1px solid #34d399;\n}\n.status-default[data-v-260abcd7] {\r\n  background: #f3f4f6;\r\n  color: #374151;\r\n  border: 1px solid #d1d5db;\n}\r\n\r\n/* ===== NOTIFICATION TOAST ===== */\n.notification-toast[data-v-260abcd7] {\r\n  position: fixed;\r\n  top: 20px;\r\n  right: 20px;\r\n  z-index: 9999;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n  gap: 12px;\r\n  padding: 16px 20px;\r\n  border-radius: 12px;\r\n  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);\r\n  animation: slideInRight-260abcd7 0.3s ease-out;\r\n  min-width: 300px;\r\n  max-width: 500px;\n}\n@keyframes slideInRight-260abcd7 {\nfrom {\r\n    transform: translateX(100%);\r\n    opacity: 0;\n}\nto {\r\n    transform: translateX(0);\r\n    opacity: 1;\n}\n}\n.notification-toast.success[data-v-260abcd7] {\r\n  background: linear-gradient(135deg, #059669, #047857);\r\n  color: white;\n}\n.notification-toast.error[data-v-260abcd7] {\r\n  background: linear-gradient(135deg, #dc2626, #b91c1c);\r\n  color: white;\n}\n.notification-content[data-v-260abcd7] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 10px;\r\n  font-size: 14px;\r\n  font-weight: 500;\n}\n.notification-content i[data-v-260abcd7] {\r\n  font-size: 1.2rem;\n}\n.notification-close[data-v-260abcd7] {\r\n  background: rgba(255, 255, 255, 0.2);\r\n  border: none;\r\n  color: white;\r\n  cursor: pointer;\r\n  padding: 6px;\r\n  border-radius: 6px;\n}\n.notification-close[data-v-260abcd7]:hover {\r\n  background: rgba(255, 255, 255, 0.3);\n}\r\n\r\n/* ===== TABLE ===== */\n.table-responsive[data-v-260abcd7] {\r\n  overflow-x: auto;\r\n  margin-top: 16px;\n}\n.office-table[data-v-260abcd7] {\r\n  width: 100%;\r\n  border-collapse: collapse;\r\n  font-size: 13px;\r\n  background: white;\n}\n.office-table th[data-v-260abcd7],\r\n.office-table td[data-v-260abcd7] {\r\n  border: 1px solid #f3f4f6;\r\n  padding: 12px 14px;\r\n  text-align: left;\r\n  vertical-align: middle;\n}\n.office-table thead th[data-v-260abcd7] {\r\n  background: #f8fafc;\r\n  font-weight: 700;\r\n  color: #374151;\r\n  text-transform: uppercase;\r\n  font-size: 11px;\r\n  letter-spacing: 0.5px;\r\n  border-bottom: 2px solid #e5e7eb;\n}\n.office-table tbody tr[data-v-260abcd7] {\r\n  transition: all 0.2s;\n}\n.office-table tbody tr[data-v-260abcd7]:hover {\r\n  background: #f0fdf4;\r\n  border-color: #86efac;\n}\n.office-table tbody tr[data-v-260abcd7]:nth-child(even) {\r\n  background: #fafafa;\n}\n.office-table tbody tr[data-v-260abcd7]:nth-child(even):hover {\r\n  background: #f0fdf4;\n}\n.row-number[data-v-260abcd7] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 28px;\r\n  height: 28px;\r\n  border-radius: 6px;\r\n  background: #f3f4f6;\r\n  color: #6b7280;\r\n  font-size: 12px;\r\n  font-weight: 600;\n}\n.tracking-number[data-v-260abcd7] {\r\n  font-weight: 700;\r\n  color: #2d6a4f;\r\n  font-family: \"Courier New\", monospace;\r\n  font-size: 13px;\r\n  padding: 2px 8px;\r\n  background: #f0fdf4;\r\n  border-radius: 4px;\n}\n.doc-type-badge[data-v-260abcd7] {\r\n  display: inline-block;\r\n  padding: 3px 10px;\r\n  background: #e0e7ff;\r\n  color: #3730a3;\r\n  border-radius: 4px;\r\n  font-size: 11px;\r\n  font-weight: 600;\r\n  border: 1px solid #c7d2fe;\n}\n.subject-text[data-v-260abcd7] {\r\n  color: #1e293b;\r\n  font-weight: 500;\r\n  line-height: 1.4;\r\n  font-size: 13px;\n}\n.sender-text[data-v-260abcd7] {\r\n  color: #475569;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  font-size: 13px;\n}\n.sender-icon[data-v-260abcd7] {\r\n  color: #94a3b8;\r\n  font-size: 14px;\n}\n.date-received[data-v-260abcd7] {\r\n  color: #64748b;\r\n  font-size: 12px;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\n}\n.date-icon[data-v-260abcd7] {\r\n  color: #94a3b8;\r\n  font-size: 13px;\n}\r\n\r\n/* ===== ACTION BUTTONS ===== */\n.action-buttons[data-v-260abcd7] {\r\n  display: flex;\r\n  gap: 6px;\r\n  align-items: center;\n}\n.btn-action[data-v-260abcd7] {\r\n  background: none;\r\n  border: 1px solid transparent;\r\n  border-radius: 6px;\r\n  padding: 6px 10px;\r\n  cursor: pointer;\r\n  font-size: 0.95rem;\r\n  transition: all 0.2s;\n}\n.btn-view[data-v-260abcd7] {\r\n  color: #6366f1;\r\n  border-color: #c7d2fe;\r\n  background: #eef2ff;\n}\n.btn-view[data-v-260abcd7]:hover {\r\n  background: #ddd6fe;\r\n  transform: scale(1.05);\n}\n.btn-process[data-v-260abcd7] {\r\n  color: #f59e0b;\r\n  border-color: #fde68a;\r\n  background: #fef3c7;\n}\n.btn-process[data-v-260abcd7]:hover {\r\n  background: #fde68a;\r\n  transform: scale(1.05);\n}\n.btn-release[data-v-260abcd7] {\r\n  color: #059669;\r\n  border-color: #a7f3d0;\r\n  background: #d1fae5;\n}\n.btn-release[data-v-260abcd7]:hover {\r\n  background: #a7f3d0;\r\n  transform: scale(1.05);\n}\n.btn-download[data-v-260abcd7] {\r\n  color: #0891b2;\r\n  border-color: #67e8f9;\r\n  background: #cffafe;\n}\n.btn-download[data-v-260abcd7]:hover {\r\n  background: #67e8f9;\r\n  transform: scale(1.05);\n}\r\n\r\n/* ===== PAGINATION ===== */\n.pagination-wrapper[data-v-260abcd7] {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  margin-top: 20px;\r\n  gap: 10px;\n}\n.pagination-info[data-v-260abcd7] {\r\n  font-size: 13px;\r\n  color: #6c757d;\r\n  white-space: nowrap;\r\n  font-weight: 500;\n}\n.pagination-buttons[data-v-260abcd7] {\r\n  display: flex;\r\n  gap: 5px;\r\n  flex-wrap: wrap;\r\n  justify-content: flex-end;\n}\n.page-btn[data-v-260abcd7] {\r\n  border: 2px solid #e5e7eb;\r\n  background: white;\r\n  color: #495057;\r\n  padding: 6px 12px;\r\n  cursor: pointer;\r\n  border-radius: 6px;\r\n  font-size: 13px;\r\n  line-height: 1;\r\n  display: inline-flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  transition: all 0.2s;\r\n  font-weight: 600;\n}\n.page-btn[data-v-260abcd7]:hover:not(:disabled) {\r\n  background: #f0fdf4;\r\n  border-color: #2d6a4f;\r\n  color: #2d6a4f;\n}\n.page-btn.active[data-v-260abcd7] {\r\n  background: #2d6a4f;\r\n  color: white;\r\n  border-color: #2d6a4f;\r\n  box-shadow: 0 2px 8px rgba(45, 106, 79, 0.3);\n}\n.page-btn[data-v-260abcd7]:disabled {\r\n  opacity: 0.5;\r\n  cursor: not-allowed;\n}\n.empty-state[data-v-260abcd7] {\r\n  padding: 20px;\r\n  text-align: center;\n}\n.loader-spinner[data-v-260abcd7] {\r\n  width: 40px;\r\n  height: 40px;\r\n  border: 3px solid #e5e7eb;\r\n  border-top-color: #2d6a4f;\r\n  border-radius: 50%;\r\n  animation: spin-260abcd7 0.8s linear infinite;\r\n  margin: 0 auto 10px;\n}\n@keyframes spin-260abcd7 {\nto {\r\n    transform: rotate(360deg);\n}\n}\r\n\r\n/* Status Badges */\n.status-in-progress[data-v-260abcd7] {\r\n  background: #fef3c7;\r\n  color: #92400e;\r\n  border: 1px solid #fbbf24;\n}\n.status-for-release[data-v-260abcd7] {\r\n  background: #dbeafe;\r\n  color: #1e40af;\r\n  border: 1px solid #60a5fa;\n}\n.status-released[data-v-260abcd7] {\r\n  background: #d1fae5;\r\n  color: #065f46;\r\n  border: 1px solid #34d399;\n}\r\n\r\n/* ===== RESPONSIVE ===== */\n@media (max-width: 1024px) {\n.tabs-vertical-container[data-v-260abcd7] {\r\n    flex-direction: column;\n}\n.tabs-vertical-nav[data-v-260abcd7] {\r\n    flex-direction: row;\r\n    width: 100%;\r\n    min-width: 100%;\r\n    overflow-x: auto;\r\n    padding: 12px;\r\n    gap: 8px;\r\n    border-right: none;\r\n    border-bottom: 1px solid #e5e7eb;\n}\n.tab-vertical-button[data-v-260abcd7] {\r\n    flex-direction: column;\r\n    min-width: 120px;\r\n    padding: 12px;\r\n    gap: 8px;\n}\n.tab-vertical-button[data-v-260abcd7]::before {\r\n    left: 50%;\r\n    top: auto;\r\n    bottom: 0;\r\n    transform: translateX(-50%);\r\n    width: 0;\r\n    height: 3px;\r\n    border-radius: 4px 4px 0 0;\r\n    transition: width 0.3s ease;\n}\n.tab-vertical-button[data-v-260abcd7]:hover::before {\r\n    width: 40%;\r\n    height: 3px;\n}\n.tab-vertical-button.active[data-v-260abcd7]::before {\r\n    width: 60%;\r\n    height: 3px;\n}\n.tab-vertical-button[data-v-260abcd7]:hover {\r\n    transform: translateY(-2px);\n}\n.tab-vertical-button.active[data-v-260abcd7] {\r\n    transform: translateY(-2px);\n}\n.tab-vertical-indicator[data-v-260abcd7] {\r\n    display: none;\n}\n.tabs-vertical-body[data-v-260abcd7] {\r\n    padding: 16px;\n}\n.search-filter-row[data-v-260abcd7] {\r\n    flex-direction: column;\n}\n.filter-wrapper[data-v-260abcd7] {\r\n    min-width: 100%;\n}\n.btn-create-document[data-v-260abcd7] {\r\n    width: 100%;\r\n    justify-content: center;\n}\n.my-tracking-controls[data-v-260abcd7] {\r\n    flex-direction: column;\r\n    align-items: stretch;\n}\n}\n@media (max-width: 576px) {\n.pagination-wrapper[data-v-260abcd7] {\r\n    flex-direction: column;\r\n    align-items: center;\n}\n.pagination-buttons[data-v-260abcd7] {\r\n    justify-content: center;\n}\n.detail-row[data-v-260abcd7] {\r\n    grid-template-columns: 1fr;\n}\n.active-filters[data-v-260abcd7] {\r\n    flex-direction: column;\r\n    align-items: flex-start;\n}\n}\n@media (max-width: 500px) {\n.notification-toast[data-v-260abcd7] {\r\n    left: 10px;\r\n    right: 10px;\r\n    min-width: auto;\r\n    max-width: none;\r\n    top: 10px;\n}\n.enhanced-modal[data-v-260abcd7] {\r\n    max-width: 95%;\r\n    margin: 0 10px;\n}\n}\r\n/* ===== MY TRACKING MODAL ENHANCEMENTS ===== */\n.tracking-modal[data-v-260abcd7] {\r\n  max-height: 90vh;\r\n  display: flex;\r\n  align-items: center;\n}\n.tracking-modal .modal-content[data-v-260abcd7] {\r\n  max-height: 85vh;\r\n  display: flex;\r\n  flex-direction: column;\n}\n.tracking-modal-body[data-v-260abcd7] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  overflow: hidden;\r\n  padding: 20px;\r\n  max-height: calc(85vh - 80px); /* Adjust based on header height */\n}\n.sticky-top-controls[data-v-260abcd7] {\r\n  position: sticky;\r\n  top: 0;\r\n  z-index: 10;\r\n  background: #f9fafb;\r\n  padding-bottom: 16px;\r\n  margin-bottom: 8px;\r\n  flex-shrink: 0;\n}\n.tracking-table-scroll[data-v-260abcd7] {\r\n  flex: 1;\r\n  overflow-y: auto;\r\n  overflow-x: auto;\r\n  min-height: 200px;\r\n  max-height: calc(85vh - 250px); /* Adjust to leave space for pagination */\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  margin-bottom: 16px;\n}\r\n\r\n/* Custom scrollbar for the tracking table */\n.tracking-table-scroll[data-v-260abcd7]::-webkit-scrollbar {\r\n  width: 8px;\r\n  height: 8px;\n}\n.tracking-table-scroll[data-v-260abcd7]::-webkit-scrollbar-track {\r\n  background: #f1f5f9;\r\n  border-radius: 4px;\n}\n.tracking-table-scroll[data-v-260abcd7]::-webkit-scrollbar-thumb {\r\n  background: #94a3b8;\r\n  border-radius: 4px;\n}\n.tracking-table-scroll[data-v-260abcd7]::-webkit-scrollbar-thumb:hover {\r\n  background: #64748b;\n}\r\n\r\n/* Firefox scrollbar */\n.tracking-table-scroll[data-v-260abcd7] {\r\n  scrollbar-width: thin;\r\n  scrollbar-color: #94a3b8 #f1f5f9;\n}\r\n\r\n/* Fix table header in scrollable area */\n.tracking-table-scroll .table-responsive[data-v-260abcd7] {\r\n  margin-top: 0;\n}\n.tracking-table-scroll .office-table thead[data-v-260abcd7] {\r\n  position: sticky;\r\n  top: 0;\r\n  z-index: 5;\r\n  background: #f8fafc;\n}\n.tracking-table-scroll .office-table thead th[data-v-260abcd7] {\r\n  background: #f8fafc;\r\n  border-bottom: 2px solid #e5e7eb;\n}\n.tracking-pagination[data-v-260abcd7] {\r\n  flex-shrink: 0;\r\n  padding-top: 12px;\r\n  border-top: 1px solid #e5e7eb;\r\n  background: #f9fafb;\n}\r\n\r\n/* Empty state in scrollable area */\n.tracking-table-scroll .empty-state[data-v-260abcd7] {\r\n  padding: 40px 20px;\r\n  text-align: center;\n}\r\n\r\n/* ===== RESPONSIVE ENHANCEMENTS ===== */\n@media (max-width: 1200px) {\n.tracking-modal[data-v-260abcd7] {\r\n    max-width: 95% !important;\r\n    margin: 0 15px;\n}\n.tracking-table-scroll[data-v-260abcd7] {\r\n    max-height: calc(80vh - 250px);\n}\n}\n@media (max-width: 768px) {\n.tracking-modal[data-v-260abcd7] {\r\n    max-width: 98% !important;\r\n    margin: 0 5px;\n}\n.tracking-modal-body[data-v-260abcd7] {\r\n    padding: 16px;\r\n    max-height: calc(80vh - 60px);\n}\n.my-tracking-controls[data-v-260abcd7] {\r\n    flex-direction: column;\r\n    align-items: stretch;\n}\n.my-tracking-controls .search-box-wrapper[data-v-260abcd7] {\r\n    max-width: 100% !important;\n}\n.btn-reserve-tracking-forest[data-v-260abcd7] {\r\n    width: 100%;\r\n    justify-content: center;\r\n    padding: 10px 16px;\r\n    font-size: 13px;\n}\n.tracking-table-scroll[data-v-260abcd7] {\r\n    max-height: calc(75vh - 250px);\n}\n.tracking-table-scroll .office-table[data-v-260abcd7] {\r\n    font-size: 12px;\n}\n.tracking-table-scroll .office-table th[data-v-260abcd7],\r\n  .tracking-table-scroll .office-table td[data-v-260abcd7] {\r\n    padding: 8px 10px;\n}\n.tracking-pagination[data-v-260abcd7] {\r\n    flex-direction: column;\r\n    gap: 12px;\r\n    align-items: center;\n}\n.pagination-buttons[data-v-260abcd7] {\r\n    justify-content: center;\n}\n}\n@media (max-width: 576px) {\n.tracking-modal-body[data-v-260abcd7] {\r\n    padding: 12px;\n}\n.sticky-top-controls[data-v-260abcd7] {\r\n    padding-bottom: 12px;\n}\n.tracking-table-scroll[data-v-260abcd7] {\r\n    max-height: calc(70vh - 250px);\n}\n.tracking-table-scroll .office-table thead[data-v-260abcd7] {\r\n    display: none; /* Hide table header on very small screens */\n}\n.tracking-table-scroll .office-table tbody tr[data-v-260abcd7] {\r\n    display: block;\r\n    margin-bottom: 12px;\r\n    border: 1px solid #e5e7eb;\r\n    border-radius: 8px;\r\n    padding: 12px;\r\n    background: white;\n}\n.tracking-table-scroll .office-table tbody td[data-v-260abcd7] {\r\n    display: flex;\r\n    justify-content: space-between;\r\n    align-items: center;\r\n    padding: 8px 0;\r\n    border: none;\r\n    border-bottom: 1px solid #f3f4f6;\r\n    text-align: right;\n}\n.tracking-table-scroll .office-table tbody td[data-v-260abcd7]:last-child {\r\n    border-bottom: none;\n}\n.tracking-table-scroll .office-table tbody td[data-v-260abcd7]::before {\r\n    content: attr(data-label);\r\n    font-weight: 600;\r\n    color: #374151;\r\n    margin-right: 8px;\r\n    font-size: 12px;\r\n    text-transform: uppercase;\n}\n.tracking-table-scroll .office-table tbody td.text-center[data-v-260abcd7] {\r\n    text-align: right;\r\n    justify-content: flex-end;\n}\n.pagination-info[data-v-260abcd7] {\r\n    font-size: 12px;\n}\n.page-btn[data-v-260abcd7] {\r\n    padding: 5px 8px;\r\n    font-size: 11px;\n}\n}\n@media (max-width: 400px) {\n.modal-header-enhanced[data-v-260abcd7] {\r\n    padding: 12px 16px;\n}\n.modal-title[data-v-260abcd7] {\r\n    font-size: 1rem;\n}\n.modal-subtitle[data-v-260abcd7] {\r\n    font-size: 0.75rem;\n}\n.square-icon[data-v-260abcd7] {\r\n    width: 36px;\r\n    height: 36px;\r\n    font-size: 1.2rem;\n}\n.tracking-table-scroll .office-table[data-v-260abcd7] {\r\n    font-size: 11px;\n}\n}\r\n\r\n/* Landscape mode optimization */\n@media (max-height: 600px) and (orientation: landscape) {\n.tracking-modal[data-v-260abcd7] {\r\n    max-height: 95vh;\n}\n.tracking-modal-body[data-v-260abcd7] {\r\n    max-height: calc(95vh - 80px);\n}\n.tracking-table-scroll[data-v-260abcd7] {\r\n    max-height: calc(90vh - 250px);\n}\n.sticky-top-controls[data-v-260abcd7] {\r\n    padding-bottom: 8px;\n}\n.my-tracking-controls[data-v-260abcd7] {\r\n    flex-direction: row;\r\n    gap: 8px;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -34280,6 +36441,36 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Admin/Createincoming.vue?vue&type=style&index=0&id=19dfdfed&scoped=true&lang=css":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Admin/Createincoming.vue?vue&type=style&index=0&id=19dfdfed&scoped=true&lang=css ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Createincoming_vue_vue_type_style_index_0_id_19dfdfed_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Createincoming.vue?vue&type=style&index=0&id=19dfdfed&scoped=true&lang=css */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Admin/Createincoming.vue?vue&type=style&index=0&id=19dfdfed&scoped=true&lang=css");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Createincoming_vue_vue_type_style_index_0_id_19dfdfed_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Createincoming_vue_vue_type_style_index_0_id_19dfdfed_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Admin/Documentype.vue?vue&type=style&index=0&id=4a989df8&scoped=true&lang=css":
 /*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Admin/Documentype.vue?vue&type=style&index=0&id=4a989df8&scoped=true&lang=css ***!
@@ -34709,6 +36900,4842 @@ module.exports = function (list, options) {
 
 /***/ }),
 
+/***/ "./node_modules/sweetalert2/dist/sweetalert2.all.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/sweetalert2/dist/sweetalert2.all.js ***!
+  \**********************************************************/
+/***/ (function(module) {
+
+/*!
+* sweetalert2 v11.26.25
+* Released under the MIT License.
+*/
+(function (global, factory) {
+   true ? module.exports = factory() :
+  0;
+})(this, (function () { 'use strict';
+
+  function _assertClassBrand(e, t, n) {
+    if ("function" == typeof e ? e === t : e.has(t)) return arguments.length < 3 ? t : n;
+    throw new TypeError("Private element is not present on this object");
+  }
+  function _checkPrivateRedeclaration(e, t) {
+    if (t.has(e)) throw new TypeError("Cannot initialize the same private elements twice on an object");
+  }
+  function _classPrivateFieldGet2(s, a) {
+    return s.get(_assertClassBrand(s, a));
+  }
+  function _classPrivateFieldInitSpec(e, t, a) {
+    _checkPrivateRedeclaration(e, t), t.set(e, a);
+  }
+  function _classPrivateFieldSet2(s, a, r) {
+    return s.set(_assertClassBrand(s, a), r), r;
+  }
+
+  const RESTORE_FOCUS_TIMEOUT = 100;
+
+  /** @type {GlobalState} */
+  const globalState = {};
+  const focusPreviousActiveElement = () => {
+    if (globalState.previousActiveElement instanceof HTMLElement) {
+      globalState.previousActiveElement.focus();
+      globalState.previousActiveElement = null;
+    } else if (document.body) {
+      document.body.focus();
+    }
+  };
+
+  /**
+   * Restore previous active (focused) element
+   *
+   * @param {boolean} returnFocus
+   * @returns {Promise<void>}
+   */
+  const restoreActiveElement = returnFocus => {
+    return new Promise(resolve => {
+      if (!returnFocus) {
+        return resolve();
+      }
+      const x = window.scrollX;
+      const y = window.scrollY;
+      globalState.restoreFocusTimeout = setTimeout(() => {
+        focusPreviousActiveElement();
+        resolve();
+      }, RESTORE_FOCUS_TIMEOUT); // issues/900
+
+      window.scrollTo(x, y);
+    });
+  };
+
+  const swalPrefix = 'swal2-';
+
+  /**
+   * @typedef {Record<SwalClass, string>} SwalClasses
+   */
+
+  /**
+   * @typedef {'success' | 'warning' | 'info' | 'question' | 'error'} SwalIcon
+   * @typedef {Record<SwalIcon, string>} SwalIcons
+   */
+
+  /** @type {SwalClass[]} */
+  const classNames = ['container', 'shown', 'height-auto', 'iosfix', 'popup', 'modal', 'no-backdrop', 'no-transition', 'toast', 'toast-shown', 'show', 'hide', 'close', 'title', 'html-container', 'actions', 'confirm', 'deny', 'cancel', 'footer', 'icon', 'icon-content', 'image', 'input', 'file', 'range', 'select', 'radio', 'checkbox', 'label', 'textarea', 'inputerror', 'input-label', 'validation-message', 'progress-steps', 'active-progress-step', 'progress-step', 'progress-step-line', 'loader', 'loading', 'styled', 'top', 'top-start', 'top-end', 'top-left', 'top-right', 'center', 'center-start', 'center-end', 'center-left', 'center-right', 'bottom', 'bottom-start', 'bottom-end', 'bottom-left', 'bottom-right', 'grow-row', 'grow-column', 'grow-fullscreen', 'rtl', 'timer-progress-bar', 'timer-progress-bar-container', 'scrollbar-measure', 'icon-success', 'icon-warning', 'icon-info', 'icon-question', 'icon-error', 'draggable', 'dragging'];
+  const swalClasses = classNames.reduce((acc, className) => {
+    acc[className] = swalPrefix + className;
+    return acc;
+  }, /** @type {SwalClasses} */{});
+
+  /** @type {SwalIcon[]} */
+  const icons = ['success', 'warning', 'info', 'question', 'error'];
+  const iconTypes = icons.reduce((acc, icon) => {
+    acc[icon] = swalPrefix + icon;
+    return acc;
+  }, /** @type {SwalIcons} */{});
+
+  const consolePrefix = 'SweetAlert2:';
+
+  /**
+   * Capitalize the first letter of a string
+   *
+   * @param {string} str
+   * @returns {string}
+   */
+  const capitalizeFirstLetter = str => str.charAt(0).toUpperCase() + str.slice(1);
+
+  /**
+   * Standardize console warnings
+   *
+   * @param {string | string[]} message
+   */
+  const warn = message => {
+    console.warn(`${consolePrefix} ${typeof message === 'object' ? message.join(' ') : message}`);
+  };
+
+  /**
+   * Standardize console errors
+   *
+   * @param {string} message
+   */
+  const error = message => {
+    console.error(`${consolePrefix} ${message}`);
+  };
+
+  /**
+   * Private global state for `warnOnce`
+   *
+   * @type {string[]}
+   * @private
+   */
+  const previousWarnOnceMessages = [];
+
+  /**
+   * Show a console warning, but only if it hasn't already been shown
+   *
+   * @param {string} message
+   */
+  const warnOnce = message => {
+    if (!previousWarnOnceMessages.includes(message)) {
+      previousWarnOnceMessages.push(message);
+      warn(message);
+    }
+  };
+
+  /**
+   * Show a one-time console warning about deprecated params/methods
+   *
+   * @param {string} deprecatedParam
+   * @param {string?} useInstead
+   */
+  const warnAboutDeprecation = (deprecatedParam, useInstead = null) => {
+    warnOnce(`"${deprecatedParam}" is deprecated and will be removed in the next major release.${useInstead ? ` Use "${useInstead}" instead.` : ''}`);
+  };
+
+  /**
+   * If `arg` is a function, call it (with no arguments or context) and return the result.
+   * Otherwise, just pass the value through
+   *
+   * @param {(() => *) | *} arg
+   * @returns {*}
+   */
+  const callIfFunction = arg => typeof arg === 'function' ? arg() : arg;
+
+  /**
+   * @param {*} arg
+   * @returns {boolean}
+   */
+  const hasToPromiseFn = arg => arg && typeof arg.toPromise === 'function';
+
+  /**
+   * @param {*} arg
+   * @returns {Promise<*>}
+   */
+  const asPromise = arg => hasToPromiseFn(arg) ? arg.toPromise() : Promise.resolve(arg);
+
+  /**
+   * @param {*} arg
+   * @returns {boolean}
+   */
+  const isPromise = arg => arg && Promise.resolve(arg) === arg;
+
+  /**
+   * @returns {boolean}
+   */
+  const isFirefox = () => navigator.userAgent.includes('Firefox');
+
+  /**
+   * Gets the popup container which contains the backdrop and the popup itself.
+   *
+   * @returns {HTMLElement | null}
+   */
+  const getContainer = () => document.body.querySelector(`.${swalClasses.container}`);
+
+  /**
+   * @param {string} selectorString
+   * @returns {HTMLElement | null}
+   */
+  const elementBySelector = selectorString => {
+    const container = getContainer();
+    return container ? container.querySelector(selectorString) : null;
+  };
+
+  /**
+   * @param {string} className
+   * @returns {HTMLElement | null}
+   */
+  const elementByClass = className => {
+    return elementBySelector(`.${className}`);
+  };
+
+  /**
+   * @returns {HTMLElement | null}
+   */
+  const getPopup = () => elementByClass(swalClasses.popup);
+
+  /**
+   * @returns {HTMLElement | null}
+   */
+  const getIcon = () => elementByClass(swalClasses.icon);
+
+  /**
+   * @returns {HTMLElement | null}
+   */
+  const getIconContent = () => elementByClass(swalClasses['icon-content']);
+
+  /**
+   * @returns {HTMLElement | null}
+   */
+  const getTitle = () => elementByClass(swalClasses.title);
+
+  /**
+   * @returns {HTMLElement | null}
+   */
+  const getHtmlContainer = () => elementByClass(swalClasses['html-container']);
+
+  /**
+   * @returns {HTMLElement | null}
+   */
+  const getImage = () => elementByClass(swalClasses.image);
+
+  /**
+   * @returns {HTMLElement | null}
+   */
+  const getProgressSteps = () => elementByClass(swalClasses['progress-steps']);
+
+  /**
+   * @returns {HTMLElement | null}
+   */
+  const getValidationMessage = () => elementByClass(swalClasses['validation-message']);
+
+  /**
+   * @returns {HTMLButtonElement | null}
+   */
+  const getConfirmButton = () => (/** @type {HTMLButtonElement} */elementBySelector(`.${swalClasses.actions} .${swalClasses.confirm}`));
+
+  /**
+   * @returns {HTMLButtonElement | null}
+   */
+  const getCancelButton = () => (/** @type {HTMLButtonElement} */elementBySelector(`.${swalClasses.actions} .${swalClasses.cancel}`));
+
+  /**
+   * @returns {HTMLButtonElement | null}
+   */
+  const getDenyButton = () => (/** @type {HTMLButtonElement} */elementBySelector(`.${swalClasses.actions} .${swalClasses.deny}`));
+
+  /**
+   * @returns {HTMLElement | null}
+   */
+  const getInputLabel = () => elementByClass(swalClasses['input-label']);
+
+  /**
+   * @returns {HTMLElement | null}
+   */
+  const getLoader = () => elementBySelector(`.${swalClasses.loader}`);
+
+  /**
+   * @returns {HTMLElement | null}
+   */
+  const getActions = () => elementByClass(swalClasses.actions);
+
+  /**
+   * @returns {HTMLElement | null}
+   */
+  const getFooter = () => elementByClass(swalClasses.footer);
+
+  /**
+   * @returns {HTMLElement | null}
+   */
+  const getTimerProgressBar = () => elementByClass(swalClasses['timer-progress-bar']);
+
+  /**
+   * @returns {HTMLElement | null}
+   */
+  const getCloseButton = () => elementByClass(swalClasses.close);
+
+  // https://github.com/jkup/focusable/blob/master/index.js
+  const focusable = `
+  a[href],
+  area[href],
+  input:not([disabled]),
+  select:not([disabled]),
+  textarea:not([disabled]),
+  button:not([disabled]),
+  iframe,
+  object,
+  embed,
+  [tabindex="0"],
+  [contenteditable],
+  audio[controls],
+  video[controls],
+  summary
+`;
+  /**
+   * @returns {HTMLElement[]}
+   */
+  const getFocusableElements = () => {
+    const popup = getPopup();
+    if (!popup) {
+      return [];
+    }
+    /** @type {NodeListOf<HTMLElement>} */
+    const focusableElementsWithTabindex = popup.querySelectorAll('[tabindex]:not([tabindex="-1"]):not([tabindex="0"])');
+    const focusableElementsWithTabindexSorted = Array.from(focusableElementsWithTabindex)
+    // sort according to tabindex
+    .sort((a, b) => {
+      const tabindexA = parseInt(a.getAttribute('tabindex') || '0');
+      const tabindexB = parseInt(b.getAttribute('tabindex') || '0');
+      if (tabindexA > tabindexB) {
+        return 1;
+      } else if (tabindexA < tabindexB) {
+        return -1;
+      }
+      return 0;
+    });
+
+    /** @type {NodeListOf<HTMLElement>} */
+    const otherFocusableElements = popup.querySelectorAll(focusable);
+    const otherFocusableElementsFiltered = Array.from(otherFocusableElements).filter(el => el.getAttribute('tabindex') !== '-1');
+    return [...new Set(focusableElementsWithTabindexSorted.concat(otherFocusableElementsFiltered))].filter(el => isVisible$1(el));
+  };
+
+  /**
+   * @returns {boolean}
+   */
+  const isModal = () => {
+    return hasClass(document.body, swalClasses.shown) && !hasClass(document.body, swalClasses['toast-shown']) && !hasClass(document.body, swalClasses['no-backdrop']);
+  };
+
+  /**
+   * @returns {boolean}
+   */
+  const isToast = () => {
+    const popup = getPopup();
+    if (!popup) {
+      return false;
+    }
+    return hasClass(popup, swalClasses.toast);
+  };
+
+  /**
+   * @returns {boolean}
+   */
+  const isLoading = () => {
+    const popup = getPopup();
+    if (!popup) {
+      return false;
+    }
+    return popup.hasAttribute('data-loading');
+  };
+
+  /**
+   * Securely set innerHTML of an element
+   * https://github.com/sweetalert2/sweetalert2/issues/1926
+   *
+   * @param {HTMLElement} elem
+   * @param {string} html
+   */
+  const setInnerHtml = (elem, html) => {
+    elem.textContent = '';
+    if (html) {
+      const parser = new DOMParser();
+      const parsed = parser.parseFromString(html, `text/html`);
+      const head = parsed.querySelector('head');
+      if (head) {
+        Array.from(head.childNodes).forEach(child => {
+          elem.appendChild(child);
+        });
+      }
+      const body = parsed.querySelector('body');
+      if (body) {
+        Array.from(body.childNodes).forEach(child => {
+          if (child instanceof HTMLVideoElement || child instanceof HTMLAudioElement) {
+            elem.appendChild(child.cloneNode(true)); // https://github.com/sweetalert2/sweetalert2/issues/2507
+          } else {
+            elem.appendChild(child);
+          }
+        });
+      }
+    }
+  };
+
+  /**
+   * @param {HTMLElement} elem
+   * @param {string} className
+   * @returns {boolean}
+   */
+  const hasClass = (elem, className) => {
+    if (!className) {
+      return false;
+    }
+    return className.split(/\s+/).every(cls => elem.classList.contains(cls));
+  };
+
+  /**
+   * @param {HTMLElement} elem
+   * @param {SweetAlertOptions} params
+   */
+  const removeCustomClasses = (elem, params) => {
+    Array.from(elem.classList).forEach(className => {
+      if (!Object.values(swalClasses).includes(className) && !Object.values(iconTypes).includes(className) && !Object.values(params.showClass || {}).includes(className)) {
+        elem.classList.remove(className);
+      }
+    });
+  };
+
+  /**
+   * @param {HTMLElement} elem
+   * @param {SweetAlertOptions} params
+   * @param {string} className
+   */
+  const applyCustomClass = (elem, params, className) => {
+    removeCustomClasses(elem, params);
+    if (!params.customClass) {
+      return;
+    }
+    const customClass = params.customClass[(/** @type {keyof SweetAlertCustomClass} */className)];
+    if (!customClass) {
+      return;
+    }
+    if (typeof customClass !== 'string' && !customClass.forEach) {
+      warn(`Invalid type of customClass.${className}! Expected string or iterable object, got "${typeof customClass}"`);
+      return;
+    }
+    addClass(elem, customClass);
+  };
+
+  /**
+   * @param {HTMLElement} popup
+   * @param {import('./renderers/renderInput').InputClass | SweetAlertInput} inputClass
+   * @returns {HTMLInputElement | null}
+   */
+  const getInput$1 = (popup, inputClass) => {
+    if (!inputClass) {
+      return null;
+    }
+    switch (inputClass) {
+      case 'select':
+      case 'textarea':
+      case 'file':
+        return popup.querySelector(`.${swalClasses.popup} > .${swalClasses[inputClass]}`);
+      case 'checkbox':
+        return popup.querySelector(`.${swalClasses.popup} > .${swalClasses.checkbox} input`);
+      case 'radio':
+        return popup.querySelector(`.${swalClasses.popup} > .${swalClasses.radio} input:checked`) || popup.querySelector(`.${swalClasses.popup} > .${swalClasses.radio} input:first-child`);
+      case 'range':
+        return popup.querySelector(`.${swalClasses.popup} > .${swalClasses.range} input`);
+      default:
+        return popup.querySelector(`.${swalClasses.popup} > .${swalClasses.input}`);
+    }
+  };
+
+  /**
+   * @param {HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement} input
+   */
+  const focusInput = input => {
+    input.focus();
+
+    // place cursor at end of text in text input
+    if (input.type !== 'file') {
+      // http://stackoverflow.com/a/2345915
+      const val = input.value;
+      input.value = '';
+      input.value = val;
+    }
+  };
+
+  /**
+   * @param {HTMLElement | HTMLElement[] | null} target
+   * @param {string | string[] | readonly string[] | undefined} classList
+   * @param {boolean} condition
+   */
+  const toggleClass = (target, classList, condition) => {
+    if (!target || !classList) {
+      return;
+    }
+    const classes = typeof classList === 'string' ? classList.split(/\s+/).filter(Boolean) : classList;
+    const targets = Array.isArray(target) ? target : [target];
+    targets.forEach(elem => {
+      classes.forEach(className => {
+        if (condition) {
+          elem.classList.add(className);
+        } else {
+          elem.classList.remove(className);
+        }
+      });
+    });
+  };
+
+  /**
+   * @param {HTMLElement | HTMLElement[] | null} target
+   * @param {string | string[] | readonly string[] | undefined} classList
+   */
+  const addClass = (target, classList) => {
+    toggleClass(target, classList, true);
+  };
+
+  /**
+   * @param {HTMLElement | HTMLElement[] | null} target
+   * @param {string | string[] | readonly string[] | undefined} classList
+   */
+  const removeClass = (target, classList) => {
+    toggleClass(target, classList, false);
+  };
+
+  /**
+   * Get direct child of an element by class name
+   *
+   * @param {HTMLElement} elem
+   * @param {string} className
+   * @returns {HTMLElement | undefined}
+   */
+  const getDirectChildByClass = (elem, className) => (/** @type {HTMLElement | undefined} */
+  Array.from(elem.children).find(child => child instanceof HTMLElement && hasClass(child, className)));
+
+  /**
+   * @param {HTMLElement} elem
+   * @param {string} property
+   * @param {string | number | null | undefined} value
+   */
+  const applyNumericalStyle = (elem, property, value) => {
+    if (value === `${parseInt(`${value}`)}`) {
+      value = parseInt(value);
+    }
+    if (value || value === 0) {
+      elem.style.setProperty(property, typeof value === 'number' ? `${value}px` : (/** @type {string} */value));
+    } else {
+      elem.style.removeProperty(property);
+    }
+  };
+
+  /**
+   * @param {HTMLElement | null} elem
+   * @param {string} display
+   */
+  const show = (elem, display = 'flex') => {
+    if (!elem) {
+      return;
+    }
+    elem.style.display = display;
+  };
+
+  /**
+   * @param {HTMLElement | null} elem
+   */
+  const hide = elem => {
+    if (!elem) {
+      return;
+    }
+    elem.style.display = 'none';
+  };
+
+  /**
+   * @param {HTMLElement | null} elem
+   * @param {string} display
+   */
+  const showWhenInnerHtmlPresent = (elem, display = 'block') => {
+    if (!elem) {
+      return;
+    }
+    new MutationObserver(() => {
+      toggle(elem, elem.innerHTML, display);
+    }).observe(elem, {
+      childList: true,
+      subtree: true
+    });
+  };
+
+  /**
+   * @param {HTMLElement} parent
+   * @param {string} selector
+   * @param {string} property
+   * @param {string} value
+   */
+  const setStyle = (parent, selector, property, value) => {
+    /** @type {HTMLElement | null} */
+    const el = parent.querySelector(selector);
+    if (el) {
+      el.style.setProperty(property, value);
+    }
+  };
+
+  /**
+   * @param {HTMLElement} elem
+   * @param {boolean | string | null | undefined} condition
+   * @param {string} display
+   */
+  const toggle = (elem, condition, display = 'flex') => {
+    if (condition) {
+      show(elem, display);
+    } else {
+      hide(elem);
+    }
+  };
+
+  /**
+   * borrowed from jquery $(elem).is(':visible') implementation
+   *
+   * @param {HTMLElement | null} elem
+   * @returns {boolean}
+   */
+  const isVisible$1 = elem => Boolean(elem && (elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length));
+
+  /**
+   * @returns {boolean}
+   */
+  const allButtonsAreHidden = () => !isVisible$1(getConfirmButton()) && !isVisible$1(getDenyButton()) && !isVisible$1(getCancelButton());
+
+  /**
+   * @param {HTMLElement} elem
+   * @returns {boolean}
+   */
+  const isScrollable = elem => Boolean(elem.scrollHeight > elem.clientHeight);
+
+  /**
+   * @param {HTMLElement} element
+   * @param {HTMLElement} stopElement
+   * @returns {boolean}
+   */
+  const selfOrParentIsScrollable = (element, stopElement) => {
+    let parent = /** @type {HTMLElement | null} */element;
+    while (parent && parent !== stopElement) {
+      if (isScrollable(parent)) {
+        return true;
+      }
+      parent = parent.parentElement;
+    }
+    return false;
+  };
+
+  /**
+   * borrowed from https://stackoverflow.com/a/46352119
+   *
+   * @param {HTMLElement} elem
+   * @returns {boolean}
+   */
+  const hasCssAnimation = elem => {
+    const style = window.getComputedStyle(elem);
+    const animDuration = parseFloat(style.getPropertyValue('animation-duration') || '0');
+    const transDuration = parseFloat(style.getPropertyValue('transition-duration') || '0');
+    return animDuration > 0 || transDuration > 0;
+  };
+
+  /**
+   * @param {number} timer
+   * @param {boolean} reset
+   */
+  const animateTimerProgressBar = (timer, reset = false) => {
+    const timerProgressBar = getTimerProgressBar();
+    if (!timerProgressBar) {
+      return;
+    }
+    if (isVisible$1(timerProgressBar)) {
+      if (reset) {
+        timerProgressBar.style.transition = 'none';
+        timerProgressBar.style.width = '100%';
+      }
+      setTimeout(() => {
+        timerProgressBar.style.transition = `width ${timer / 1000}s linear`;
+        timerProgressBar.style.width = '0%';
+      }, 10);
+    }
+  };
+  const stopTimerProgressBar = () => {
+    const timerProgressBar = getTimerProgressBar();
+    if (!timerProgressBar) {
+      return;
+    }
+    const timerProgressBarWidth = parseInt(window.getComputedStyle(timerProgressBar).width);
+    timerProgressBar.style.removeProperty('transition');
+    timerProgressBar.style.width = '100%';
+    const timerProgressBarFullWidth = parseInt(window.getComputedStyle(timerProgressBar).width);
+    const timerProgressBarPercent = timerProgressBarWidth / timerProgressBarFullWidth * 100;
+    timerProgressBar.style.width = `${timerProgressBarPercent}%`;
+  };
+
+  /**
+   * Detect Node env
+   *
+   * @returns {boolean}
+   */
+  const isNodeEnv = () => typeof window === 'undefined' || typeof document === 'undefined';
+
+  const sweetHTML = `
+ <div aria-labelledby="${swalClasses.title}" aria-describedby="${swalClasses['html-container']}" class="${swalClasses.popup}" tabindex="-1">
+   <button type="button" class="${swalClasses.close}"></button>
+   <ul class="${swalClasses['progress-steps']}"></ul>
+   <div class="${swalClasses.icon}"></div>
+   <img class="${swalClasses.image}" />
+   <h2 class="${swalClasses.title}" id="${swalClasses.title}"></h2>
+   <div class="${swalClasses['html-container']}" id="${swalClasses['html-container']}"></div>
+   <input class="${swalClasses.input}" id="${swalClasses.input}" />
+   <input type="file" class="${swalClasses.file}" />
+   <div class="${swalClasses.range}">
+     <input type="range" />
+     <output></output>
+   </div>
+   <select class="${swalClasses.select}" id="${swalClasses.select}"></select>
+   <div class="${swalClasses.radio}"></div>
+   <label class="${swalClasses.checkbox}">
+     <input type="checkbox" id="${swalClasses.checkbox}" />
+     <span class="${swalClasses.label}"></span>
+   </label>
+   <textarea class="${swalClasses.textarea}" id="${swalClasses.textarea}"></textarea>
+   <div class="${swalClasses['validation-message']}" id="${swalClasses['validation-message']}"></div>
+   <div class="${swalClasses.actions}">
+     <div class="${swalClasses.loader}"></div>
+     <button type="button" class="${swalClasses.confirm}"></button>
+     <button type="button" class="${swalClasses.deny}"></button>
+     <button type="button" class="${swalClasses.cancel}"></button>
+   </div>
+   <div class="${swalClasses.footer}"></div>
+   <div class="${swalClasses['timer-progress-bar-container']}">
+     <div class="${swalClasses['timer-progress-bar']}"></div>
+   </div>
+ </div>
+`.replace(/(^|\n)\s*/g, '');
+
+  /**
+   * @returns {boolean}
+   */
+  const resetOldContainer = () => {
+    const oldContainer = getContainer();
+    if (!oldContainer) {
+      return false;
+    }
+    oldContainer.remove();
+    removeClass([document.documentElement, document.body], [swalClasses['no-backdrop'], swalClasses['toast-shown'],
+    // @ts-ignore: 'has-column' is not defined in swalClasses but may be set dynamically
+    swalClasses['has-column']]);
+    return true;
+  };
+  const resetValidationMessage$1 = () => {
+    if (globalState.currentInstance) {
+      globalState.currentInstance.resetValidationMessage();
+    }
+  };
+  const addInputChangeListeners = () => {
+    const popup = getPopup();
+    if (!popup) {
+      return;
+    }
+    const input = getDirectChildByClass(popup, swalClasses.input);
+    const file = getDirectChildByClass(popup, swalClasses.file);
+    /** @type {HTMLInputElement | null} */
+    const range = popup.querySelector(`.${swalClasses.range} input`);
+    /** @type {HTMLOutputElement | null} */
+    const rangeOutput = popup.querySelector(`.${swalClasses.range} output`);
+    const select = getDirectChildByClass(popup, swalClasses.select);
+    /** @type {HTMLInputElement | null} */
+    const checkbox = popup.querySelector(`.${swalClasses.checkbox} input`);
+    const textarea = getDirectChildByClass(popup, swalClasses.textarea);
+    if (input) {
+      input.oninput = resetValidationMessage$1;
+    }
+    if (file) {
+      file.onchange = resetValidationMessage$1;
+    }
+    if (select) {
+      select.onchange = resetValidationMessage$1;
+    }
+    if (checkbox) {
+      checkbox.onchange = resetValidationMessage$1;
+    }
+    if (textarea) {
+      textarea.oninput = resetValidationMessage$1;
+    }
+    if (range && rangeOutput) {
+      range.oninput = () => {
+        resetValidationMessage$1();
+        rangeOutput.value = range.value;
+      };
+      range.onchange = () => {
+        resetValidationMessage$1();
+        rangeOutput.value = range.value;
+      };
+    }
+  };
+
+  /**
+   * @param {string | HTMLElement} target
+   * @returns {HTMLElement}
+   */
+  const getTarget = target => {
+    if (typeof target === 'string') {
+      const element = document.querySelector(target);
+      if (!element) {
+        throw new Error(`Target element "${target}" not found`);
+      }
+      return /** @type {HTMLElement} */element;
+    }
+    return target;
+  };
+
+  /**
+   * @param {SweetAlertOptions} params
+   */
+  const setupAccessibility = params => {
+    const popup = getPopup();
+    if (!popup) {
+      return;
+    }
+    popup.setAttribute('role', params.toast ? 'alert' : 'dialog');
+    popup.setAttribute('aria-live', params.toast ? 'polite' : 'assertive');
+    if (!params.toast) {
+      popup.setAttribute('aria-modal', 'true');
+    }
+  };
+
+  /**
+   * @param {HTMLElement} targetElement
+   */
+  const setupRTL = targetElement => {
+    if (window.getComputedStyle(targetElement).direction === 'rtl') {
+      addClass(getContainer(), swalClasses.rtl);
+      globalState.isRTL = true;
+    }
+  };
+
+  /**
+   * Add modal + backdrop to DOM
+   *
+   * @param {SweetAlertOptions} params
+   */
+  const init = params => {
+    // Clean up the old popup container if it exists
+    const oldContainerExisted = resetOldContainer();
+    if (isNodeEnv()) {
+      error('SweetAlert2 requires document to initialize');
+      return;
+    }
+    const container = document.createElement('div');
+    container.className = swalClasses.container;
+    if (oldContainerExisted) {
+      addClass(container, swalClasses['no-transition']);
+    }
+    setInnerHtml(container, sweetHTML);
+    container.dataset['swal2Theme'] = params.theme;
+    const targetElement = getTarget(params.target || 'body');
+    targetElement.appendChild(container);
+    if (params.topLayer) {
+      container.setAttribute('popover', '');
+      container.showPopover();
+    }
+    setupAccessibility(params);
+    setupRTL(targetElement);
+    addInputChangeListeners();
+  };
+
+  /**
+   * @param {HTMLElement | object | string} param
+   * @param {HTMLElement} target
+   */
+  const parseHtmlToContainer = (param, target) => {
+    // DOM element
+    if (param instanceof HTMLElement) {
+      target.appendChild(param);
+    }
+
+    // Object
+    else if (typeof param === 'object') {
+      handleObject(param, target);
+    }
+
+    // Plain string
+    else if (param) {
+      setInnerHtml(target, param);
+    }
+  };
+
+  /**
+   * @param {object} param
+   * @param {HTMLElement} target
+   */
+  const handleObject = (param, target) => {
+    // JQuery element(s)
+    if ('jquery' in param) {
+      handleJqueryElem(target, param);
+    }
+
+    // For other objects use their string representation
+    else {
+      setInnerHtml(target, param.toString());
+    }
+  };
+
+  /**
+   * @param {HTMLElement} target
+   * @param {any} elem
+   */
+  const handleJqueryElem = (target, elem) => {
+    target.textContent = '';
+    if (0 in elem) {
+      for (let i = 0; i in elem; i++) {
+        target.appendChild(elem[i].cloneNode(true));
+      }
+    } else {
+      target.appendChild(elem.cloneNode(true));
+    }
+  };
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {SweetAlertOptions} params
+   */
+  const renderActions = (instance, params) => {
+    const actions = getActions();
+    const loader = getLoader();
+    if (!actions || !loader) {
+      return;
+    }
+
+    // Actions (buttons) wrapper
+    if (!params.showConfirmButton && !params.showDenyButton && !params.showCancelButton) {
+      hide(actions);
+    } else {
+      show(actions);
+    }
+
+    // Custom class
+    applyCustomClass(actions, params, 'actions');
+
+    // Render all the buttons
+    renderButtons(actions, loader, params);
+
+    // Loader
+    setInnerHtml(loader, params.loaderHtml || '');
+    applyCustomClass(loader, params, 'loader');
+  };
+
+  /**
+   * @param {HTMLElement} actions
+   * @param {HTMLElement} loader
+   * @param {SweetAlertOptions} params
+   */
+  function renderButtons(actions, loader, params) {
+    const confirmButton = getConfirmButton();
+    const denyButton = getDenyButton();
+    const cancelButton = getCancelButton();
+    if (!confirmButton || !denyButton || !cancelButton) {
+      return;
+    }
+
+    // Render buttons
+    renderButton(confirmButton, 'confirm', params);
+    renderButton(denyButton, 'deny', params);
+    renderButton(cancelButton, 'cancel', params);
+    handleButtonsStyling(confirmButton, denyButton, cancelButton, params);
+    if (params.reverseButtons) {
+      if (params.toast) {
+        actions.insertBefore(cancelButton, confirmButton);
+        actions.insertBefore(denyButton, confirmButton);
+      } else {
+        actions.insertBefore(cancelButton, loader);
+        actions.insertBefore(denyButton, loader);
+        actions.insertBefore(confirmButton, loader);
+      }
+    }
+  }
+
+  /**
+   * @param {HTMLElement} confirmButton
+   * @param {HTMLElement} denyButton
+   * @param {HTMLElement} cancelButton
+   * @param {SweetAlertOptions} params
+   */
+  function handleButtonsStyling(confirmButton, denyButton, cancelButton, params) {
+    if (!params.buttonsStyling) {
+      removeClass([confirmButton, denyButton, cancelButton], swalClasses.styled);
+      return;
+    }
+    addClass([confirmButton, denyButton, cancelButton], swalClasses.styled);
+
+    // Apply custom background colors and outline colors to action buttons
+    /** @type {[HTMLElement, string, string | undefined][]} */
+    const buttons = [[confirmButton, 'confirm', params.confirmButtonColor], [denyButton, 'deny', params.denyButtonColor], [cancelButton, 'cancel', params.cancelButtonColor]];
+    buttons.forEach(([button, type, color]) => {
+      if (color) {
+        button.style.setProperty(`--swal2-${type}-button-background-color`, color);
+      }
+      applyOutlineColor(button);
+    });
+  }
+
+  /**
+   * @param {HTMLElement} button
+   */
+  function applyOutlineColor(button) {
+    const buttonStyle = window.getComputedStyle(button);
+    if (buttonStyle.getPropertyValue('--swal2-action-button-focus-box-shadow')) {
+      // If the button already has a custom outline color, no need to change it
+      return;
+    }
+    const outlineColor = buttonStyle.backgroundColor.replace(/rgba?\((\d+), (\d+), (\d+).*/, 'rgba($1, $2, $3, 0.5)');
+    button.style.setProperty('--swal2-action-button-focus-box-shadow', buttonStyle.getPropertyValue('--swal2-outline').replace(/ rgba\(.*/, ` ${outlineColor}`));
+  }
+
+  /**
+   * @param {HTMLElement} button
+   * @param {'confirm' | 'deny' | 'cancel'} buttonType
+   * @param {SweetAlertOptions} params
+   */
+  function renderButton(button, buttonType, params) {
+    const buttonName = /** @type {'Confirm' | 'Deny' | 'Cancel'} */capitalizeFirstLetter(buttonType);
+    toggle(button, params[`show${buttonName}Button`], 'inline-block');
+    setInnerHtml(button, params[`${buttonType}ButtonText`] || ''); // Set caption text
+    button.setAttribute('aria-label', params[`${buttonType}ButtonAriaLabel`] || ''); // ARIA label
+
+    // Add buttons custom classes
+    button.className = swalClasses[buttonType];
+    applyCustomClass(button, params, `${buttonType}Button`);
+  }
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {SweetAlertOptions} params
+   */
+  const renderCloseButton = (instance, params) => {
+    const closeButton = getCloseButton();
+    if (!closeButton) {
+      return;
+    }
+    setInnerHtml(closeButton, params.closeButtonHtml || '');
+
+    // Custom class
+    applyCustomClass(closeButton, params, 'closeButton');
+    toggle(closeButton, params.showCloseButton);
+    closeButton.setAttribute('aria-label', params.closeButtonAriaLabel || '');
+  };
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {SweetAlertOptions} params
+   */
+  const renderContainer = (instance, params) => {
+    const container = getContainer();
+    if (!container) {
+      return;
+    }
+    handleBackdropParam(container, params.backdrop);
+    handlePositionParam(container, params.position);
+    handleGrowParam(container, params.grow);
+
+    // Custom class
+    applyCustomClass(container, params, 'container');
+  };
+
+  /**
+   * @param {HTMLElement} container
+   * @param {SweetAlertOptions['backdrop']} backdrop
+   */
+  function handleBackdropParam(container, backdrop) {
+    if (typeof backdrop === 'string') {
+      container.style.background = backdrop;
+    } else if (!backdrop) {
+      addClass([document.documentElement, document.body], swalClasses['no-backdrop']);
+    }
+  }
+
+  /**
+   * @param {HTMLElement} container
+   * @param {SweetAlertOptions['position']} position
+   */
+  function handlePositionParam(container, position) {
+    if (!position) {
+      return;
+    }
+    if (position in swalClasses) {
+      addClass(container, swalClasses[position]);
+    } else {
+      warn('The "position" parameter is not valid, defaulting to "center"');
+      addClass(container, swalClasses.center);
+    }
+  }
+
+  /**
+   * @param {HTMLElement} container
+   * @param {SweetAlertOptions['grow']} grow
+   */
+  function handleGrowParam(container, grow) {
+    if (!grow) {
+      return;
+    }
+    addClass(container, swalClasses[`grow-${grow}`]);
+  }
+
+  /**
+   * This module contains `WeakMap`s for each effectively-"private  property" that a `Swal` has.
+   * For example, to set the private property "foo" of `this` to "bar", you can `privateProps.foo.set(this, 'bar')`
+   * This is the approach that Babel will probably take to implement private methods/fields
+   *   https://github.com/tc39/proposal-private-methods
+   *   https://github.com/babel/babel/pull/7555
+   * Once we have the changes from that PR in Babel, and our core class fits reasonable in *one module*
+   *   then we can use that language feature.
+   */
+
+  var privateProps = {
+    innerParams: new WeakMap(),
+    domCache: new WeakMap(),
+    focusedElement: new WeakMap()
+  };
+
+  /// <reference path="../../../../sweetalert2.d.ts"/>
+
+
+  /** @type {InputClass[]} */
+  const inputClasses = ['input', 'file', 'range', 'select', 'radio', 'checkbox', 'textarea'];
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {SweetAlertOptions} params
+   */
+  const renderInput = (instance, params) => {
+    const popup = getPopup();
+    if (!popup) {
+      return;
+    }
+    const innerParams = privateProps.innerParams.get(instance);
+    const rerender = !innerParams || params.input !== innerParams.input;
+    inputClasses.forEach(inputClass => {
+      const inputContainer = getDirectChildByClass(popup, swalClasses[inputClass]);
+      if (!inputContainer) {
+        return;
+      }
+
+      // set attributes
+      setAttributes(inputClass, params.inputAttributes);
+
+      // set class
+      inputContainer.className = swalClasses[inputClass];
+      if (rerender) {
+        hide(inputContainer);
+      }
+    });
+    if (params.input) {
+      if (rerender) {
+        showInput(params);
+      }
+      // set custom class
+      setCustomClass(params);
+    }
+  };
+
+  /**
+   * @param {SweetAlertOptions} params
+   */
+  const showInput = params => {
+    if (!params.input) {
+      return;
+    }
+    if (!renderInputType[params.input]) {
+      error(`Unexpected type of input! Expected ${Object.keys(renderInputType).join(' | ')}, got "${params.input}"`);
+      return;
+    }
+    const inputContainer = getInputContainer(params.input);
+    if (!inputContainer) {
+      return;
+    }
+    const input = renderInputType[params.input](inputContainer, params);
+    show(inputContainer);
+
+    // input autofocus
+    if (params.inputAutoFocus) {
+      setTimeout(() => {
+        focusInput(input);
+      });
+    }
+  };
+
+  /**
+   * @param {HTMLInputElement} input
+   */
+  const removeAttributes = input => {
+    for (const {
+      name
+    } of Array.from(input.attributes)) {
+      if (!['id', 'type', 'value', 'style'].includes(name)) {
+        input.removeAttribute(name);
+      }
+    }
+  };
+
+  /**
+   * @param {InputClass} inputClass
+   * @param {SweetAlertOptions['inputAttributes']} inputAttributes
+   */
+  const setAttributes = (inputClass, inputAttributes) => {
+    const popup = getPopup();
+    if (!popup) {
+      return;
+    }
+    const input = getInput$1(popup, inputClass);
+    if (!input) {
+      return;
+    }
+    removeAttributes(input);
+    for (const attr in inputAttributes) {
+      input.setAttribute(attr, inputAttributes[attr]);
+    }
+  };
+
+  /**
+   * @param {SweetAlertOptions} params
+   */
+  const setCustomClass = params => {
+    if (!params.input) {
+      return;
+    }
+    const inputContainer = getInputContainer(params.input);
+    if (inputContainer) {
+      applyCustomClass(inputContainer, params, 'input');
+    }
+  };
+
+  /**
+   * @param {HTMLInputElement | HTMLTextAreaElement} input
+   * @param {SweetAlertOptions} params
+   */
+  const setInputPlaceholder = (input, params) => {
+    if (!input.placeholder && params.inputPlaceholder) {
+      input.placeholder = params.inputPlaceholder;
+    }
+  };
+
+  /**
+   * @param {Input} input
+   * @param {Input} prependTo
+   * @param {SweetAlertOptions} params
+   */
+  const setInputLabel = (input, prependTo, params) => {
+    if (params.inputLabel) {
+      const label = document.createElement('label');
+      const labelClass = swalClasses['input-label'];
+      label.setAttribute('for', input.id);
+      label.className = labelClass;
+      if (typeof params.customClass === 'object') {
+        addClass(label, params.customClass.inputLabel);
+      }
+      label.innerText = params.inputLabel;
+      prependTo.insertAdjacentElement('beforebegin', label);
+    }
+  };
+
+  /**
+   * @param {SweetAlertInput} inputType
+   * @returns {HTMLElement | undefined}
+   */
+  const getInputContainer = inputType => {
+    const popup = getPopup();
+    if (!popup) {
+      return;
+    }
+    return getDirectChildByClass(popup, swalClasses[(/** @type {SwalClass} */inputType)] || swalClasses.input);
+  };
+
+  /**
+   * @param {HTMLInputElement | HTMLOutputElement | HTMLTextAreaElement} input
+   * @param {SweetAlertOptions['inputValue']} inputValue
+   */
+  const checkAndSetInputValue = (input, inputValue) => {
+    if (['string', 'number'].includes(typeof inputValue)) {
+      input.value = `${inputValue}`;
+    } else if (!isPromise(inputValue)) {
+      warn(`Unexpected type of inputValue! Expected "string", "number" or "Promise", got "${typeof inputValue}"`);
+    }
+  };
+
+  /** @type {Record<SweetAlertInput, (input: Input | HTMLElement, params: SweetAlertOptions) => Input>} */
+  const renderInputType = {};
+
+  /**
+   * @param {Input | HTMLElement} input
+   * @param {SweetAlertOptions} params
+   * @returns {Input}
+   */
+  renderInputType.text = renderInputType.email = renderInputType.password = renderInputType.number = renderInputType.tel = renderInputType.url = renderInputType.search = renderInputType.date = renderInputType['datetime-local'] = renderInputType.time = renderInputType.week = renderInputType.month = /** @type {(input: Input | HTMLElement, params: SweetAlertOptions) => Input} */
+  (input, params) => {
+    // oxfmt-ignore
+    const inputElement = /** @type {HTMLInputElement} */input;
+    checkAndSetInputValue(inputElement, params.inputValue);
+    setInputLabel(inputElement, inputElement, params);
+    setInputPlaceholder(inputElement, params);
+    // oxfmt-ignore
+    inputElement.type = /** @type {string} */params.input;
+    return inputElement;
+  };
+
+  /**
+   * @param {Input | HTMLElement} input
+   * @param {SweetAlertOptions} params
+   * @returns {Input}
+   */
+  renderInputType.file = (input, params) => {
+    const inputElement = /** @type {HTMLInputElement} */input;
+    setInputLabel(inputElement, inputElement, params);
+    setInputPlaceholder(inputElement, params);
+    return inputElement;
+  };
+
+  /**
+   * @param {Input | HTMLElement} range
+   * @param {SweetAlertOptions} params
+   * @returns {Input}
+   */
+  renderInputType.range = (range, params) => {
+    const rangeContainer = /** @type {HTMLElement} */range;
+    const rangeInput = rangeContainer.querySelector('input');
+    const rangeOutput = rangeContainer.querySelector('output');
+    if (rangeInput) {
+      checkAndSetInputValue(rangeInput, params.inputValue);
+      rangeInput.type = /** @type {string} */params.input;
+      setInputLabel(rangeInput, /** @type {Input} */range, params);
+    }
+    if (rangeOutput) {
+      checkAndSetInputValue(rangeOutput, params.inputValue);
+    }
+    return /** @type {Input} */range;
+  };
+
+  /**
+   * @param {Input | HTMLElement} select
+   * @param {SweetAlertOptions} params
+   * @returns {Input}
+   */
+  renderInputType.select = (select, params) => {
+    const selectElement = /** @type {HTMLSelectElement} */select;
+    selectElement.textContent = '';
+    if (params.inputPlaceholder) {
+      const placeholder = document.createElement('option');
+      setInnerHtml(placeholder, params.inputPlaceholder);
+      placeholder.value = '';
+      placeholder.disabled = true;
+      placeholder.selected = true;
+      selectElement.appendChild(placeholder);
+    }
+    setInputLabel(selectElement, selectElement, params);
+    return selectElement;
+  };
+
+  /**
+   * @param {Input | HTMLElement} radio
+   * @returns {Input}
+   */
+  renderInputType.radio = radio => {
+    const radioElement = /** @type {HTMLElement} */radio;
+    radioElement.textContent = '';
+    return /** @type {Input} */radio;
+  };
+
+  /**
+   * @param {Input | HTMLElement} checkboxContainer
+   * @param {SweetAlertOptions} params
+   * @returns {Input}
+   */
+  renderInputType.checkbox = (checkboxContainer, params) => {
+    const popup = getPopup();
+    if (!popup) {
+      throw new Error('Popup not found');
+    }
+    const checkbox = getInput$1(popup, 'checkbox');
+    if (!checkbox) {
+      throw new Error('Checkbox input not found');
+    }
+    checkbox.value = '1';
+    checkbox.checked = Boolean(params.inputValue);
+    const containerElement = /** @type {HTMLElement} */checkboxContainer;
+    const label = containerElement.querySelector('span');
+    if (label) {
+      const placeholderOrLabel = params.inputPlaceholder || params.inputLabel;
+      if (placeholderOrLabel) {
+        setInnerHtml(label, placeholderOrLabel);
+      }
+    }
+    return checkbox;
+  };
+
+  /**
+   * @param {Input | HTMLElement} textarea
+   * @param {SweetAlertOptions} params
+   * @returns {Input}
+   */
+  renderInputType.textarea = (textarea, params) => {
+    const textareaElement = /** @type {HTMLTextAreaElement} */textarea;
+    checkAndSetInputValue(textareaElement, params.inputValue);
+    setInputPlaceholder(textareaElement, params);
+    setInputLabel(textareaElement, textareaElement, params);
+
+    /**
+     * @param {HTMLElement} el
+     * @returns {number}
+     */
+    const getMargin = el => parseInt(window.getComputedStyle(el).marginLeft) + parseInt(window.getComputedStyle(el).marginRight);
+
+    // https://github.com/sweetalert2/sweetalert2/issues/2291
+    setTimeout(() => {
+      // https://github.com/sweetalert2/sweetalert2/issues/1699
+      if ('MutationObserver' in window) {
+        const popup = getPopup();
+        if (!popup) {
+          return;
+        }
+        const initialPopupWidth = parseInt(window.getComputedStyle(popup).width);
+        const textareaResizeHandler = () => {
+          // check if texarea is still in document (i.e. popup wasn't closed in the meantime)
+          if (!document.body.contains(textareaElement)) {
+            return;
+          }
+          const textareaWidth = textareaElement.offsetWidth + getMargin(textareaElement);
+          const popupElement = getPopup();
+          if (popupElement) {
+            if (textareaWidth > initialPopupWidth) {
+              popupElement.style.width = `${textareaWidth}px`;
+            } else {
+              applyNumericalStyle(popupElement, 'width', params.width);
+            }
+          }
+        };
+        new MutationObserver(textareaResizeHandler).observe(textareaElement, {
+          attributes: true,
+          attributeFilter: ['style']
+        });
+      }
+    });
+    return textareaElement;
+  };
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {SweetAlertOptions} params
+   */
+  const renderContent = (instance, params) => {
+    const htmlContainer = getHtmlContainer();
+    if (!htmlContainer) {
+      return;
+    }
+    showWhenInnerHtmlPresent(htmlContainer);
+    applyCustomClass(htmlContainer, params, 'htmlContainer');
+
+    // Content as HTML
+    if (params.html) {
+      parseHtmlToContainer(params.html, htmlContainer);
+      show(htmlContainer, 'block');
+    }
+
+    // Content as plain text
+    else if (params.text) {
+      htmlContainer.textContent = params.text;
+      show(htmlContainer, 'block');
+    }
+
+    // No content
+    else {
+      hide(htmlContainer);
+    }
+    renderInput(instance, params);
+  };
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {SweetAlertOptions} params
+   */
+  const renderFooter = (instance, params) => {
+    const footer = getFooter();
+    if (!footer) {
+      return;
+    }
+    showWhenInnerHtmlPresent(footer);
+    toggle(footer, Boolean(params.footer), 'block');
+    if (params.footer) {
+      parseHtmlToContainer(params.footer, footer);
+    }
+
+    // Custom class
+    applyCustomClass(footer, params, 'footer');
+  };
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {SweetAlertOptions} params
+   */
+  const renderIcon = (instance, params) => {
+    const innerParams = privateProps.innerParams.get(instance);
+    const icon = getIcon();
+    if (!icon) {
+      return;
+    }
+
+    // if the given icon already rendered, apply the styling without re-rendering the icon
+    if (innerParams && params.icon === innerParams.icon) {
+      // Custom or default content
+      setContent(icon, params);
+      applyStyles(icon, params);
+      return;
+    }
+    if (!params.icon && !params.iconHtml) {
+      hide(icon);
+      return;
+    }
+    if (params.icon && Object.keys(iconTypes).indexOf(params.icon) === -1) {
+      error(`Unknown icon! Expected "success", "error", "warning", "info" or "question", got "${params.icon}"`);
+      hide(icon);
+      return;
+    }
+    show(icon);
+
+    // Custom or default content
+    setContent(icon, params);
+    applyStyles(icon, params);
+
+    // Animate icon
+    addClass(icon, params.showClass && params.showClass.icon);
+
+    // Re-adjust the success icon on system theme change
+    const colorSchemeQueryList = window.matchMedia('(prefers-color-scheme: dark)');
+    colorSchemeQueryList.addEventListener('change', adjustSuccessIconBackgroundColor);
+  };
+
+  /**
+   * @param {HTMLElement} icon
+   * @param {SweetAlertOptions} params
+   */
+  const applyStyles = (icon, params) => {
+    for (const [iconType, iconClassName] of Object.entries(iconTypes)) {
+      if (params.icon !== iconType) {
+        removeClass(icon, iconClassName);
+      }
+    }
+    addClass(icon, params.icon && iconTypes[params.icon]);
+
+    // Icon color
+    setColor(icon, params);
+
+    // Success icon background color
+    adjustSuccessIconBackgroundColor();
+
+    // Custom class
+    applyCustomClass(icon, params, 'icon');
+  };
+
+  // Adjust success icon background color to match the popup background color
+  const adjustSuccessIconBackgroundColor = () => {
+    const popup = getPopup();
+    if (!popup) {
+      return;
+    }
+    const popupBackgroundColor = window.getComputedStyle(popup).getPropertyValue('background-color');
+    /** @type {NodeListOf<HTMLElement>} */
+    const successIconParts = popup.querySelectorAll('[class^=swal2-success-circular-line], .swal2-success-fix');
+    successIconParts.forEach(part => {
+      part.style.backgroundColor = popupBackgroundColor;
+    });
+  };
+
+  /**
+   *
+   * @param {SweetAlertOptions} params
+   * @returns {string}
+   */
+  const successIconHtml = params => `
+  ${params.animation ? '<div class="swal2-success-circular-line-left"></div>' : ''}
+  <span class="swal2-success-line-tip"></span> <span class="swal2-success-line-long"></span>
+  <div class="swal2-success-ring"></div>
+  ${params.animation ? '<div class="swal2-success-fix"></div>' : ''}
+  ${params.animation ? '<div class="swal2-success-circular-line-right"></div>' : ''}
+`;
+  const errorIconHtml = `
+  <span class="swal2-x-mark">
+    <span class="swal2-x-mark-line-left"></span>
+    <span class="swal2-x-mark-line-right"></span>
+  </span>
+`;
+
+  /**
+   * @param {HTMLElement} icon
+   * @param {SweetAlertOptions} params
+   */
+  const setContent = (icon, params) => {
+    if (!params.icon && !params.iconHtml) {
+      return;
+    }
+    let oldContent = icon.innerHTML;
+    let newContent = '';
+    if (params.iconHtml) {
+      newContent = iconContent(params.iconHtml);
+    } else if (params.icon === 'success') {
+      newContent = successIconHtml(params);
+      oldContent = oldContent.replace(/ style=".*?"/g, ''); // undo adjustSuccessIconBackgroundColor()
+    } else if (params.icon === 'error') {
+      newContent = errorIconHtml;
+    } else if (params.icon) {
+      const defaultIconHtml = {
+        question: '?',
+        warning: '!',
+        info: 'i'
+      };
+      newContent = iconContent(defaultIconHtml[params.icon]);
+    }
+    if (oldContent.trim() !== newContent.trim()) {
+      setInnerHtml(icon, newContent);
+    }
+  };
+
+  /**
+   * @param {HTMLElement} icon
+   * @param {SweetAlertOptions} params
+   */
+  const setColor = (icon, params) => {
+    if (!params.iconColor) {
+      return;
+    }
+    icon.style.color = params.iconColor;
+    icon.style.borderColor = params.iconColor;
+    for (const sel of ['.swal2-success-line-tip', '.swal2-success-line-long', '.swal2-x-mark-line-left', '.swal2-x-mark-line-right']) {
+      setStyle(icon, sel, 'background-color', params.iconColor);
+    }
+    setStyle(icon, '.swal2-success-ring', 'border-color', params.iconColor);
+  };
+
+  /**
+   * @param {string} content
+   * @returns {string}
+   */
+  const iconContent = content => `<div class="${swalClasses['icon-content']}">${content}</div>`;
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {SweetAlertOptions} params
+   */
+  const renderImage = (instance, params) => {
+    const image = getImage();
+    if (!image) {
+      return;
+    }
+    if (!params.imageUrl) {
+      hide(image);
+      return;
+    }
+    show(image, '');
+
+    // Src, alt
+    image.setAttribute('src', params.imageUrl);
+    image.setAttribute('alt', params.imageAlt || '');
+
+    // Width, height
+    applyNumericalStyle(image, 'width', params.imageWidth);
+    applyNumericalStyle(image, 'height', params.imageHeight);
+
+    // Class
+    image.className = swalClasses.image;
+    applyCustomClass(image, params, 'image');
+  };
+
+  let dragging = false;
+  let mousedownX = 0;
+  let mousedownY = 0;
+  let initialX = 0;
+  let initialY = 0;
+
+  /**
+   * @param {HTMLElement} popup
+   */
+  const addDraggableListeners = popup => {
+    popup.addEventListener('mousedown', down);
+    document.body.addEventListener('mousemove', move);
+    popup.addEventListener('mouseup', up);
+    popup.addEventListener('touchstart', down);
+    document.body.addEventListener('touchmove', move);
+    popup.addEventListener('touchend', up);
+  };
+
+  /**
+   * @param {HTMLElement} popup
+   */
+  const removeDraggableListeners = popup => {
+    popup.removeEventListener('mousedown', down);
+    document.body.removeEventListener('mousemove', move);
+    popup.removeEventListener('mouseup', up);
+    popup.removeEventListener('touchstart', down);
+    document.body.removeEventListener('touchmove', move);
+    popup.removeEventListener('touchend', up);
+  };
+
+  /**
+   * @param {MouseEvent | TouchEvent} event
+   */
+  const down = event => {
+    const popup = getPopup();
+    if (!popup) {
+      return;
+    }
+    const icon = getIcon();
+    if (event.target === popup || icon && icon.contains(/** @type {HTMLElement} */event.target)) {
+      dragging = true;
+      const clientXY = getClientXY(event);
+      mousedownX = clientXY.clientX;
+      mousedownY = clientXY.clientY;
+      initialX = parseInt(popup.style.insetInlineStart) || 0;
+      initialY = parseInt(popup.style.insetBlockStart) || 0;
+      addClass(popup, 'swal2-dragging');
+    }
+  };
+
+  /**
+   * @param {MouseEvent | TouchEvent} event
+   */
+  const move = event => {
+    const popup = getPopup();
+    if (!popup) {
+      return;
+    }
+    if (dragging) {
+      let {
+        clientX,
+        clientY
+      } = getClientXY(event);
+      const deltaX = clientX - mousedownX;
+      // In RTL mode, negate the horizontal delta since insetInlineStart refers to the right edge
+      popup.style.insetInlineStart = `${initialX + (globalState.isRTL ? -deltaX : deltaX)}px`;
+      popup.style.insetBlockStart = `${initialY + (clientY - mousedownY)}px`;
+    }
+  };
+  const up = () => {
+    const popup = getPopup();
+    dragging = false;
+    removeClass(popup, 'swal2-dragging');
+  };
+
+  /**
+   * @param {MouseEvent | TouchEvent} event
+   * @returns {{ clientX: number, clientY: number }}
+   */
+  const getClientXY = event => {
+    const source = event.type.startsWith('touch') ? /** @type {TouchEvent} */event.touches[0] : (/** @type {MouseEvent} */event);
+    return {
+      clientX: source.clientX,
+      clientY: source.clientY
+    };
+  };
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {SweetAlertOptions} params
+   */
+  const renderPopup = (instance, params) => {
+    const container = getContainer();
+    const popup = getPopup();
+    if (!container || !popup) {
+      return;
+    }
+
+    // Width
+    // https://github.com/sweetalert2/sweetalert2/issues/2170
+    if (params.toast) {
+      applyNumericalStyle(container, 'width', params.width);
+      popup.style.width = '100%';
+      const loader = getLoader();
+      if (loader) {
+        popup.insertBefore(loader, getIcon());
+      }
+    } else {
+      applyNumericalStyle(popup, 'width', params.width);
+    }
+
+    // Padding
+    applyNumericalStyle(popup, 'padding', params.padding);
+
+    // Color
+    if (params.color) {
+      popup.style.color = params.color;
+    }
+
+    // Background
+    if (params.background) {
+      popup.style.background = params.background;
+    }
+    hide(getValidationMessage());
+
+    // Classes
+    addClasses$1(popup, params);
+    if (params.draggable && !params.toast) {
+      addClass(popup, swalClasses.draggable);
+      addDraggableListeners(popup);
+    } else {
+      removeClass(popup, swalClasses.draggable);
+      removeDraggableListeners(popup);
+    }
+  };
+
+  /**
+   * @param {HTMLElement} popup
+   * @param {SweetAlertOptions} params
+   */
+  const addClasses$1 = (popup, params) => {
+    const showClass = params.showClass || {};
+    // Default Class + showClass when updating Swal.update({})
+    popup.className = `${swalClasses.popup} ${isVisible$1(popup) ? showClass.popup : ''}`;
+    if (params.toast) {
+      addClass([document.documentElement, document.body], swalClasses['toast-shown']);
+      addClass(popup, swalClasses.toast);
+    } else {
+      addClass(popup, swalClasses.modal);
+    }
+
+    // Custom class
+    applyCustomClass(popup, params, 'popup');
+    // TODO: remove in the next major
+    if (typeof params.customClass === 'string') {
+      addClass(popup, params.customClass);
+    }
+
+    // Icon class (#1842)
+    if (params.icon) {
+      addClass(popup, swalClasses[`icon-${params.icon}`]);
+    }
+  };
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {SweetAlertOptions} params
+   */
+  const renderProgressSteps = (instance, params) => {
+    const progressStepsContainer = getProgressSteps();
+    if (!progressStepsContainer) {
+      return;
+    }
+    const {
+      progressSteps,
+      currentProgressStep
+    } = params;
+    if (!progressSteps || progressSteps.length === 0 || currentProgressStep === undefined) {
+      hide(progressStepsContainer);
+      return;
+    }
+    show(progressStepsContainer);
+    progressStepsContainer.textContent = '';
+    if (currentProgressStep >= progressSteps.length) {
+      warn('Invalid currentProgressStep parameter, it should be less than progressSteps.length ' + '(currentProgressStep like JS arrays starts from 0)');
+    }
+    progressSteps.forEach((step, index) => {
+      const stepEl = createStepElement(step);
+      progressStepsContainer.appendChild(stepEl);
+      if (index === currentProgressStep) {
+        addClass(stepEl, swalClasses['active-progress-step']);
+      }
+      if (index !== progressSteps.length - 1) {
+        const lineEl = createLineElement(params);
+        progressStepsContainer.appendChild(lineEl);
+      }
+    });
+  };
+
+  /**
+   * @param {string} step
+   * @returns {HTMLLIElement}
+   */
+  const createStepElement = step => {
+    const stepEl = document.createElement('li');
+    addClass(stepEl, swalClasses['progress-step']);
+    setInnerHtml(stepEl, step);
+    return stepEl;
+  };
+
+  /**
+   * @param {SweetAlertOptions} params
+   * @returns {HTMLLIElement}
+   */
+  const createLineElement = params => {
+    const lineEl = document.createElement('li');
+    addClass(lineEl, swalClasses['progress-step-line']);
+    if (params.progressStepsDistance) {
+      applyNumericalStyle(lineEl, 'width', params.progressStepsDistance);
+    }
+    return lineEl;
+  };
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {SweetAlertOptions} params
+   */
+  const renderTitle = (instance, params) => {
+    const title = getTitle();
+    if (!title) {
+      return;
+    }
+    showWhenInnerHtmlPresent(title);
+    toggle(title, Boolean(params.title || params.titleText), 'block');
+    if (params.title) {
+      parseHtmlToContainer(params.title, title);
+    }
+    if (params.titleText) {
+      title.innerText = params.titleText;
+    }
+
+    // Custom class
+    applyCustomClass(title, params, 'title');
+  };
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {SweetAlertOptions} params
+   */
+  const render = (instance, params) => {
+    var _globalState$eventEmi;
+    renderPopup(instance, params);
+    renderContainer(instance, params);
+    renderProgressSteps(instance, params);
+    renderIcon(instance, params);
+    renderImage(instance, params);
+    renderTitle(instance, params);
+    renderCloseButton(instance, params);
+    renderContent(instance, params);
+    renderActions(instance, params);
+    renderFooter(instance, params);
+    const popup = getPopup();
+    if (typeof params.didRender === 'function' && popup) {
+      params.didRender(popup);
+    }
+    (_globalState$eventEmi = globalState.eventEmitter) === null || _globalState$eventEmi === void 0 || _globalState$eventEmi.emit('didRender', popup);
+  };
+
+  /*
+   * Global function to determine if SweetAlert2 popup is shown
+   */
+  const isVisible = () => {
+    return isVisible$1(getPopup());
+  };
+
+  /*
+   * Global function to click 'Confirm' button
+   */
+  const clickConfirm = () => {
+    var _dom$getConfirmButton;
+    return (_dom$getConfirmButton = getConfirmButton()) === null || _dom$getConfirmButton === void 0 ? void 0 : _dom$getConfirmButton.click();
+  };
+
+  /*
+   * Global function to click 'Deny' button
+   */
+  const clickDeny = () => {
+    var _dom$getDenyButton;
+    return (_dom$getDenyButton = getDenyButton()) === null || _dom$getDenyButton === void 0 ? void 0 : _dom$getDenyButton.click();
+  };
+
+  /*
+   * Global function to click 'Cancel' button
+   */
+  const clickCancel = () => {
+    var _dom$getCancelButton;
+    return (_dom$getCancelButton = getCancelButton()) === null || _dom$getCancelButton === void 0 ? void 0 : _dom$getCancelButton.click();
+  };
+
+  /** @type {Record<DismissReason, DismissReason>} */
+  const DismissReason = Object.freeze({
+    cancel: 'cancel',
+    backdrop: 'backdrop',
+    close: 'close',
+    esc: 'esc',
+    timer: 'timer'
+  });
+
+  /**
+   * @param {GlobalState} globalState
+   */
+  const removeKeydownHandler = globalState => {
+    if (globalState.keydownTarget && globalState.keydownHandlerAdded && globalState.keydownHandler) {
+      const handler = /** @type {EventListenerOrEventListenerObject} */
+      /** @type {unknown} */globalState.keydownHandler;
+      globalState.keydownTarget.removeEventListener('keydown', handler, {
+        capture: globalState.keydownListenerCapture
+      });
+      globalState.keydownHandlerAdded = false;
+    }
+  };
+
+  /**
+   * @param {GlobalState} globalState
+   * @param {SweetAlertOptions} innerParams
+   * @param {(dismiss: DismissReason) => void} dismissWith
+   */
+  const addKeydownHandler = (globalState, innerParams, dismissWith) => {
+    removeKeydownHandler(globalState);
+    if (!innerParams.toast) {
+      /** @type {(this: HTMLElement, event: KeyboardEvent) => void} */
+      const handler = e => keydownHandler(innerParams, e, dismissWith);
+      globalState.keydownHandler = handler;
+      const target = innerParams.keydownListenerCapture ? window : getPopup();
+      if (target) {
+        globalState.keydownTarget = target;
+        globalState.keydownListenerCapture = innerParams.keydownListenerCapture;
+        const eventHandler = /** @type {EventListenerOrEventListenerObject} */ /** @type {unknown} */handler;
+        globalState.keydownTarget.addEventListener('keydown', eventHandler, {
+          capture: globalState.keydownListenerCapture
+        });
+        globalState.keydownHandlerAdded = true;
+      }
+    }
+  };
+
+  /**
+   * @param {number} index
+   * @param {number} increment
+   * @returns {boolean} shouldPreventDefault
+   */
+  const setFocus = (index, increment) => {
+    var _dom$getPopup;
+    const focusableElements = getFocusableElements();
+    // search for visible elements and select the next possible match
+    if (focusableElements.length) {
+      index = index + increment;
+
+      // shift + tab when .swal2-popup is focused
+      if (index === -2) {
+        index = focusableElements.length - 1;
+      }
+
+      // rollover to first item
+      if (index === focusableElements.length) {
+        index = 0;
+
+        // go to last item
+      } else if (index === -1) {
+        index = focusableElements.length - 1;
+      }
+      focusableElements[index].focus();
+
+      // don't prevent default for iframes (Firefox fix)
+      // https://github.com/sweetalert2/sweetalert2/issues/2931
+      if (isFirefox() && focusableElements[index] instanceof HTMLIFrameElement) {
+        return false;
+      }
+      return true;
+    }
+    // no visible focusable elements, focus the popup
+    (_dom$getPopup = getPopup()) === null || _dom$getPopup === void 0 || _dom$getPopup.focus();
+    return true;
+  };
+  const arrowKeysNextButton = ['ArrowRight', 'ArrowDown'];
+  const arrowKeysPreviousButton = ['ArrowLeft', 'ArrowUp'];
+
+  /**
+   * @param {SweetAlertOptions} innerParams
+   * @param {KeyboardEvent} event
+   * @param {(dismiss: DismissReason) => void} dismissWith
+   */
+  const keydownHandler = (innerParams, event, dismissWith) => {
+    if (!innerParams) {
+      return; // This instance has already been destroyed
+    }
+
+    // Ignore keydown during IME composition
+    // https://developer.mozilla.org/en-US/docs/Web/API/Document/keydown_event#ignoring_keydown_during_ime_composition
+    // https://github.com/sweetalert2/sweetalert2/issues/720
+    // https://github.com/sweetalert2/sweetalert2/issues/2406
+    if (event.isComposing || event.keyCode === 229) {
+      return;
+    }
+    if (innerParams.stopKeydownPropagation) {
+      event.stopPropagation();
+    }
+
+    // ENTER
+    if (event.key === 'Enter') {
+      handleEnter(event, innerParams);
+    }
+
+    // TAB
+    else if (event.key === 'Tab') {
+      handleTab(event);
+    }
+
+    // ARROWS - switch focus between buttons
+    else if ([...arrowKeysNextButton, ...arrowKeysPreviousButton].includes(event.key)) {
+      handleArrows(event.key);
+    }
+
+    // ESC
+    else if (event.key === 'Escape') {
+      handleEsc(event, innerParams, dismissWith);
+    }
+  };
+
+  /**
+   * @param {KeyboardEvent} event
+   * @param {SweetAlertOptions} innerParams
+   */
+  const handleEnter = (event, innerParams) => {
+    // https://github.com/sweetalert2/sweetalert2/issues/2386
+    if (!callIfFunction(innerParams.allowEnterKey)) {
+      return;
+    }
+    const popup = getPopup();
+    if (!popup || !innerParams.input) {
+      return;
+    }
+    const input = getInput$1(popup, innerParams.input);
+    if (event.target && input && event.target instanceof HTMLElement && event.target.outerHTML === input.outerHTML) {
+      if (['textarea', 'file'].includes(innerParams.input)) {
+        return; // do not submit
+      }
+      clickConfirm();
+      event.preventDefault();
+    }
+  };
+
+  /**
+   * @param {KeyboardEvent} event
+   */
+  const handleTab = event => {
+    const targetElement = event.target;
+    const focusableElements = getFocusableElements();
+    const btnIndex = focusableElements.findIndex(el => el === targetElement);
+
+    // don't prevent default for iframes (Firefox fix)
+    // https://github.com/sweetalert2/sweetalert2/issues/2931
+    let shouldPreventDefault = true;
+
+    // Cycle to the next button
+    if (!event.shiftKey) {
+      shouldPreventDefault = setFocus(btnIndex, 1);
+    }
+
+    // Cycle to the prev button
+    else {
+      shouldPreventDefault = setFocus(btnIndex, -1);
+    }
+    event.stopPropagation();
+    if (shouldPreventDefault) {
+      event.preventDefault();
+    }
+  };
+
+  /**
+   * @param {string} key
+   */
+  const handleArrows = key => {
+    const actions = getActions();
+    const confirmButton = getConfirmButton();
+    const denyButton = getDenyButton();
+    const cancelButton = getCancelButton();
+    if (!actions || !confirmButton || !denyButton || !cancelButton) {
+      return;
+    }
+    /** @type HTMLElement[] */
+    const buttons = [confirmButton, denyButton, cancelButton];
+    if (document.activeElement instanceof HTMLElement && !buttons.includes(document.activeElement)) {
+      return;
+    }
+    const sibling = arrowKeysNextButton.includes(key) ? 'nextElementSibling' : 'previousElementSibling';
+    let buttonToFocus = document.activeElement;
+    if (!buttonToFocus) {
+      return;
+    }
+    for (let i = 0; i < actions.children.length; i++) {
+      buttonToFocus = buttonToFocus[sibling];
+      if (!buttonToFocus) {
+        return;
+      }
+      if (buttonToFocus instanceof HTMLButtonElement && isVisible$1(buttonToFocus)) {
+        break;
+      }
+    }
+    if (buttonToFocus instanceof HTMLButtonElement) {
+      buttonToFocus.focus();
+    }
+  };
+
+  /**
+   * @param {KeyboardEvent} event
+   * @param {SweetAlertOptions} innerParams
+   * @param {(dismiss: DismissReason) => void} dismissWith
+   */
+  const handleEsc = (event, innerParams, dismissWith) => {
+    event.preventDefault();
+    if (callIfFunction(innerParams.allowEscapeKey)) {
+      dismissWith(DismissReason.esc);
+    }
+  };
+
+  /**
+   * This module contains `WeakMap`s for each effectively-"private  property" that a `Swal` has.
+   * For example, to set the private property "foo" of `this` to "bar", you can `privateProps.foo.set(this, 'bar')`
+   * This is the approach that Babel will probably take to implement private methods/fields
+   *   https://github.com/tc39/proposal-private-methods
+   *   https://github.com/babel/babel/pull/7555
+   * Once we have the changes from that PR in Babel, and our core class fits reasonable in *one module*
+   *   then we can use that language feature.
+   */
+
+  var privateMethods = {
+    swalPromiseResolve: new WeakMap(),
+    swalPromiseReject: new WeakMap()
+  };
+
+  // From https://developer.paciellogroup.com/blog/2018/06/the-current-state-of-modal-dialog-accessibility/
+  // Adding aria-hidden="true" to elements outside of the active modal dialog ensures that
+  // elements not within the active modal dialog will not be surfaced if a user opens a screen
+  // reader’s list of elements (headings, form controls, landmarks, etc.) in the document.
+
+  const setAriaHidden = () => {
+    const container = getContainer();
+    const bodyChildren = Array.from(document.body.children);
+    bodyChildren.forEach(el => {
+      if (el.contains(container)) {
+        return;
+      }
+      if (el.hasAttribute('aria-hidden')) {
+        el.setAttribute('data-previous-aria-hidden', el.getAttribute('aria-hidden') || '');
+      }
+      el.setAttribute('aria-hidden', 'true');
+    });
+  };
+  const unsetAriaHidden = () => {
+    const bodyChildren = Array.from(document.body.children);
+    bodyChildren.forEach(el => {
+      if (el.hasAttribute('data-previous-aria-hidden')) {
+        el.setAttribute('aria-hidden', el.getAttribute('data-previous-aria-hidden') || '');
+        el.removeAttribute('data-previous-aria-hidden');
+      } else {
+        el.removeAttribute('aria-hidden');
+      }
+    });
+  };
+
+  // @ts-ignore
+  const isSafariOrIOS = typeof window !== 'undefined' && Boolean(window.GestureEvent); // true for Safari desktop + all iOS browsers https://stackoverflow.com/a/70585394
+
+  // @ts-ignore
+  const isIOS = isSafariOrIOS && /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+  /**
+   * Fix iOS scrolling
+   * http://stackoverflow.com/q/39626302
+   */
+  const iOSfix = () => {
+    if (isSafariOrIOS && !hasClass(document.body, swalClasses.iosfix)) {
+      const offset = document.body.scrollTop;
+      document.body.style.top = `${offset * -1}px`;
+      addClass(document.body, swalClasses.iosfix);
+      lockBodyScroll();
+    }
+  };
+
+  /**
+   * https://github.com/sweetalert2/sweetalert2/issues/1246
+   */
+  const lockBodyScroll = () => {
+    const container = getContainer();
+    if (!container) {
+      return;
+    }
+    /** @type {boolean} */
+    let preventTouchMove;
+    /**
+     * @param {TouchEvent} event
+     */
+    container.ontouchstart = event => {
+      preventTouchMove = shouldPreventTouchMove(event);
+    };
+    /**
+     * @param {TouchEvent} event
+     */
+    container.ontouchmove = event => {
+      if (preventTouchMove) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    };
+  };
+
+  /**
+   * @param {TouchEvent} event
+   * @returns {boolean}
+   */
+  const shouldPreventTouchMove = event => {
+    const target = event.target;
+    const container = getContainer();
+    const htmlContainer = getHtmlContainer();
+    if (!container || !htmlContainer) {
+      return false;
+    }
+    if (isStylus(event) || isZoom(event)) {
+      return false;
+    }
+    if (target === container) {
+      return true;
+    }
+    if (!isScrollable(container) && target instanceof HTMLElement && !selfOrParentIsScrollable(target, htmlContainer) &&
+    // #2823
+    target.tagName !== 'INPUT' &&
+    // #1603
+    target.tagName !== 'TEXTAREA' &&
+    // #2266
+    !(isScrollable(htmlContainer) &&
+    // #1944
+    htmlContainer.contains(target))) {
+      return true;
+    }
+    return false;
+  };
+
+  /**
+   * https://github.com/sweetalert2/sweetalert2/issues/1786
+   *
+   * @param {TouchEvent} event
+   * @returns {boolean}
+   */
+  const isStylus = event => {
+    return Boolean(event.touches && event.touches.length &&
+    // @ts-ignore - touchType is not a standard property
+    event.touches[0].touchType === 'stylus');
+  };
+
+  /**
+   * https://github.com/sweetalert2/sweetalert2/issues/1891
+   *
+   * @param {TouchEvent} event
+   * @returns {boolean}
+   */
+  const isZoom = event => {
+    return event.touches && event.touches.length > 1;
+  };
+  const undoIOSfix = () => {
+    if (hasClass(document.body, swalClasses.iosfix)) {
+      const offset = parseInt(document.body.style.top, 10);
+      removeClass(document.body, swalClasses.iosfix);
+      document.body.style.top = '';
+      document.body.scrollTop = offset * -1;
+    }
+  };
+
+  /**
+   * Measure scrollbar width for padding body during modal show/hide
+   * https://github.com/twbs/bootstrap/blob/master/js/src/modal.js
+   *
+   * @returns {number}
+   */
+  const measureScrollbar = () => {
+    const scrollDiv = document.createElement('div');
+    scrollDiv.className = swalClasses['scrollbar-measure'];
+    document.body.appendChild(scrollDiv);
+    const scrollbarWidth = scrollDiv.getBoundingClientRect().width - scrollDiv.clientWidth;
+    document.body.removeChild(scrollDiv);
+    return scrollbarWidth;
+  };
+
+  /**
+   * Remember state in cases where opening and handling a modal will fiddle with it.
+   * @type {number | null}
+   */
+  let previousBodyPadding = null;
+
+  /**
+   * @param {string} initialBodyOverflow
+   */
+  const replaceScrollbarWithPadding = initialBodyOverflow => {
+    // for queues, do not do this more than once
+    if (previousBodyPadding !== null) {
+      return;
+    }
+    // if the body has overflow
+    if (document.body.scrollHeight > window.innerHeight || initialBodyOverflow === 'scroll' // https://github.com/sweetalert2/sweetalert2/issues/2663
+    ) {
+      // add padding so the content doesn't shift after removal of scrollbar
+      previousBodyPadding = parseInt(window.getComputedStyle(document.body).getPropertyValue('padding-right'));
+      document.body.style.paddingRight = `${previousBodyPadding + measureScrollbar()}px`;
+    }
+  };
+  const undoReplaceScrollbarWithPadding = () => {
+    if (previousBodyPadding !== null) {
+      document.body.style.paddingRight = `${previousBodyPadding}px`;
+      previousBodyPadding = null;
+    }
+  };
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {HTMLElement} container
+   * @param {boolean} returnFocus
+   * @param {(() => void) | undefined} didClose
+   */
+  function removePopupAndResetState(instance, container, returnFocus, didClose) {
+    if (isToast()) {
+      triggerDidCloseAndDispose(instance, didClose);
+    } else {
+      restoreActiveElement(returnFocus).then(() => triggerDidCloseAndDispose(instance, didClose));
+      removeKeydownHandler(globalState);
+    }
+
+    // workaround for https://github.com/sweetalert2/sweetalert2/issues/2088
+    // for some reason removing the container in Safari will scroll the document to bottom
+    if (isSafariOrIOS) {
+      container.setAttribute('style', 'display:none !important');
+      container.removeAttribute('class');
+      container.innerHTML = '';
+    } else {
+      container.remove();
+    }
+    if (isModal()) {
+      undoReplaceScrollbarWithPadding();
+      undoIOSfix();
+      unsetAriaHidden();
+    }
+    removeBodyClasses();
+  }
+
+  /**
+   * Remove SweetAlert2 classes from body
+   */
+  function removeBodyClasses() {
+    removeClass([document.documentElement, document.body], [swalClasses.shown, swalClasses['height-auto'], swalClasses['no-backdrop'], swalClasses['toast-shown']]);
+  }
+
+  /**
+   * Instance method to close sweetAlert
+   *
+   * @param {SweetAlertResult | undefined} resolveValue
+   * @this {SweetAlert}
+   */
+  function close(resolveValue) {
+    resolveValue = prepareResolveValue(resolveValue);
+    const swalPromiseResolve = privateMethods.swalPromiseResolve.get(this);
+    const didClose = triggerClosePopup(this);
+    if (this.isAwaitingPromise) {
+      // A swal awaiting for a promise (after a click on Confirm or Deny) cannot be dismissed anymore #2335
+      if (!resolveValue.isDismissed) {
+        handleAwaitingPromise(this);
+        swalPromiseResolve(resolveValue);
+      }
+    } else if (didClose) {
+      // Resolve Swal promise
+      swalPromiseResolve(resolveValue);
+    }
+  }
+
+  /**
+   * @param {SweetAlert} instance
+   * @returns {boolean}
+   */
+  const triggerClosePopup = instance => {
+    const popup = getPopup();
+    if (!popup) {
+      return false;
+    }
+    const innerParams = privateProps.innerParams.get(instance);
+    if (!innerParams || hasClass(popup, innerParams.hideClass.popup)) {
+      return false;
+    }
+    removeClass(popup, innerParams.showClass.popup);
+    addClass(popup, innerParams.hideClass.popup);
+    const backdrop = getContainer();
+    removeClass(backdrop, innerParams.showClass.backdrop);
+    addClass(backdrop, innerParams.hideClass.backdrop);
+    handlePopupAnimation(instance, popup, innerParams);
+    return true;
+  };
+
+  /**
+   * @param {Error | string} error
+   * @this {SweetAlert}
+   */
+  function rejectPromise(error) {
+    const rejectPromise = privateMethods.swalPromiseReject.get(this);
+    handleAwaitingPromise(this);
+    if (rejectPromise) {
+      // Reject Swal promise
+      rejectPromise(error);
+    }
+  }
+
+  /**
+   * @param {SweetAlert} instance
+   */
+  const handleAwaitingPromise = instance => {
+    if (instance.isAwaitingPromise) {
+      // @ts-ignore
+      delete instance.isAwaitingPromise;
+      // The instance might have been previously partly destroyed, we must resume the destroy process in this case #2335
+      if (!privateProps.innerParams.get(instance)) {
+        instance._destroy();
+      }
+    }
+  };
+
+  /**
+   * @param {SweetAlertResult | undefined} resolveValue
+   * @returns {SweetAlertResult}
+   */
+  const prepareResolveValue = resolveValue => {
+    // When user calls Swal.close()
+    if (typeof resolveValue === 'undefined') {
+      return {
+        isConfirmed: false,
+        isDenied: false,
+        isDismissed: true
+      };
+    }
+    return Object.assign({
+      isConfirmed: false,
+      isDenied: false,
+      isDismissed: false
+    }, resolveValue);
+  };
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {HTMLElement} popup
+   * @param {SweetAlertOptions} innerParams
+   */
+  const handlePopupAnimation = (instance, popup, innerParams) => {
+    var _globalState$eventEmi;
+    const container = getContainer();
+    // If animation is supported, animate
+    const animationIsSupported = hasCssAnimation(popup);
+    if (typeof innerParams.willClose === 'function') {
+      innerParams.willClose(popup);
+    }
+    (_globalState$eventEmi = globalState.eventEmitter) === null || _globalState$eventEmi === void 0 || _globalState$eventEmi.emit('willClose', popup);
+    if (animationIsSupported && container) {
+      animatePopup(instance, popup, container, Boolean(innerParams.returnFocus), innerParams.didClose);
+    } else if (container) {
+      // Otherwise, remove immediately
+      removePopupAndResetState(instance, container, Boolean(innerParams.returnFocus), innerParams.didClose);
+    }
+  };
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {HTMLElement} popup
+   * @param {HTMLElement} container
+   * @param {boolean} returnFocus
+   * @param {(() => void) | undefined} didClose
+   */
+  const animatePopup = (instance, popup, container, returnFocus, didClose) => {
+    globalState.swalCloseEventFinishedCallback = removePopupAndResetState.bind(null, instance, container, returnFocus, didClose);
+    /**
+     * @param {AnimationEvent | TransitionEvent} e
+     */
+    const swalCloseAnimationFinished = function (e) {
+      if (e.target === popup) {
+        var _globalState$swalClos;
+        (_globalState$swalClos = globalState.swalCloseEventFinishedCallback) === null || _globalState$swalClos === void 0 || _globalState$swalClos.call(globalState);
+        delete globalState.swalCloseEventFinishedCallback;
+        popup.removeEventListener('animationend', swalCloseAnimationFinished);
+        popup.removeEventListener('transitionend', swalCloseAnimationFinished);
+      }
+    };
+    popup.addEventListener('animationend', swalCloseAnimationFinished);
+    popup.addEventListener('transitionend', swalCloseAnimationFinished);
+  };
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {(() => void) | undefined} didClose
+   */
+  const triggerDidCloseAndDispose = (instance, didClose) => {
+    setTimeout(() => {
+      var _globalState$eventEmi2;
+      if (typeof didClose === 'function') {
+        didClose.bind(instance.params)();
+      }
+      (_globalState$eventEmi2 = globalState.eventEmitter) === null || _globalState$eventEmi2 === void 0 || _globalState$eventEmi2.emit('didClose');
+      // instance might have been destroyed already
+      if (instance._destroy) {
+        instance._destroy();
+      }
+    });
+  };
+
+  /**
+   * Shows loader (spinner), this is useful with AJAX requests.
+   * By default the loader be shown instead of the "Confirm" button.
+   *
+   * @param {HTMLButtonElement | null} [buttonToReplace]
+   */
+  const showLoading = buttonToReplace => {
+    let popup = getPopup();
+    if (!popup) {
+      new Swal();
+    }
+    popup = getPopup();
+    if (!popup) {
+      return;
+    }
+    const loader = getLoader();
+    if (isToast()) {
+      hide(getIcon());
+    } else {
+      replaceButton(popup, buttonToReplace);
+    }
+    show(loader);
+    popup.setAttribute('data-loading', 'true');
+    popup.setAttribute('aria-busy', 'true');
+    popup.focus();
+  };
+
+  /**
+   * @param {HTMLElement} popup
+   * @param {HTMLButtonElement | null} [buttonToReplace]
+   */
+  const replaceButton = (popup, buttonToReplace) => {
+    const actions = getActions();
+    const loader = getLoader();
+    if (!actions || !loader) {
+      return;
+    }
+    if (!buttonToReplace && isVisible$1(getConfirmButton())) {
+      buttonToReplace = getConfirmButton();
+    }
+    show(actions);
+    if (buttonToReplace) {
+      hide(buttonToReplace);
+      loader.setAttribute('data-button-to-replace', buttonToReplace.className);
+      actions.insertBefore(loader, buttonToReplace);
+    }
+    addClass([popup, actions], swalClasses.loading);
+  };
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {SweetAlertOptions} params
+   */
+  const handleInputOptionsAndValue = (instance, params) => {
+    if (params.input === 'select' || params.input === 'radio') {
+      handleInputOptions(instance, params);
+    } else if (['text', 'email', 'number', 'tel', 'textarea'].some(i => i === params.input) && (hasToPromiseFn(params.inputValue) || isPromise(params.inputValue))) {
+      showLoading(getConfirmButton());
+      handleInputValue(instance, params);
+    }
+  };
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {SweetAlertOptions} innerParams
+   * @returns {SweetAlertInputValue}
+   */
+  const getInputValue = (instance, innerParams) => {
+    const input = instance.getInput();
+    if (!input) {
+      return null;
+    }
+    switch (innerParams.input) {
+      case 'checkbox':
+        return getCheckboxValue(input);
+      case 'radio':
+        return getRadioValue(input);
+      case 'file':
+        return getFileValue(input);
+      default:
+        return innerParams.inputAutoTrim ? input.value.trim() : input.value;
+    }
+  };
+
+  /**
+   * @param {HTMLInputElement} input
+   * @returns {number}
+   */
+  const getCheckboxValue = input => input.checked ? 1 : 0;
+
+  /**
+   * @param {HTMLInputElement} input
+   * @returns {string | null}
+   */
+  const getRadioValue = input => input.checked ? input.value : null;
+
+  /**
+   * @param {HTMLInputElement} input
+   * @returns {FileList | File | null}
+   */
+  const getFileValue = input => input.files && input.files.length ? input.getAttribute('multiple') !== null ? input.files : input.files[0] : null;
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {SweetAlertOptions} params
+   */
+  const handleInputOptions = (instance, params) => {
+    const popup = getPopup();
+    if (!popup) {
+      return;
+    }
+    /**
+     * @param {*} inputOptions
+     */
+    const processInputOptions = inputOptions => {
+      if (params.input === 'select') {
+        populateSelectOptions(popup, formatInputOptions(inputOptions), params);
+      } else if (params.input === 'radio') {
+        populateRadioOptions(popup, formatInputOptions(inputOptions), params);
+      }
+    };
+    if (hasToPromiseFn(params.inputOptions) || isPromise(params.inputOptions)) {
+      showLoading(getConfirmButton());
+      asPromise(params.inputOptions).then(inputOptions => {
+        instance.hideLoading();
+        processInputOptions(inputOptions);
+      });
+    } else if (typeof params.inputOptions === 'object') {
+      processInputOptions(params.inputOptions);
+    } else {
+      error(`Unexpected type of inputOptions! Expected object, Map or Promise, got ${typeof params.inputOptions}`);
+    }
+  };
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {SweetAlertOptions} params
+   */
+  const handleInputValue = (instance, params) => {
+    const input = instance.getInput();
+    if (!input) {
+      return;
+    }
+    hide(input);
+    asPromise(params.inputValue).then(inputValue => {
+      input.value = params.input === 'number' ? `${parseFloat(inputValue) || 0}` : `${inputValue}`;
+      show(input);
+      input.focus();
+      instance.hideLoading();
+    }).catch(err => {
+      error(`Error in inputValue promise: ${err}`);
+      input.value = '';
+      show(input);
+      input.focus();
+      instance.hideLoading();
+    });
+  };
+
+  /**
+   * @param {HTMLElement} popup
+   * @param {InputOptionFlattened[]} inputOptions
+   * @param {SweetAlertOptions} params
+   */
+  function populateSelectOptions(popup, inputOptions, params) {
+    const select = getDirectChildByClass(popup, swalClasses.select);
+    if (!select) {
+      return;
+    }
+    /**
+     * @param {HTMLElement} parent
+     * @param {string} optionLabel
+     * @param {string} optionValue
+     */
+    const renderOption = (parent, optionLabel, optionValue) => {
+      const option = document.createElement('option');
+      option.value = optionValue;
+      setInnerHtml(option, optionLabel);
+      option.selected = isSelected(optionValue, params.inputValue);
+      parent.appendChild(option);
+    };
+    inputOptions.forEach(inputOption => {
+      const optionValue = inputOption[0];
+      const optionLabel = inputOption[1];
+      // <optgroup> spec:
+      // https://www.w3.org/TR/html401/interact/forms.html#h-17.6
+      // "...all OPTGROUP elements must be specified directly within a SELECT element (i.e., groups may not be nested)..."
+      // check whether this is a <optgroup>
+      if (Array.isArray(optionLabel)) {
+        // if it is an array, then it is an <optgroup>
+        const optgroup = document.createElement('optgroup');
+        optgroup.label = optionValue;
+        optgroup.disabled = false; // not configurable for now
+        select.appendChild(optgroup);
+        optionLabel.forEach(o => renderOption(optgroup, o[1], o[0]));
+      } else {
+        // case of <option>
+        renderOption(select, optionLabel, optionValue);
+      }
+    });
+    select.focus();
+  }
+
+  /**
+   * @param {HTMLElement} popup
+   * @param {InputOptionFlattened[]} inputOptions
+   * @param {SweetAlertOptions} params
+   */
+  function populateRadioOptions(popup, inputOptions, params) {
+    const radio = getDirectChildByClass(popup, swalClasses.radio);
+    if (!radio) {
+      return;
+    }
+    inputOptions.forEach(inputOption => {
+      const radioValue = inputOption[0];
+      const radioLabel = inputOption[1];
+      const radioInput = document.createElement('input');
+      const radioLabelElement = document.createElement('label');
+      radioInput.type = 'radio';
+      radioInput.name = swalClasses.radio;
+      radioInput.value = radioValue;
+      if (isSelected(radioValue, params.inputValue)) {
+        radioInput.checked = true;
+      }
+      const label = document.createElement('span');
+      setInnerHtml(label, radioLabel);
+      label.className = swalClasses.label;
+      radioLabelElement.appendChild(radioInput);
+      radioLabelElement.appendChild(label);
+      radio.appendChild(radioLabelElement);
+    });
+    const radios = radio.querySelectorAll('input');
+    if (radios.length) {
+      radios[0].focus();
+    }
+  }
+
+  /**
+   * Converts `inputOptions` into an array of `[value, label]`s
+   *
+   * @param {*} inputOptions
+   * @typedef {string[]} InputOptionFlattened
+   * @returns {InputOptionFlattened[]}
+   */
+  const formatInputOptions = inputOptions => {
+    const entries = inputOptions instanceof Map ? Array.from(inputOptions) : Object.entries(inputOptions);
+    return entries.map(([key, value]) => [key, typeof value === 'object' ? formatInputOptions(value) : value]); // case of <optgroup>
+  };
+
+  /**
+   * @param {string} optionValue
+   * @param {SweetAlertInputValue} inputValue
+   * @returns {boolean}
+   */
+  const isSelected = (optionValue, inputValue) => Boolean(inputValue) && inputValue != null && inputValue.toString() === optionValue.toString();
+
+  /**
+   * @param {SweetAlert} instance
+   */
+  const handleConfirmButtonClick = instance => {
+    const innerParams = privateProps.innerParams.get(instance);
+    instance.disableButtons();
+    if (innerParams.input) {
+      handleConfirmOrDenyWithInput(instance, 'confirm');
+    } else {
+      confirm(instance, true);
+    }
+  };
+
+  /**
+   * @param {SweetAlert} instance
+   */
+  const handleDenyButtonClick = instance => {
+    const innerParams = privateProps.innerParams.get(instance);
+    instance.disableButtons();
+    if (innerParams.returnInputValueOnDeny) {
+      handleConfirmOrDenyWithInput(instance, 'deny');
+    } else {
+      deny(instance, false);
+    }
+  };
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {(dismiss: DismissReason) => void} dismissWith
+   */
+  const handleCancelButtonClick = (instance, dismissWith) => {
+    instance.disableButtons();
+    dismissWith(DismissReason.cancel);
+  };
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {'confirm' | 'deny'} type
+   */
+  const handleConfirmOrDenyWithInput = (instance, type) => {
+    const innerParams = privateProps.innerParams.get(instance);
+    if (!innerParams.input) {
+      error(`The "input" parameter is needed to be set when using returnInputValueOn${capitalizeFirstLetter(type)}`);
+      return;
+    }
+    const input = instance.getInput();
+    const inputValue = getInputValue(instance, innerParams);
+    if (innerParams.inputValidator) {
+      handleInputValidator(instance, inputValue, type);
+    } else if (input && !input.checkValidity()) {
+      instance.enableButtons();
+      instance.showValidationMessage(innerParams.validationMessage || input.validationMessage);
+    } else if (type === 'deny') {
+      deny(instance, inputValue);
+    } else {
+      confirm(instance, inputValue);
+    }
+  };
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {SweetAlertInputValue} inputValue
+   * @param {'confirm' | 'deny'} type
+   */
+  const handleInputValidator = (instance, inputValue, type) => {
+    const innerParams = privateProps.innerParams.get(instance);
+    instance.disableInput();
+    const validationPromise = Promise.resolve().then(() => asPromise(innerParams.inputValidator(inputValue, innerParams.validationMessage)));
+    validationPromise.then(validationMessage => {
+      instance.enableButtons();
+      instance.enableInput();
+      if (validationMessage) {
+        instance.showValidationMessage(validationMessage);
+      } else if (type === 'deny') {
+        deny(instance, inputValue);
+      } else {
+        confirm(instance, inputValue);
+      }
+    });
+  };
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {*} value
+   */
+  const deny = (instance, value) => {
+    const innerParams = privateProps.innerParams.get(instance);
+    if (innerParams.showLoaderOnDeny) {
+      showLoading(getDenyButton());
+    }
+    if (innerParams.preDeny) {
+      instance.isAwaitingPromise = true; // Flagging the instance as awaiting a promise so it's own promise's reject/resolve methods doesn't get destroyed until the result from this preDeny's promise is received
+      const preDenyPromise = Promise.resolve().then(() => asPromise(innerParams.preDeny(value, innerParams.validationMessage)));
+      preDenyPromise.then(preDenyValue => {
+        if (preDenyValue === false) {
+          instance.hideLoading();
+          handleAwaitingPromise(instance);
+        } else {
+          instance.close(/** @type SweetAlertResult */{
+            isDenied: true,
+            value: typeof preDenyValue === 'undefined' ? value : preDenyValue
+          });
+        }
+      }).catch(error => rejectWith(instance, error));
+    } else {
+      instance.close(/** @type SweetAlertResult */{
+        isDenied: true,
+        value
+      });
+    }
+  };
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {*} value
+   */
+  const succeedWith = (instance, value) => {
+    instance.close(/** @type SweetAlertResult */{
+      isConfirmed: true,
+      value
+    });
+  };
+
+  /**
+   *
+   * @param {SweetAlert} instance
+   * @param {string} error
+   */
+  const rejectWith = (instance, error) => {
+    instance.rejectPromise(error);
+  };
+
+  /**
+   *
+   * @param {SweetAlert} instance
+   * @param {*} value
+   */
+  const confirm = (instance, value) => {
+    const innerParams = privateProps.innerParams.get(instance);
+    if (innerParams.showLoaderOnConfirm) {
+      showLoading();
+    }
+    if (innerParams.preConfirm) {
+      instance.resetValidationMessage();
+      instance.isAwaitingPromise = true; // Flagging the instance as awaiting a promise so it's own promise's reject/resolve methods doesn't get destroyed until the result from this preConfirm's promise is received
+      const preConfirmPromise = Promise.resolve().then(() => asPromise(innerParams.preConfirm(value, innerParams.validationMessage)));
+      preConfirmPromise.then(preConfirmValue => {
+        if (isVisible$1(getValidationMessage()) || preConfirmValue === false) {
+          instance.hideLoading();
+          handleAwaitingPromise(instance);
+        } else {
+          succeedWith(instance, typeof preConfirmValue === 'undefined' ? value : preConfirmValue);
+        }
+      }).catch(error => rejectWith(instance, error));
+    } else {
+      succeedWith(instance, value);
+    }
+  };
+
+  /**
+   * Hides loader and shows back the button which was hidden by .showLoading()
+   * @this {SweetAlert}
+   */
+  function hideLoading() {
+    // do nothing if popup is closed
+    const innerParams = privateProps.innerParams.get(this);
+    if (!innerParams) {
+      return;
+    }
+    const domCache = privateProps.domCache.get(this);
+    hide(domCache.loader);
+    if (isToast()) {
+      if (innerParams.icon) {
+        show(getIcon());
+      }
+    } else {
+      showRelatedButton(domCache);
+    }
+    removeClass([domCache.popup, domCache.actions], swalClasses.loading);
+    domCache.popup.removeAttribute('aria-busy');
+    domCache.popup.removeAttribute('data-loading');
+    this.enableButtons();
+  }
+
+  /**
+   * @param {DomCache} domCache
+   */
+  const showRelatedButton = domCache => {
+    const dataButtonToReplace = domCache.loader.getAttribute('data-button-to-replace');
+    const buttonToReplace = dataButtonToReplace ? domCache.popup.getElementsByClassName(dataButtonToReplace) : [];
+    if (buttonToReplace.length) {
+      show(/** @type {HTMLElement} */buttonToReplace[0], 'inline-block');
+    } else if (allButtonsAreHidden()) {
+      hide(domCache.actions);
+    }
+  };
+
+  /**
+   * Gets the input DOM node, this method works with input parameter.
+   *
+   * @returns {HTMLInputElement | null}
+   * @this {SweetAlert}
+   */
+  function getInput() {
+    const innerParams = privateProps.innerParams.get(this);
+    const domCache = privateProps.domCache.get(this);
+    if (!domCache) {
+      return null;
+    }
+    return getInput$1(domCache.popup, innerParams.input);
+  }
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {string[]} buttons
+   * @param {boolean} disabled
+   */
+  function setButtonsDisabled(instance, buttons, disabled) {
+    const domCache = privateProps.domCache.get(instance);
+    buttons.forEach(button => {
+      domCache[button].disabled = disabled;
+    });
+  }
+
+  /**
+   * @param {HTMLInputElement | null} input
+   * @param {boolean} disabled
+   */
+  function setInputDisabled(input, disabled) {
+    const popup = getPopup();
+    if (!popup || !input) {
+      return;
+    }
+    if (input.type === 'radio') {
+      /** @type {NodeListOf<HTMLInputElement>} */
+      const radios = popup.querySelectorAll(`[name="${swalClasses.radio}"]`);
+      radios.forEach(radio => {
+        radio.disabled = disabled;
+      });
+    } else {
+      input.disabled = disabled;
+    }
+  }
+
+  /**
+   * Enable all the buttons
+   * @this {SweetAlert}
+   */
+  function enableButtons() {
+    setButtonsDisabled(this, ['confirmButton', 'denyButton', 'cancelButton'], false);
+    const focusedElement = privateProps.focusedElement.get(this);
+    if (focusedElement instanceof HTMLElement && document.activeElement === document.body) {
+      focusedElement.focus();
+    }
+    privateProps.focusedElement.delete(this);
+  }
+
+  /**
+   * Disable all the buttons
+   * @this {SweetAlert}
+   */
+  function disableButtons() {
+    privateProps.focusedElement.set(this, document.activeElement);
+    setButtonsDisabled(this, ['confirmButton', 'denyButton', 'cancelButton'], true);
+  }
+
+  /**
+   * Enable the input field
+   * @this {SweetAlert}
+   */
+  function enableInput() {
+    setInputDisabled(this.getInput(), false);
+  }
+
+  /**
+   * Disable the input field
+   * @this {SweetAlert}
+   */
+  function disableInput() {
+    setInputDisabled(this.getInput(), true);
+  }
+
+  /**
+   * Show block with validation message
+   *
+   * @param {string} error
+   * @this {SweetAlert}
+   */
+  function showValidationMessage(error) {
+    const domCache = privateProps.domCache.get(this);
+    const params = privateProps.innerParams.get(this);
+    setInnerHtml(domCache.validationMessage, error);
+    domCache.validationMessage.className = swalClasses['validation-message'];
+    if (params.customClass && params.customClass.validationMessage) {
+      addClass(domCache.validationMessage, params.customClass.validationMessage);
+    }
+    show(domCache.validationMessage);
+    const input = this.getInput();
+    if (input) {
+      input.setAttribute('aria-invalid', 'true');
+      input.setAttribute('aria-describedby', swalClasses['validation-message']);
+      focusInput(input);
+      addClass(input, swalClasses.inputerror);
+    }
+  }
+
+  /**
+   * Hide block with validation message
+   *
+   * @this {SweetAlert}
+   */
+  function resetValidationMessage() {
+    const domCache = privateProps.domCache.get(this);
+    if (domCache.validationMessage) {
+      hide(domCache.validationMessage);
+    }
+    const input = this.getInput();
+    if (input) {
+      input.removeAttribute('aria-invalid');
+      input.removeAttribute('aria-describedby');
+      removeClass(input, swalClasses.inputerror);
+    }
+  }
+
+  const defaultParams = {
+    title: '',
+    titleText: '',
+    text: '',
+    html: '',
+    footer: '',
+    icon: undefined,
+    iconColor: undefined,
+    iconHtml: undefined,
+    template: undefined,
+    toast: false,
+    draggable: false,
+    animation: true,
+    theme: 'light',
+    showClass: {
+      popup: 'swal2-show',
+      backdrop: 'swal2-backdrop-show',
+      icon: 'swal2-icon-show'
+    },
+    hideClass: {
+      popup: 'swal2-hide',
+      backdrop: 'swal2-backdrop-hide',
+      icon: 'swal2-icon-hide'
+    },
+    customClass: {},
+    target: 'body',
+    color: undefined,
+    backdrop: true,
+    heightAuto: true,
+    allowOutsideClick: true,
+    allowEscapeKey: true,
+    allowEnterKey: true,
+    stopKeydownPropagation: true,
+    keydownListenerCapture: false,
+    showConfirmButton: true,
+    showDenyButton: false,
+    showCancelButton: false,
+    preConfirm: undefined,
+    preDeny: undefined,
+    confirmButtonText: 'OK',
+    confirmButtonAriaLabel: '',
+    confirmButtonColor: undefined,
+    denyButtonText: 'No',
+    denyButtonAriaLabel: '',
+    denyButtonColor: undefined,
+    cancelButtonText: 'Cancel',
+    cancelButtonAriaLabel: '',
+    cancelButtonColor: undefined,
+    buttonsStyling: true,
+    reverseButtons: false,
+    focusConfirm: true,
+    focusDeny: false,
+    focusCancel: false,
+    returnFocus: true,
+    showCloseButton: false,
+    closeButtonHtml: '&times;',
+    closeButtonAriaLabel: 'Close this dialog',
+    loaderHtml: '',
+    showLoaderOnConfirm: false,
+    showLoaderOnDeny: false,
+    imageUrl: undefined,
+    imageWidth: undefined,
+    imageHeight: undefined,
+    imageAlt: '',
+    timer: undefined,
+    timerProgressBar: false,
+    width: undefined,
+    padding: undefined,
+    background: undefined,
+    input: undefined,
+    inputPlaceholder: '',
+    inputLabel: '',
+    inputValue: '',
+    inputOptions: {},
+    inputAutoFocus: true,
+    inputAutoTrim: true,
+    inputAttributes: {},
+    inputValidator: undefined,
+    returnInputValueOnDeny: false,
+    validationMessage: undefined,
+    grow: false,
+    position: 'center',
+    progressSteps: [],
+    currentProgressStep: undefined,
+    progressStepsDistance: undefined,
+    willOpen: undefined,
+    didOpen: undefined,
+    didRender: undefined,
+    willClose: undefined,
+    didClose: undefined,
+    didDestroy: undefined,
+    scrollbarPadding: true,
+    topLayer: false
+  };
+  const updatableParams = ['allowEscapeKey', 'allowOutsideClick', 'background', 'buttonsStyling', 'cancelButtonAriaLabel', 'cancelButtonColor', 'cancelButtonText', 'closeButtonAriaLabel', 'closeButtonHtml', 'color', 'confirmButtonAriaLabel', 'confirmButtonColor', 'confirmButtonText', 'currentProgressStep', 'customClass', 'denyButtonAriaLabel', 'denyButtonColor', 'denyButtonText', 'didClose', 'didDestroy', 'draggable', 'footer', 'hideClass', 'html', 'icon', 'iconColor', 'iconHtml', 'imageAlt', 'imageHeight', 'imageUrl', 'imageWidth', 'preConfirm', 'preDeny', 'progressSteps', 'returnFocus', 'reverseButtons', 'showCancelButton', 'showCloseButton', 'showConfirmButton', 'showDenyButton', 'text', 'title', 'titleText', 'theme', 'willClose'];
+
+  /** @type {Record<string, string | undefined>} */
+  const deprecatedParams = {
+    allowEnterKey: undefined
+  };
+  const toastIncompatibleParams = ['allowOutsideClick', 'allowEnterKey', 'backdrop', 'draggable', 'focusConfirm', 'focusDeny', 'focusCancel', 'returnFocus', 'heightAuto', 'keydownListenerCapture'];
+
+  /**
+   * Is valid parameter
+   *
+   * @param {string} paramName
+   * @returns {boolean}
+   */
+  const isValidParameter = paramName => {
+    return Object.prototype.hasOwnProperty.call(defaultParams, paramName);
+  };
+
+  /**
+   * Is valid parameter for Swal.update() method
+   *
+   * @param {string} paramName
+   * @returns {boolean}
+   */
+  const isUpdatableParameter = paramName => {
+    return updatableParams.indexOf(paramName) !== -1;
+  };
+
+  /**
+   * Is deprecated parameter
+   *
+   * @param {string} paramName
+   * @returns {string | undefined}
+   */
+  const isDeprecatedParameter = paramName => {
+    return deprecatedParams[paramName];
+  };
+
+  /**
+   * @param {string} param
+   */
+  const checkIfParamIsValid = param => {
+    if (!isValidParameter(param)) {
+      warn(`Unknown parameter "${param}"`);
+    }
+  };
+
+  /**
+   * @param {string} param
+   */
+  const checkIfToastParamIsValid = param => {
+    if (toastIncompatibleParams.includes(param)) {
+      warn(`The parameter "${param}" is incompatible with toasts`);
+    }
+  };
+
+  /**
+   * @param {string} param
+   */
+  const checkIfParamIsDeprecated = param => {
+    const isDeprecated = isDeprecatedParameter(param);
+    if (isDeprecated) {
+      warnAboutDeprecation(param, isDeprecated);
+    }
+  };
+
+  /**
+   * Show relevant warnings for given params
+   *
+   * @param {SweetAlertOptions} params
+   */
+  const showWarningsForParams = params => {
+    if (params.backdrop === false && params.allowOutsideClick) {
+      warn('"allowOutsideClick" parameter requires `backdrop` parameter to be set to `true`');
+    }
+    if (params.theme && !['light', 'dark', 'auto', 'minimal', 'borderless', 'bootstrap-4', 'bootstrap-4-light', 'bootstrap-4-dark', 'bootstrap-5', 'bootstrap-5-light', 'bootstrap-5-dark', 'material-ui', 'material-ui-light', 'material-ui-dark', 'embed-iframe', 'bulma', 'bulma-light', 'bulma-dark'].includes(params.theme)) {
+      warn(`Invalid theme "${params.theme}"`);
+    }
+    for (const param in params) {
+      checkIfParamIsValid(param);
+      if (params.toast) {
+        checkIfToastParamIsValid(param);
+      }
+      checkIfParamIsDeprecated(param);
+    }
+  };
+
+  /**
+   * Updates popup parameters.
+   *
+   * @this {any}
+   * @param {SweetAlertOptions} params
+   */
+  function update(params) {
+    const container = getContainer();
+    const popup = getPopup();
+    const innerParams = privateProps.innerParams.get(this);
+    if (!popup || hasClass(popup, innerParams.hideClass.popup)) {
+      warn(`You're trying to update the closed or closing popup, that won't work. Use the update() method in preConfirm parameter or show a new popup.`);
+      return;
+    }
+    const validUpdatableParams = filterValidParams(params);
+    const updatedParams = Object.assign({}, innerParams, validUpdatableParams);
+    showWarningsForParams(updatedParams);
+    if (container) {
+      container.dataset['swal2Theme'] = updatedParams.theme;
+    }
+    render(this, updatedParams);
+    privateProps.innerParams.set(this, updatedParams);
+    Object.defineProperties(this, {
+      params: {
+        value: Object.assign({}, this.params, params),
+        writable: false,
+        enumerable: true
+      }
+    });
+  }
+
+  /**
+   * @param {SweetAlertOptions} params
+   * @returns {SweetAlertOptions}
+   */
+  const filterValidParams = params => {
+    /** @type {Record<string, any>} */
+    const validUpdatableParams = {};
+    Object.keys(params).forEach(param => {
+      if (isUpdatableParameter(param)) {
+        const typedParams = /** @type {Record<string, any>} */params;
+        validUpdatableParams[param] = typedParams[param];
+      } else {
+        warn(`Invalid parameter to update: ${param}`);
+      }
+    });
+    return validUpdatableParams;
+  };
+
+  /**
+   * Dispose the current SweetAlert2 instance
+   * @this {SweetAlert}
+   */
+  function _destroy() {
+    var _globalState$eventEmi;
+    const domCache = privateProps.domCache.get(this);
+    const innerParams = privateProps.innerParams.get(this);
+    if (!innerParams) {
+      disposeWeakMaps(this); // The WeakMaps might have been partly destroyed, we must recall it to dispose any remaining WeakMaps #2335
+      return; // This instance has already been destroyed
+    }
+
+    // Check if there is another Swal closing
+    if (domCache.popup && globalState.swalCloseEventFinishedCallback) {
+      globalState.swalCloseEventFinishedCallback();
+      delete globalState.swalCloseEventFinishedCallback;
+    }
+    if (typeof innerParams.didDestroy === 'function') {
+      innerParams.didDestroy();
+    }
+    (_globalState$eventEmi = globalState.eventEmitter) === null || _globalState$eventEmi === void 0 || _globalState$eventEmi.emit('didDestroy');
+    disposeSwal(this);
+  }
+
+  /**
+   * @param {SweetAlert} instance
+   */
+  const disposeSwal = instance => {
+    disposeWeakMaps(instance);
+    // Unset this.params so GC will dispose it (#1569)
+    // @ts-ignore
+    delete instance.params;
+    // Unset globalState props so GC will dispose globalState (#1569)
+    delete globalState.keydownHandler;
+    delete globalState.keydownTarget;
+    // Unset currentInstance
+    delete globalState.currentInstance;
+  };
+
+  /**
+   * @param {SweetAlert} instance
+   */
+  const disposeWeakMaps = instance => {
+    // If the current instance is awaiting a promise result, we keep the privateMethods to call them once the promise result is retrieved #2335
+    if (instance.isAwaitingPromise) {
+      unsetWeakMaps(privateProps, instance);
+      instance.isAwaitingPromise = true;
+    } else {
+      unsetWeakMaps(privateMethods, instance);
+      unsetWeakMaps(privateProps, instance);
+
+      // @ts-ignore
+      delete instance.isAwaitingPromise;
+      // Unset instance methods
+      // @ts-ignore
+      delete instance.disableButtons;
+      // @ts-ignore
+      delete instance.enableButtons;
+      // @ts-ignore
+      delete instance.getInput;
+      // @ts-ignore
+      delete instance.disableInput;
+      // @ts-ignore
+      delete instance.enableInput;
+      // @ts-ignore
+      delete instance.hideLoading;
+      // @ts-ignore
+      delete instance.disableLoading;
+      // @ts-ignore
+      delete instance.showValidationMessage;
+      // @ts-ignore
+      delete instance.resetValidationMessage;
+      // @ts-ignore
+      delete instance.close;
+      // @ts-ignore
+      delete instance.closePopup;
+      // @ts-ignore
+      delete instance.closeModal;
+      // @ts-ignore
+      delete instance.closeToast;
+      // @ts-ignore
+      delete instance.rejectPromise;
+      // @ts-ignore
+      delete instance.update;
+      // @ts-ignore
+      delete instance._destroy;
+    }
+  };
+
+  /**
+   * @param {Record<string, WeakMap<any, any>>} obj
+   * @param {SweetAlert} instance
+   */
+  const unsetWeakMaps = (obj, instance) => {
+    for (const i in obj) {
+      obj[i].delete(instance);
+    }
+  };
+
+  var instanceMethods = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    _destroy: _destroy,
+    close: close,
+    closeModal: close,
+    closePopup: close,
+    closeToast: close,
+    disableButtons: disableButtons,
+    disableInput: disableInput,
+    disableLoading: hideLoading,
+    enableButtons: enableButtons,
+    enableInput: enableInput,
+    getInput: getInput,
+    handleAwaitingPromise: handleAwaitingPromise,
+    hideLoading: hideLoading,
+    rejectPromise: rejectPromise,
+    resetValidationMessage: resetValidationMessage,
+    showValidationMessage: showValidationMessage,
+    update: update
+  });
+
+  /**
+   * @param {SweetAlertOptions} innerParams
+   * @param {DomCache} domCache
+   * @param {(dismiss: DismissReason) => void} dismissWith
+   */
+  const handlePopupClick = (innerParams, domCache, dismissWith) => {
+    if (innerParams.toast) {
+      handleToastClick(innerParams, domCache, dismissWith);
+    } else {
+      // Ignore click events that had mousedown on the popup but mouseup on the container
+      // This can happen when the user drags a slider
+      handleModalMousedown(domCache);
+
+      // Ignore click events that had mousedown on the container but mouseup on the popup
+      handleContainerMousedown(domCache);
+      handleModalClick(innerParams, domCache, dismissWith);
+    }
+  };
+
+  /**
+   * @param {SweetAlertOptions} innerParams
+   * @param {DomCache} domCache
+   * @param {(dismiss: DismissReason) => void} dismissWith
+   */
+  const handleToastClick = (innerParams, domCache, dismissWith) => {
+    // Closing toast by internal click
+    domCache.popup.onclick = () => {
+      if (innerParams && (isAnyButtonShown(innerParams) || innerParams.timer || innerParams.input)) {
+        return;
+      }
+      dismissWith(DismissReason.close);
+    };
+  };
+
+  /**
+   * @param {SweetAlertOptions} innerParams
+   * @returns {boolean}
+   */
+  const isAnyButtonShown = innerParams => {
+    return Boolean(innerParams.showConfirmButton || innerParams.showDenyButton || innerParams.showCancelButton || innerParams.showCloseButton);
+  };
+  let ignoreOutsideClick = false;
+
+  /**
+   * @param {DomCache} domCache
+   */
+  const handleModalMousedown = domCache => {
+    domCache.popup.onmousedown = () => {
+      domCache.container.onmouseup = function (e) {
+        domCache.container.onmouseup = () => {};
+        // We only check if the mouseup target is the container because usually it doesn't
+        // have any other direct children aside of the popup
+        if (e.target === domCache.container) {
+          ignoreOutsideClick = true;
+        }
+      };
+    };
+  };
+
+  /**
+   * @param {DomCache} domCache
+   */
+  const handleContainerMousedown = domCache => {
+    domCache.container.onmousedown = e => {
+      // prevent the modal text from being selected on double click on the container (allowOutsideClick: false)
+      if (e.target === domCache.container) {
+        e.preventDefault();
+      }
+      domCache.popup.onmouseup = function (e) {
+        domCache.popup.onmouseup = () => {};
+        // We also need to check if the mouseup target is a child of the popup
+        if (e.target === domCache.popup || e.target instanceof HTMLElement && domCache.popup.contains(e.target)) {
+          ignoreOutsideClick = true;
+        }
+      };
+    };
+  };
+
+  /**
+   * @param {SweetAlertOptions} innerParams
+   * @param {DomCache} domCache
+   * @param {(dismiss: DismissReason) => void} dismissWith
+   */
+  const handleModalClick = (innerParams, domCache, dismissWith) => {
+    domCache.container.onclick = e => {
+      if (ignoreOutsideClick) {
+        ignoreOutsideClick = false;
+        return;
+      }
+      if (e.target === domCache.container && callIfFunction(innerParams.allowOutsideClick)) {
+        dismissWith(DismissReason.backdrop);
+      }
+    };
+  };
+
+  /**
+   * @param {unknown} elem
+   * @returns {boolean}
+   */
+  const isJqueryElement = elem => typeof elem === 'object' && elem !== null && 'jquery' in elem;
+
+  /**
+   * @param {unknown} elem
+   * @returns {boolean}
+   */
+  const isElement = elem => elem instanceof Element || isJqueryElement(elem);
+
+  /**
+   * @param {ReadonlyArray<unknown>} args
+   * @returns {SweetAlertOptions}
+   */
+  const argsToParams = args => {
+    /** @type {Record<string, unknown>} */
+    const params = {};
+    if (typeof args[0] === 'object' && !isElement(args[0])) {
+      Object.assign(params, args[0]);
+    } else {
+      ['title', 'html', 'icon'].forEach((name, index) => {
+        const arg = args[index];
+        if (typeof arg === 'string' || isElement(arg)) {
+          params[name] = arg;
+        } else if (arg !== undefined) {
+          error(`Unexpected type of ${name}! Expected "string" or "Element", got ${typeof arg}`);
+        }
+      });
+    }
+    return /** @type {SweetAlertOptions} */params;
+  };
+
+  /**
+   * Main method to create a new SweetAlert2 popup
+   *
+   * @this {new (...args: any[]) => any}
+   * @param  {...SweetAlertOptions} args
+   * @returns {Promise<SweetAlertResult>}
+   */
+  function fire(...args) {
+    return new this(...args);
+  }
+
+  /**
+   * Returns an extended version of `Swal` containing `params` as defaults.
+   * Useful for reusing Swal configuration.
+   *
+   * For example:
+   *
+   * Before:
+   * const textPromptOptions = { input: 'text', showCancelButton: true }
+   * const {value: firstName} = await Swal.fire({ ...textPromptOptions, title: 'What is your first name?' })
+   * const {value: lastName} = await Swal.fire({ ...textPromptOptions, title: 'What is your last name?' })
+   *
+   * After:
+   * const TextPrompt = Swal.mixin({ input: 'text', showCancelButton: true })
+   * const {value: firstName} = await TextPrompt('What is your first name?')
+   * const {value: lastName} = await TextPrompt('What is your last name?')
+   *
+   * @param {SweetAlertOptions} mixinParams
+   * @returns {SweetAlert}
+   * @this {typeof import('../SweetAlert.js').SweetAlert}
+   */
+  function mixin(mixinParams) {
+    // @ts-ignore: 'this' refers to the SweetAlert constructor
+    class MixinSwal extends this {
+      /**
+       * @param {any} params
+       * @param {any} priorityMixinParams
+       */
+      _main(params, priorityMixinParams) {
+        return super._main(params, Object.assign({}, mixinParams, priorityMixinParams));
+      }
+    }
+    // @ts-ignore
+    return MixinSwal;
+  }
+
+  /**
+   * If `timer` parameter is set, returns number of milliseconds of timer remained.
+   * Otherwise, returns undefined.
+   *
+   * @returns {number | undefined}
+   */
+  const getTimerLeft = () => {
+    return globalState.timeout && globalState.timeout.getTimerLeft();
+  };
+
+  /**
+   * Stop timer. Returns number of milliseconds of timer remained.
+   * If `timer` parameter isn't set, returns undefined.
+   *
+   * @returns {number | undefined}
+   */
+  const stopTimer = () => {
+    if (globalState.timeout) {
+      stopTimerProgressBar();
+      return globalState.timeout.stop();
+    }
+  };
+
+  /**
+   * Resume timer. Returns number of milliseconds of timer remained.
+   * If `timer` parameter isn't set, returns undefined.
+   *
+   * @returns {number | undefined}
+   */
+  const resumeTimer = () => {
+    if (globalState.timeout) {
+      const remaining = globalState.timeout.start();
+      animateTimerProgressBar(remaining);
+      return remaining;
+    }
+  };
+
+  /**
+   * Resume timer. Returns number of milliseconds of timer remained.
+   * If `timer` parameter isn't set, returns undefined.
+   *
+   * @returns {number | undefined}
+   */
+  const toggleTimer = () => {
+    const timer = globalState.timeout;
+    return timer && (timer.running ? stopTimer() : resumeTimer());
+  };
+
+  /**
+   * Increase timer. Returns number of milliseconds of an updated timer.
+   * If `timer` parameter isn't set, returns undefined.
+   *
+   * @param {number} ms
+   * @returns {number | undefined}
+   */
+  const increaseTimer = ms => {
+    if (globalState.timeout) {
+      const remaining = globalState.timeout.increase(ms);
+      animateTimerProgressBar(remaining, true);
+      return remaining;
+    }
+  };
+
+  /**
+   * Check if timer is running. Returns true if timer is running
+   * or false if timer is paused or stopped.
+   * If `timer` parameter isn't set, returns undefined
+   *
+   * @returns {boolean}
+   */
+  const isTimerRunning = () => {
+    return Boolean(globalState.timeout && globalState.timeout.isRunning());
+  };
+
+  let bodyClickListenerAdded = false;
+  /** @type {Record<string, any>} */
+  const clickHandlers = {};
+
+  /**
+   * @this {any}
+   * @param {string} attr
+   */
+  function bindClickHandler(attr = 'data-swal-template') {
+    clickHandlers[attr] = this;
+    if (!bodyClickListenerAdded) {
+      document.body.addEventListener('click', bodyClickListener);
+      bodyClickListenerAdded = true;
+    }
+  }
+
+  /**
+   * @param {MouseEvent} event
+   */
+  const bodyClickListener = event => {
+    for (let el = /** @type {any} */event.target; el && el !== document; el = el.parentNode) {
+      for (const attr in clickHandlers) {
+        const template = el.getAttribute && el.getAttribute(attr);
+        if (template) {
+          clickHandlers[attr].fire({
+            template
+          });
+          return;
+        }
+      }
+    }
+  };
+
+  // Source: https://gist.github.com/mudge/5830382?permalink_comment_id=2691957#gistcomment-2691957
+
+  class EventEmitter {
+    constructor() {
+      /** @type {Events} */
+      this.events = {};
+    }
+
+    /**
+     * @param {string} eventName
+     * @returns {EventHandlers}
+     */
+    _getHandlersByEventName(eventName) {
+      if (typeof this.events[eventName] === 'undefined') {
+        // not Set because we need to keep the FIFO order
+        // https://github.com/sweetalert2/sweetalert2/pull/2763#discussion_r1748990334
+        this.events[eventName] = [];
+      }
+      return this.events[eventName];
+    }
+
+    /**
+     * @param {string} eventName
+     * @param {EventHandler} eventHandler
+     */
+    on(eventName, eventHandler) {
+      const currentHandlers = this._getHandlersByEventName(eventName);
+      if (!currentHandlers.includes(eventHandler)) {
+        currentHandlers.push(eventHandler);
+      }
+    }
+
+    /**
+     * @param {string} eventName
+     * @param {EventHandler} eventHandler
+     */
+    once(eventName, eventHandler) {
+      /**
+       * @param {...any} args
+       */
+      const onceFn = (...args) => {
+        this.removeListener(eventName, onceFn);
+        // @ts-ignore
+        eventHandler.apply(this, args);
+      };
+      this.on(eventName, onceFn);
+    }
+
+    /**
+     * @param {string} eventName
+     * @param {...any} args
+     */
+    emit(eventName, ...args) {
+      this._getHandlersByEventName(eventName).forEach(
+      /**
+       * @param {EventHandler} eventHandler
+       */
+      eventHandler => {
+        try {
+          // @ts-ignore
+          eventHandler.apply(this, args);
+        } catch (error) {
+          console.error(error);
+        }
+      });
+    }
+
+    /**
+     * @param {string} eventName
+     * @param {EventHandler} eventHandler
+     */
+    removeListener(eventName, eventHandler) {
+      const currentHandlers = this._getHandlersByEventName(eventName);
+      const index = currentHandlers.indexOf(eventHandler);
+      if (index > -1) {
+        currentHandlers.splice(index, 1);
+      }
+    }
+
+    /**
+     * @param {string} eventName
+     */
+    removeAllListeners(eventName) {
+      if (this.events[eventName] !== undefined) {
+        // https://github.com/sweetalert2/sweetalert2/pull/2763#discussion_r1749239222
+        this.events[eventName].length = 0;
+      }
+    }
+    reset() {
+      this.events = {};
+    }
+  }
+
+  globalState.eventEmitter = new EventEmitter();
+
+  /**
+   * @param {string} eventName
+   * @param {EventHandler} eventHandler
+   */
+  const on = (eventName, eventHandler) => {
+    if (globalState.eventEmitter) {
+      globalState.eventEmitter.on(eventName, eventHandler);
+    }
+  };
+
+  /**
+   * @param {string} eventName
+   * @param {EventHandler} eventHandler
+   */
+  const once = (eventName, eventHandler) => {
+    if (globalState.eventEmitter) {
+      globalState.eventEmitter.once(eventName, eventHandler);
+    }
+  };
+
+  /**
+   * @param {string} [eventName]
+   * @param {EventHandler} [eventHandler]
+   */
+  const off = (eventName, eventHandler) => {
+    if (!globalState.eventEmitter) {
+      return;
+    }
+
+    // Remove all handlers for all events
+    if (!eventName) {
+      globalState.eventEmitter.reset();
+      return;
+    }
+    if (eventHandler) {
+      // Remove a specific handler
+      globalState.eventEmitter.removeListener(eventName, eventHandler);
+    } else {
+      // Remove all handlers for a specific event
+      globalState.eventEmitter.removeAllListeners(eventName);
+    }
+  };
+
+  var staticMethods = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    argsToParams: argsToParams,
+    bindClickHandler: bindClickHandler,
+    clickCancel: clickCancel,
+    clickConfirm: clickConfirm,
+    clickDeny: clickDeny,
+    enableLoading: showLoading,
+    fire: fire,
+    getActions: getActions,
+    getCancelButton: getCancelButton,
+    getCloseButton: getCloseButton,
+    getConfirmButton: getConfirmButton,
+    getContainer: getContainer,
+    getDenyButton: getDenyButton,
+    getFocusableElements: getFocusableElements,
+    getFooter: getFooter,
+    getHtmlContainer: getHtmlContainer,
+    getIcon: getIcon,
+    getIconContent: getIconContent,
+    getImage: getImage,
+    getInputLabel: getInputLabel,
+    getLoader: getLoader,
+    getPopup: getPopup,
+    getProgressSteps: getProgressSteps,
+    getTimerLeft: getTimerLeft,
+    getTimerProgressBar: getTimerProgressBar,
+    getTitle: getTitle,
+    getValidationMessage: getValidationMessage,
+    increaseTimer: increaseTimer,
+    isDeprecatedParameter: isDeprecatedParameter,
+    isLoading: isLoading,
+    isTimerRunning: isTimerRunning,
+    isUpdatableParameter: isUpdatableParameter,
+    isValidParameter: isValidParameter,
+    isVisible: isVisible,
+    mixin: mixin,
+    off: off,
+    on: on,
+    once: once,
+    resumeTimer: resumeTimer,
+    showLoading: showLoading,
+    stopTimer: stopTimer,
+    toggleTimer: toggleTimer
+  });
+
+  class Timer {
+    /**
+     * @param {() => void} callback
+     * @param {number} delay
+     */
+    constructor(callback, delay) {
+      this.callback = callback;
+      this.remaining = delay;
+      this.running = false;
+      this.start();
+    }
+
+    /**
+     * @returns {number}
+     */
+    start() {
+      if (!this.running) {
+        this.running = true;
+        this.started = new Date();
+        this.id = setTimeout(this.callback, this.remaining);
+      }
+      return this.remaining;
+    }
+
+    /**
+     * @returns {number}
+     */
+    stop() {
+      if (this.started && this.running) {
+        this.running = false;
+        clearTimeout(this.id);
+        this.remaining -= new Date().getTime() - this.started.getTime();
+      }
+      return this.remaining;
+    }
+
+    /**
+     * @param {number} n
+     * @returns {number}
+     */
+    increase(n) {
+      const running = this.running;
+      if (running) {
+        this.stop();
+      }
+      this.remaining += n;
+      if (running) {
+        this.start();
+      }
+      return this.remaining;
+    }
+
+    /**
+     * @returns {number}
+     */
+    getTimerLeft() {
+      if (this.running) {
+        this.stop();
+        this.start();
+      }
+      return this.remaining;
+    }
+
+    /**
+     * @returns {boolean}
+     */
+    isRunning() {
+      return this.running;
+    }
+  }
+
+  const swalStringParams = ['swal-title', 'swal-html', 'swal-footer'];
+
+  /**
+   * @param {SweetAlertOptions} params
+   * @returns {SweetAlertOptions}
+   */
+  const getTemplateParams = params => {
+    const template = typeof params.template === 'string' ? (/** @type {HTMLTemplateElement} */document.querySelector(params.template)) : params.template;
+    if (!template) {
+      return {};
+    }
+    /** @type {DocumentFragment} */
+    const templateContent = template.content;
+    showWarningsForElements(templateContent);
+    const result = Object.assign(getSwalParams(templateContent), getSwalFunctionParams(templateContent), getSwalButtons(templateContent), getSwalImage(templateContent), getSwalIcon(templateContent), getSwalInput(templateContent), getSwalStringParams(templateContent, swalStringParams));
+    return result;
+  };
+
+  /**
+   * @param {DocumentFragment} templateContent
+   * @returns {Record<string, string | boolean | number>}
+   */
+  const getSwalParams = templateContent => {
+    /** @type {Record<string, string | boolean | number>} */
+    const result = {};
+    /** @type {HTMLElement[]} */
+    const swalParams = Array.from(templateContent.querySelectorAll('swal-param'));
+    swalParams.forEach(param => {
+      showWarningsForAttributes(param, ['name', 'value']);
+      const paramName = /** @type {keyof SweetAlertOptions} */param.getAttribute('name');
+      const value = param.getAttribute('value');
+      if (!paramName || !value) {
+        return;
+      }
+      if (paramName in defaultParams && typeof defaultParams[(/** @type {keyof typeof defaultParams} */paramName)] === 'boolean') {
+        result[paramName] = value !== 'false';
+      } else if (paramName in defaultParams && typeof defaultParams[(/** @type {keyof typeof defaultParams} */paramName)] === 'object') {
+        result[paramName] = JSON.parse(value);
+      } else {
+        result[paramName] = value;
+      }
+    });
+    return result;
+  };
+
+  /**
+   * @param {DocumentFragment} templateContent
+   * @returns {Record<string, () => void>}
+   */
+  const getSwalFunctionParams = templateContent => {
+    /** @type {Record<string, () => void>} */
+    const result = {};
+    /** @type {HTMLElement[]} */
+    const swalFunctions = Array.from(templateContent.querySelectorAll('swal-function-param'));
+    swalFunctions.forEach(param => {
+      const paramName = /** @type {keyof SweetAlertOptions} */param.getAttribute('name');
+      const value = param.getAttribute('value');
+      if (!paramName || !value) {
+        return;
+      }
+      result[paramName] = new Function(`return ${value}`)();
+    });
+    return result;
+  };
+
+  /**
+   * @param {DocumentFragment} templateContent
+   * @returns {Record<string, string | boolean>}
+   */
+  const getSwalButtons = templateContent => {
+    /** @type {Record<string, string | boolean>} */
+    const result = {};
+    /** @type {HTMLElement[]} */
+    const swalButtons = Array.from(templateContent.querySelectorAll('swal-button'));
+    swalButtons.forEach(button => {
+      showWarningsForAttributes(button, ['type', 'color', 'aria-label']);
+      const type = button.getAttribute('type');
+      if (!type || !['confirm', 'cancel', 'deny'].includes(type)) {
+        return;
+      }
+      result[`${type}ButtonText`] = button.innerHTML;
+      result[`show${capitalizeFirstLetter(type)}Button`] = true;
+      const color = button.getAttribute('color');
+      if (color !== null) {
+        result[`${type}ButtonColor`] = color;
+      }
+      const ariaLabel = button.getAttribute('aria-label');
+      if (ariaLabel !== null) {
+        result[`${type}ButtonAriaLabel`] = ariaLabel;
+      }
+    });
+    return result;
+  };
+
+  /**
+   * @param {DocumentFragment} templateContent
+   * @returns {Pick<SweetAlertOptions, 'imageUrl' | 'imageWidth' | 'imageHeight' | 'imageAlt'>}
+   */
+  const getSwalImage = templateContent => {
+    const result = {};
+    /** @type {HTMLElement | null} */
+    const image = templateContent.querySelector('swal-image');
+    if (image) {
+      showWarningsForAttributes(image, ['src', 'width', 'height', 'alt']);
+      // getAttribute returns null if attribute is absent; `|| undefined` converts empty string to undefined
+      const src = image.getAttribute('src');
+      if (src !== null) result.imageUrl = src || undefined;
+      const width = image.getAttribute('width');
+      if (width !== null) result.imageWidth = width || undefined;
+      const height = image.getAttribute('height');
+      if (height !== null) result.imageHeight = height || undefined;
+      const alt = image.getAttribute('alt');
+      if (alt !== null) result.imageAlt = alt || undefined;
+    }
+    return result;
+  };
+
+  /**
+   * @param {DocumentFragment} templateContent
+   * @returns {object}
+   */
+  const getSwalIcon = templateContent => {
+    const result = {};
+    /** @type {HTMLElement | null} */
+    const icon = templateContent.querySelector('swal-icon');
+    if (icon) {
+      showWarningsForAttributes(icon, ['type', 'color']);
+      if (icon.hasAttribute('type')) {
+        result.icon = icon.getAttribute('type');
+      }
+      if (icon.hasAttribute('color')) {
+        result.iconColor = icon.getAttribute('color');
+      }
+      result.iconHtml = icon.innerHTML;
+    }
+    return result;
+  };
+
+  /**
+   * @param {DocumentFragment} templateContent
+   * @returns {object}
+   */
+  const getSwalInput = templateContent => {
+    /** @type {Record<string, any>} */
+    const result = {};
+    /** @type {HTMLElement | null} */
+    const input = templateContent.querySelector('swal-input');
+    if (input) {
+      showWarningsForAttributes(input, ['type', 'label', 'placeholder', 'value']);
+      result.input = input.getAttribute('type') || 'text';
+      if (input.hasAttribute('label')) {
+        result.inputLabel = input.getAttribute('label');
+      }
+      if (input.hasAttribute('placeholder')) {
+        result.inputPlaceholder = input.getAttribute('placeholder');
+      }
+      if (input.hasAttribute('value')) {
+        result.inputValue = input.getAttribute('value');
+      }
+    }
+    /** @type {HTMLElement[]} */
+    const inputOptions = Array.from(templateContent.querySelectorAll('swal-input-option'));
+    if (inputOptions.length) {
+      result.inputOptions = {};
+      inputOptions.forEach(option => {
+        showWarningsForAttributes(option, ['value']);
+        const optionValue = option.getAttribute('value');
+        if (!optionValue) {
+          return;
+        }
+        const optionName = option.innerHTML;
+        result.inputOptions[optionValue] = optionName;
+      });
+    }
+    return result;
+  };
+
+  /**
+   * @param {DocumentFragment} templateContent
+   * @param {string[]} paramNames
+   * @returns {Record<string, string>}
+   */
+  const getSwalStringParams = (templateContent, paramNames) => {
+    /** @type {Record<string, string>} */
+    const result = {};
+    for (const i in paramNames) {
+      const paramName = paramNames[i];
+      /** @type {HTMLElement | null} */
+      const tag = templateContent.querySelector(paramName);
+      if (tag) {
+        showWarningsForAttributes(tag, []);
+        result[paramName.replace(/^swal-/, '')] = tag.innerHTML.trim();
+      }
+    }
+    return result;
+  };
+
+  /**
+   * @param {DocumentFragment} templateContent
+   */
+  const showWarningsForElements = templateContent => {
+    const allowedElements = swalStringParams.concat(['swal-param', 'swal-function-param', 'swal-button', 'swal-image', 'swal-icon', 'swal-input', 'swal-input-option']);
+    Array.from(templateContent.children).forEach(el => {
+      const tagName = el.tagName.toLowerCase();
+      if (!allowedElements.includes(tagName)) {
+        warn(`Unrecognized element <${tagName}>`);
+      }
+    });
+  };
+
+  /**
+   * @param {HTMLElement} el
+   * @param {string[]} allowedAttributes
+   */
+  const showWarningsForAttributes = (el, allowedAttributes) => {
+    Array.from(el.attributes).forEach(attribute => {
+      if (allowedAttributes.indexOf(attribute.name) === -1) {
+        warn([`Unrecognized attribute "${attribute.name}" on <${el.tagName.toLowerCase()}>.`, `${allowedAttributes.length ? `Allowed attributes are: ${allowedAttributes.join(', ')}` : 'To set the value, use HTML within the element.'}`]);
+      }
+    });
+  };
+
+  const SHOW_CLASS_TIMEOUT = 10;
+
+  /**
+   * Open popup, add necessary classes and styles, fix scrollbar
+   *
+   * @param {SweetAlertOptions} params
+   */
+  const openPopup = params => {
+    var _globalState$eventEmi, _globalState$eventEmi2;
+    const container = getContainer();
+    const popup = getPopup();
+    if (!container || !popup) {
+      return;
+    }
+    if (typeof params.willOpen === 'function') {
+      params.willOpen(popup);
+    }
+    (_globalState$eventEmi = globalState.eventEmitter) === null || _globalState$eventEmi === void 0 || _globalState$eventEmi.emit('willOpen', popup);
+    const bodyStyles = window.getComputedStyle(document.body);
+    const initialBodyOverflow = bodyStyles.overflowY;
+    addClasses(container, popup, params);
+
+    // scrolling is 'hidden' until animation is done, after that 'auto'
+    setTimeout(() => {
+      setScrollingVisibility(container, popup);
+    }, SHOW_CLASS_TIMEOUT);
+    if (isModal()) {
+      fixScrollContainer(container, params.scrollbarPadding !== undefined ? params.scrollbarPadding : false, initialBodyOverflow);
+      setAriaHidden();
+    }
+
+    // https://github.com/sweetalert2/sweetalert2/issues/2923
+    if (isIOS && params.backdrop === false && popup.scrollHeight > container.clientHeight) {
+      // remove pointer-events: none from container, it breaks scrolling tall popups in iOS
+      container.style.pointerEvents = 'auto';
+    }
+    if (!isToast() && !globalState.previousActiveElement) {
+      globalState.previousActiveElement = document.activeElement;
+    }
+    if (typeof params.didOpen === 'function') {
+      const didOpen = params.didOpen;
+      setTimeout(() => didOpen(popup));
+    }
+    (_globalState$eventEmi2 = globalState.eventEmitter) === null || _globalState$eventEmi2 === void 0 || _globalState$eventEmi2.emit('didOpen', popup);
+  };
+
+  /**
+   * @param {Event} event
+   */
+  const swalOpenAnimationFinished = event => {
+    const popup = getPopup();
+    if (!popup || event.target !== popup) {
+      return;
+    }
+    const container = getContainer();
+    if (!container) {
+      return;
+    }
+    popup.removeEventListener('animationend', swalOpenAnimationFinished);
+    popup.removeEventListener('transitionend', swalOpenAnimationFinished);
+    container.style.overflowY = 'auto';
+
+    // no-transition is added in init() in case one swal is opened right after another
+    removeClass(container, swalClasses['no-transition']);
+  };
+
+  /**
+   * @param {HTMLElement} container
+   * @param {HTMLElement} popup
+   */
+  const setScrollingVisibility = (container, popup) => {
+    if (hasCssAnimation(popup)) {
+      container.style.overflowY = 'hidden';
+      popup.addEventListener('animationend', swalOpenAnimationFinished);
+      popup.addEventListener('transitionend', swalOpenAnimationFinished);
+    } else {
+      container.style.overflowY = 'auto';
+    }
+  };
+
+  /**
+   * @param {HTMLElement} container
+   * @param {boolean} scrollbarPadding
+   * @param {string} initialBodyOverflow
+   */
+  const fixScrollContainer = (container, scrollbarPadding, initialBodyOverflow) => {
+    iOSfix();
+    if (scrollbarPadding && initialBodyOverflow !== 'hidden') {
+      replaceScrollbarWithPadding(initialBodyOverflow);
+    }
+
+    // sweetalert2/issues/1247
+    setTimeout(() => {
+      container.scrollTop = 0;
+    });
+  };
+
+  /**
+   * @param {HTMLElement} container
+   * @param {HTMLElement} popup
+   * @param {SweetAlertOptions} params
+   */
+  const addClasses = (container, popup, params) => {
+    var _params$showClass;
+    if ((_params$showClass = params.showClass) !== null && _params$showClass !== void 0 && _params$showClass.backdrop) {
+      addClass(container, params.showClass.backdrop);
+    }
+    if (params.animation) {
+      // this workaround with opacity is needed for https://github.com/sweetalert2/sweetalert2/issues/2059
+      popup.style.setProperty('opacity', '0', 'important');
+      show(popup, 'grid');
+      setTimeout(() => {
+        var _params$showClass2;
+        // Animate popup right after showing it
+        if ((_params$showClass2 = params.showClass) !== null && _params$showClass2 !== void 0 && _params$showClass2.popup) {
+          addClass(popup, params.showClass.popup);
+        }
+        // and remove the opacity workaround
+        popup.style.removeProperty('opacity');
+      }, SHOW_CLASS_TIMEOUT); // 10ms in order to fix #2062
+    } else {
+      show(popup, 'grid');
+    }
+    addClass([document.documentElement, document.body], swalClasses.shown);
+    if (params.heightAuto && params.backdrop && !params.toast) {
+      addClass([document.documentElement, document.body], swalClasses['height-auto']);
+    }
+  };
+
+  var defaultInputValidators = {
+    /**
+     * @param {string} string
+     * @param {string} [validationMessage]
+     * @returns {Promise<string | void>}
+     */
+    email: (string, validationMessage) => {
+      return /^[a-zA-Z0-9.+_'-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9-]+$/.test(string) ? Promise.resolve() : Promise.resolve(validationMessage || 'Invalid email address');
+    },
+    /**
+     * @param {string} string
+     * @param {string} [validationMessage]
+     * @returns {Promise<string | void>}
+     */
+    url: (string, validationMessage) => {
+      // taken from https://stackoverflow.com/a/3809435 with a small change from #1306 and #2013
+      return /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-z]{2,63}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)$/.test(string) ? Promise.resolve() : Promise.resolve(validationMessage || 'Invalid URL');
+    }
+  };
+
+  /**
+   * @param {SweetAlertOptions} params
+   */
+  function setDefaultInputValidators(params) {
+    // Use default `inputValidator` for supported input types if not provided
+    if (params.inputValidator) {
+      return;
+    }
+    if (params.input === 'email') {
+      params.inputValidator = defaultInputValidators['email'];
+    }
+    if (params.input === 'url') {
+      params.inputValidator = defaultInputValidators['url'];
+    }
+  }
+
+  /**
+   * @param {SweetAlertOptions} params
+   */
+  function validateCustomTargetElement(params) {
+    // Determine if the custom target element is valid
+    if (!params.target || typeof params.target === 'string' && !document.querySelector(params.target) || typeof params.target !== 'string' && !params.target.appendChild) {
+      warn('Target parameter is not valid, defaulting to "body"');
+      params.target = 'body';
+    }
+  }
+
+  /**
+   * Set type, text and actions on popup
+   *
+   * @param {SweetAlertOptions} params
+   */
+  function setParameters(params) {
+    setDefaultInputValidators(params);
+
+    // showLoaderOnConfirm && preConfirm
+    if (params.showLoaderOnConfirm && !params.preConfirm) {
+      warn('showLoaderOnConfirm is set to true, but preConfirm is not defined.\n' + 'showLoaderOnConfirm should be used together with preConfirm, see usage example:\n' + 'https://sweetalert2.github.io/#ajax-request');
+    }
+    validateCustomTargetElement(params);
+
+    // Replace newlines with <br> in title
+    if (typeof params.title === 'string') {
+      params.title = params.title.split('\n').join('<br />');
+    }
+    init(params);
+  }
+
+  /** @type {SweetAlert} */
+  let currentInstance;
+  var _promise = /*#__PURE__*/new WeakMap();
+  class SweetAlert {
+    /**
+     * @param {...(SweetAlertOptions | string)} args
+     * @this {SweetAlert}
+     */
+    constructor(...args) {
+      /**
+       * @type {Promise<SweetAlertResult>}
+       */
+      _classPrivateFieldInitSpec(this, _promise, /** @type {Promise<SweetAlertResult>} */
+      Promise.resolve({
+        isConfirmed: false,
+        isDenied: false,
+        isDismissed: true
+      }));
+      // Prevent run in Node env
+      if (typeof window === 'undefined') {
+        return;
+      }
+      currentInstance = this;
+
+      // @ts-ignore
+      const outerParams = Object.freeze(this.constructor.argsToParams(args));
+
+      /** @type {Readonly<SweetAlertOptions>} */
+      this.params = outerParams;
+
+      /** @type {boolean} */
+      this.isAwaitingPromise = false;
+      _classPrivateFieldSet2(_promise, this, this._main(currentInstance.params));
+    }
+
+    /**
+     * @param {any} userParams
+     * @param {any} mixinParams
+     */
+    _main(userParams, mixinParams = {}) {
+      showWarningsForParams(Object.assign({}, mixinParams, userParams));
+      if (globalState.currentInstance) {
+        const swalPromiseResolve = privateMethods.swalPromiseResolve.get(globalState.currentInstance);
+        const {
+          isAwaitingPromise
+        } = globalState.currentInstance;
+        globalState.currentInstance._destroy();
+        if (!isAwaitingPromise) {
+          swalPromiseResolve({
+            isDismissed: true
+          });
+        }
+        if (isModal()) {
+          unsetAriaHidden();
+        }
+      }
+      globalState.currentInstance = currentInstance;
+      const innerParams = prepareParams(userParams, mixinParams);
+      setParameters(innerParams);
+      Object.freeze(innerParams);
+
+      // clear the previous timer
+      if (globalState.timeout) {
+        globalState.timeout.stop();
+        delete globalState.timeout;
+      }
+
+      // clear the restore focus timeout
+      clearTimeout(globalState.restoreFocusTimeout);
+      const domCache = populateDomCache(currentInstance);
+      render(currentInstance, innerParams);
+      privateProps.innerParams.set(currentInstance, innerParams);
+      return swalPromise(currentInstance, domCache, innerParams);
+    }
+
+    // `catch` cannot be the name of a module export, so we define our thenable methods here instead
+    /**
+     * @param {any} onFulfilled
+     */
+    // oxlint-disable-next-line unicorn/no-thenable
+    then(onFulfilled) {
+      return _classPrivateFieldGet2(_promise, this).then(onFulfilled);
+    }
+
+    /**
+     * @param {any} onFinally
+     */
+    finally(onFinally) {
+      return _classPrivateFieldGet2(_promise, this).finally(onFinally);
+    }
+  }
+
+  /**
+   * @param {SweetAlert} instance
+   * @param {DomCache} domCache
+   * @param {SweetAlertOptions} innerParams
+   * @returns {Promise<SweetAlertResult>}
+   */
+  const swalPromise = (instance, domCache, innerParams) => {
+    return new Promise((resolve, reject) => {
+      // functions to handle all closings/dismissals
+      /**
+       * @param {DismissReason} dismiss
+       */
+      const dismissWith = dismiss => {
+        instance.close({
+          isDismissed: true,
+          dismiss,
+          isConfirmed: false,
+          isDenied: false
+        });
+      };
+      privateMethods.swalPromiseResolve.set(instance, resolve);
+      privateMethods.swalPromiseReject.set(instance, reject);
+      domCache.confirmButton.onclick = () => {
+        handleConfirmButtonClick(instance);
+      };
+      domCache.denyButton.onclick = () => {
+        handleDenyButtonClick(instance);
+      };
+      domCache.cancelButton.onclick = () => {
+        handleCancelButtonClick(instance, dismissWith);
+      };
+      domCache.closeButton.onclick = () => {
+        dismissWith(DismissReason.close);
+      };
+      handlePopupClick(innerParams, domCache, dismissWith);
+      addKeydownHandler(globalState, innerParams, dismissWith);
+      handleInputOptionsAndValue(instance, innerParams);
+      openPopup(innerParams);
+      setupTimer(globalState, innerParams, dismissWith);
+      initFocus(domCache, innerParams);
+
+      // Scroll container to top on open (#1247, #1946)
+      setTimeout(() => {
+        domCache.container.scrollTop = 0;
+      });
+    });
+  };
+
+  /**
+   * @param {SweetAlertOptions} userParams
+   * @param {SweetAlertOptions} mixinParams
+   * @returns {SweetAlertOptions}
+   */
+  const prepareParams = (userParams, mixinParams) => {
+    const templateParams = getTemplateParams(userParams);
+    const params = Object.assign({}, defaultParams, mixinParams, templateParams, userParams); // precedence is described in #2131
+    params.showClass = Object.assign({}, defaultParams.showClass, params.showClass);
+    params.hideClass = Object.assign({}, defaultParams.hideClass, params.hideClass);
+    if (params.animation === false) {
+      params.showClass = {
+        backdrop: 'swal2-noanimation'
+      };
+      params.hideClass = {};
+    }
+    return params;
+  };
+
+  /**
+   * @param {SweetAlert} instance
+   * @returns {DomCache}
+   */
+  const populateDomCache = instance => {
+    const domCache = /** @type {DomCache} */{
+      popup: (/** @type {HTMLElement} */getPopup()),
+      container: (/** @type {HTMLElement} */getContainer()),
+      actions: (/** @type {HTMLElement} */getActions()),
+      confirmButton: (/** @type {HTMLElement} */getConfirmButton()),
+      denyButton: (/** @type {HTMLElement} */getDenyButton()),
+      cancelButton: (/** @type {HTMLElement} */getCancelButton()),
+      loader: (/** @type {HTMLElement} */getLoader()),
+      closeButton: (/** @type {HTMLElement} */getCloseButton()),
+      validationMessage: (/** @type {HTMLElement} */getValidationMessage()),
+      progressSteps: (/** @type {HTMLElement} */getProgressSteps())
+    };
+    privateProps.domCache.set(instance, domCache);
+    return domCache;
+  };
+
+  /**
+   * @param {GlobalState} globalState
+   * @param {SweetAlertOptions} innerParams
+   * @param {(dismiss: DismissReason) => void} dismissWith
+   */
+  const setupTimer = (globalState, innerParams, dismissWith) => {
+    const timerProgressBar = getTimerProgressBar();
+    hide(timerProgressBar);
+    if (innerParams.timer) {
+      globalState.timeout = new Timer(() => {
+        dismissWith('timer');
+        delete globalState.timeout;
+      }, innerParams.timer);
+      if (innerParams.timerProgressBar && timerProgressBar) {
+        show(timerProgressBar);
+        applyCustomClass(timerProgressBar, innerParams, 'timerProgressBar');
+        setTimeout(() => {
+          if (globalState.timeout && globalState.timeout.running) {
+            // timer can be already stopped or unset at this point
+            animateTimerProgressBar(/** @type {number} */innerParams.timer);
+          }
+        });
+      }
+    }
+  };
+
+  /**
+   * Initialize focus in the popup:
+   *
+   * 1. If `toast` is `true`, don't steal focus from the document.
+   * 2. Else if there is an [autofocus] element, focus it.
+   * 3. Else if `focusConfirm` is `true` and confirm button is visible, focus it.
+   * 4. Else if `focusDeny` is `true` and deny button is visible, focus it.
+   * 5. Else if `focusCancel` is `true` and cancel button is visible, focus it.
+   * 6. Else focus the first focusable element in a popup (if any).
+   *
+   * @param {DomCache} domCache
+   * @param {SweetAlertOptions} innerParams
+   */
+  const initFocus = (domCache, innerParams) => {
+    if (innerParams.toast) {
+      return;
+    }
+    // TODO: this is dumb, remove `allowEnterKey` param in the next major version
+    if (!callIfFunction(innerParams.allowEnterKey)) {
+      warnAboutDeprecation('allowEnterKey', 'preConfirm: () => false');
+      domCache.popup.focus();
+      return;
+    }
+    if (focusAutofocus(domCache)) {
+      return;
+    }
+    if (focusButton(domCache, innerParams)) {
+      return;
+    }
+    setFocus(-1, 1);
+  };
+
+  /**
+   * @param {DomCache} domCache
+   * @returns {boolean}
+   */
+  const focusAutofocus = domCache => {
+    const autofocusElements = Array.from(domCache.popup.querySelectorAll('[autofocus]'));
+    for (const autofocusElement of autofocusElements) {
+      if (autofocusElement instanceof HTMLElement && isVisible$1(autofocusElement)) {
+        autofocusElement.focus();
+        return true;
+      }
+    }
+    return false;
+  };
+
+  /**
+   * @param {DomCache} domCache
+   * @param {SweetAlertOptions} innerParams
+   * @returns {boolean}
+   */
+  const focusButton = (domCache, innerParams) => {
+    if (innerParams.focusDeny && isVisible$1(domCache.denyButton)) {
+      domCache.denyButton.focus();
+      return true;
+    }
+    if (innerParams.focusCancel && isVisible$1(domCache.cancelButton)) {
+      domCache.cancelButton.focus();
+      return true;
+    }
+    if (innerParams.focusConfirm && isVisible$1(domCache.confirmButton)) {
+      domCache.confirmButton.focus();
+      return true;
+    }
+    return false;
+  };
+
+  // Assign instance methods from src/instanceMethods/*.js to prototype
+  SweetAlert.prototype.disableButtons = disableButtons;
+  SweetAlert.prototype.enableButtons = enableButtons;
+  SweetAlert.prototype.getInput = getInput;
+  SweetAlert.prototype.disableInput = disableInput;
+  SweetAlert.prototype.enableInput = enableInput;
+  SweetAlert.prototype.hideLoading = hideLoading;
+  SweetAlert.prototype.disableLoading = hideLoading;
+  SweetAlert.prototype.showValidationMessage = showValidationMessage;
+  SweetAlert.prototype.resetValidationMessage = resetValidationMessage;
+  SweetAlert.prototype.close = close;
+  SweetAlert.prototype.closePopup = close;
+  SweetAlert.prototype.closeModal = close;
+  SweetAlert.prototype.closeToast = close;
+  SweetAlert.prototype.rejectPromise = rejectPromise;
+  SweetAlert.prototype.update = update;
+  SweetAlert.prototype._destroy = _destroy;
+
+  // Assign static methods from src/staticMethods/*.js to constructor
+  Object.assign(SweetAlert, staticMethods);
+
+  // Proxy to instance methods to constructor, for now, for backwards compatibility
+  Object.keys(instanceMethods).forEach(key => {
+    /**
+     * @param {...(SweetAlertOptions | string | undefined)} args
+     * @returns {SweetAlertResult | Promise<SweetAlertResult> | undefined}
+     */
+    // @ts-ignore: Dynamic property assignment for backwards compatibility
+    SweetAlert[key] = function (...args) {
+      // @ts-ignore
+      if (currentInstance && currentInstance[key]) {
+        // @ts-ignore
+        return currentInstance[key](...args);
+      }
+      return undefined;
+    };
+  });
+  SweetAlert.DismissReason = DismissReason;
+  SweetAlert.version = '11.26.25';
+
+  const Swal = SweetAlert;
+  // @ts-ignore
+  Swal.default = Swal;
+
+  return Swal;
+
+}));
+if (typeof this !== 'undefined' && this.Sweetalert2){this.swal = this.sweetAlert = this.Swal = this.SweetAlert = this.Sweetalert2}
+"undefined"!=typeof document&&function(e,t){var n=e.createElement("style");if(e.getElementsByTagName("head")[0].appendChild(n),n.styleSheet)n.styleSheet.disabled||(n.styleSheet.cssText=t);else try{n.innerHTML=t}catch(e){n.innerText=t}}(document,":root{--swal2-outline: 0 0 0 3px rgba(100, 150, 200, 0.5);--swal2-container-padding: 0.625em;--swal2-backdrop: rgba(0, 0, 0, 0.4);--swal2-backdrop-transition: background-color 0.15s;--swal2-width: 32em;--swal2-padding: 0 0 1.25em;--swal2-border: none;--swal2-border-radius: 0.3125rem;--swal2-background: white;--swal2-color: #545454;--swal2-show-animation: swal2-show 0.3s;--swal2-hide-animation: swal2-hide 0.15s forwards;--swal2-icon-zoom: 1;--swal2-title-padding: 0.8em 1em 0;--swal2-html-container-padding: 1em 1.6em 0.3em;--swal2-input-border: 1px solid #d9d9d9;--swal2-input-border-radius: 0.1875em;--swal2-input-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px transparent;--swal2-input-background: transparent;--swal2-input-transition: border-color 0.2s, box-shadow 0.2s;--swal2-input-hover-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px transparent;--swal2-input-focus-border: 1px solid #b4dbed;--swal2-input-focus-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px rgba(100, 150, 200, 0.5);--swal2-progress-step-background: #add8e6;--swal2-validation-message-background: #f0f0f0;--swal2-validation-message-color: #666;--swal2-footer-border-color: #eee;--swal2-footer-background: transparent;--swal2-footer-color: inherit;--swal2-timer-progress-bar-background: rgba(0, 0, 0, 0.3);--swal2-close-button-position: initial;--swal2-close-button-inset: auto;--swal2-close-button-font-size: 2.5em;--swal2-close-button-color: #ccc;--swal2-close-button-transition: color 0.2s, box-shadow 0.2s;--swal2-close-button-outline: initial;--swal2-close-button-box-shadow: inset 0 0 0 3px transparent;--swal2-close-button-focus-box-shadow: inset var(--swal2-outline);--swal2-close-button-hover-transform: none;--swal2-actions-justify-content: center;--swal2-actions-width: auto;--swal2-actions-margin: 1.25em auto 0;--swal2-actions-padding: 0;--swal2-actions-border-radius: 0;--swal2-actions-background: transparent;--swal2-action-button-transition: background-color 0.2s, box-shadow 0.2s;--swal2-action-button-hover: black 10%;--swal2-action-button-active: black 10%;--swal2-confirm-button-box-shadow: none;--swal2-confirm-button-border-radius: 0.25em;--swal2-confirm-button-background-color: #7066e0;--swal2-confirm-button-color: #fff;--swal2-deny-button-box-shadow: none;--swal2-deny-button-border-radius: 0.25em;--swal2-deny-button-background-color: #dc3741;--swal2-deny-button-color: #fff;--swal2-cancel-button-box-shadow: none;--swal2-cancel-button-border-radius: 0.25em;--swal2-cancel-button-background-color: #6e7881;--swal2-cancel-button-color: #fff;--swal2-toast-show-animation: swal2-toast-show 0.5s;--swal2-toast-hide-animation: swal2-toast-hide 0.1s forwards;--swal2-toast-border: none;--swal2-toast-box-shadow: 0 0 1px hsl(0deg 0% 0% / 0.075), 0 1px 2px hsl(0deg 0% 0% / 0.075), 1px 2px 4px hsl(0deg 0% 0% / 0.075), 1px 3px 8px hsl(0deg 0% 0% / 0.075), 2px 4px 16px hsl(0deg 0% 0% / 0.075)}[data-swal2-theme=dark]{--swal2-dark-theme-black: #19191a;--swal2-dark-theme-white: #e1e1e1;--swal2-background: var(--swal2-dark-theme-black);--swal2-color: var(--swal2-dark-theme-white);--swal2-footer-border-color: #555;--swal2-input-background: color-mix(in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10%);--swal2-validation-message-background: color-mix( in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10% );--swal2-validation-message-color: var(--swal2-dark-theme-white);--swal2-timer-progress-bar-background: rgba(255, 255, 255, 0.7)}@media(prefers-color-scheme: dark){[data-swal2-theme=auto]{--swal2-dark-theme-black: #19191a;--swal2-dark-theme-white: #e1e1e1;--swal2-background: var(--swal2-dark-theme-black);--swal2-color: var(--swal2-dark-theme-white);--swal2-footer-border-color: #555;--swal2-input-background: color-mix(in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10%);--swal2-validation-message-background: color-mix( in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10% );--swal2-validation-message-color: var(--swal2-dark-theme-white);--swal2-timer-progress-bar-background: rgba(255, 255, 255, 0.7)}}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown){overflow:hidden}body.swal2-height-auto{height:auto !important}body.swal2-no-backdrop .swal2-container{background-color:rgba(0,0,0,0) !important;pointer-events:none}body.swal2-no-backdrop .swal2-container .swal2-popup{pointer-events:auto}body.swal2-no-backdrop .swal2-container .swal2-modal{box-shadow:0 0 10px var(--swal2-backdrop)}body.swal2-toast-shown .swal2-container{box-sizing:border-box;width:360px;max-width:100%;background-color:rgba(0,0,0,0);pointer-events:none}body.swal2-toast-shown .swal2-container.swal2-top{inset:0 auto auto 50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-top-end,body.swal2-toast-shown .swal2-container.swal2-top-right{inset:0 0 auto auto}body.swal2-toast-shown .swal2-container.swal2-top-start,body.swal2-toast-shown .swal2-container.swal2-top-left{inset:0 auto auto 0}body.swal2-toast-shown .swal2-container.swal2-center-start,body.swal2-toast-shown .swal2-container.swal2-center-left{inset:50% auto auto 0;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-center{inset:50% auto auto 50%;transform:translate(-50%, -50%)}body.swal2-toast-shown .swal2-container.swal2-center-end,body.swal2-toast-shown .swal2-container.swal2-center-right{inset:50% 0 auto auto;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-start,body.swal2-toast-shown .swal2-container.swal2-bottom-left{inset:auto auto 0 0}body.swal2-toast-shown .swal2-container.swal2-bottom{inset:auto auto 0 50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-end,body.swal2-toast-shown .swal2-container.swal2-bottom-right{inset:auto 0 0 auto}@media print{body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown){overflow-y:scroll !important}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown)>[aria-hidden=true]{display:none}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown) .swal2-container{position:static !important}}div:where(.swal2-container){display:grid;position:fixed;z-index:1060;inset:0;box-sizing:border-box;grid-template-areas:\"top-start     top            top-end\" \"center-start  center         center-end\" \"bottom-start  bottom-center  bottom-end\";grid-template-rows:minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto);height:100%;padding:var(--swal2-container-padding);overflow-x:hidden;transition:var(--swal2-backdrop-transition);-webkit-overflow-scrolling:touch}div:where(.swal2-container).swal2-backdrop-show,div:where(.swal2-container).swal2-noanimation{background:var(--swal2-backdrop)}div:where(.swal2-container).swal2-backdrop-hide{background:rgba(0,0,0,0) !important}div:where(.swal2-container).swal2-top-start,div:where(.swal2-container).swal2-center-start,div:where(.swal2-container).swal2-bottom-start{grid-template-columns:minmax(0, 1fr) auto auto}div:where(.swal2-container).swal2-top,div:where(.swal2-container).swal2-center,div:where(.swal2-container).swal2-bottom{grid-template-columns:auto minmax(0, 1fr) auto}div:where(.swal2-container).swal2-top-end,div:where(.swal2-container).swal2-center-end,div:where(.swal2-container).swal2-bottom-end{grid-template-columns:auto auto minmax(0, 1fr)}div:where(.swal2-container).swal2-top-start>.swal2-popup{align-self:start}div:where(.swal2-container).swal2-top>.swal2-popup{grid-column:2;place-self:start center}div:where(.swal2-container).swal2-top-end>.swal2-popup,div:where(.swal2-container).swal2-top-right>.swal2-popup{grid-column:3;place-self:start end}div:where(.swal2-container).swal2-center-start>.swal2-popup,div:where(.swal2-container).swal2-center-left>.swal2-popup{grid-row:2;align-self:center}div:where(.swal2-container).swal2-center>.swal2-popup{grid-column:2;grid-row:2;place-self:center center}div:where(.swal2-container).swal2-center-end>.swal2-popup,div:where(.swal2-container).swal2-center-right>.swal2-popup{grid-column:3;grid-row:2;place-self:center end}div:where(.swal2-container).swal2-bottom-start>.swal2-popup,div:where(.swal2-container).swal2-bottom-left>.swal2-popup{grid-column:1;grid-row:3;align-self:end}div:where(.swal2-container).swal2-bottom>.swal2-popup{grid-column:2;grid-row:3;place-self:end center}div:where(.swal2-container).swal2-bottom-end>.swal2-popup,div:where(.swal2-container).swal2-bottom-right>.swal2-popup{grid-column:3;grid-row:3;place-self:end end}div:where(.swal2-container).swal2-grow-row>.swal2-popup,div:where(.swal2-container).swal2-grow-fullscreen>.swal2-popup{grid-column:1/4;width:100%}div:where(.swal2-container).swal2-grow-column>.swal2-popup,div:where(.swal2-container).swal2-grow-fullscreen>.swal2-popup{grid-row:1/4;align-self:stretch}div:where(.swal2-container).swal2-no-transition{transition:none !important}div:where(.swal2-container)[popover]{width:auto;border:0}div:where(.swal2-container) div:where(.swal2-popup){display:none;position:relative;box-sizing:border-box;grid-template-columns:minmax(0, 100%);width:var(--swal2-width);max-width:100%;padding:var(--swal2-padding);border:var(--swal2-border);border-radius:var(--swal2-border-radius);background:var(--swal2-background);color:var(--swal2-color);font-family:inherit;font-size:1rem}div:where(.swal2-container) div:where(.swal2-popup):focus{outline:none}div:where(.swal2-container) div:where(.swal2-popup).swal2-loading{overflow-y:hidden}div:where(.swal2-container) div:where(.swal2-popup).swal2-draggable{cursor:grab}div:where(.swal2-container) div:where(.swal2-popup).swal2-draggable div:where(.swal2-icon){cursor:grab}div:where(.swal2-container) div:where(.swal2-popup).swal2-dragging{cursor:grabbing}div:where(.swal2-container) div:where(.swal2-popup).swal2-dragging div:where(.swal2-icon){cursor:grabbing}div:where(.swal2-container) h2:where(.swal2-title){position:relative;max-width:100%;margin:0;padding:var(--swal2-title-padding);color:inherit;font-size:1.875em;font-weight:600;text-align:center;text-transform:none;overflow-wrap:break-word;cursor:initial}div:where(.swal2-container) div:where(.swal2-actions){display:flex;z-index:1;box-sizing:border-box;flex-wrap:wrap;align-items:center;justify-content:var(--swal2-actions-justify-content);width:var(--swal2-actions-width);margin:var(--swal2-actions-margin);padding:var(--swal2-actions-padding);border-radius:var(--swal2-actions-border-radius);background:var(--swal2-actions-background)}div:where(.swal2-container) div:where(.swal2-loader){display:none;align-items:center;justify-content:center;width:2.2em;height:2.2em;margin:0 1.875em;animation:swal2-rotate-loading 1.5s linear 0s infinite normal;border-width:.25em;border-style:solid;border-radius:100%;border-color:#2778c4 rgba(0,0,0,0) #2778c4 rgba(0,0,0,0)}div:where(.swal2-container) button:where(.swal2-styled){margin:.3125em;padding:.625em 1.1em;transition:var(--swal2-action-button-transition);border:none;box-shadow:0 0 0 3px rgba(0,0,0,0);font-weight:500}div:where(.swal2-container) button:where(.swal2-styled):not([disabled]){cursor:pointer}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm){border-radius:var(--swal2-confirm-button-border-radius);background:initial;background-color:var(--swal2-confirm-button-background-color);box-shadow:var(--swal2-confirm-button-box-shadow);color:var(--swal2-confirm-button-color);font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):hover{background-color:color-mix(in srgb, var(--swal2-confirm-button-background-color), var(--swal2-action-button-hover))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):active{background-color:color-mix(in srgb, var(--swal2-confirm-button-background-color), var(--swal2-action-button-active))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-deny){border-radius:var(--swal2-deny-button-border-radius);background:initial;background-color:var(--swal2-deny-button-background-color);box-shadow:var(--swal2-deny-button-box-shadow);color:var(--swal2-deny-button-color);font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-deny):hover{background-color:color-mix(in srgb, var(--swal2-deny-button-background-color), var(--swal2-action-button-hover))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-deny):active{background-color:color-mix(in srgb, var(--swal2-deny-button-background-color), var(--swal2-action-button-active))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel){border-radius:var(--swal2-cancel-button-border-radius);background:initial;background-color:var(--swal2-cancel-button-background-color);box-shadow:var(--swal2-cancel-button-box-shadow);color:var(--swal2-cancel-button-color);font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel):hover{background-color:color-mix(in srgb, var(--swal2-cancel-button-background-color), var(--swal2-action-button-hover))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel):active{background-color:color-mix(in srgb, var(--swal2-cancel-button-background-color), var(--swal2-action-button-active))}div:where(.swal2-container) button:where(.swal2-styled):focus-visible{outline:none;box-shadow:var(--swal2-action-button-focus-box-shadow)}div:where(.swal2-container) button:where(.swal2-styled)[disabled]:not(.swal2-loading){opacity:.4}div:where(.swal2-container) button:where(.swal2-styled)::-moz-focus-inner{border:0}div:where(.swal2-container) div:where(.swal2-footer){margin:1em 0 0;padding:1em 1em 0;border-top:1px solid var(--swal2-footer-border-color);background:var(--swal2-footer-background);color:var(--swal2-footer-color);font-size:1em;text-align:center;cursor:initial}div:where(.swal2-container) .swal2-timer-progress-bar-container{position:absolute;right:0;bottom:0;left:0;grid-column:auto !important;overflow:hidden;border-bottom-right-radius:var(--swal2-border-radius);border-bottom-left-radius:var(--swal2-border-radius)}div:where(.swal2-container) div:where(.swal2-timer-progress-bar){width:100%;height:.25em;background:var(--swal2-timer-progress-bar-background)}div:where(.swal2-container) img:where(.swal2-image){max-width:100%;margin:2em auto 1em;cursor:initial}div:where(.swal2-container) button:where(.swal2-close){position:var(--swal2-close-button-position);inset:var(--swal2-close-button-inset);z-index:2;align-items:center;justify-content:center;width:1.2em;height:1.2em;margin-top:0;margin-right:0;margin-bottom:-1.2em;padding:0;overflow:hidden;transition:var(--swal2-close-button-transition);border:none;border-radius:var(--swal2-border-radius);outline:var(--swal2-close-button-outline);background:rgba(0,0,0,0);color:var(--swal2-close-button-color);font-family:monospace;font-size:var(--swal2-close-button-font-size);cursor:pointer;justify-self:end}div:where(.swal2-container) button:where(.swal2-close):hover{transform:var(--swal2-close-button-hover-transform);background:rgba(0,0,0,0);color:#f27474}div:where(.swal2-container) button:where(.swal2-close):focus-visible{outline:none;box-shadow:var(--swal2-close-button-focus-box-shadow)}div:where(.swal2-container) button:where(.swal2-close)::-moz-focus-inner{border:0}div:where(.swal2-container) div:where(.swal2-html-container){z-index:1;justify-content:center;margin:0;padding:var(--swal2-html-container-padding);overflow:auto;color:inherit;font-size:1.125em;font-weight:normal;line-height:normal;text-align:center;overflow-wrap:break-word;word-break:break-word;cursor:initial}div:where(.swal2-container) input:where(.swal2-input),div:where(.swal2-container) input:where(.swal2-file),div:where(.swal2-container) textarea:where(.swal2-textarea),div:where(.swal2-container) select:where(.swal2-select),div:where(.swal2-container) div:where(.swal2-radio),div:where(.swal2-container) label:where(.swal2-checkbox){margin:1em 2em 3px}div:where(.swal2-container) input:where(.swal2-input),div:where(.swal2-container) input:where(.swal2-file),div:where(.swal2-container) textarea:where(.swal2-textarea){box-sizing:border-box;width:auto;transition:var(--swal2-input-transition);border:var(--swal2-input-border);border-radius:var(--swal2-input-border-radius);background:var(--swal2-input-background);box-shadow:var(--swal2-input-box-shadow);color:inherit;font-size:1.125em}div:where(.swal2-container) input:where(.swal2-input).swal2-inputerror,div:where(.swal2-container) input:where(.swal2-file).swal2-inputerror,div:where(.swal2-container) textarea:where(.swal2-textarea).swal2-inputerror{border-color:#f27474 !important;box-shadow:0 0 2px #f27474 !important}div:where(.swal2-container) input:where(.swal2-input):hover,div:where(.swal2-container) input:where(.swal2-file):hover,div:where(.swal2-container) textarea:where(.swal2-textarea):hover{box-shadow:var(--swal2-input-hover-box-shadow)}div:where(.swal2-container) input:where(.swal2-input):focus,div:where(.swal2-container) input:where(.swal2-file):focus,div:where(.swal2-container) textarea:where(.swal2-textarea):focus{border:var(--swal2-input-focus-border);outline:none;box-shadow:var(--swal2-input-focus-box-shadow)}div:where(.swal2-container) input:where(.swal2-input)::placeholder,div:where(.swal2-container) input:where(.swal2-file)::placeholder,div:where(.swal2-container) textarea:where(.swal2-textarea)::placeholder{color:#ccc}div:where(.swal2-container) .swal2-range{margin:1em 2em 3px;background:var(--swal2-background)}div:where(.swal2-container) .swal2-range input{width:80%}div:where(.swal2-container) .swal2-range output{width:20%;color:inherit;font-weight:600;text-align:center}div:where(.swal2-container) .swal2-range input,div:where(.swal2-container) .swal2-range output{height:2.625em;padding:0;font-size:1.125em;line-height:2.625em}div:where(.swal2-container) .swal2-input{height:2.625em;padding:0 .75em}div:where(.swal2-container) .swal2-file{width:75%;margin-right:auto;margin-left:auto;background:var(--swal2-input-background);font-size:1.125em}div:where(.swal2-container) .swal2-textarea{height:6.75em;padding:.75em}div:where(.swal2-container) .swal2-select{min-width:50%;max-width:100%;padding:.375em .625em;background:var(--swal2-input-background);color:inherit;font-size:1.125em}div:where(.swal2-container) .swal2-radio,div:where(.swal2-container) .swal2-checkbox{align-items:center;justify-content:center;background:var(--swal2-background);color:inherit}div:where(.swal2-container) .swal2-radio label,div:where(.swal2-container) .swal2-checkbox label{margin:0 .6em;font-size:1.125em}div:where(.swal2-container) .swal2-radio input,div:where(.swal2-container) .swal2-checkbox input{flex-shrink:0;margin:0 .4em}div:where(.swal2-container) label:where(.swal2-input-label){display:flex;justify-content:center;margin:1em auto 0}div:where(.swal2-container) div:where(.swal2-validation-message){align-items:center;justify-content:center;margin:1em 0 0;padding:.625em;overflow:hidden;background:var(--swal2-validation-message-background);color:var(--swal2-validation-message-color);font-size:1em;font-weight:300}div:where(.swal2-container) div:where(.swal2-validation-message)::before{content:\"!\";display:inline-block;width:1.5em;min-width:1.5em;height:1.5em;margin:0 .625em;border-radius:50%;background-color:#f27474;color:#fff;font-weight:600;line-height:1.5em;text-align:center}div:where(.swal2-container) .swal2-progress-steps{flex-wrap:wrap;align-items:center;max-width:100%;margin:1.25em auto;padding:0;background:rgba(0,0,0,0);font-weight:600}div:where(.swal2-container) .swal2-progress-steps li{display:inline-block;position:relative}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step{z-index:20;flex-shrink:0;width:2em;height:2em;border-radius:2em;background:#2778c4;color:#fff;line-height:2em;text-align:center}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step{background:#2778c4}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step{background:var(--swal2-progress-step-background);color:#fff}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step-line{background:var(--swal2-progress-step-background)}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step-line{z-index:10;flex-shrink:0;width:2.5em;height:.4em;margin:0 -1px;background:#2778c4}div:where(.swal2-icon){position:relative;box-sizing:content-box;justify-content:center;width:5em;height:5em;margin:2.5em auto .6em;zoom:var(--swal2-icon-zoom);border:.25em solid rgba(0,0,0,0);border-radius:50%;border-color:#000;font-family:inherit;line-height:5em;cursor:default;user-select:none}div:where(.swal2-icon) .swal2-icon-content{display:flex;align-items:center;font-size:3.75em}div:where(.swal2-icon).swal2-error{border-color:#f27474;color:#f27474}div:where(.swal2-icon).swal2-error .swal2-x-mark{position:relative;flex-grow:1}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line]{display:block;position:absolute;top:2.3125em;width:2.9375em;height:.3125em;border-radius:.125em;background-color:#f27474}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line][class$=left]{left:1.0625em;transform:rotate(45deg)}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line][class$=right]{right:1em;transform:rotate(-45deg)}div:where(.swal2-icon).swal2-error.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-error.swal2-icon-show .swal2-x-mark{animation:swal2-animate-error-x-mark .5s}div:where(.swal2-icon).swal2-warning{border-color:#f8bb86;color:#f8bb86}div:where(.swal2-icon).swal2-warning.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-warning.swal2-icon-show .swal2-icon-content{animation:swal2-animate-i-mark .5s}div:where(.swal2-icon).swal2-info{border-color:#3fc3ee;color:#3fc3ee}div:where(.swal2-icon).swal2-info.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-info.swal2-icon-show .swal2-icon-content{animation:swal2-animate-i-mark .8s}div:where(.swal2-icon).swal2-question{border-color:#87adbd;color:#87adbd}div:where(.swal2-icon).swal2-question.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-question.swal2-icon-show .swal2-icon-content{animation:swal2-animate-question-mark .8s}div:where(.swal2-icon).swal2-success{border-color:#a5dc86;color:#a5dc86}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line]{position:absolute;width:3.75em;height:7.5em;border-radius:50%}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line][class$=left]{top:-0.4375em;left:-2.0635em;transform:rotate(-45deg);transform-origin:3.75em 3.75em;border-radius:7.5em 0 0 7.5em}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line][class$=right]{top:-0.6875em;left:1.875em;transform:rotate(-45deg);transform-origin:0 3.75em;border-radius:0 7.5em 7.5em 0}div:where(.swal2-icon).swal2-success .swal2-success-ring{position:absolute;z-index:2;top:-0.25em;left:-0.25em;box-sizing:content-box;width:100%;height:100%;border:.25em solid rgba(165,220,134,.3);border-radius:50%}div:where(.swal2-icon).swal2-success .swal2-success-fix{position:absolute;z-index:1;top:.5em;left:1.625em;width:.4375em;height:5.625em;transform:rotate(-45deg)}div:where(.swal2-icon).swal2-success [class^=swal2-success-line]{display:block;position:absolute;z-index:2;height:.3125em;border-radius:.125em;background-color:#a5dc86}div:where(.swal2-icon).swal2-success [class^=swal2-success-line][class$=tip]{top:2.875em;left:.8125em;width:1.5625em;transform:rotate(45deg)}div:where(.swal2-icon).swal2-success [class^=swal2-success-line][class$=long]{top:2.375em;right:.5em;width:2.9375em;transform:rotate(-45deg)}div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-line-tip{animation:swal2-animate-success-line-tip .75s}div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-line-long{animation:swal2-animate-success-line-long .75s}div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-circular-line-right{animation:swal2-rotate-success-circular-line 4.25s ease-in}[class^=swal2]{-webkit-tap-highlight-color:rgba(0,0,0,0)}.swal2-show{animation:var(--swal2-show-animation)}.swal2-hide{animation:var(--swal2-hide-animation)}.swal2-noanimation{transition:none}.swal2-scrollbar-measure{position:absolute;top:-9999px;width:50px;height:50px;overflow:scroll}.swal2-rtl .swal2-close{margin-right:initial;margin-left:0}.swal2-rtl .swal2-timer-progress-bar{right:0;left:auto}.swal2-toast{box-sizing:border-box;grid-column:1/4 !important;grid-row:1/4 !important;grid-template-columns:min-content auto min-content;padding:1em;overflow-y:hidden;border:var(--swal2-toast-border);background:var(--swal2-background);box-shadow:var(--swal2-toast-box-shadow);pointer-events:auto}.swal2-toast>*{grid-column:2}.swal2-toast h2:where(.swal2-title){margin:.5em 1em;padding:0;font-size:1em;text-align:initial}.swal2-toast .swal2-loading{justify-content:center}.swal2-toast input:where(.swal2-input){height:2em;margin:.5em;font-size:1em}.swal2-toast .swal2-validation-message{font-size:1em}.swal2-toast div:where(.swal2-footer){margin:.5em 0 0;padding:.5em 0 0;font-size:.8em}.swal2-toast button:where(.swal2-close){grid-column:3/3;grid-row:1/99;align-self:center;width:.8em;height:.8em;margin:0;font-size:2em}.swal2-toast div:where(.swal2-html-container){margin:.5em 1em;padding:0;overflow:initial;font-size:1em;text-align:initial}.swal2-toast div:where(.swal2-html-container):empty{padding:0}.swal2-toast .swal2-loader{grid-column:1;grid-row:1/99;align-self:center;width:2em;height:2em;margin:.25em}.swal2-toast .swal2-icon{grid-column:1;grid-row:1/99;align-self:center;width:2em;min-width:2em;height:2em;margin:0 .5em 0 0}.swal2-toast .swal2-icon .swal2-icon-content{display:flex;align-items:center;font-size:1.8em;font-weight:bold}.swal2-toast .swal2-icon.swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line]{top:.875em;width:1.375em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=left]{left:.3125em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=right]{right:.3125em}.swal2-toast div:where(.swal2-actions){justify-content:flex-start;height:auto;margin:0;margin-top:.5em;padding:0 .5em}.swal2-toast button:where(.swal2-styled){margin:.25em .5em;padding:.4em .6em;font-size:1em}.swal2-toast .swal2-success{border-color:#a5dc86}.swal2-toast .swal2-success [class^=swal2-success-circular-line]{position:absolute;width:1.6em;height:3em;border-radius:50%}.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=left]{top:-0.8em;left:-0.5em;transform:rotate(-45deg);transform-origin:2em 2em;border-radius:4em 0 0 4em}.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=right]{top:-0.25em;left:.9375em;transform-origin:0 1.5em;border-radius:0 4em 4em 0}.swal2-toast .swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-toast .swal2-success .swal2-success-fix{top:0;left:.4375em;width:.4375em;height:2.6875em}.swal2-toast .swal2-success [class^=swal2-success-line]{height:.3125em}.swal2-toast .swal2-success [class^=swal2-success-line][class$=tip]{top:1.125em;left:.1875em;width:.75em}.swal2-toast .swal2-success [class^=swal2-success-line][class$=long]{top:.9375em;right:.1875em;width:1.375em}.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-tip{animation:swal2-toast-animate-success-line-tip .75s}.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-long{animation:swal2-toast-animate-success-line-long .75s}.swal2-toast.swal2-show{animation:var(--swal2-toast-show-animation)}.swal2-toast.swal2-hide{animation:var(--swal2-toast-hide-animation)}@keyframes swal2-show{0%{transform:translate3d(0, -50px, 0) scale(0.9);opacity:0}100%{transform:translate3d(0, 0, 0) scale(1);opacity:1}}@keyframes swal2-hide{0%{transform:translate3d(0, 0, 0) scale(1);opacity:1}100%{transform:translate3d(0, -50px, 0) scale(0.9);opacity:0}}@keyframes swal2-animate-success-line-tip{0%{top:1.1875em;left:.0625em;width:0}54%{top:1.0625em;left:.125em;width:0}70%{top:2.1875em;left:-0.375em;width:3.125em}84%{top:3em;left:1.3125em;width:1.0625em}100%{top:2.8125em;left:.8125em;width:1.5625em}}@keyframes swal2-animate-success-line-long{0%{top:3.375em;right:2.875em;width:0}65%{top:3.375em;right:2.875em;width:0}84%{top:2.1875em;right:0;width:3.4375em}100%{top:2.375em;right:.5em;width:2.9375em}}@keyframes swal2-rotate-success-circular-line{0%{transform:rotate(-45deg)}5%{transform:rotate(-45deg)}12%{transform:rotate(-405deg)}100%{transform:rotate(-405deg)}}@keyframes swal2-animate-error-x-mark{0%{margin-top:1.625em;transform:scale(0.4);opacity:0}50%{margin-top:1.625em;transform:scale(0.4);opacity:0}80%{margin-top:-0.375em;transform:scale(1.15)}100%{margin-top:0;transform:scale(1);opacity:1}}@keyframes swal2-animate-error-icon{0%{transform:rotateX(100deg);opacity:0}100%{transform:rotateX(0deg);opacity:1}}@keyframes swal2-rotate-loading{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}@keyframes swal2-animate-question-mark{0%{transform:rotateY(-360deg)}100%{transform:rotateY(0)}}@keyframes swal2-animate-i-mark{0%{transform:rotateZ(45deg);opacity:0}25%{transform:rotateZ(-25deg);opacity:.4}50%{transform:rotateZ(15deg);opacity:.8}75%{transform:rotateZ(-5deg);opacity:1}100%{transform:rotateX(0);opacity:1}}@keyframes swal2-toast-show{0%{transform:translateY(-0.625em) rotateZ(2deg)}33%{transform:translateY(0) rotateZ(-2deg)}66%{transform:translateY(0.3125em) rotateZ(2deg)}100%{transform:translateY(0) rotateZ(0deg)}}@keyframes swal2-toast-hide{100%{transform:rotateZ(1deg);opacity:0}}@keyframes swal2-toast-animate-success-line-tip{0%{top:.5625em;left:.0625em;width:0}54%{top:.125em;left:.125em;width:0}70%{top:.625em;left:-0.25em;width:1.625em}84%{top:1.0625em;left:.75em;width:.5em}100%{top:1.125em;left:.1875em;width:.75em}}@keyframes swal2-toast-animate-success-line-long{0%{top:1.625em;right:1.375em;width:0}65%{top:1.25em;right:.9375em;width:0}84%{top:.9375em;right:0;width:1.125em}100%{top:.9375em;right:.1875em;width:1.375em}}");
+
+/***/ }),
+
+/***/ "./resources/js/components/Admin/Createincoming.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/Admin/Createincoming.vue ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Createincoming_vue_vue_type_template_id_19dfdfed_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Createincoming.vue?vue&type=template&id=19dfdfed&scoped=true */ "./resources/js/components/Admin/Createincoming.vue?vue&type=template&id=19dfdfed&scoped=true");
+/* harmony import */ var _Createincoming_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Createincoming.vue?vue&type=script&lang=js */ "./resources/js/components/Admin/Createincoming.vue?vue&type=script&lang=js");
+/* harmony import */ var _Createincoming_vue_vue_type_style_index_0_id_19dfdfed_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Createincoming.vue?vue&type=style&index=0&id=19dfdfed&scoped=true&lang=css */ "./resources/js/components/Admin/Createincoming.vue?vue&type=style&index=0&id=19dfdfed&scoped=true&lang=css");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _Createincoming_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Createincoming_vue_vue_type_template_id_19dfdfed_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render,
+  _Createincoming_vue_vue_type_template_id_19dfdfed_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "19dfdfed",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Admin/Createincoming.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/Admin/Documentype.vue":
 /*!*******************************************************!*\
   !*** ./resources/js/components/Admin/Documentype.vue ***!
@@ -34953,6 +41980,22 @@ component.options.__file = "resources/js/components/Superadmin/Suboffice.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/Admin/Createincoming.vue?vue&type=script&lang=js":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/Admin/Createincoming.vue?vue&type=script&lang=js ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Createincoming_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Createincoming.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Admin/Createincoming.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Createincoming_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/Admin/Documentype.vue?vue&type=script&lang=js":
 /*!*******************************************************************************!*\
   !*** ./resources/js/components/Admin/Documentype.vue?vue&type=script&lang=js ***!
@@ -35046,6 +42089,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Suboffice_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Suboffice.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Superadmin/Suboffice.vue?vue&type=script&lang=js");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Suboffice_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Admin/Createincoming.vue?vue&type=template&id=19dfdfed&scoped=true":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/components/Admin/Createincoming.vue?vue&type=template&id=19dfdfed&scoped=true ***!
+  \****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Createincoming_vue_vue_type_template_id_19dfdfed_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Createincoming_vue_vue_type_template_id_19dfdfed_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Createincoming_vue_vue_type_template_id_19dfdfed_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Createincoming.vue?vue&type=template&id=19dfdfed&scoped=true */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Admin/Createincoming.vue?vue&type=template&id=19dfdfed&scoped=true");
+
 
 /***/ }),
 
@@ -35147,6 +42207,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Suboffice_vue_vue_type_template_id_5a6e5ca8_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Suboffice_vue_vue_type_template_id_5a6e5ca8_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Suboffice.vue?vue&type=template&id=5a6e5ca8&scoped=true */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Superadmin/Suboffice.vue?vue&type=template&id=5a6e5ca8&scoped=true");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Admin/Createincoming.vue?vue&type=style&index=0&id=19dfdfed&scoped=true&lang=css":
+/*!******************************************************************************************************************!*\
+  !*** ./resources/js/components/Admin/Createincoming.vue?vue&type=style&index=0&id=19dfdfed&scoped=true&lang=css ***!
+  \******************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Createincoming_vue_vue_type_style_index_0_id_19dfdfed_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Createincoming.vue?vue&type=style&index=0&id=19dfdfed&scoped=true&lang=css */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Admin/Createincoming.vue?vue&type=style&index=0&id=19dfdfed&scoped=true&lang=css");
 
 
 /***/ }),

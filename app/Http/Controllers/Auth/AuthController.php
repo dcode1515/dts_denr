@@ -15,6 +15,13 @@ class AuthController extends Controller
     {
         return view('auth.login');
     }
+     public function logout(Request $request)
+        {
+             Auth::logout();
+
+            return redirect('/');
+        }
+
 
     public function post_login(Request $request)
 {
@@ -66,4 +73,8 @@ class AuthController extends Controller
         'message' => 'Invalid login credentials. Please check your credentials and try again.'
     ], 401);
 }
+    public function create_incoming()
+        {
+            return view('admin.create_incoming');
+        }
 }
