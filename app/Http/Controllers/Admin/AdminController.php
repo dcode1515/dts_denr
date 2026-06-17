@@ -183,7 +183,7 @@ class AdminController extends Controller
         ], 500);
     }
 }
-public function get_data_reserve_tracking(Request $request){
+  public function get_data_reserve_tracking(Request $request){
          $search = $request->query('search');
         $perPage = $request->query('per_page', 10); // Default to 10 if not provided
     
@@ -206,6 +206,11 @@ public function get_data_reserve_tracking(Request $request){
         {
             $incoming = IncomingDocument::find($id);
             return view('admin.create_incoming',compact('incoming'));
+        }
+        public function view_document($id)
+        {
+            $incoming = IncomingDocument::find($id);
+            return view('admin.update_incoming',compact('incoming'));
         }
           public function documentType()
         {
@@ -237,7 +242,7 @@ public function get_data_reserve_tracking(Request $request){
         }
 
 
-       public function update_document(Request $request, $id)
+       public function create_update_document(Request $request, $id)
 {
     $validator = Validator::make($request->all(), [
         'document_type' => 'required',
@@ -308,6 +313,8 @@ public function get_data_reserve_tracking(Request $request){
             IncomingDocumentRoute::insert($routesData);
         }
 
+        
+
         return response()->json([
             'success' => true,
             'message' => 'Document updated successfully',
@@ -326,5 +333,108 @@ public function get_data_reserve_tracking(Request $request){
         ], 500);
     }
 }
+
+
+ public function update_document(Request $request, $id)
+{
+    $validator = Validator::make($request->all(), [
+        'document_type' => 'required',
+        'document_classification' => 'required',
+        'date_received' => 'required|date',
+        'time_received' => 'required',
+        'sender_name' => 'required|string|min:2|max:100',
+        'subject' => 'required|string|min:5|max:500',
+        'draft_attachment' => 'nullable|file|mimes:pdf',
+      
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Validation failed',
+            'errors' => $validator->errors()
+        ], 422);
+    }
+
+    try {
+        $document = IncomingDocument::findOrFail($id);
+
+        // Handle file upload (unchanged)...
+        if ($request->hasFile('draft_attachment')) {
+            if ($document->draft_attachment) {
+                Storage::disk('public')->delete($document->draft_attachment);
+            }
+            $file = $request->file('draft_attachment');
+            $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $attachmentPath = $file->storeAs(
+                'attachments/' . $document->tracking_number,
+                $fileName,
+                'public'
+            );
+            $document->draft_attachment = $attachmentPath;
+        }
+
+        // Update document fields
+        $document->document_type_id = $request->document_type;
+        $document->date_receive = $request->date_received;
+        $document->time_receive = $request->time_received . ':00';
+        $document->sender_name = $request->sender_name;
+        $document->subject = $request->subject;
+        $document->document_classification = $request->document_classification;
+        $document->status = "IN-PROGRESS";
+        $document->save();
+
+        // --- Handle Route To (sync) ---
+        // Delete all existing routes for this document
+      //  IncomingDocumentRoute::where('document_id', $document->id)->delete();
+
+        // Insert new routes if provided
+      
+        return response()->json([
+            'success' => true,
+            'message' => 'Document updated successfully',
+            'data' => [
+                'tracking_number' => $document->tracking_number,
+                'document_id' => $document->id,
+             
+            ]
+        ], 200);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Failed to update document',
+            'error' => $e->getMessage()
+        ], 500);
+    }
+}
+
+public function get_data_in_progress(Request $request){
+         $search = $request->query('search');
+        $perPage = $request->query('per_page', 10); // Default to 10 if not provided
+    
+        // Query promotions with optional search and sorting by 'date_original_appointment'
+        $inprogress = IncomingDocument::with('documentType')->with('documentRoute')->where('status', 'IN-PROGRESS')
+            ->when($search, function ($query, $search) {
+                return $query
+                    ->where('tracking_number', 'like', '%' . $search . '%')
+                     ->OrWhere('sender_name', 'like', '%' . $search . '%')
+                      ->OrWhere('subject', 'like', '%' . $search . '%')
+                         ->OrWhere('document_classification', 'like', '%' . $search . '%')
+                       ->OrWhereHas('documentType', function ($q) use ($search) {
+                            $q->where('document_type_name', 'like', '%' . $search . '%');
+                        });
+            })
+        
+            ->orderBy('tracking_number', 'desc') // Order by date_original_appointment first
+            ->paginate($perPage); // Use the per_page value for pagination
+    
+        return response()->json([
+            'success' => true,
+            'data' => $inprogress
+        ]);
+    }
+
+    
             
 }

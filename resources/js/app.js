@@ -26,6 +26,7 @@ Vue.component('Suboffice', require('./components/Superadmin/Suboffice.vue').defa
 Vue.component('Documentype', require('./components/Admin/Documentype.vue').default);
 Vue.component('Incomingdocuments', require('./components/Admin/Incomingdocuments.vue').default);
 Vue.component('Createincoming', require('./components/Admin/Createincoming.vue').default);
+Vue.component('Updateincoming', require('./components/Admin/Updateincoming.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

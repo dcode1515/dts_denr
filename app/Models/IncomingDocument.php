@@ -40,6 +40,10 @@ class IncomingDocument extends Model
     {
         return $this->belongsTo(DocumentType::class, 'document_type_id');
     }
+public function documentRoute()
+{
+    return $this->hasMany(IncomingDocumentRoute::class, 'document_id');
+}
 
     public function receivedBy()
     {

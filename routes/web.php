@@ -53,7 +53,11 @@ Route::get('/api/reserve-tracking', [App\Http\Controllers\Admin\AdminController:
 Route::get('/create-incoming/{id}', [App\Http\Controllers\Admin\AdminController::class, 'create_incoming']);
 Route::get('/api/get/document-type', [App\Http\Controllers\Admin\AdminController::class, 'documentType']);
 Route::get('/api/route-office', [App\Http\Controllers\Admin\AdminController::class, 'route_office']);
+Route::put('/api/create-update-document/{id}', [App\Http\Controllers\Admin\AdminController::class, 'create_update_document']);
 Route::put('/api/update-document/{id}', [App\Http\Controllers\Admin\AdminController::class, 'update_document']);
+
+Route::get('/api/in-progress', [App\Http\Controllers\Admin\AdminController::class, 'get_data_in_progress']);
+Route::get('/view-document/{id}', [App\Http\Controllers\Admin\AdminController::class, 'view_document']);
 
 
 /*END ADMIN RECORDS*/

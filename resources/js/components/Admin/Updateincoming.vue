@@ -349,44 +349,53 @@
                         </div>
                       </div>
 
-                      <div class="col-md-12">
-                        <div class="field-group">
-                          <label class="field-label"
-                            >Route To <span class="req">*</span></label
-                          >
-                          <div class="route-checklist">
-                            <label
-                              v-for="route in routeOptions"
-                              :key="route.value"
-                              class="route-checkbox-item"
+                      <div class="col-12">
+                        <label class="field-label">
+                          Attachment 
+                          <span v-if="!hasExistingFile && !uploadedFile" class="req">*</span>
+                        </label>
+
+                        <!-- Display existing file from server (when no new file uploaded) -->
+                        <div v-if="hasExistingFile && !uploadedFile" class="single-file-card mb-3">
+                          <div class="file-info">
+                            <div
+                              class="file-icon-wrap"
+                              :class="getFileColorClass(existingFileName)"
                             >
-                              <input
-                                type="checkbox"
-                                :value="route.value"
-                                v-model="formData.route_to"
-                                @change="validateField('route_to')"
-                                class="route-checkbox"
-                              />
-                              <span class="route-checkbox-label">
-                                <i :class="route.icon + ' me-2'"></i>
-                                {{ route.label }}
-                              </span>
-                            </label>
+                              <i :class="getFileIcon(existingFileName)"></i>
+                            </div>
+                            <div class="file-details">
+                              <div class="file-name">
+                                {{ existingFileName }}
+                              </div>
+                              <div class="file-size text-success">
+                                Current file
+                              </div>
+                            </div>
                           </div>
-                          <div class="field-error" v-if="errors.route_to">
-                            <i class="bi bi-exclamation-circle"></i>
-                            {{ errors.route_to }}
+                          <div class="file-actions">
+                            <button
+                              type="button"
+                              class="btn-icon btn-icon-view"
+                              @click="viewExistingFile"
+                              title="View"
+                            >
+                              <i class="bi bi-eye"></i>
+                            </button>
+                            <button
+                              type="button"
+                              class="btn-icon btn-icon-replace"
+                              @click="prepareForNewUpload"
+                              title="Replace"
+                            >
+                              <i class="bi bi-arrow-repeat"></i>
+                            </button>
                           </div>
                         </div>
-                      </div>
 
-                      <div class="col-12">
-                        <label class="field-label"
-                          >Attachment <span class="req">*</span></label
-                        >
-
+                        <!-- Upload dropzone - show when clicking replace or no existing file -->
                         <div
-                          v-if="!uploadedFile"
+                          v-if="showUploadDropzone"
                           class="dropzone"
                           @click="triggerFileUpload"
                           @dragover.prevent
@@ -410,8 +419,18 @@
                               PDF, JPG, PNG, DOCX (Max 5MB)
                             </p>
                           </div>
+                          <!-- Cancel upload button -->
+                          <button
+                            v-if="hasExistingFileBackup"
+                            type="button"
+                            class="btn btn-sm btn-outline-secondary mt-3"
+                            @click.stop="cancelNewUpload"
+                          >
+                            <i class="bi bi-x-circle me-1"></i> Cancel and keep existing file
+                          </button>
                         </div>
 
+                        <!-- Newly uploaded file card -->
                         <div v-if="uploadedFile" class="single-file-card">
                           <div class="file-info">
                             <div
@@ -449,7 +468,7 @@
                             <button
                               type="button"
                               class="btn-icon btn-icon-remove"
-                              @click="removeFile"
+                              @click="removeUploadedFile"
                               title="Remove"
                             >
                               <i class="bi bi-x-lg"></i>
@@ -467,7 +486,7 @@
                 </div>
               </div>
 
-              <!-- Step 2 - Review & Confirm (ENHANCED) -->
+              <!-- Step 2 - Review & Confirm -->
               <div
                 class="step-panel"
                 :class="{
@@ -530,7 +549,7 @@
                               v-if="formData.document_classification"
                               :class="
                                 formData.document_classification ===
-                                'confidential'
+                                'Confidential'
                                   ? 'badge-confidential'
                                   : 'badge-general'
                               "
@@ -538,7 +557,7 @@
                               <i
                                 :class="
                                   formData.document_classification ===
-                                  'confidential'
+                                  'Confidential'
                                     ? 'bi bi-shield-lock-fill'
                                     : 'bi bi-file-earmark-text'
                                 "
@@ -582,14 +601,13 @@
                     </div>
                   </div>
 
-                  <!-- Group 3: Date, Time, Routing & Attachment -->
+                  <!-- Group 3: Date, Time & Attachment -->
                   <div class="review-group border-bottom-0">
                     <div class="review-group-title">
-                      <i class="bi bi-signpost-split-fill"></i> Receipt, Routing
-                      & Attachment
+                      <i class="bi bi-signpost-split-fill"></i> Receipt & Attachment
                     </div>
                     <div class="row g-3">
-                      <div class="col-md-5">
+                      <div class="col-md-6">
                         <div class="review-item">
                           <div class="review-label">Date & Time Received</div>
                           <div class="review-value review-bold">
@@ -608,28 +626,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-4">
-                        <div class="review-item">
-                          <div class="review-label">Route To</div>
-                          <div class="review-value">
-                            <div
-                              v-if="formData.route_to.length > 0"
-                              class="route-badges"
-                            >
-                              <span
-                                v-for="route in formData.route_to"
-                                :key="route"
-                                class="route-badge"
-                              >
-                                <i :class="getRouteIcon(route) + ' me-1'"></i>
-                                {{ getRouteLabel(route) }}
-                              </span>
-                            </div>
-                            <span v-else class="text-muted">—</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-3">
+                      <div class="col-md-6">
                         <div class="review-item">
                           <div class="review-label">Attachment</div>
                           <div class="review-value">
@@ -652,6 +649,18 @@
                               >
                                 <i class="bi bi-eye me-1"></i>View
                               </button>
+                            </div>
+                            <div v-else-if="hasExistingFile" class="review-file-badge">
+                              <div
+                                class="file-icon-wrap-sm"
+                                :class="getFileColorClass(existingFileName)"
+                              >
+                                <i :class="getFileIcon(existingFileName)"></i>
+                              </div>
+                              <div class="review-file-info">
+                                <span class="file-name-sm">{{ existingFileName }}</span>
+                              </div>
+                              <span class="badge bg-success ms-2" style="font-size: 0.65rem;">Current</span>
                             </div>
                             <span v-else class="text-muted">—</span>
                           </div>
@@ -682,6 +691,9 @@
                   <i class="bi bi-arrow-left"></i> Previous
                 </button>
                 <div class="nav-right">
+                    <a :href="'/dts_denr/incoming-documents'" class="btn-nav btn-back">
+                        <i class="bi bi-arrow-left"></i> Back
+                        </a>
                   <button
                     type="button"
                     @click="nextStep"
@@ -734,23 +746,14 @@
           </div>
 
           <div class="modal-body">
-            <div class="preview-area" v-if="uploadedFile">
+            <div class="preview-area" v-if="uploadedFile || modalFileUrl">
+              <!-- PDF Preview -->
               <div
-                v-if="isImageFile(uploadedFile.name)"
-                class="preview-image-wrap"
-              >
-                <img
-                  :src="getImageUrl(uploadedFile)"
-                  :alt="uploadedFile.name"
-                  class="preview-image"
-                />
-              </div>
-              <div
-                v-else-if="uploadedFile.type === 'application/pdf'"
+                v-if="isModalFilePDF()"
                 class="preview-pdf-wrap"
               >
                 <embed
-                  :src="getImageUrl(uploadedFile)"
+                  :src="getModalFileUrl()"
                   type="application/pdf"
                   class="preview-pdf"
                 />
@@ -768,15 +771,24 @@
                   </button>
                 </div>
               </div>
+              <!-- Image Preview -->
               <div
-                v-else-if="
-                  uploadedFile.type ===
-                  'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-                "
+                v-else-if="isModalFileImage()"
+                class="preview-image-wrap"
+              >
+                <img
+                  :src="getModalFileUrl()"
+                  :alt="getModalFileName()"
+                  class="preview-image"
+                />
+              </div>
+              <!-- DOCX Preview -->
+              <div
+                v-else-if="isModalFileDocx()"
                 class="preview-docx-wrap"
               >
                 <iframe
-                  :src="getDocxViewerUrl(uploadedFile)"
+                  :src="getDocxViewerUrlForModal()"
                   class="preview-docx"
                   frameborder="0"
                 ></iframe>
@@ -795,17 +807,15 @@
                   </button>
                 </div>
               </div>
+              <!-- Other file types -->
               <div v-else class="preview-placeholder">
                 <div
                   class="placeholder-icon"
-                  :class="getFileColorClass(uploadedFile.name)"
+                  :class="getFileColorClass(getModalFileName())"
                 >
-                  <i :class="getFileIcon(uploadedFile.name)"></i>
+                  <i :class="getFileIcon(getModalFileName())"></i>
                 </div>
-                <h5 class="fw-semibold mt-3 mb-1">{{ uploadedFile.name }}</h5>
-                <p class="text-muted small mb-0">
-                  {{ formatFileSize(uploadedFile.size) }}
-                </p>
+                <h5 class="fw-semibold mt-3 mb-1">{{ getModalFileName() }}</h5>
                 <p class="text-muted small mt-2 mb-3">
                   Preview not available for this file type.
                 </p>
@@ -847,7 +857,7 @@
             </button>
             <button
               type="button"
-              v-if="uploadedFile"
+              v-if="uploadedFile || modalFileUrl"
               class="btn-nav btn-next btn-sm"
               @click="openInNewTab"
             >
@@ -885,7 +895,6 @@ export default {
   data() {
     return {
       documentTypes: [],
-      routeOptions: [],
       currentStep: 1,
       completedSteps: [],
       steps: [
@@ -899,10 +908,14 @@ export default {
         subject: "",
         date_received: "",
         time_received: "",
-        route_to: [],
         attachment: null,
       },
       uploadedFile: null,
+      existingFileName: null,
+      existingFilePath: null,
+      hasExistingFileBackup: false, // Tracks if we had an existing file before showing upload
+      showUploadDropzone: false, // Controls when to show the upload dropzone
+      modalFileUrl: null,
       errors: {},
       validationRules: {
         document_type: { required: true },
@@ -911,8 +924,6 @@ export default {
         subject: { required: true, min: 5 },
         date_received: { required: true },
         time_received: { required: true },
-        route_to: { required: true, minArray: 1 },
-        attachment: { required: true },
       },
       showModal: false,
       toast: { show: false, message: "", type: "success" },
@@ -938,10 +949,154 @@ export default {
     progressWidth() {
       return ((this.currentStep - 1) / (this.steps.length - 1)) * 100;
     },
+    hasExistingFile() {
+      return !!this.existingFileName && !this.showUploadDropzone && !this.uploadedFile;
+    },
   },
   methods: {
     getImageUrlLogo() {
       return "/dts_denr/storage/app/public/logo/denr1.png";
+    },
+    populateFormData() {
+      const data = this.incomingData;
+      if (!data || !data.id) return;
+
+      // Clear any previous data to avoid conflicts
+      this.clearAllData();
+
+      // Populate form fields from incoming data
+      this.formData.document_type = data.document_type_id || data.document_type || "";
+      this.formData.document_classification = data.document_classification || "";
+      this.formData.sender_name = data.sender_name || "";
+      this.formData.subject = data.subject || "";
+      this.formData.date_received = data.date_received || "";
+      this.formData.time_received = data.time_received || "";
+
+      // Handle existing attachment - build storage path
+      if (data.draft_attachment) {
+      
+        if (typeof data.draft_attachment === 'string') {
+          this.existingFileName = data.draft_attachment;
+          this.existingFilePath = `/dts_denr/storage/app/public/${data.draft_attachment}`;
+        } else if (typeof data.draft_attachment === 'object') {
+          this.existingFileName = data.draft_attachment.file_name || data.draft_attachment.name;
+          this.existingFilePath = data.draft_attachment.file_path || data.draft_attachment.path;
+        }
+        this.hasExistingFileBackup = true;
+        this.showUploadDropzone = false;
+      } else if (data.file_name) {
+        this.existingFileName = data.file_name;
+      
+        this.existingFilePath = `/dts_denr/storage/app/public/${data.file_name}`;
+        this.hasExistingFileBackup = true;
+        this.showUploadDropzone = false;
+      } else if (data.attachment) {
+        this.existingFileName = data.attachment;
+       
+        this.existingFilePath = `/dts_denr/storage/app/public/${data.attachment}`;
+        this.hasExistingFileBackup = true;
+        this.showUploadDropzone = false;
+      } else {
+        this.hasExistingFileBackup = false;
+        this.showUploadDropzone = true; // Show upload if no existing file
+      }
+    },
+    clearAllData() {
+      if (this.previewUrl) {
+        URL.revokeObjectURL(this.previewUrl);
+        this.previewUrl = null;
+      }
+      this.uploadedFile = null;
+      this.existingFileName = null;
+      this.existingFilePath = null;
+      this.hasExistingFileBackup = false;
+      this.showUploadDropzone = false;
+      this.modalFileUrl = null;
+      this.formData.attachment = null;
+      if (this.$refs.fileInput) {
+        this.$refs.fileInput.value = "";
+      }
+    },
+    prepareForNewUpload() {
+      // Show upload dropzone but keep existing file data in backup
+      this.showUploadDropzone = true;
+      this.uploadedFile = null;
+      this.formData.attachment = null;
+      if (this.$refs.fileInput) {
+        this.$refs.fileInput.value = "";
+      }
+    },
+    cancelNewUpload() {
+      // Hide upload dropzone and restore existing file
+      this.showUploadDropzone = false;
+      this.uploadedFile = null;
+      this.formData.attachment = null;
+      this.modalFileUrl = null;
+      if (this.previewUrl) {
+        URL.revokeObjectURL(this.previewUrl);
+        this.previewUrl = null;
+      }
+      if (this.$refs.fileInput) {
+        this.$refs.fileInput.value = "";
+      }
+      this.showToast("Keeping existing file.", "success");
+    },
+    removeUploadedFile() {
+      // Remove uploaded file and show existing if available
+      if (this.previewUrl) {
+        URL.revokeObjectURL(this.previewUrl);
+        this.previewUrl = null;
+      }
+      this.uploadedFile = null;
+      this.formData.attachment = null;
+      this.modalFileUrl = null;
+      if (this.$refs.fileInput) {
+        this.$refs.fileInput.value = "";
+      }
+      
+      // If we had an existing file, show it again
+      if (this.hasExistingFileBackup) {
+        this.showUploadDropzone = false;
+        this.showToast("Reverted to existing file.", "success");
+      } else {
+        this.showUploadDropzone = true;
+        this.showToast("File removed.", "success");
+      }
+    },
+    getModalFileName() {
+      if (this.uploadedFile) return this.uploadedFile.name;
+      if (this.existingFileName) return this.existingFileName;
+      return '';
+    },
+    getModalFileUrl() {
+      if (this.uploadedFile) {
+        if (!this.previewUrl) {
+          this.previewUrl = URL.createObjectURL(this.uploadedFile);
+        }
+        return this.previewUrl;
+      }
+      return this.modalFileUrl || this.existingFilePath || '';
+    },
+    isModalFilePDF() {
+      const fileName = this.getModalFileName();
+      const ext = fileName.split('.').pop().toLowerCase();
+      if (ext === 'pdf') return true;
+      if (this.uploadedFile && this.uploadedFile.type === 'application/pdf') return true;
+      return false;
+    },
+    isModalFileImage() {
+      const fileName = this.getModalFileName();
+      const ext = fileName.split('.').pop().toLowerCase();
+      return ['jpg', 'jpeg', 'png', 'gif'].includes(ext);
+    },
+    isModalFileDocx() {
+      const fileName = this.getModalFileName();
+      const ext = fileName.split('.').pop().toLowerCase();
+      return ext === 'docx' || ext === 'doc';
+    },
+    getDocxViewerUrlForModal() {
+      const url = this.getModalFileUrl();
+      return `https://docs.google.com/gview?url=${encodeURIComponent(url)}&embedded=true`;
     },
     getInitialDate() {
       const now = new Date();
@@ -978,14 +1133,6 @@ export default {
       if (!string) return "";
       return string.charAt(0).toUpperCase() + string.slice(1);
     },
-    getRouteIcon(route) {
-      const option = this.routeOptions.find((r) => r.value === route);
-      return option ? option.icon : "bi bi-building";
-    },
-    getRouteLabel(route) {
-      const option = this.routeOptions.find((r) => r.value === route);
-      return option ? option.label : route;
-    },
     async fetchDocumentTypes() {
       try {
         const response = await axios.get("/dts_denr/api/get/document-type");
@@ -1005,29 +1152,6 @@ export default {
         this.documentTypes = [];
       }
     },
-    async fetchRouteOffices() {
-      try {
-        const response = await axios.get("/dts_denr/api/route-office");
-        let data = response.data;
-        if (data.data && Array.isArray(data.data)) {
-          data = data.data;
-        } else if (!Array.isArray(data)) {
-          data = [];
-        }
-        this.routeOptions = data.map((office) => ({
-          value: office.id,
-          label: office.sub_office_name,
-          icon: "bi bi-building",
-        }));
-      } catch (error) {
-        console.error("Error fetching Route Offices:", error);
-        this.showToast(
-          "Failed to load Route Offices. Please refresh the page.",
-          "error"
-        );
-        this.routeOptions = [];
-      }
-    },
     getSelectedDocumentTypeName() {
       const selected = this.documentTypes.find(
         (d) => d.id == this.formData.document_type
@@ -1036,21 +1160,11 @@ export default {
     },
     validateField(fieldName) {
       if (fieldName === "attachment") {
-        if (!this.uploadedFile) {
+        if (!this.uploadedFile && !this.hasExistingFile && !this.hasExistingFileBackup) {
           this.errors.attachment = "Attachment is required.";
           return false;
         } else {
           delete this.errors.attachment;
-          return true;
-        }
-      }
-
-      if (fieldName === "route_to") {
-        if (!this.formData.route_to || this.formData.route_to.length === 0) {
-          this.errors.route_to = "Please select at least one route.";
-          return false;
-        } else {
-          delete this.errors.route_to;
           return true;
         }
       }
@@ -1090,8 +1204,6 @@ export default {
           "subject",
           "date_received",
           "time_received",
-          "route_to",
-          "attachment",
         ],
       };
       let ok = true;
@@ -1109,7 +1221,6 @@ export default {
           subject: "Subject",
           date_received: "Date Received",
           time_received: "Time Received",
-          route_to: "Route To",
           attachment: "Attachment",
         }[f] || f
       );
@@ -1156,10 +1267,8 @@ export default {
 
           const formData = new FormData();
 
-          // Spoof PUT request for Laravel
           formData.append("_method", "PUT");
 
-          // Map fields correctly
           formData.append("document_type", this.formData.document_type);
           formData.append(
             "document_classification",
@@ -1170,23 +1279,16 @@ export default {
           formData.append("date_received", this.formData.date_received);
           formData.append("time_received", this.formData.time_received);
 
-          // Handle file attachment
+          // Handle file attachment - send new file if uploaded
           if (this.uploadedFile) {
             formData.append("draft_attachment", this.uploadedFile);
           }
 
-          if (this.formData.route_to && this.formData.route_to.length > 0) {
-            this.formData.route_to.forEach((officeId) => {
-              formData.append("route_to[]", officeId); // key is route_to[]
-            });
-          }
-
-          // Get document ID from props
           const documentId = this.incomingData.id;
 
           const [response] = await Promise.all([
             axios.post(
-              `/dts_denr/api/create-update-document/${documentId}`,
+              `/dts_denr/api/update-document/${documentId}`,
               formData,
               {
                 headers: {
@@ -1262,7 +1364,6 @@ export default {
     closeSuccessModal() {
       this.showSuccessModal = false;
       document.body.style.overflow = "";
-      this.resetForm();
       this.showToast("Document updated successfully!", "success");
 
       setTimeout(() => {
@@ -1270,6 +1371,13 @@ export default {
       }, 100);
     },
 
+    viewExistingFile() {
+      if (this.existingFilePath) {
+        this.modalFileUrl = this.existingFilePath;
+        this.showModal = true;
+        document.body.style.overflow = "hidden";
+      }
+    },
     triggerFileUpload() {
       if (this.$refs.fileInput) {
         this.$refs.fileInput.value = "";
@@ -1292,7 +1400,6 @@ export default {
       }
     },
     processSingleFile(file) {
-      // 1. Check if the file is a PDF
       const validTypes = ["application/pdf"];
       const fileExt = file.name.split(".").pop().toLowerCase();
 
@@ -1304,8 +1411,6 @@ export default {
         return;
       }
 
-      // 2. Check file size (50GB limit)
-      // 50GB = 50 * 1024 * 1024 * 1024 bytes
       const maxSize = 50 * 1024 * 1024 * 1024;
       if (file.size > maxSize) {
         this.showToast("File size exceeds 50GB limit.", "error");
@@ -1317,22 +1422,12 @@ export default {
         this.previewUrl = null;
       }
 
+      // Set new file
       this.uploadedFile = file;
       this.formData.attachment = file;
+      this.showUploadDropzone = false;
       delete this.errors.attachment;
       this.showToast("PDF uploaded successfully!", "success");
-    },
-    removeFile() {
-      if (this.previewUrl) {
-        URL.revokeObjectURL(this.previewUrl);
-        this.previewUrl = null;
-      }
-      this.uploadedFile = null;
-      this.formData.attachment = null;
-      if (this.$refs.fileInput) {
-        this.$refs.fileInput.value = "";
-      }
-      this.showToast("File removed.", "success");
     },
     getFileIcon(n) {
       const ext = n.split(".").pop().toLowerCase();
@@ -1368,6 +1463,8 @@ export default {
       if (this.uploadedFile) {
         const url = this.getImageUrl(this.uploadedFile);
         window.open(url, "_blank");
+      } else if (this.modalFileUrl) {
+        window.open(this.modalFileUrl, "_blank");
       }
     },
     formatFileSize(b) {
@@ -1377,12 +1474,16 @@ export default {
     },
     openFileModal() {
       if (!this.isLoading) {
+        if (this.uploadedFile) {
+          this.modalFileUrl = null;
+        }
         this.showModal = true;
         document.body.style.overflow = "hidden";
       }
     },
     closeModal() {
       this.showModal = false;
+      this.modalFileUrl = null;
       document.body.style.overflow = "";
     },
     showToast(msg, type = "success") {
@@ -1391,36 +1492,19 @@ export default {
         this.toast.show = false;
       }, 3500);
     },
-    resetForm() {
-      if (this.previewUrl) {
-        URL.revokeObjectURL(this.previewUrl);
-        this.previewUrl = null;
-      }
-
-      this.formData = {
-        document_type: "",
-        document_classification: "",
-        sender_name: "",
-        subject: "",
-        date_received: this.getInitialDate(),
-        time_received: this.getInitialTime(),
-        route_to: [],
-        attachment: null,
-      };
-      this.uploadedFile = null;
-      this.errors = {};
-      this.completedSteps = [];
-      this.currentStep = 1;
-      this.generatedTrackingNumber = "";
-      this.copied = false;
-    },
   },
   mounted() {
-    this.formData.date_received = this.getInitialDate();
-    this.formData.time_received = this.getInitialTime();
+    this.clearAllData();
+    this.populateFormData();
+    
+    if (!this.formData.date_received) {
+      this.formData.date_received = this.getInitialDate();
+    }
+    if (!this.formData.time_received) {
+      this.formData.time_received = this.getInitialTime();
+    }
 
     this.fetchDocumentTypes();
-    this.fetchRouteOffices();
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
@@ -1435,8 +1519,33 @@ export default {
     }
     document.removeEventListener("keydown", () => {});
   },
+  watch: {
+    incoming: {
+      handler(newVal) {
+        if (newVal) {
+          this.clearAllData();
+          this.populateFormData();
+          
+          if (!this.formData.date_received) {
+            this.formData.date_received = this.getInitialDate();
+          }
+          if (!this.formData.time_received) {
+            this.formData.time_received = this.getInitialTime();
+          }
+          
+          this.errors = {};
+          this.completedSteps = [];
+          this.currentStep = 1;
+        }
+      },
+      deep: true
+    }
+  }
 };
 </script>
+
+
+
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap");
@@ -2614,5 +2723,10 @@ textarea.form-input {
   100% {
     transform: translateX(350%);
   }
+}
+.btn-back {
+  background: #fff;
+  color: #475569;
+  border: 1.5px solid #e2e8f0;
 }
 </style>

@@ -166,7 +166,6 @@
                   <tr>
                     <th style="width: 5%">#</th>
                     <th style="width: 15%">Tracking No.</th>
-                    <th style="width: 15%">Document Classification</th>
                     <th style="width: 18%">Document Type</th>
                     <th style="width: 22%">Subject/Title</th>
                     <th style="width: 15%">Sender/Origin</th>
@@ -176,13 +175,13 @@
                 </thead>
                 <tbody>
                   <tr v-if="inProgressLoading && inProgress.data.length === 0">
-                    <td colspan="8" class="text-center">
+                    <td colspan="7" class="text-center">
                       <div class="loader-spinner"></div>
                       Loading...
                     </td>
                   </tr>
                   <tr v-else-if="!inProgressLoading && inProgress.data.length === 0">
-                    <td colspan="8" class="text-center">
+                    <td colspan="7" class="text-center">
                       <div class="empty-state">
                         <i class="bi bi-inbox" style="font-size: 3rem; color: #9ca3af"></i>
                         <p class="mt-2 text-muted">
@@ -196,7 +195,6 @@
                       <span class="row-number">{{ (inProgress.current_page - 1) * inProgress.per_page + index + 1 }}</span>
                     </td>
                     <td><span class="tracking-number">{{ progress.tracking_number }}</span></td>
-                    <td>{{ progress.document_classification }}</td>
                     <td><span class="doc-type-badge">{{ progress.document_type?.document_type_name || progress.document_type }}</span></td>
                     <td><div class="subject-text">{{ progress.subject }}</div></td>
                     <td><div class="sender-text"><i class="bi bi-person-circle sender-icon"></i> {{ progress.sender_name }}</div></td>
@@ -208,6 +206,7 @@
                     <td>
                       <div class="action-buttons">
                         <button class="btn-action btn-view" @click="viewDocument(progress)" title="View Details"><i class="bi bi-eye"></i></button>
+                        <button class="btn-action btn-process" @click="processDocument(progress)" title="Move to For Release"><i class="bi bi-arrow-right-circle"></i></button>
                         <button class="btn-action btn-download" @click="downloadDocument(progress)" title="Download"><i class="bi bi-download"></i></button>
                       </div>
                     </td>
@@ -216,16 +215,16 @@
               </table>
             </div>
 
-            <!-- Reusable Pagination Component -->
-            <PaginationComponent
-              :current-page="Number(inProgress.current_page)"
-              :total-pages="Number(inProgress.last_page)"
-              :total="Number(inProgress.total)"
-              :per-page="Number(inProgress.per_page)"
-              :from="Number(inProgress.from)"
-              :to="Number(inProgress.to)"
-              @page-change="changeInProgressPage"
-            />
+            <div class="pagination-wrapper" v-if="inProgress.last_page > 0">
+              <div class="pagination-info">Showing {{ inProgress.from }} to {{ inProgress.to }} of {{ inProgress.total }} entries</div>
+              <div class="pagination-buttons">
+                <button @click="changeInProgressPage(1)" :disabled="inProgress.current_page === 1" class="page-btn"><i class="bi bi-chevron-double-left"></i></button>
+                <button @click="changeInProgressPage(inProgress.current_page - 1)" :disabled="inProgress.current_page === 1" class="page-btn"><i class="bi bi-chevron-left"></i></button>
+                <button v-for="page in inProgressDisplayedPages" :key="page" @click="changeInProgressPage(page)" :class="['page-btn', { active: inProgress.current_page === page }]">{{ page }}</button>
+                <button @click="changeInProgressPage(inProgress.current_page + 1)" :disabled="inProgress.current_page === inProgress.last_page" class="page-btn"><i class="bi bi-chevron-right"></i></button>
+                <button @click="changeInProgressPage(inProgress.last_page)" :disabled="inProgress.current_page === inProgress.last_page" class="page-btn"><i class="bi bi-chevron-double-right"></i></button>
+              </div>
+            </div>
           </div>
 
           <!-- ==================== FOR RELEASE TAB ==================== -->
@@ -315,17 +314,16 @@
                 </tbody>
               </table>
             </div>
-
-            <!-- Reusable Pagination Component -->
-            <PaginationComponent
-              :current-page="forReleaseCurrentPage"
-              :total-pages="forReleaseTotalPages"
-              :total="filteredForRelease.length"
-              :per-page="forReleasePerPage"
-              :from="forReleaseStartItem"
-              :to="forReleaseEndItem"
-              @page-change="forReleaseCurrentPage = $event"
-            />
+            <div class="pagination-wrapper" v-if="forReleaseTotalPages > 1">
+              <div class="pagination-info">Showing {{ forReleaseStartItem }} to {{ forReleaseEndItem }} of {{ filteredForRelease.length }} entries</div>
+              <div class="pagination-buttons">
+                <button @click="forReleaseCurrentPage = 1" :disabled="forReleaseCurrentPage === 1" class="page-btn"><i class="bi bi-chevron-double-left"></i></button>
+                <button @click="forReleaseCurrentPage--" :disabled="forReleaseCurrentPage === 1" class="page-btn"><i class="bi bi-chevron-left"></i></button>
+                <button v-for="page in forReleaseDisplayedPages" :key="page" @click="forReleaseCurrentPage = page" :class="['page-btn', { active: forReleaseCurrentPage === page }]">{{ page }}</button>
+                <button @click="forReleaseCurrentPage++" :disabled="forReleaseCurrentPage === forReleaseTotalPages" class="page-btn"><i class="bi bi-chevron-right"></i></button>
+                <button @click="forReleaseCurrentPage = forReleaseTotalPages" :disabled="forReleaseCurrentPage === forReleaseTotalPages" class="page-btn"><i class="bi bi-chevron-double-right"></i></button>
+              </div>
+            </div>
           </div>
 
           <!-- ==================== RELEASED TAB ==================== -->
@@ -414,17 +412,16 @@
                 </tbody>
               </table>
             </div>
-
-            <!-- Reusable Pagination Component -->
-            <PaginationComponent
-              :current-page="releasedCurrentPage"
-              :total-pages="releasedTotalPages"
-              :total="filteredReleased.length"
-              :per-page="releasedPerPage"
-              :from="releasedStartItem"
-              :to="releasedEndItem"
-              @page-change="releasedCurrentPage = $event"
-            />
+            <div class="pagination-wrapper" v-if="releasedTotalPages > 1">
+              <div class="pagination-info">Showing {{ releasedStartItem }} to {{ releasedEndItem }} of {{ filteredReleased.length }} entries</div>
+              <div class="pagination-buttons">
+                <button @click="releasedCurrentPage = 1" :disabled="releasedCurrentPage === 1" class="page-btn"><i class="bi bi-chevron-double-left"></i></button>
+                <button @click="releasedCurrentPage--" :disabled="releasedCurrentPage === 1" class="page-btn"><i class="bi bi-chevron-left"></i></button>
+                <button v-for="page in releasedDisplayedPages" :key="page" @click="releasedCurrentPage = page" :class="['page-btn', { active: releasedCurrentPage === page }]">{{ page }}</button>
+                <button @click="releasedCurrentPage++" :disabled="releasedCurrentPage === releasedTotalPages" class="page-btn"><i class="bi bi-chevron-right"></i></button>
+                <button @click="releasedCurrentPage = releasedTotalPages" :disabled="releasedCurrentPage === releasedTotalPages" class="page-btn"><i class="bi bi-chevron-double-right"></i></button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -509,17 +506,15 @@
               </div>
             </div>
 
-            <!-- Reusable Pagination Component for Tracking -->
-            <div class="tracking-pagination">
-              <PaginationComponent
-                :current-page="trackings.current_page"
-                :total-pages="trackings.last_page"
-                :total="trackings.total"
-                :per-page="trackings.per_page"
-                :from="trackings.from"
-                :to="trackings.to"
-                @page-change="changeTrackingPage"
-              />
+            <div class="pagination-wrapper tracking-pagination" v-if="trackings.total > 0">
+              <div class="pagination-info">Showing {{ trackings.from }} to {{ trackings.to }} of {{ trackings.total }} entries</div>
+              <div class="pagination-buttons">
+                <button @click="changeTrackingPage(1)" :disabled="trackings.current_page === 1" class="page-btn"><i class="bi bi-chevron-double-left"></i></button>
+                <button @click="changeTrackingPage(trackings.current_page - 1)" :disabled="trackings.current_page === 1" class="page-btn"><i class="bi bi-chevron-left"></i></button>
+                <button v-for="page in trackingDisplayedPages" :key="page" @click="changeTrackingPage(page)" :class="['page-btn', { active: trackings.current_page === page }]">{{ page }}</button>
+                <button @click="changeTrackingPage(trackings.current_page + 1)" :disabled="trackings.current_page === trackings.last_page" class="page-btn"><i class="bi bi-chevron-right"></i></button>
+                <button @click="changeTrackingPage(trackings.last_page)" :disabled="trackings.current_page === trackings.last_page" class="page-btn"><i class="bi bi-chevron-double-right"></i></button>
+              </div>
             </div>
           </div>
         </div>
@@ -681,7 +676,7 @@
               </div>
             </div>
             <div class="header-actions">
-              <a class="btn-header-action btn-header-update" :href="`/dts_denr/view-document/${selectedDocument?.id}`" title="Update Document">
+              <a class="btn-header-action btn-header-update" :href="`/dts_denr/update-document/${selectedDocument?.id}`" title="Update Document">
                 <i class="bi bi-pencil-square"></i>
               </a>
               <button type="button" class="btn-close-custom square-close" @click="closeViewModal">
@@ -691,29 +686,7 @@
           </div>
 
           <div class="modal-body-enhanced document-viewer-body">
-            <!-- Document Viewer Tabs -->
-            <div class="document-viewer-tabs">
-              <button 
-                class="viewer-tab-btn" 
-                :class="{ active: viewerActiveTab === 'details' }" 
-                @click="viewerActiveTab = 'details'"
-              >
-                <i class="bi bi-info-circle-fill"></i>
-                <span>Document Information</span>
-              </button>
-              <button 
-                class="viewer-tab-btn" 
-                :class="{ active: viewerActiveTab === 'history' }" 
-                @click="switchToHistoryTab"
-              >
-                <i class="bi bi-clock-history"></i>
-                <span>Route History</span>
-              </button>
-            </div>
-
-            <!-- Document Information Tab - Shows Details + PDF side by side -->
-            <div v-show="viewerActiveTab === 'details'" class="document-viewer-layout">
-              <!-- Left Panel: Document Details -->
+            <div class="document-viewer-layout">
               <div class="details-panel">
                 <div class="details-panel-header">
                   <i class="bi bi-info-circle-fill"></i>
@@ -771,18 +744,9 @@
                       <p class="detail-value description-text">{{ selectedDocument.description }}</p>
                     </div>
                   </div>
-
-                  <div class="detail-card meta-card">
-                    <div class="detail-icon-wrapper meta-icon"><i class="bi bi-info-circle"></i></div>
-                    <div class="detail-info">
-                      <label>Status</label>
-                      <span :class="['status-badge', getStatusClass(selectedDocument?.status)]">{{ selectedDocument?.status || 'Unknown' }}</span>
-                    </div>
-                  </div>
                 </div>
               </div>
 
-              <!-- Right Panel: PDF Preview -->
               <div class="pdf-panel">
                 <div class="pdf-panel-header">
                   <div class="pdf-panel-title">
@@ -821,110 +785,6 @@
                 </div>
               </div>
             </div>
-
-            <!-- Route History Tab -->
-            <div v-show="viewerActiveTab === 'history'" class="route-history-panel">
-              <div class="route-history-header">
-                <div class="route-history-title">
-                  <i class="bi bi-clock-history"></i>
-                  <span>Document Route History</span>
-                </div>
-                <div class="route-history-badge" v-if="routeHistory.length > 0">
-                  <i class="bi bi-arrow-left-right"></i>
-                  <span>{{ routeHistory.length }} Route{{ routeHistory.length !== 1 ? 's' : '' }}</span>
-                </div>
-              </div>
-
-              <div class="route-history-content">
-                <!-- Loading State -->
-                <div v-if="routeHistoryLoading" class="route-loading-state">
-                  <div class="loader-spinner"></div>
-                  <p class="mt-3 text-muted">Loading route history...</p>
-                </div>
-
-                <!-- Empty State -->
-                <div v-else-if="routeHistory.length === 0" class="route-empty-state">
-                  <div class="empty-icon-wrapper">
-                    <i class="bi bi-signpost-split"></i>
-                  </div>
-                  <h5 class="mt-3">No Route History</h5>
-                  <p class="text-muted">This document hasn't been routed yet.</p>
-                </div>
-
-                <!-- Timeline -->
-                <div v-else class="route-timeline">
-                  <div 
-                    v-for="(route, index) in routeHistory" 
-                    :key="route.id || index" 
-                    class="timeline-item"
-                    :class="{ 
-                      'timeline-first': index === 0,
-                      'timeline-last': index === routeHistory.length - 1,
-                      'timeline-current': route.is_current
-                    }"
-                  >
-                    <div class="timeline-marker">
-                      <div class="marker-dot" :class="getRouteMarkerClass(route)">
-                        <i :class="getRouteIcon(route)"></i>
-                      </div>
-                      <div class="marker-line" v-if="index < routeHistory.length - 1"></div>
-                    </div>
-                    
-                    <div class="timeline-card" :class="{ 'current-card': route.is_current }">
-                      <div class="timeline-card-header">
-                        <div class="timeline-step-info">
-                          <span class="step-number">Step {{ index + 1 }}</span>
-                          <span :class="['route-status-badge', getRouteStatusClass(route.status)]">
-                            {{ route.status || 'Processed' }}
-                          </span>
-                        </div>
-                        <div class="timeline-date">
-                          <i class="bi bi-calendar3"></i>
-                          <span>{{ formatDateTime(route.routed_at || route.created_at) }}</span>
-                        </div>
-                      </div>
-                      
-                      <div class="timeline-card-body">
-                        <div class="route-detail-row">
-                          <div class="route-detail-item">
-                            <div class="detail-icon-small from-icon">
-                              <i class="bi bi-box-arrow-right"></i>
-                            </div>
-                            <div class="detail-text">
-                              <label>From Office</label>
-                              <span class="office-name">{{ route.from_office || route.office_origin || 'N/A' }}</span>
-                            </div>
-                          </div>
-                          <div class="route-arrow">
-                            <i class="bi bi-arrow-right"></i>
-                          </div>
-                          <div class="route-detail-item">
-                            <div class="detail-icon-small to-icon">
-                              <i class="bi bi-box-arrow-in-left"></i>
-                            </div>
-                            <div class="detail-text">
-                              <label>To Office</label>
-                              <span class="office-name">{{ route.to_office || route.office_destination || 'N/A' }}</span>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div class="route-meta-row" v-if="route.action_by || route.processed_by">
-                          <div class="route-meta-item">
-                            <i class="bi bi-person-check"></i>
-                            <span>{{ route.action_by || route.processed_by }}</span>
-                          </div>
-                          <div class="route-meta-item" v-if="route.remarks || route.notes">
-                            <i class="bi bi-chat-left-text"></i>
-                            <span>{{ route.remarks || route.notes }}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -934,13 +794,9 @@
 
 <script>
 import Swal from "sweetalert2";
-import PaginationComponent from '../../components/PaginationComponent.vue';
 
 export default {
   name: "IncomingDocumentsList",
-  components: {
-    PaginationComponent
-  },
   props: {
     headerIcon: { type: String, default: "bi bi-inbox" },
     headerTitle: { type: String, default: "Incoming Documents" },
@@ -948,6 +804,7 @@ export default {
   },
   emits: [
     "process-document",
+    "release-document",
     "view-document",
     "download-document",
     "create-document",
@@ -956,7 +813,6 @@ export default {
   data() {
     return {
       activeTab: "in-progress",
-      viewerActiveTab: "details",
       currentDateTime: "",
       dateTimeInterval: null,
       showCreateModal: false,
@@ -971,10 +827,6 @@ export default {
       pdfLoadError: false,
       pdfZoom: 1,
       pdfViewerHeight: 700,
-
-      // Route History Data
-      routeHistory: [],
-      routeHistoryLoading: false,
 
       // IN-PROGRESS TAB DATA
       inProgress: {
@@ -1040,6 +892,36 @@ export default {
     };
   },
   computed: {
+    inProgressDisplayedPages() {
+      const pages = [];
+      const total = this.inProgress.last_page;
+      const current = this.inProgress.current_page;
+      const delta = 2;
+      for (let i = 1; i <= total; i++) {
+        if (i === 1 || i === total || (i >= current - delta && i <= current + delta)) {
+          pages.push(i);
+        } else if (pages[pages.length - 1] !== "...") {
+          pages.push("...");
+        }
+      }
+      return pages;
+    },
+
+    trackingDisplayedPages() {
+      const pages = [];
+      const total = this.trackings.last_page;
+      const current = this.trackings.current_page;
+      const delta = 2;
+      for (let i = 1; i <= total; i++) {
+        if (i === 1 || i === total || (i >= current - delta && i <= current + delta)) {
+          pages.push(i);
+        } else if (pages[pages.length - 1] !== "...") {
+          pages.push("...");
+        }
+      }
+      return pages;
+    },
+
     filteredForRelease() {
       let filtered = [...this.forReleaseDocuments];
       if (this.forReleaseDocTypeFilter) {
@@ -1068,6 +950,20 @@ export default {
     },
     forReleaseEndItem() {
       return Math.min(this.forReleaseCurrentPage * this.forReleasePerPage, this.filteredForRelease.length);
+    },
+    forReleaseDisplayedPages() {
+      const pages = [];
+      const total = this.forReleaseTotalPages;
+      const current = this.forReleaseCurrentPage;
+      const delta = 2;
+      for (let i = 1; i <= total; i++) {
+        if (i === 1 || i === total || (i >= current - delta && i <= current + delta)) {
+          pages.push(i);
+        } else if (pages[pages.length - 1] !== "...") {
+          pages.push("...");
+        }
+      }
+      return pages;
     },
 
     filteredReleased() {
@@ -1099,6 +995,20 @@ export default {
     releasedEndItem() {
       return Math.min(this.releasedCurrentPage * this.releasedPerPage, this.filteredReleased.length);
     },
+    releasedDisplayedPages() {
+      const pages = [];
+      const total = this.releasedTotalPages;
+      const current = this.releasedCurrentPage;
+      const delta = 2;
+      for (let i = 1; i <= total; i++) {
+        if (i === 1 || i === total || (i >= current - delta && i <= current + delta)) {
+          pages.push(i);
+        } else if (pages[pages.length - 1] !== "...") {
+          pages.push("...");
+        }
+      }
+      return pages;
+    },
   },
   mounted() {
     this.getDataInprogress();
@@ -1111,108 +1021,6 @@ export default {
     if (this.notification.timeout) clearTimeout(this.notification.timeout);
   },
   methods: {
-    // ===== ROUTE HISTORY METHODS =====
-    async fetchRouteHistory(documentId) {
-      if (!documentId) return;
-      
-      this.routeHistoryLoading = true;
-      this.routeHistory = [];
-      
-      try {
-        // Replace this URL with your actual API endpoint
-        const response = await axios.get(`/dts_denr/api/documents/${documentId}/route-history`);
-        this.routeHistory = response.data.data || response.data || [];
-      } catch (error) {
-        console.error("Error fetching route history:", error);
-        // Fallback mock data for demonstration
-        this.routeHistory = this.getMockRouteHistory();
-      } finally {
-        this.routeHistoryLoading = false;
-      }
-    },
-
-    getMockRouteHistory() {
-      // Mock data for demonstration - remove this when API is connected
-      return [
-        {
-          id: 1,
-          from_office: "Records Office",
-          to_office: "Planning Division",
-          status: "Completed",
-          routed_at: new Date(Date.now() - 86400000 * 3).toISOString(),
-          action_by: "Maria Santos",
-          remarks: "Forwarded for review",
-          is_current: false
-        },
-        {
-          id: 2,
-          from_office: "Planning Division",
-          to_office: "Legal Department",
-          status: "Completed",
-          routed_at: new Date(Date.now() - 86400000 * 2).toISOString(),
-          action_by: "Juan Dela Cruz",
-          remarks: "For legal review and comments",
-          is_current: false
-        },
-        {
-          id: 3,
-          from_office: "Legal Department",
-          to_office: "Executive Office",
-          status: "In Progress",
-          routed_at: new Date(Date.now() - 86400000).toISOString(),
-          action_by: "Atty. Reyes",
-          remarks: "For final approval",
-          is_current: true
-        },
-      ];
-    },
-
-    switchToHistoryTab() {
-      this.viewerActiveTab = 'history';
-      if (this.selectedDocument?.id) {
-        this.fetchRouteHistory(this.selectedDocument.id);
-      }
-    },
-
-    getRouteMarkerClass(route) {
-      if (route.is_current) return 'marker-current';
-      if (route.status === 'Completed' || route.status === 'Approved') return 'marker-completed';
-      if (route.status === 'Rejected' || route.status === 'Returned') return 'marker-rejected';
-      return 'marker-pending';
-    },
-
-    getRouteIcon(route) {
-      if (route.is_current) return 'bi bi-arrow-right-circle-fill';
-      if (route.status === 'Completed' || route.status === 'Approved') return 'bi bi-check-circle-fill';
-      if (route.status === 'Rejected' || route.status === 'Returned') return 'bi bi-x-circle-fill';
-      return 'bi bi-circle';
-    },
-
-    getRouteStatusClass(status) {
-      const map = {
-        'Completed': 'route-completed',
-        'Approved': 'route-completed',
-        'In Progress': 'route-in-progress',
-        'Pending': 'route-pending',
-        'Rejected': 'route-rejected',
-        'Returned': 'route-rejected',
-      };
-      return map[status] || 'route-pending';
-    },
-
-    formatDateTime(dateString) {
-      if (!dateString) return "N/A";
-      const date = new Date(dateString);
-      return date.toLocaleString("en-PH", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true,
-      });
-    },
-
     getPdfUrl(document) {
       if (!document || !document.tracking_number) return '';
       if (document.draft_attachment) {
@@ -1421,29 +1229,25 @@ export default {
     viewDocument(doc) {
       this.selectedDocument = doc;
       this.showViewModal = true;
-      this.viewerActiveTab = "details";
       this.pdfLoading = true;
       this.pdfLoadError = false;
       this.pdfZoom = 1;
       this.pdfViewerHeight = 700;
-      this.routeHistory = [];
       this.$emit("view-document", doc);
     },
     closeViewModal() {
       this.showViewModal = false;
       this.selectedDocument = null;
-      this.viewerActiveTab = "details";
       this.pdfLoading = true;
       this.pdfLoadError = false;
       this.pdfZoom = 1;
       this.pdfViewerHeight = 700;
-      this.routeHistory = [];
     },
     processDocument(doc) {
       this.$emit("process-document", doc);
     },
     releaseDocument(doc) {
-      // Implement release logic
+      this.$emit("release-document", doc);
     },
     downloadDocument(doc) {
       this.$emit("download-document", doc);
@@ -1690,54 +1494,6 @@ export default {
   min-width: 0;
 }
 
-/* ===== DOCUMENT VIEWER TABS ===== */
-.document-viewer-tabs {
-  display: flex;
-  gap: 4px;
-  padding: 12px 20px;
-  background: #f8fafc;
-  border-bottom: 2px solid #e5e7eb;
-}
-
-.viewer-tab-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  color: #64748b;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.3s ease;
-  font-family: "Inter", sans-serif;
-}
-
-.viewer-tab-btn i {
-  font-size: 14px;
-}
-
-.viewer-tab-btn:hover {
-  background: #f0fdf4;
-  border-color: #86efac;
-  color: #2d6a4f;
-  transform: translateY(-1px);
-}
-
-.viewer-tab-btn.active {
-  background: linear-gradient(135deg, #2d6a4f, #1e4d2b);
-  border-color: #2d6a4f;
-  color: #ffffff;
-  box-shadow: 0 4px 12px rgba(45, 106, 79, 0.3);
-}
-
-.viewer-tab-btn.active i {
-  color: #52b788;
-}
-
 /* ===== FILTER CONTROLS ===== */
 .filter-controls {
   margin-bottom: 20px;
@@ -1886,6 +1642,7 @@ export default {
   flex-wrap: wrap;
 }
 
+/* Reserve Tracking Forest Green Button */
 .btn-reserve-tracking-forest {
   display: inline-flex;
   align-items: center;
@@ -2101,6 +1858,23 @@ export default {
   margin-bottom: 20px;
   font-weight: 500;
 }
+.success-msg {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #d1fae5;
+  border: 1px solid #a7f3d0;
+  border-radius: 7px;
+  padding: 14px 18px;
+  font-size: 14px;
+  color: #065f46;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+.success-msg i {
+  font-size: 1.2rem;
+  color: #059669;
+}
 .form-label-enhanced {
   font-weight: 600;
   font-size: 0.9rem;
@@ -2238,16 +2012,13 @@ select.form-input {
   padding: 0;
   max-height: calc(90vh - 80px);
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
 }
 
-/* ===== DOCUMENT VIEWER LAYOUT (Details + PDF side by side) ===== */
 .document-viewer-layout {
   display: grid;
   grid-template-columns: 380px 1fr;
-  height: calc(90vh - 140px);
-  min-height: 500px;
+  height: calc(90vh - 80px);
+  min-height: 600px;
 }
 
 /* ===== DETAILS PANEL (LEFT SIDE) ===== */
@@ -2269,7 +2040,6 @@ select.form-input {
   font-weight: 700;
   color: #1e293b;
   font-size: 0.9rem;
-  flex-shrink: 0;
 }
 
 .details-panel-header i {
@@ -2426,38 +2196,6 @@ select.form-input {
   line-height: 1.6;
 }
 
-.meta-card {
-  background: #f8fafc;
-}
-
-.status-badge {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.status-in-progress {
-  background: #fef3c7;
-  color: #d97706;
-  border: 1px solid #fde68a;
-}
-
-.status-for-release {
-  background: #dbeafe;
-  color: #2563eb;
-  border: 1px solid #bfdbfe;
-}
-
-.status-released {
-  background: #d1fae5;
-  color: #059669;
-  border: 1px solid #a7f3d0;
-}
-
 /* ===== PDF PANEL (RIGHT SIDE) ===== */
 .pdf-panel {
   display: flex;
@@ -2473,7 +2211,6 @@ select.form-input {
   padding: 12px 20px;
   background: #ffffff;
   border-bottom: 1px solid #e5e7eb;
-  flex-shrink: 0;
 }
 
 .pdf-panel-title {
@@ -2522,12 +2259,24 @@ select.form-input {
   cursor: not-allowed;
 }
 
+.btn-pdf-download {
+  background: #2d6a4f;
+  border-color: #2d6a4f;
+  color: #ffffff;
+}
+
+.btn-pdf-download:hover:not(:disabled) {
+  background: #1e4d2b;
+  border-color: #1e4d2b;
+  color: #ffffff;
+}
+
+/* ===== PDF VIEWER WRAPPER ===== */
 .pdf-viewer-wrapper {
   flex: 1;
   overflow: auto;
   background: #525659;
   position: relative;
-  min-height: 400px;
 }
 
 .pdf-viewer-wrapper::-webkit-scrollbar {
@@ -2555,13 +2304,14 @@ select.form-input {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
+/* ===== PDF STATES ===== */
 .pdf-state {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100%;
-  min-height: 400px;
+  min-height: 500px;
   color: #9ca3af;
   padding: 40px;
 }
@@ -2613,6 +2363,7 @@ select.form-input {
   word-break: break-all;
 }
 
+/* ===== PDF FOOTER ===== */
 .pdf-footer {
   display: flex;
   justify-content: space-between;
@@ -2622,7 +2373,6 @@ select.form-input {
   border-top: 1px solid #e5e7eb;
   font-size: 0.75rem;
   color: #64748b;
-  flex-shrink: 0;
 }
 
 .pdf-zoom-level {
@@ -2632,385 +2382,6 @@ select.form-input {
 
 .pdf-page-info {
   font-family: 'Courier New', monospace;
-}
-
-/* ===== ROUTE HISTORY PANEL ===== */
-.route-history-panel {
-  display: flex;
-  flex-direction: column;
-  height: calc(90vh - 140px);
-  background: #ffffff;
-  min-height: 500px;
-}
-
-.route-history-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 24px;
-  background: #f8fafc;
-  border-bottom: 2px solid #e5e7eb;
-  flex-shrink: 0;
-}
-
-.route-history-title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 700;
-  color: #1e293b;
-  font-size: 1rem;
-}
-
-.route-history-title i {
-  color: #2d6a4f;
-  font-size: 1.2rem;
-}
-
-.route-history-badge {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  background: #f0fdf4;
-  border: 1px solid #bbf7d0;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: #166534;
-}
-
-.route-history-badge i {
-  font-size: 0.9rem;
-}
-
-.route-history-content {
-  flex: 1;
-  overflow-y: auto;
-  padding: 24px;
-}
-
-.route-history-content::-webkit-scrollbar {
-  width: 6px;
-}
-
-.route-history-content::-webkit-scrollbar-track {
-  background: #f1f5f9;
-}
-
-.route-history-content::-webkit-scrollbar-thumb {
-  background: #94a3b8;
-  border-radius: 3px;
-}
-
-.route-loading-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 300px;
-}
-
-.route-empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 300px;
-  text-align: center;
-}
-
-.empty-icon-wrapper {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: #f1f5f9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  color: #94a3b8;
-}
-
-/* ===== ROUTE TIMELINE ===== */
-.route-timeline {
-  position: relative;
-  padding-left: 40px;
-}
-
-.timeline-item {
-  position: relative;
-  padding-bottom: 32px;
-}
-
-.timeline-item.timeline-last {
-  padding-bottom: 0;
-}
-
-.timeline-marker {
-  position: absolute;
-  left: -40px;
-  top: 0;
-  width: 40px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.marker-dot {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  z-index: 2;
-  transition: all 0.3s ease;
-}
-
-.marker-current {
-  background: linear-gradient(135deg, #2d6a4f, #1e4d2b);
-  color: #ffffff;
-  box-shadow: 0 0 0 4px rgba(45, 106, 79, 0.2);
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    box-shadow: 0 0 0 4px rgba(45, 106, 79, 0.2);
-  }
-  50% {
-    box-shadow: 0 0 0 8px rgba(45, 106, 79, 0.1);
-  }
-}
-
-.marker-completed {
-  background: #d1fae5;
-  color: #059669;
-  border: 2px solid #a7f3d0;
-}
-
-.marker-rejected {
-  background: #fef0ef;
-  color: #dc2626;
-  border: 2px solid #f5c6c3;
-}
-
-.marker-pending {
-  background: #fef3c7;
-  color: #d97706;
-  border: 2px solid #fde68a;
-}
-
-.marker-line {
-  flex: 1;
-  width: 2px;
-  background: linear-gradient(180deg, #e5e7eb, #d1d5db);
-  margin-top: 4px;
-}
-
-.timeline-item.timeline-first .marker-line {
-  background: linear-gradient(180deg, #2d6a4f, #e5e7eb);
-}
-
-.timeline-card {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 16px;
-  transition: all 0.3s ease;
-}
-
-.timeline-card:hover {
-  border-color: #86efac;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  transform: translateX(4px);
-}
-
-.timeline-card.current-card {
-  border-color: #2d6a4f;
-  background: #f8fafc;
-  box-shadow: 0 4px 20px rgba(45, 106, 79, 0.1);
-}
-
-.timeline-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 14px;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.timeline-step-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.step-number {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #2d6a4f;
-  background: #f0fdf4;
-  padding: 3px 10px;
-  border-radius: 6px;
-  border: 1px solid #bbf7d0;
-}
-
-.route-status-badge {
-  font-size: 0.7rem;
-  font-weight: 600;
-  padding: 3px 10px;
-  border-radius: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.route-completed {
-  background: #d1fae5;
-  color: #059669;
-  border: 1px solid #a7f3d0;
-}
-
-.route-in-progress {
-  background: #dbeafe;
-  color: #2563eb;
-  border: 1px solid #bfdbfe;
-  animation: statusPulse 2s infinite;
-}
-
-@keyframes statusPulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
-}
-
-.route-pending {
-  background: #fef3c7;
-  color: #d97706;
-  border: 1px solid #fde68a;
-}
-
-.route-rejected {
-  background: #fef0ef;
-  color: #dc2626;
-  border: 1px solid #f5c6c3;
-}
-
-.timeline-date {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.75rem;
-  color: #64748b;
-}
-
-.timeline-date i {
-  font-size: 0.8rem;
-}
-
-.timeline-card-body {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.route-detail-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.route-detail-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  flex: 1;
-  min-width: 150px;
-  padding: 10px;
-  background: #f8fafc;
-  border-radius: 8px;
-  border: 1px solid #e5e7eb;
-}
-
-.detail-icon-small {
-  width: 32px;
-  height: 32px;
-  min-width: 32px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.85rem;
-}
-
-.from-icon {
-  background: #fef0ef;
-  color: #dc2626;
-}
-
-.to-icon {
-  background: #d1fae5;
-  color: #059669;
-}
-
-.detail-text {
-  flex: 1;
-  min-width: 0;
-}
-
-.detail-text label {
-  display: block;
-  font-size: 0.65rem;
-  font-weight: 600;
-  color: #64748b;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 3px;
-}
-
-.office-name {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #1e293b;
-}
-
-.route-arrow {
-  display: flex;
-  align-items: center;
-  color: #94a3b8;
-  font-size: 1.2rem;
-  flex-shrink: 0;
-}
-
-.route-meta-row {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.route-meta-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  background: #f8fafc;
-  border: 1px solid #e5e7eb;
-  border-radius: 6px;
-  font-size: 0.8rem;
-  color: #475569;
-}
-
-.route-meta-item i {
-  font-size: 0.85rem;
-  color: #2d6a4f;
 }
 
 /* ===== HEADER ENHANCEMENTS ===== */
@@ -3288,6 +2659,57 @@ select.form-input {
   transform: scale(1.05);
 }
 
+/* ===== PAGINATION ===== */
+.pagination-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+.pagination-info {
+  font-size: 13px;
+  color: #6c757d;
+  white-space: nowrap;
+  font-weight: 500;
+}
+.pagination-buttons {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.page-btn {
+  border: 2px solid #e5e7eb;
+  background: white;
+  color: #495057;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  font-weight: 600;
+}
+.page-btn:hover:not(:disabled) {
+  background: #f0fdf4;
+  border-color: #2d6a4f;
+  color: #2d6a4f;
+}
+.page-btn.active {
+  background: #2d6a4f;
+  color: white;
+  border-color: #2d6a4f;
+  box-shadow: 0 2px 8px rgba(45, 106, 79, 0.3);
+}
+.page-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 .empty-state {
   padding: 20px;
   text-align: center;
@@ -3482,7 +2904,7 @@ select.form-input {
   .document-viewer-layout {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
-    height: calc(90vh - 140px);
+    height: calc(90vh - 80px);
   }
   
   .details-panel {
@@ -3491,17 +2913,18 @@ select.form-input {
     max-height: 350px;
   }
   
+  .details-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  
+  .description-card {
+    grid-column: 1 / -1;
+  }
+  
   .pdf-viewer-wrapper {
-    min-height: 350px;
-  }
-  
-  .route-detail-row {
-    flex-direction: column;
-  }
-  
-  .route-arrow {
-    transform: rotate(90deg);
-    align-self: center;
+    min-height: 400px;
   }
 }
 
@@ -3514,18 +2937,26 @@ select.form-input {
     max-height: 100vh;
   }
   
-  .document-viewer-tabs {
-    padding: 8px 12px;
-    gap: 4px;
+  .document-viewer-layout {
+    height: calc(100vh - 60px);
   }
   
-  .viewer-tab-btn {
-    padding: 8px 14px;
-    font-size: 12px;
+  .details-content {
+    grid-template-columns: 1fr;
   }
   
   .details-panel {
-    max-height: 280px;
+    max-height: 300px;
+  }
+  
+  .pdf-panel-header {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .pdf-controls {
+    width: 100%;
+    justify-content: flex-end;
   }
   
   .pdf-viewer-wrapper {
@@ -3534,30 +2965,6 @@ select.form-input {
   
   .pdf-state {
     min-height: 300px;
-  }
-  
-  .route-history-content {
-    padding: 16px;
-  }
-  
-  .route-timeline {
-    padding-left: 32px;
-  }
-  
-  .timeline-marker {
-    left: -32px;
-    width: 32px;
-  }
-  
-  .marker-dot {
-    width: 28px;
-    height: 28px;
-    font-size: 0.85rem;
-  }
-  
-  .timeline-card-header {
-    flex-direction: column;
-    align-items: flex-start;
   }
   
   .tracking-modal {
@@ -3587,19 +2994,19 @@ select.form-input {
   .tracking-table-scroll .office-table td {
     padding: 8px 10px;
   }
+  .tracking-pagination {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+  .pagination-buttons {
+    justify-content: center;
+  }
 }
 
 @media (max-width: 576px) {
   .document-header {
     padding: 12px 16px;
-  }
-  
-  .viewer-tab-btn span {
-    display: none;
-  }
-  
-  .viewer-tab-btn i {
-    font-size: 16px;
   }
   
   .detail-card {
@@ -3625,13 +3032,16 @@ select.form-input {
     align-items: flex-start;
   }
   
-  .route-history-header {
-    padding: 12px 16px;
+  .pagination-wrapper {
     flex-direction: column;
-    gap: 8px;
-    align-items: flex-start;
+    align-items: center;
   }
-  
+  .pagination-buttons {
+    justify-content: center;
+  }
+  .detail-row {
+    grid-template-columns: 1fr;
+  }
   .active-filters {
     flex-direction: column;
     align-items: flex-start;
