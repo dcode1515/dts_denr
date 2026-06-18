@@ -82,6 +82,13 @@
           <a class="nav-sub-item" href="#">Archived</a>
         </div>
       </div>
+  <a class="nav-item" href="">
+    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+        <circle cx="12" cy="7" r="4"/>
+    </svg>
+    My Document
+</a>
 
       <div class="nav-section-label" style="margin-top:10px">Administration</div>
 

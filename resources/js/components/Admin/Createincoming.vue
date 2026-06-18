@@ -672,6 +672,9 @@
 
               <!-- Navigation -->
               <div class="wizard-nav">
+                 <a :href="'/dts_denr/incoming-documents'" class="btn-nav btn-back">
+                        <i class="bi bi-arrow-left"></i> Back
+                        </a>
                 <button
                   type="button"
                   @click="prevStep"
@@ -682,6 +685,7 @@
                   <i class="bi bi-arrow-left"></i> Previous
                 </button>
                 <div class="nav-right">
+                   
                   <button
                     type="button"
                     @click="nextStep"
@@ -2614,5 +2618,10 @@ textarea.form-input {
   100% {
     transform: translateX(350%);
   }
+}
+.btn-back {
+  background: #fff;
+  color: #475569;
+  border: 1.5px solid #e2e8f0;
 }
 </style>

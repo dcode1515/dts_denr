@@ -14,6 +14,7 @@ class IncomingDocumentRoute extends Model
       protected $fillable = [
             'document_id',
             'office_id',
+            'from_office_id',
             'action_id',
             'receive_user_id',
             'date_forwarded',
@@ -33,8 +34,10 @@ class IncomingDocumentRoute extends Model
     }
     public function office()
     {
-        return $this->belongsTo(Office::class, 'office_id');
+        return $this->belongsTo(SubOffice::class, 'office_id');
     }
+  
+
 
     public function action()
     {

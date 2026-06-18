@@ -9,8 +9,8 @@ use App\Models\SubOffice;
 use Illuminate\Support\Facades\Storage;
 use App\Models\IncomingDocument;
 use App\Models\IncomingDocumentRoute;
-
-
+use Illuminate\Support\Str;
+use Auth;
 use Illuminate\Support\Facades\DB;  // ← ADD THIS LINE
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;  // ← ADD THIS LINE
@@ -207,11 +207,11 @@ class AdminController extends Controller
             $incoming = IncomingDocument::find($id);
             return view('admin.create_incoming',compact('incoming'));
         }
-        public function view_document($id)
-        {
-            $incoming = IncomingDocument::find($id);
-            return view('admin.update_incoming',compact('incoming'));
-        }
+        public function view_document($token)
+            {
+                $incoming = IncomingDocument::where('token', $token)->firstOrFail();
+                return view('admin.update_incoming', compact('incoming'));
+            }
           public function documentType()
         {
            $documentType = DocumentType::orderBy('created_at', 'asc')
@@ -240,6 +240,129 @@ class AdminController extends Controller
                 'data' => $office
             ], 200);
         }
+
+      public function forward_document(Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        'document_id' => 'required|integer|exists:incoming_documents_tbl,id',
+        'tracking_number' => 'required|string',
+        'offices' => 'required|array|min:1',
+        'offices.*' => 'integer|exists:sub_office_tbl,id',
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Validation failed',
+            'errors' => $validator->errors()
+        ], 422);
+    }
+
+    try {
+        $document = IncomingDocument::findOrFail($request->document_id);
+        
+        // Check if document exists
+        if (!$document) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Document not found'
+            ], 404);
+        }
+
+        // Prepare routes data for multiple offices
+        $currentDateTime = now();
+        $routesData = [];
+        $newOfficeIds = [];
+        $existingOffices = []; // Track offices that already have PENDING or RECEIVED status
+        
+        foreach ($request->offices as $officeId) {
+            // Check if route already exists with PENDING or RECEIVED status
+            $existingRoute = IncomingDocumentRoute::where('document_id', $document->id)
+                ->where('office_id', $officeId)
+                ->whereIn('status', ['PENDING', 'RECEIVED'])
+                ->first();
+            
+            if ($existingRoute) {
+                // Get office name for the message
+                $office = SubOffice::find($officeId);
+                $existingOffices[] = [
+                    'office_id' => $officeId,
+                    'office_name' => $office ? $office->sub_office_name : 'Unknown Office',
+                    'status' => $existingRoute->status,
+                    'date_forwarded' => $existingRoute->date_forwarded
+                ];
+                continue; // Skip this office
+            }
+            
+            // Office doesn't have active route, add it
+            $routesData[] = [
+                'document_id' => $document->id,
+                'office_id' => $officeId,
+                'from_office_id' => Auth::user()->id,
+                'date_forwarded' => $currentDateTime,
+                'status' => "PENDING",
+                'created_at' => $currentDateTime,
+                'updated_at' => $currentDateTime,
+            ];
+            $newOfficeIds[] = $officeId;
+        }
+
+        // If all selected offices already have active routes
+        if (empty($routesData)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'All selected office(s) already have existing routes with PENDING or RECEIVED status',
+                'existing_offices' => $existingOffices
+            ], 422);
+        }
+
+        // Insert new routes
+        IncomingDocumentRoute::insert($routesData);
+
+        // Update document status
+        $document->status = "IN-PROGRESS";
+        $document->updated_at = $currentDateTime;
+        $document->save();
+
+        // Build response message
+        $newCount = count($newOfficeIds);
+        $existingCount = count($existingOffices);
+        
+        $message = "Document forwarded successfully to {$newCount} office(s).";
+        if ($existingCount > 0) {
+            $message .= " {$existingCount} office(s) were skipped because they already have existing routes.";
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => $message,
+            'data' => [
+                'document_id' => $document->id,
+                'tracking_number' => $document->tracking_number,
+                'new_routes_count' => $newCount,
+                'new_office_ids' => $newOfficeIds,
+                'skipped_offices_count' => $existingCount,
+                'skipped_offices' => $existingOffices,
+                'forwarded_by' => Auth::user()->id,
+                'date_forwarded' => $currentDateTime->toDateTimeString(),
+            ]
+        ], 200);
+
+    } catch (\Exception $e) {
+        \Log::error('Forward document error: ' . $e->getMessage(), [
+            'document_id' => $request->document_id,
+            'user_id' => Auth::user()->id,
+            'offices' => $request->offices,
+            'trace' => $e->getTraceAsString()
+        ]);
+        
+        return response()->json([
+            'success' => false,
+            'message' => 'Failed to forward document',
+            'error' => $e->getMessage()
+        ], 500);
+    }
+}
 
 
        public function create_update_document(Request $request, $id)
@@ -290,6 +413,7 @@ class AdminController extends Controller
         $document->subject = $request->subject;
         $document->document_classification = $request->document_classification;
         $document->status = "IN-PROGRESS";
+         $document->token = Str::random(64);
         $document->save();
 
         // --- Handle Route To (sync) ---
@@ -304,6 +428,7 @@ class AdminController extends Controller
                 $routesData[] = [
                     'document_id' => $document->id,
                     'office_id' => $officeId,
+                     'from_office_id' => Auth::user()->id,
                     'date_forwarded' => $currentDateTime,
                     'status' => "PENDING",
                     'created_at' => $currentDateTime,
@@ -414,7 +539,7 @@ public function get_data_in_progress(Request $request){
         $perPage = $request->query('per_page', 10); // Default to 10 if not provided
     
         // Query promotions with optional search and sorting by 'date_original_appointment'
-        $inprogress = IncomingDocument::with('documentType')->with('documentRoute')->where('status', 'IN-PROGRESS')
+        $inprogress = IncomingDocument::with('documentType')->with('documentRoute.office','documentRoute.receivedBy')->where('status', 'IN-PROGRESS')
             ->when($search, function ($query, $search) {
                 return $query
                     ->where('tracking_number', 'like', '%' . $search . '%')
@@ -435,6 +560,6 @@ public function get_data_in_progress(Request $request){
         ]);
     }
 
-    
+
             
 }
