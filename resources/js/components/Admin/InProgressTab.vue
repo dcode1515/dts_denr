@@ -1,3 +1,4 @@
+<!-- resources/js/components/InProgressTab.vue -->
 <template>
   <div>
     <!-- Filter Controls -->
@@ -8,13 +9,13 @@
             <i class="bi bi-search search-icon"></i>
             <input
               type="text"
-              v-model="localSearch"
+              v-model="searchQuery"
               @input="applyFilters"
               class="search-input"
               placeholder="Search by tracking no, subject, sender..."
             />
             <button
-              v-if="localSearch"
+              v-if="searchQuery"
               @click="clearSearch"
               class="search-clear-btn"
             >
@@ -25,7 +26,7 @@
         <div class="per-page-wrapper">
           <span class="per-page-label">Show</span>
           <select
-            v-model="localPerPage"
+            v-model="perPage"
             @change="changePerPage"
             class="per-page-select"
           >
@@ -40,7 +41,7 @@
           <div class="filter-box">
             <i class="bi bi-funnel filter-icon"></i>
             <select
-              v-model="localDocTypeFilter"
+              v-model="docTypeFilter"
               @change="applyFilters"
               class="filter-select"
             >
@@ -83,7 +84,7 @@
               <a
                 class="dropdown-item py-2"
                 href="javascript:void(0)"
-                @click="$emit('open-tracking')"
+                @click="openMyTracking"
               >
                 <i class="bi bi-bookmark-check me-2 text-success"></i>My
                 Tracking
@@ -94,7 +95,7 @@
               <a
                 class="dropdown-item py-2"
                 href="javascript:void(0)"
-                @click="$emit('open-create')"
+                @click="openCreateModal"
               >
                 <i class="bi bi-plus-circle me-2 text-success"></i
                 >Create New Tracking
@@ -106,11 +107,11 @@
 
       <div
         class="active-filters"
-        v-if="localSearch || localDocTypeFilter"
+        v-if="searchQuery || docTypeFilter"
       >
         <span class="active-filters-label">Active Filters:</span>
-        <span v-if="localSearch" class="filter-tag">
-          <i class="bi bi-search"></i> "{{ localSearch }}"
+        <span v-if="searchQuery" class="filter-tag">
+          <i class="bi bi-search"></i> "{{ searchQuery }}"
           <button
             @click="clearSearch"
             class="filter-tag-close"
@@ -118,8 +119,8 @@
             <i class="bi bi-x"></i>
           </button>
         </span>
-        <span v-if="localDocTypeFilter" class="filter-tag">
-          <i class="bi bi-funnel"></i> {{ localDocTypeFilter }}
+        <span v-if="docTypeFilter" class="filter-tag">
+          <i class="bi bi-funnel"></i> {{ docTypeFilter }}
           <button
             @click="clearDocTypeFilter"
             class="filter-tag-close"
@@ -136,11 +137,12 @@
       </div>
 
       <div class="results-summary">
-        <span class="results-count">{{ data.total }}</span>
-        document(s) found in <strong>{{ tabLabel }}</strong>
+        <span class="results-count">{{ inProgress.total }}</span>
+        document(s) found in <strong>In Progress</strong>
       </div>
     </div>
 
+    <!-- Table -->
     <div class="table-responsive">
       <table class="office-table">
         <thead>
@@ -156,7 +158,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-if="loading && data.data.length === 0">
+          <tr v-if="loading && inProgress.data.length === 0">
             <td colspan="8" class="text-center">
               <div class="loader-spinner"></div>
               Loading...
@@ -164,7 +166,7 @@
           </tr>
           <tr
             v-else-if="
-              !loading && data.data.length === 0
+              !loading && inProgress.data.length === 0
             "
           >
             <td colspan="8" class="text-center">
@@ -175,58 +177,58 @@
                 ></i>
                 <p class="mt-2 text-muted">
                   {{
-                    localSearch || localDocTypeFilter
+                    searchQuery || docTypeFilter
                       ? "No documents match your filters"
-                      : "No Data Found"
+                      : "No In Progress Data Found"
                   }}
                 </p>
               </div>
             </td>
           </tr>
           <tr
-            v-for="(item, index) in data.data"
-            :key="item.id"
+            v-for="(progress, index) in inProgress.data"
+            :key="progress.id"
           >
             <td class="text-center">
               <span class="row-number">{{
-                (data.current_page - 1) * data.per_page +
+                (inProgress.current_page - 1) * inProgress.per_page +
                 index +
                 1
               }}</span>
             </td>
             <td>
               <span class="tracking-number">{{
-                item.tracking_number
+                progress.tracking_number
               }}</span>
             </td>
-            <td>{{ item.document_classification }}</td>
+            <td>{{ progress.document_classification }}</td>
             <td>
               <span class="doc-type-badge">{{
-                item.document_type?.document_type_name ||
-                item.document_type
+                progress.document_type?.document_type_name ||
+                progress.document_type
               }}</span>
             </td>
             <td>
-              <div class="subject-text">{{ item.subject }}</div>
+              <div class="subject-text">{{ progress.subject }}</div>
             </td>
             <td>
               <div class="sender-text">
                 <i class="bi bi-person-circle sender-icon"></i>
-                {{ item.sender_name }}
+                {{ progress.sender_name }}
               </div>
             </td>
             <td>
               <div class="date-received">
                 <i class="bi bi-calendar3 date-icon"></i
-                >{{ formatDate(item.date_receive) }} At
-                {{ formatTime(item.time_receive) }}
+                >{{ formatDate(progress.date_receive) }} At
+                {{ formatTime(progress.time_receive) }}
               </div>
             </td>
             <td>
               <div class="action-buttons">
                 <button
                   class="btn-action btn-view"
-                  @click="$emit('view-document', item)"
+                  @click="viewDocument(progress)"
                   title="View Details"
                 >
                   <i class="bi bi-eye"></i>
@@ -234,7 +236,7 @@
 
                 <button
                   class="btn-action btn-download"
-                  @click="$emit('forward-document', item)"
+                  @click="openForwardModal(progress)"
                   title="Forward Office"
                 >
                   <i class="bi bi-arrow-right-circle"></i>
@@ -246,20 +248,1266 @@
       </table>
     </div>
 
-    <!-- Reusable Pagination Component -->
+    <!-- Pagination -->
     <PaginationComponent
-      :current-page="Number(data.current_page)"
-      :total-pages="Number(data.last_page)"
-      :total="Number(data.total)"
-      :per-page="Number(data.per_page)"
-      :from="Number(data.from)"
-      :to="Number(data.to)"
+      :current-page="Number(inProgress.current_page)"
+      :total-pages="Number(inProgress.last_page)"
+      :total="Number(inProgress.total)"
+      :per-page="Number(inProgress.per_page)"
+      :from="Number(inProgress.from)"
+      :to="Number(inProgress.to)"
       @page-change="changePage"
     />
+
+    <!-- ================= MY TRACKING MODAL ================= -->
+    <div
+      v-if="showMyTrackingModal"
+      class="modal-overlay"
+      @click.self="closeMyTrackingModal"
+    >
+      <div
+        class="modal-dialog enhanced-modal tracking-modal"
+        style="max-width: 1500px"
+      >
+        <div class="modal-content square-modal">
+          <div
+            class="modal-header-enhanced square-header"
+            style="background: #2d6a4f"
+          >
+            <div class="d-flex align-items-center">
+              <div class="modal-icon-wrapper square-icon">
+                <i class="bi bi-bookmark-check"></i>
+              </div>
+              <div>
+                <h5 class="modal-title">My Tracking</h5>
+                <small class="modal-subtitle"
+                  >Documents assigned to your tracking</small
+                >
+              </div>
+            </div>
+            <button
+              type="button"
+              class="btn-close-custom square-close"
+              @click="closeMyTrackingModal"
+            >
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+          <div class="modal-body-enhanced tracking-modal-body">
+            <div class="my-tracking-controls sticky-top-controls">
+              <div class="search-box-wrapper" style="flex: 1; max-width: 800px">
+                <div class="search-box">
+                  <i class="bi bi-search search-icon"></i>
+                  <input
+                    type="text"
+                    v-model="trackingSearch"
+                    @input="applyTrackingFilters"
+                    class="search-input"
+                    placeholder="Search tracking documents..."
+                  />
+                  <button
+                    v-if="trackingSearch"
+                    @click="clearTrackingSearch"
+                    class="search-clear-btn"
+                  >
+                    <i class="bi bi-x-circle"></i>
+                  </button>
+                </div>
+              </div>
+              <button
+                type="button"
+                class="btn-reserve-tracking-forest"
+                @click="reserveTracking"
+                :disabled="reserving"
+              >
+                <span
+                  v-if="reserving"
+                  class="spinner-border spinner-border-sm me-1"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                <svg
+                  v-else
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  class="me-1"
+                >
+                  <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                </svg>
+                {{ reserving ? "Reserving..." : "Reserve Tracking" }}
+              </button>
+            </div>
+
+            <div class="tracking-table-scroll">
+              <div class="table-responsive">
+                <table class="office-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 5%">#</th>
+                      <th style="width: 15%">Tracking No.</th>
+                      <th style="width: 10%">Status</th>
+                      <th style="width: 10%">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-if="trackingLoading && trackings.data.length === 0">
+                      <td colspan="4" class="text-center">
+                        <div class="loader-spinner"></div>
+                        Loading...
+                      </td>
+                    </tr>
+                    <tr
+                      v-else-if="
+                        !trackingLoading && trackings.data.length === 0
+                      "
+                    >
+                      <td colspan="4" class="text-center">
+                        <div class="empty-state">
+                          <i
+                            class="bi bi-inbox"
+                            style="font-size: 3rem; color: #9ca3af"
+                          ></i>
+                          <p class="mt-2 text-muted">
+                            No Reserve Tracking Found
+                          </p>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr
+                      v-for="(tracking, index) in trackings.data"
+                      :key="tracking.id"
+                    >
+                      <td class="text-center">
+                        <span class="row-number">{{
+                          (trackings.current_page - 1) * trackings.per_page +
+                          index +
+                          1
+                        }}</span>
+                      </td>
+                      <td>
+                        <span class="tracking-number">{{
+                          tracking.tracking_number
+                        }}</span>
+                      </td>
+                      <td>
+                        <span
+                          :class="[
+                            'status-badge',
+                            getStatusClass(tracking.status),
+                          ]"
+                          >{{ tracking.status }}</span
+                        >
+                      </td>
+                      <td>
+                        <a
+                          :href="`/dts_denr/create-incoming/${tracking.id}`"
+                          class="btn-action btn-view"
+                          title="View Details"
+                        >
+                          <i class="bi bi-plus-circle me-1"></i> Create
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Pagination for Tracking -->
+            <div class="tracking-pagination">
+              <PaginationComponent
+                :current-page="trackings.current_page"
+                :total-pages="trackings.last_page"
+                :total="trackings.total"
+                :per-page="trackings.per_page"
+                :from="trackings.from"
+                :to="trackings.to"
+                @page-change="changeTrackingPage"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= CREATE DOCUMENT MODAL ================= -->
+    <div
+      v-if="showCreateModal"
+      class="modal-overlay"
+      @click.self="closeCreateModal"
+    >
+      <div class="modal-dialog enhanced-modal">
+        <div class="modal-content square-modal">
+          <div class="modal-header-enhanced square-header">
+            <div class="d-flex align-items-center">
+              <div class="modal-icon-wrapper square-icon">
+                <i class="bi bi-file-earmark-plus"></i>
+              </div>
+              <div>
+                <h5 class="modal-title">Create Incoming Document</h5>
+                <small class="modal-subtitle"
+                  >Register a new incoming document record</small
+                >
+              </div>
+            </div>
+            <button
+              type="button"
+              class="btn-close-custom square-close"
+              @click="closeCreateModal"
+              :disabled="creating"
+            >
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+          <div class="modal-body-enhanced">
+            <div v-if="formErrors.show" class="error-msg" role="alert">
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <circle
+                  cx="12"
+                  cy="16.5"
+                  r="0.7"
+                  fill="currentColor"
+                  stroke="none"
+                />
+              </svg>
+              <span>{{ formErrors.message }}</span>
+            </div>
+            <form @submit.prevent="submitCreateForm">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="tracking_number" class="form-label-enhanced"
+                    >Tracking Number <span class="required-star">*</span></label
+                  >
+                  <div class="input-wrap">
+                    <span class="input-icon">
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <path
+                          d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"
+                        />
+                        <line x1="7" y1="7" x2="7.01" y2="7" />
+                      </svg>
+                    </span>
+                    <input
+                      type="text"
+                      id="tracking_number"
+                      v-model="createForm.tracking_number"
+                      class="form-input"
+                      :class="{ 'is-invalid': errors.tracking_number }"
+                      placeholder="e.g., TRK-2024-001"
+                      :disabled="creating"
+                    />
+                  </div>
+                  <div
+                    v-if="errors.tracking_number"
+                    class="invalid-feedback d-block"
+                  >
+                    {{ errors.tracking_number }}
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="document_type" class="form-label-enhanced"
+                    >Document Type <span class="required-star">*</span></label
+                  >
+                  <div class="input-wrap">
+                    <span class="input-icon">
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <path
+                          d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                        />
+                        <polyline points="14 2 14 8 20 8" />
+                      </svg>
+                    </span>
+                    <select
+                      id="document_type"
+                      v-model="createForm.document_type"
+                      class="form-input"
+                      :class="{ 'is-invalid': errors.document_type }"
+                      :disabled="creating"
+                      style="padding-left: 42px"
+                    >
+                      <option value="">Select Document Type</option>
+                      <option
+                        v-for="type in documentTypes"
+                        :key="type"
+                        :value="type"
+                      >
+                        {{ type }}
+                      </option>
+                    </select>
+                  </div>
+                  <div
+                    v-if="errors.document_type"
+                    class="invalid-feedback d-block"
+                  >
+                    {{ errors.document_type }}
+                  </div>
+                </div>
+              </div>
+              <div class="mt-3">
+                <label for="subject" class="form-label-enhanced"
+                  >Subject/Title <span class="required-star">*</span></label
+                >
+                <div class="input-wrap">
+                  <span class="input-icon">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                      />
+                      <polyline points="14 2 14 8 20 8" />
+                      <line x1="16" y1="13" x2="8" y2="13" />
+                      <line x1="16" y1="17" x2="8" y2="17" />
+                    </svg>
+                  </span>
+                  <input
+                    type="text"
+                    id="subject"
+                    v-model="createForm.subject"
+                    class="form-input"
+                    :class="{ 'is-invalid': errors.subject }"
+                    placeholder="Enter document subject or title"
+                    :disabled="creating"
+                  />
+                </div>
+                <div v-if="errors.subject" class="invalid-feedback d-block">
+                  {{ errors.subject }}
+                </div>
+              </div>
+              <div class="row g-3 mt-3">
+                <div class="col-md-6">
+                  <label for="sender_name" class="form-label-enhanced"
+                    >Sender/Origin <span class="required-star">*</span></label
+                  >
+                  <div class="input-wrap">
+                    <span class="input-icon">
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                      </svg>
+                    </span>
+                    <input
+                      type="text"
+                      id="sender_name"
+                      v-model="createForm.sender_name"
+                      class="form-input"
+                      :class="{ 'is-invalid': errors.sender_name }"
+                      placeholder="Name of sender or origin office"
+                      :disabled="creating"
+                    />
+                  </div>
+                  <div
+                    v-if="errors.sender_name"
+                    class="invalid-feedback d-block"
+                  >
+                    {{ errors.sender_name }}
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="date_received" class="form-label-enhanced"
+                    >Date Received <span class="required-star">*</span></label
+                  >
+                  <div class="input-wrap">
+                    <span class="input-icon">
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <rect
+                          x="3"
+                          y="4"
+                          width="18"
+                          height="18"
+                          rx="2"
+                          ry="2"
+                        />
+                        <line x1="16" y1="2" x2="16" y2="6" />
+                        <line x1="8" y1="2" x2="8" y2="6" />
+                        <line x1="3" y1="10" x2="21" y2="10" />
+                      </svg>
+                    </span>
+                    <input
+                      type="datetime-local"
+                      id="date_received"
+                      v-model="createForm.date_received"
+                      class="form-input"
+                      :class="{ 'is-invalid': errors.date_received }"
+                      :disabled="creating"
+                    />
+                  </div>
+                  <div
+                    v-if="errors.date_received"
+                    class="invalid-feedback d-block"
+                  >
+                    {{ errors.date_received }}
+                  </div>
+                </div>
+              </div>
+              <div class="mt-3">
+                <label for="description" class="form-label-enhanced"
+                  >Description</label
+                >
+                <div class="input-wrap">
+                  <span class="input-icon" style="top: 14px">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                      />
+                      <polyline points="14 2 14 8 20 8" />
+                      <line x1="16" y1="13" x2="8" y2="13" />
+                      <line x1="16" y1="17" x2="8" y2="17" />
+                    </svg>
+                  </span>
+                  <textarea
+                    id="description"
+                    v-model="createForm.description"
+                    class="form-input form-textarea"
+                    rows="3"
+                    placeholder="Brief description of the document"
+                    :disabled="creating"
+                  ></textarea>
+                </div>
+              </div>
+              <div class="modal-actions">
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary square-btn"
+                  @click="resetCreateForm"
+                  :disabled="creating"
+                >
+                  <i class="bi bi-arrow-counterclockwise me-1"></i> Reset
+                </button>
+                <div class="d-flex gap-3">
+                  <button
+                    type="button"
+                    class="btn btn-light square-btn"
+                    @click="closeCreateModal"
+                    :disabled="creating"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    class="btn btn-save square-btn"
+                    :disabled="creating"
+                  >
+                    <span
+                      v-if="creating"
+                      class="spinner-border spinner-border-sm me-1"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                    <i v-else class="bi bi-check2-circle me-1"></i>
+                    {{ creating ? "Creating..." : "Create Document" }}
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= FORWARD OFFICE MODAL ================= -->
+    <div
+      v-if="showForwardModal"
+      class="modal-overlay"
+      @click.self="closeForwardModal"
+    >
+      <div class="modal-dialog enhanced-modal" style="max-width: 700px">
+        <div class="modal-content square-modal">
+          <div
+            class="modal-header-enhanced square-header"
+            style="background: #2563eb"
+          >
+            <div class="d-flex align-items-center">
+              <div
+                class="modal-icon-wrapper square-icon"
+                style="background: rgba(255, 255, 255, 0.2)"
+              >
+                <i class="bi bi-arrow-right-circle"></i>
+              </div>
+              <div>
+                <h5 class="modal-title">Forward Document</h5>
+              </div>
+            </div>
+            <button
+              type="button"
+              class="btn-close-custom square-close"
+              @click="closeForwardModal"
+              :disabled="forwarding"
+            >
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+
+          <div class="modal-body-enhanced">
+            <!-- Error Alert -->
+            <div v-if="forwardError" class="error-msg" role="alert">
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <circle
+                  cx="12"
+                  cy="16.5"
+                  r="0.7"
+                  fill="currentColor"
+                  stroke="none"
+                />
+              </svg>
+              <span>{{ forwardError }}</span>
+            </div>
+
+            <!-- Document Info Summary -->
+            <div class="forward-doc-info">
+              <div class="forward-doc-row">
+                <span class="forward-doc-label">Tracking Number:</span>
+                <span class="forward-doc-value">{{
+                  forwardDocument?.tracking_number ||
+                  forwardDocument?.tracking_number ||
+                  "N/A"
+                }}</span>
+              </div>
+              <div class="forward-doc-row">
+                <span class="forward-doc-label">Document Type:</span>
+                <span class="doc-type-badge">{{
+                  forwardDocument?.document_type?.document_type_name ||
+                  forwardDocument?.document_type ||
+                  "N/A"
+                }}</span>
+              </div>
+            </div>
+
+            <!-- Office List -->
+            <div class="mt-3">
+              <label class="form-label-enhanced">
+                Select Destination Office(s)
+                <span class="required-star">*</span>
+              </label>
+
+              <div v-if="officesLoading" class="text-center py-4">
+                <div class="loader-spinner"></div>
+                <p class="mt-2 text-muted">Loading offices...</p>
+              </div>
+
+              <div v-else-if="offices.length === 0" class="text-center py-4">
+                <i
+                  class="bi bi-building"
+                  style="font-size: 2rem; color: #9ca3af"
+                ></i>
+                <p class="mt-2 text-muted">No offices available</p>
+              </div>
+
+              <div v-else class="office-list-container">
+                <div
+                  v-for="office in offices"
+                  :key="office.id"
+                  class="office-select-item"
+                  :class="{ selected: isOfficeSelected(office.id) }"
+                  @click="toggleOfficeSelection(office)"
+                >
+                  <div class="office-checkbox">
+                    <i
+                      :class="
+                        isOfficeSelected(office.id)
+                          ? 'bi bi-check-square-fill'
+                          : 'bi bi-square'
+                      "
+                    ></i>
+                  </div>
+                  <div class="office-icon-wrapper">
+                    <i class="bi bi-building"></i>
+                  </div>
+                  <div class="office-details">
+                    <span class="office-name-text">{{
+                      office.sub_office_name
+                    }}</span>
+                    <span class="office-code" v-if="office.office_code">{{
+                      office.office_code
+                    }}</span>
+                  </div>
+                  <div
+                    v-if="isOfficeSelected(office.id)"
+                    class="selected-indicator"
+                  >
+                    <i class="bi bi-check-circle-fill"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Selected Offices Summary -->
+            <div
+              v-if="selectedOffices.length > 0"
+              class="selected-offices-summary mt-3"
+            >
+              <div class="selected-offices-header">
+                <i class="bi bi-check2-all"></i>
+                <span>Selected Offices ({{ selectedOffices.length }})</span>
+              </div>
+              <div class="selected-offices-list">
+                <span
+                  v-for="office in selectedOffices"
+                  :key="office.id"
+                  class="selected-office-tag"
+                >
+                  <i class="bi bi-building"></i>
+                  {{ office.sub_office_name }}
+                  <button
+                    @click="removeOffice(office.id)"
+                    class="remove-office-btn"
+                    :disabled="forwarding"
+                  >
+                    <i class="bi bi-x"></i>
+                  </button>
+                </span>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="modal-actions">
+              <button
+                type="button"
+                class="btn btn-outline-secondary square-btn"
+                @click="clearForwardForm"
+                :disabled="forwarding"
+              >
+                <i class="bi bi-arrow-counterclockwise me-1"></i> Reset
+              </button>
+              <div class="d-flex gap-3">
+                <button
+                  type="button"
+                  class="btn btn-light square-btn"
+                  @click="closeForwardModal"
+                  :disabled="forwarding"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-save square-btn"
+                  style="background: linear-gradient(135deg, #2563eb, #1d4ed8)"
+                  @click="submitForwardDocument"
+                  :disabled="forwarding || selectedOffices.length === 0"
+                >
+                  <span
+                    v-if="forwarding"
+                    class="spinner-border spinner-border-sm me-1"
+                    role="status"
+                  ></span>
+                  <i v-else class="bi bi-send-check me-1"></i>
+                  {{ forwarding ? "Forwarding..." : "Forward Document" }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= ENHANCED DOCUMENT VIEWER MODAL ================= -->
+    <div
+      v-if="showViewModal"
+      class="modal-overlay"
+      @click.self="closeViewModal"
+    >
+      <div class="modal-dialog enhanced-modal document-view-modal">
+        <div class="modal-content square-modal">
+          <div class="modal-header-enhanced square-header document-header">
+            <div class="d-flex align-items-center">
+              <div class="modal-icon-wrapper square-icon document-icon">
+                <i class="bi bi-file-earmark-pdf"></i>
+              </div>
+              <div>
+                <h5 class="modal-title">Document Viewer</h5>
+                <small class="modal-subtitle">
+                  <span class="tracking-badge">{{
+                    selectedDocument?.tracking_number
+                  }}</span>
+                  <span
+                    :class="[
+                      'status-pill',
+                      getStatusClass(selectedDocument?.status),
+                    ]"
+                    >{{ selectedDocument?.status }}</span
+                  >
+                </small>
+              </div>
+            </div>
+            <div class="header-actions">
+              <a
+                class="btn-header-action btn-header-update"
+                :href="`/dts_denr/view-document/${selectedDocument?.token}`"
+                title="Update Document"
+              >
+                <i class="bi bi-pencil-square"></i>
+              </a>
+              <button
+                type="button"
+                class="btn-close-custom square-close"
+                @click="closeViewModal"
+              >
+                <i class="bi bi-x-lg"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="modal-body-enhanced document-viewer-body">
+            <!-- Document Viewer Tabs -->
+            <div class="document-viewer-tabs">
+              <button
+                class="viewer-tab-btn"
+                :class="{ active: viewerActiveTab === 'details' }"
+                @click="viewerActiveTab = 'details'"
+              >
+                <i class="bi bi-info-circle-fill"></i>
+                <span>Document Information</span>
+              </button>
+              <button
+                class="viewer-tab-btn"
+                :class="{ active: viewerActiveTab === 'history' }"
+                @click="switchToHistoryTab"
+              >
+                <i class="bi bi-clock-history"></i>
+                <span>Route History</span>
+              </button>
+            </div>
+
+            <!-- Document Information Tab -->
+            <div
+              v-show="viewerActiveTab === 'details'"
+              class="document-viewer-layout"
+            >
+              <!-- Left Panel: Document Details -->
+              <div class="details-panel">
+                <div class="details-panel-header">
+                  <i class="bi bi-info-circle-fill"></i>
+                  <span>Document Information</span>
+                </div>
+
+                <div class="details-content" v-if="selectedDocument">
+                  <div class="detail-card">
+                    <div class="detail-icon-wrapper">
+                      <i class="bi bi-upc-scan"></i>
+                    </div>
+                    <div class="detail-info">
+                      <label>Tracking Number</label>
+                      <span class="tracking-number-large">{{
+                        selectedDocument.tracking_number
+                      }}</span>
+                    </div>
+                  </div>
+
+                  <div class="detail-card">
+                    <div class="detail-icon-wrapper type-icon">
+                      <i class="bi bi-file-earmark-text"></i>
+                    </div>
+                    <div class="detail-info">
+                      <label>Document Type</label>
+                      <span class="doc-type-badge-large">{{
+                        selectedDocument.document_type?.document_type_name ||
+                        selectedDocument.document_type
+                      }}</span>
+                    </div>
+                  </div>
+
+                  <div class="detail-card">
+                    <div class="detail-icon-wrapper subject-icon">
+                      <i class="bi bi-journal-text"></i>
+                    </div>
+                    <div class="detail-info">
+                      <label>Subject / Title</label>
+                      <span class="detail-value">{{
+                        selectedDocument.subject || selectedDocument.title
+                      }}</span>
+                    </div>
+                  </div>
+
+                  <div class="detail-card">
+                    <div class="detail-icon-wrapper sender-icon-card">
+                      <i class="bi bi-person-badge"></i>
+                    </div>
+                    <div class="detail-info">
+                      <label>Sender / Origin</label>
+                      <span class="detail-value">{{
+                        selectedDocument.sender_name || selectedDocument.origin                      }}</span>
+                    </div>
+                  </div>
+
+                  <div class="detail-card">
+                    <div class="detail-icon-wrapper date-icon-card">
+                      <i class="bi bi-calendar-check"></i>
+                    </div>
+                    <div class="detail-info">
+                      <label>Date Received</label>
+                      <span class="detail-value">
+                        {{
+                          formatDate(
+                            selectedDocument.date_receive ||
+                              selectedDocument.date_received ||
+                              selectedDocument.created_at
+                          )
+                        }}
+                        <small
+                          v-if="selectedDocument.time_receive"
+                          class="time-text"
+                          >at
+                          {{ formatTime(selectedDocument.time_receive) }}</small
+                        >
+                      </span>
+                    </div>
+                  </div>
+
+                  <div
+                    class="detail-card description-card"
+                    v-if="selectedDocument.description"
+                  >
+                    <div class="detail-icon-wrapper desc-icon">
+                      <i class="bi bi-blockquote-right"></i>
+                    </div>
+                    <div class="detail-info">
+                      <label>Description</label>
+                      <p class="detail-value description-text">
+                        {{ selectedDocument.description }}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="detail-card meta-card">
+                    <div class="detail-icon-wrapper meta-icon">
+                      <i class="bi bi-info-circle"></i>
+                    </div>
+                    <div class="detail-info">
+                      <label>Status</label>
+                      <span
+                        :class="[
+                          'status-badge',
+                          getStatusClass(selectedDocument?.status),
+                        ]"
+                        >{{ selectedDocument?.status || "Unknown" }}</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right Panel: PDF Preview -->
+              <div class="pdf-panel">
+                <div class="pdf-panel-header">
+                  <div class="pdf-panel-title">
+                    <i class="bi bi-file-pdf"></i>
+                    <span>Document Preview</span>
+                  </div>
+                  <div class="pdf-controls">
+                    <button
+                      class="btn-pdf-control"
+                      @click="zoomIn"
+                      title="Zoom In"
+                      :disabled="pdfLoadError"
+                    >
+                      <i class="bi bi-zoom-in"></i>
+                    </button>
+                    <button
+                      class="btn-pdf-control"
+                      @click="zoomOut"
+                      title="Zoom Out"
+                      :disabled="pdfLoadError"
+                    >
+                      <i class="bi bi-zoom-out"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="pdf-viewer-wrapper">
+                  <div v-if="pdfLoading && !pdfLoadError" class="pdf-state">
+                    <div class="pdf-loader-animation">
+                      <div class="pdf-loader-icon">
+                        <i class="bi bi-file-pdf"></i>
+                      </div>
+                      <div class="loader-spinner"></div>
+                    </div>
+                    <p class="pdf-state-text">Loading document preview...</p>
+                  </div>
+
+                  <iframe
+                    v-show="!pdfLoading && !pdfLoadError"
+                    :src="getPdfUrl(selectedDocument)"
+                    class="pdf-iframe"
+                    :style="{
+                      width: `${100 / pdfZoom}%`,
+                      height: `${pdfViewerHeight}px`,
+                    }"
+                    frameborder="0"
+                    @load="onPdfLoaded"
+                    @error="handlePdfError"
+                  ></iframe>
+
+                  <div v-if="pdfLoadError" class="pdf-state pdf-error">
+                    <i
+                      class="bi bi-file-earmark-x"
+                      style="font-size: 4rem; color: #ef4444"
+                    ></i>
+                    <h5 class="mt-3">PDF Not Available</h5>
+                    <p class="text-muted">
+                      The attachment could not be loaded or doesn't exist.
+                    </p>
+                    <button
+                      class="btn btn-outline-secondary btn-sm mt-3"
+                      @click="retryPdfLoad"
+                    >
+                      <i class="bi bi-arrow-repeat me-1"></i> Retry
+                    </button>
+                  </div>
+                </div>
+
+                <div class="pdf-footer" v-if="!pdfLoadError">
+                  <span class="pdf-zoom-level"
+                    >Zoom: {{ Math.round(pdfZoom * 100) }}%</span
+                  >
+                  <span class="pdf-page-info" v-if="selectedDocument"
+                    >File:
+                    {{ selectedDocument.tracking_number }}_attachment.pdf</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Route History Tab -->
+            <div
+              v-show="viewerActiveTab === 'history'"
+              class="route-history-panel"
+            >
+              <div class="route-history-header">
+                <div class="route-history-title">
+                  <i class="bi bi-clock-history"></i>
+                  <span>Document Route History</span>
+                </div>
+                <div
+                  class="route-history-badge"
+                  v-if="
+                    selectedDocument?.document_route &&
+                    selectedDocument.document_route.length > 0
+                  "
+                >
+                  <i class="bi bi-arrow-left-right"></i>
+                  <span
+                    >{{ selectedDocument.document_route.length }} Route{{
+                      selectedDocument.document_route.length !== 1 ? "s" : ""
+                    }}</span
+                  >
+                </div>
+              </div>
+
+              <div class="route-history-content">
+                <div v-if="routeHistoryLoading" class="route-state-box">
+                  <div class="loader-spinner"></div>
+                  <p class="mt-3 text-muted">Loading route history...</p>
+                </div>
+
+                <div
+                  v-else-if="
+                    !selectedDocument?.document_route ||
+                    selectedDocument.document_route.length === 0
+                  "
+                  class="route-state-box"
+                >
+                  <div class="empty-icon-wrapper">
+                    <i class="bi bi-signpost-2"></i>
+                  </div>
+                  <h5 class="mt-3">No Route History</h5>
+                  <p class="text-muted">
+                    This document hasn't been routed yet.
+                  </p>
+                </div>
+
+                <div v-else class="timeline-container">
+                  <div
+                    v-for="(route, rIndex) in selectedDocument.document_route"
+                    :key="rIndex"
+                    class="timeline-item"
+                    :class="{
+                      'is-last':
+                        rIndex === selectedDocument.document_route.length - 1,
+                    }"
+                  >
+                    <div
+                      class="timeline-node"
+                      :class="getRouteNodeClass(route.status)"
+                    >
+                      <i :class="getRouteStatusIcon(route.status)"></i>
+                    </div>
+
+                    <div
+                      class="timeline-card"
+                      :class="{ 'active-card': isRouteActive(route) }"
+                    >
+                      <div class="timeline-card-header">
+                        <div class="office-info">
+                          <i class="bi bi-building-fill"></i>
+                          <div class="office-text">
+                            <span class="office-name">{{
+                              route.office?.sub_office_name ||
+                              route.sub_office_name ||
+                              "Unknown Office"
+                            }}</span>
+                          </div>
+                        </div>
+                        <span
+                          class="route-status-badge"
+                          :class="getRouteStatusClass(route.status)"
+                        >
+                          <i :class="getRouteStatusIcon(route.status)"></i>
+                          {{ route.status || "PENDING" }}
+                        </span>
+                      </div>
+
+                      <div class="timeline-card-body">
+                        <div class="info-grid-enhanced">
+                          <!-- Received Information Card -->
+                          <div
+                            class="info-card received-card"
+                            v-if="route.date_receive"
+                          >
+                            <div class="info-card-body">
+                              <div class="info-field">
+                                <div class="field-icon">
+                                  <i class="bi bi-calendar-event"></i>
+                                </div>
+                                <div class="field-content">
+                                  <span class="field-label">Received On</span>
+                                  <span class="field-value received-date">
+                                    <i class="bi bi-clock me-1"></i>
+                                    {{ formatDateTime(route.date_receive) }}
+                                  </span>
+                                </div>
+                              </div>
+
+                              <div
+                                class="info-field"
+                                v-if="route.received_by || route.received_by_name"
+                              >
+                                <div class="field-icon">
+                                  <i class="bi bi-person-check"></i>
+                                </div>
+                                <div class="field-content">
+                                  <span class="field-label">Received By</span>
+                                  <span class="field-value received-by">
+                                    <template v-if="route.received_by">
+                                      {{ route.received_by.firstname || "" }}
+                                      {{ route.received_by.middlename ? route.received_by.middlename + " " : "" }}
+                                      {{ route.received_by.lastname || "" }}
+                                    </template>
+                                    <template v-else-if="route.received_by_name">
+                                      {{ route.received_by_name }}
+                                    </template>
+                                  </span>
+                                </div>
+                              </div>
+
+                              <div
+                                class="info-field remarks-field"
+                                v-if="route.remarks"
+                              >
+                                <div class="field-icon remarks-icon">
+                                  <i class="bi bi-chat-left-text"></i>
+                                </div>
+                                <div class="field-content">
+                                  <span class="field-label">Remarks</span>
+                                  <span class="field-value remarks-text">
+                                    {{ route.remarks }}
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Completed Information Card -->
+                          <div
+                            class="info-card completed-card"
+                            v-if="route.date_document_out"
+                          >
+                            <div class="info-card-header">
+                              <div class="info-card-icon completed-icon">
+                                <i class="bi bi-check2-all"></i>
+                              </div>
+                              <span class="info-card-title">Completion Information</span>
+                              <span
+                                class="info-card-status completed-status"
+                                v-if="route.status === 'Completed'"
+                              >
+                                <i class="bi bi-check-circle-fill"></i> Done
+                              </span>
+                            </div>
+
+                            <div class="info-card-body">
+                              <div class="info-field">
+                                <div class="field-icon">
+                                  <i class="bi bi-calendar-check"></i>
+                                </div>
+                                <div class="field-content">
+                                  <span class="field-label">Completed On</span>
+                                  <span class="field-value completed-date">
+                                    <i class="bi bi-check-circle me-1"></i>
+                                    {{ formatDateTime(route.date_document_out) }}
+                                  </span>
+                                </div>
+                              </div>
+
+                              <div
+                                class="info-field"
+                                v-if="route.completed_by || route.completed_by_name"
+                              >
+                                <div class="field-icon">
+                                  <i class="bi bi-person-check"></i>
+                                </div>
+                                <div class="field-content">
+                                  <span class="field-label">Completed By</span>
+                                  <span class="field-value">
+                                    <template v-if="route.completed_by">
+                                      {{ route.completed_by.firstname || "" }}
+                                      {{ route.completed_by.middlename ? route.completed_by.middlename + " " : "" }}
+                                      {{ route.completed_by.lastname || "" }}
+                                    </template>
+                                    <template v-else-if="route.completed_by_name">
+                                      {{ route.completed_by_name }}
+                                    </template>
+                                  </span>
+                                </div>
+                              </div>
+
+                              <div
+                                class="info-field"
+                                v-if="route.remarks"
+                              >
+                                <div class="field-icon notes-icon">
+                                  <i class="bi bi-sticky"></i>
+                                </div>
+                                <div class="field-content">
+                                  <span class="field-label">Completion Notes</span>
+                                  <span class="field-value notes-text">
+                                    {{ route.remarks }}
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Flow Section -->
+                        <div
+                          class="flow-section-enhanced"
+                          v-if="route.from_office || route.to_office"
+                        >
+                          <div class="flow-container">
+                            <div class="flow-node origin-node" v-if="route.from_office">
+                              <div class="flow-node-icon">
+                                <i class="bi bi-box-arrow-right"></i>
+                              </div>
+                              <div class="flow-node-content">
+                                <span class="flow-node-label">From</span>
+                                <span class="flow-node-value">{{ route.from_office }}</span>
+                              </div>
+                            </div>
+
+                            <div class="flow-arrow-enhanced" v-if="route.from_office && route.to_office">
+                              <div class="arrow-line"></div>
+                              <div class="arrow-icon">
+                                <i class="bi bi-arrow-right-circle-fill"></i>
+                              </div>
+                              <div class="arrow-line"></div>
+                            </div>
+
+                            <div class="flow-node destination-node" v-if="route.to_office">
+                              <div class="flow-node-icon">
+                                <i class="bi bi-box-arrow-in-left"></i>
+                              </div>
+                              <div class="flow-node-content">
+                                <span class="flow-node-label">To</span>
+                                <span class="flow-node-value">{{ route.to_office }}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div 
+                          v-if="!route.date_receive && !route.date_document_out && !route.from_office && !route.to_office"
+                          class="text-center py-3 text-muted"
+                        >
+                          <i class="bi bi-hourglass-split" style="font-size: 1.5rem;"></i>
+                          <p class="mt-2 mb-0" style="font-size: 0.85rem;">Awaiting action</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import Swal from "sweetalert2";
 import PaginationComponent from "../../components/PaginationComponent.vue";
 
 export default {
@@ -267,11 +1515,29 @@ export default {
   components: {
     PaginationComponent,
   },
+  emits: [
+    "view-document",
+    "download-document",
+    "create-document",
+    "tracking-reserved",
+  ],
   props: {
-    data: {
-      type: Object,
-      required: true,
-      default: () => ({
+    documentTypes: {
+      type: Array,
+      default: () => [
+        "Memorandum",
+        "Letter",
+        "Report",
+        "Request",
+        "Permit",
+        "Certificate",
+      ],
+    },
+  },
+  data() {
+    return {
+      // IN-PROGRESS DATA
+      inProgress: {
         data: [],
         current_page: 1,
         from: 1,
@@ -279,93 +1545,523 @@ export default {
         last_page: 1,
         per_page: 10,
         total: 0,
-      }),
-    },
-    loading: {
-      type: Boolean,
-      default: false,
-    },
-    documentTypes: {
-      type: Array,
-      required: true,
-    },
-    tabLabel: {
-      type: String,
-      default: "In Progress",
-    },
-    search: {
-      type: String,
-      default: "",
-    },
-    docTypeFilter: {
-      type: String,
-      default: "",
-    },
-    perPage: {
-      type: Number,
-      default: 10,
-    },
+      },
+      searchQuery: "",
+      docTypeFilter: "",
+      perPage: 10,
+      loading: false,
+
+      // FORWARD MODAL
+      showForwardModal: false,
+      forwardDocument: null,
+      offices: [],
+      officesLoading: false,
+      selectedOffices: [],
+      forwardRemarks: "",
+      forwarding: false,
+      forwardError: "",
+
+      // VIEW MODAL
+      showViewModal: false,
+      selectedDocument: null,
+      viewerActiveTab: "details",
+      pdfLoading: true,
+      pdfLoadError: false,
+      pdfZoom: 1,
+      pdfViewerHeight: 700,
+      routeHistoryLoading: false,
+
+      // MY TRACKING MODAL
+      showMyTrackingModal: false,
+      trackings: {
+        data: [],
+        current_page: 1,
+        from: 1,
+        to: 1,
+        last_page: 1,
+        per_page: 10,
+        total: 0,
+      },
+      trackingSearch: "",
+      trackingLoading: false,
+      reserving: false,
+
+      // CREATE MODAL
+      showCreateModal: false,
+      createForm: {
+        tracking_number: "",
+        document_type: "",
+        subject: "",
+        sender_name: "",
+        date_received: "",
+        description: "",
+      },
+      errors: {},
+      formErrors: { show: false, message: "" },
+      creating: false,
+    };
   },
-  emits: [
-    "update:search",
-    "update:docTypeFilter",
-    "update:perPage",
-    "apply-filters",
-    "page-change",
-    "view-document",
-    "forward-document",
-    "open-tracking",
-    "open-create",
-  ],
-  computed: {
-    localSearch: {
-      get() {
-        return this.search;
-      },
-      set(value) {
-        this.$emit("update:search", value);
-      },
-    },
-    localDocTypeFilter: {
-      get() {
-        return this.docTypeFilter;
-      },
-      set(value) {
-        this.$emit("update:docTypeFilter", value);
-      },
-    },
-    localPerPage: {
-      get() {
-        return this.perPage;
-      },
-      set(value) {
-        this.$emit("update:perPage", value);
-      },
-    },
+  mounted() {
+    this.getDataInprogress();
+    this.getDataTracking();
   },
   methods: {
+    // ===== DATA FETCHING =====
+    async getDataInprogress(page = 1) {
+      try {
+        this.loading = true;
+        const response = await axios.get("/dts_denr/api/in-progress", {
+          params: {
+            page: page,
+            per_page: this.perPage,
+            search: this.searchQuery,
+            document_type: this.docTypeFilter,
+          },
+        });
+        this.inProgress = response.data.data;
+      } catch (error) {
+        console.error("Error fetching in-progress data:", error);
+        this.$emit("show-notification", {
+          message: "Failed to load in-progress data. Please try again.",
+          type: "error",
+        });
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    async getDataTracking(page = 1) {
+      try {
+        this.trackingLoading = true;
+        const response = await axios.get("/dts_denr/api/reserve-tracking", {
+          params: {
+            page: page,
+            per_page: this.trackings.per_page,
+            search: this.trackingSearch,
+          },
+        });
+        this.trackings = response.data.data;
+      } catch (error) {
+        console.error("Error fetching tracking data:", error);
+        this.$emit("show-notification", {
+          message: "Failed to load tracking data. Please try again.",
+          type: "error",
+        });
+      } finally {
+        this.trackingLoading = false;
+      }
+    },
+
+    // ===== FILTER METHODS =====
     applyFilters() {
-      this.$emit("apply-filters");
+      this.getDataInprogress(1);
     },
+
     clearSearch() {
-      this.localSearch = "";
-      this.applyFilters();
+      this.searchQuery = "";
+      this.getDataInprogress(1);
     },
+
     clearDocTypeFilter() {
-      this.localDocTypeFilter = "";
-      this.applyFilters();
+      this.docTypeFilter = "";
+      this.getDataInprogress(1);
     },
+
     clearAllFilters() {
-      this.localSearch = "";
-      this.localDocTypeFilter = "";
-      this.applyFilters();
+      this.searchQuery = "";
+      this.docTypeFilter = "";
+      this.getDataInprogress(1);
     },
+
     changePage(page) {
-      this.$emit("page-change", page);
+      if (
+        page >= 1 &&
+        page <= this.inProgress.last_page &&
+        page !== this.inProgress.current_page
+      ) {
+        this.getDataInprogress(page);
+      }
     },
+
     changePerPage() {
-      this.$emit("page-change", 1);
+      this.getDataInprogress(1);
     },
+
+    applyTrackingFilters() {
+      this.getDataTracking(1);
+    },
+
+    clearTrackingSearch() {
+      this.trackingSearch = "";
+      this.getDataTracking(1);
+    },
+
+    changeTrackingPage(page) {
+      if (
+        page >= 1 &&
+        page <= this.trackings.last_page &&
+        page !== this.trackings.current_page
+      ) {
+        this.getDataTracking(page);
+      }
+    },
+
+    // ===== FORWARD MODAL =====
+    openForwardModal(doc) {
+      this.forwardDocument = doc;
+      this.showForwardModal = true;
+      this.selectedOffices = [];
+      this.forwardRemarks = "";
+      this.forwardError = "";
+      this.fetchOffices();
+    },
+
+    closeForwardModal() {
+      this.showForwardModal = false;
+      this.forwardDocument = null;
+      this.selectedOffices = [];
+      this.forwardRemarks = "";
+      this.forwardError = "";
+    },
+
+    clearForwardForm() {
+      this.selectedOffices = [];
+      this.forwardRemarks = "";
+      this.forwardError = "";
+    },
+
+    async fetchOffices() {
+      this.officesLoading = true;
+      try {
+        const response = await axios.get("/dts_denr/api/route-office");
+        this.offices = response.data.data || [];
+      } catch (error) {
+        console.error("Error fetching offices:", error);
+        this.forwardError = "Failed to load offices. Please try again.";
+      } finally {
+        this.officesLoading = false;
+      }
+    },
+
+    isOfficeSelected(officeId) {
+      return this.selectedOffices.some((office) => office.id === officeId);
+    },
+
+    toggleOfficeSelection(office) {
+      if (this.forwarding) return;
+      this.forwardError = "";
+
+      if (this.isOfficeSelected(office.id)) {
+        this.removeOffice(office.id);
+      } else {
+        this.selectedOffices.push(office);
+      }
+    },
+
+    removeOffice(officeId) {
+      this.selectedOffices = this.selectedOffices.filter(
+        (office) => office.id !== officeId
+      );
+    },
+
+    async submitForwardDocument() {
+      if (this.selectedOffices.length === 0) {
+        this.forwardError = "Please select at least one office.";
+        return;
+      }
+
+      this.forwarding = true;
+      this.forwardError = "";
+
+      try {
+        const response = await axios.post("/dts_denr/api/add-forward-document", {
+          document_id: this.forwardDocument.id,
+          tracking_number: this.forwardDocument.tracking_number,
+          offices: this.selectedOffices.map((office) => office.id),
+          remarks: this.forwardRemarks,
+        });
+
+        await Swal.fire({
+          title: "Forwarded!",
+          text: response.data.message || "Document has been forwarded successfully.",
+          icon: "success",
+          confirmButtonColor: "#1a4731",
+          confirmButtonText: "OK",
+        });
+
+        this.closeForwardModal();
+        this.$emit("show-notification", {
+          message: "Document forwarded successfully!",
+          type: "success",
+        });
+        this.getDataInprogress(this.inProgress.current_page);
+      } catch (error) {
+        console.error("Forward document error:", error);
+        const message =
+          error.response?.data?.message ||
+          "Failed to forward document. Please try again.";
+        this.forwardError = message;
+        this.$emit("show-notification", {
+          message: message,
+          type: "error",
+        });
+      } finally {
+        this.forwarding = false;
+      }
+    },
+
+    // ===== MY TRACKING =====
+    openMyTracking() {
+      this.trackingSearch = "";
+      this.showMyTrackingModal = true;
+      this.getDataTracking(1);
+    },
+
+    closeMyTrackingModal() {
+      this.showMyTrackingModal = false;
+      this.trackingSearch = "";
+    },
+
+    async reserveTracking() {
+      const result = await Swal.fire({
+        title: "Reserve Tracking?",
+        text: "Are you sure you want to add this reserve tracking?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#1a4731",
+        cancelButtonColor: "#6b7280",
+        confirmButtonText: "Yes, reserve it!",
+        cancelButtonText: "Cancel",
+        reverseButtons: true,
+        customClass: {
+          popup: "swal-square-popup",
+          title: "swal-title",
+          confirmButton: "swal-confirm-btn",
+          cancelButton: "swal-cancel-btn",
+        },
+      });
+
+      if (result.isConfirmed) {
+        this.reserving = true;
+        try {
+          const response = await fetch("/dts_denr/api/reserve-tracking", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+              "X-CSRF-TOKEN":
+                document
+                  .querySelector('meta[name="csrf-token"]')
+                  ?.getAttribute("content") || "",
+            },
+          });
+
+          const data = await response.json();
+          if (!response.ok)
+            throw new Error(data.message || "Failed to reserve tracking");
+
+          await Swal.fire({
+            title: "Reserved!",
+            text: data.message || "Tracking has been reserved successfully.",
+            icon: "success",
+            confirmButtonColor: "#1a4731",
+            confirmButtonText: "OK",
+          });
+
+          await this.getDataTracking();
+          this.$emit("tracking-reserved", data);
+          this.$emit("show-notification", {
+            message: "Tracking reserved successfully!",
+            type: "success",
+          });
+        } catch (error) {
+          console.error("Reserve tracking error:", error);
+          await Swal.fire({
+            title: "Error!",
+            text: error.message || "Failed to reserve tracking. Please try again.",
+            icon: "error",
+            confirmButtonColor: "#1a4731",
+            confirmButtonText: "OK",
+          });
+          this.$emit("show-notification", {
+            message: error.message || "Failed to reserve tracking",
+            type: "error",
+          });
+        } finally {
+          this.reserving = false;
+        }
+      }
+    },
+
+    // ===== CREATE MODAL =====
+    openCreateModal() {
+      this.showCreateModal = true;
+      this.errors = {};
+      this.formErrors = { show: false, message: "" };
+    },
+
+    closeCreateModal() {
+      this.showCreateModal = false;
+    },
+
+    resetCreateForm() {
+      this.createForm = {
+        tracking_number: "",
+        document_type: "",
+        subject: "",
+        sender_name: "",
+        date_received: "",
+        description: "",
+      };
+      this.errors = {};
+      this.formErrors = { show: false, message: "" };
+    },
+
+    submitCreateForm() {
+      this.creating = true;
+      this.errors = {};
+      this.formErrors = { show: false, message: "" };
+
+      // Validation
+      if (!this.createForm.tracking_number)
+        this.errors.tracking_number = "Tracking number is required";
+      if (!this.createForm.document_type)
+        this.errors.document_type = "Document type is required";
+      if (!this.createForm.subject)
+        this.errors.subject = "Subject is required";
+      if (!this.createForm.sender_name)
+        this.errors.sender_name = "Sender is required";
+      if (!this.createForm.date_received)
+        this.errors.date_received = "Date received is required";
+
+      if (Object.keys(this.errors).length > 0) {
+        this.formErrors = {
+          show: true,
+          message: "Please fill in all required fields.",
+        };
+        this.creating = false;
+        return;
+      }
+
+      this.$emit("create-document", { ...this.createForm });
+      this.closeCreateModal();
+      this.resetCreateForm();
+      this.$emit("show-notification", {
+        message: "Document created successfully!",
+        type: "success",
+      });
+      this.creating = false;
+    },
+
+    // ===== VIEW MODAL =====
+    viewDocument(doc) {
+      this.selectedDocument = doc;
+      this.showViewModal = true;
+      this.viewerActiveTab = "details";
+      this.pdfLoading = true;
+      this.pdfLoadError = false;
+      this.pdfZoom = 1;
+      this.pdfViewerHeight = 700;
+      this.$emit("view-document", doc);
+    },
+
+    closeViewModal() {
+      this.showViewModal = false;
+      this.selectedDocument = null;
+      this.viewerActiveTab = "details";
+      this.pdfLoading = true;
+      this.pdfLoadError = false;
+      this.pdfZoom = 1;
+      this.pdfViewerHeight = 700;
+    },
+
+    // ===== PDF METHODS =====
+    getPdfUrl(document) {
+      if (!document || !document.tracking_number) return "";
+      if (document.draft_attachment) {
+        return `/dts_denr/storage/app/public/${document.draft_attachment}`;
+      }
+      const trackingNumber = document.tracking_number;
+      return `/dts_denr/storage/app/public/attachments/${trackingNumber}/draft_attachment.pdf`;
+    },
+
+    onPdfLoaded() {
+      this.pdfLoading = false;
+      this.pdfLoadError = false;
+    },
+
+    handlePdfError() {
+      this.pdfLoading = false;
+      this.pdfLoadError = true;
+    },
+
+    retryPdfLoad() {
+      this.pdfLoading = true;
+      this.pdfLoadError = false;
+      this.$nextTick(() => {
+        const iframe = document.querySelector(".pdf-iframe");
+        if (iframe) iframe.src = iframe.src;
+      });
+    },
+
+    zoomIn() {
+      if (this.pdfZoom < 2) {
+        this.pdfZoom += 0.25;
+        this.adjustViewerHeight();
+      }
+    },
+
+    zoomOut() {
+      if (this.pdfZoom > 0.5) {
+        this.pdfZoom -= 0.25;
+        this.adjustViewerHeight();
+      }
+    },
+
+    adjustViewerHeight() {
+      this.pdfViewerHeight = Math.round(700 / this.pdfZoom);
+    },
+
+    // ===== ROUTE HISTORY =====
+    switchToHistoryTab() {
+      this.viewerActiveTab = "history";
+    },
+
+    isRouteActive(route) {
+      return (
+        route.status === "In Progress" ||
+        route.status === "Active" ||
+        route.status === "Current" ||
+        route.is_current === true
+      );
+    },
+
+    getRouteStatusType(status) {
+      if (!status) return "pending";
+      const s = status.toLowerCase();
+      if (["completed", "approved"].includes(s)) return "completed";
+      if (["in progress", "active", "current"].includes(s)) return "active";
+      if (["rejected", "returned", "cancelled"].includes(s)) return "rejected";
+      return "pending";
+    },
+
+    getRouteNodeClass(status) {
+      return `node-${this.getRouteStatusType(status)}`;
+    },
+
+    getRouteStatusClass(status) {
+      return `badge-${this.getRouteStatusType(status)}`;
+    },
+
+    getRouteStatusIcon(status) {
+      const t = this.getRouteStatusType(status);
+      if (t === "completed") return "bi bi-check-circle-fill";
+      if (t === "active") return "bi bi-arrow-repeat";
+      if (t === "rejected") return "bi bi-x-circle-fill";
+      return "bi bi-clock-fill";
+    },
+
+    // ===== UTILITY METHODS =====
     formatDate(dateString) {
       if (!dateString) return "N/A";
       return new Date(dateString).toLocaleDateString("en-PH", {
@@ -374,6 +2070,7 @@ export default {
         day: "numeric",
       });
     },
+
     formatTime(t) {
       if (!t) return "";
       if (
@@ -386,12 +2083,169 @@ export default {
         displayHour = h % 12 || 12;
       return `${displayHour}:${m.toString().padStart(2, "0")} ${period}`;
     },
+
+    formatDateTime(dateString) {
+      if (!dateString) return "N/A";
+      const date = new Date(dateString);
+      return date.toLocaleString("en-PH", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      });
+    },
+
+    getStatusClass(status) {
+      const map = {
+        "In-Progress": "status-in-progress",
+        "For-Release": "status-for-release",
+        Released: "status-released",
+      };
+      return map[status] || "";
+    },
   },
 };
 </script>
 
 <style scoped>
-/* All styles from the original In Progress section */
+/* Import all styles from the original InProgress tab section */
+/* Copy all the styles from the original file that are specific to InProgress tab */
+/* Since we're keeping the same design, all styles remain the same */
+
+/* ===== VERTICAL TABS LAYOUT ===== */
+.tabs-vertical-container {
+  display: flex;
+  gap: 0;
+  min-height: 400px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.tabs-vertical-nav {
+  display: flex;
+  flex-direction: column;
+  width: 220px;
+  min-width: 220px;
+  background: #f8fafc;
+  border-right: 1px solid #e5e7eb;
+  padding: 12px;
+  gap: 6px;
+}
+
+.tab-vertical-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.tab-vertical-button::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 0;
+  background: linear-gradient(180deg, #2d6a4f, #1e4d2b);
+  border-radius: 0 3px 3px 0;
+  transition: height 0.3s ease;
+}
+
+.tab-vertical-button:hover {
+  background: #f0fdf4;
+  border-color: #86efac;
+  transform: translateX(3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.tab-vertical-button.active {
+  background: linear-gradient(135deg, #2d6a4f, #1e4d2b);
+  border-color: #2d6a4f;
+  color: #ffffff;
+  transform: translateX(3px);
+  box-shadow: 0 8px 25px rgba(45, 106, 79, 0.4);
+}
+
+.tab-vertical-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #f0fdf4;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.tab-vertical-button.active .tab-vertical-icon {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.tab-vertical-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex: 1;
+}
+
+.tab-vertical-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: #374151;
+}
+
+.tab-vertical-button.active .tab-vertical-label {
+  color: #ffffff;
+}
+
+.tab-vertical-count {
+  font-size: 17px;
+  font-weight: 800;
+  color: #2d6a4f;
+}
+
+.tab-vertical-button.active .tab-vertical-count {
+  color: #ffffff;
+}
+
+.tab-vertical-indicator {
+  position: absolute;
+  right: 12px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  transition: all 0.3s ease;
+}
+
+.tab-vertical-button.active .tab-vertical-indicator {
+  background: #52b788;
+  box-shadow: 0 0 10px rgba(82, 183, 136, 0.6);
+}
+
+.tabs-vertical-body {
+  flex: 1;
+  padding: 20px;
+  background: #ffffff;
+  min-width: 0;
+}
+
+/* ===== FILTER CONTROLS ===== */
 .filter-controls {
   margin-bottom: 20px;
 }
@@ -520,6 +2374,7 @@ export default {
   box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);
 }
 
+/* ===== CREATE DOCUMENT BUTTON ===== */
 .btn-create-document {
   display: inline-flex;
   align-items: center;
@@ -545,6 +2400,7 @@ export default {
   box-shadow: 0 6px 20px rgba(45, 106, 79, 0.4);
 }
 
+/* ===== ACTIVE FILTERS ===== */
 .active-filters {
   display: flex;
   align-items: center;
@@ -621,6 +2477,7 @@ export default {
   font-size: 16px;
 }
 
+/* ===== TABLE ===== */
 .table-responsive {
   overflow-x: auto;
   margin-top: 16px;
@@ -730,6 +2587,7 @@ export default {
   font-size: 13px;
 }
 
+/* ===== ACTION BUTTONS ===== */
 .action-buttons {
   display: flex;
   gap: 6px;
@@ -769,11 +2627,1302 @@ export default {
   transform: scale(1.05);
 }
 
-.empty-state {
+/* ===== STATUS BADGE ===== */
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-in-progress {
+  background: #fef3c7;
+  color: #d97706;
+  border: 1px solid #fde68a;
+}
+
+.status-for-release {
+  background: #dbeafe;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+}
+
+.status-released {
+  background: #d1fae5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+/* ===== MODAL OVERLAY ===== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.enhanced-modal {
+  width: 100%;
+  max-width: 620px;
+  margin: 0 15px;
+  animation: modalSlideUp 0.3s ease-out;
+}
+
+@keyframes modalSlideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.square-modal {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+  background: #fff;
+  position: relative;
+}
+
+.square-header {
+  background: linear-gradient(135deg, #1e4d2b, #2d6a4f);
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.square-icon {
+  width: 42px;
+  height: 42px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-right: 14px;
+}
+
+.modal-title {
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.modal-subtitle {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+.square-close {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.square-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.modal-body-enhanced {
+  padding: 24px;
+  background: #f9fafb;
+}
+
+.error-msg {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #fef0ef;
+  border: 1px solid #f5c6c3;
+  border-radius: 7px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #c0392b;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.form-label-enhanced {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #1e293b;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.required-star {
+  color: #dc2626;
+  margin-left: 3px;
+}
+
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 14px;
+  color: #5c7a6b;
+  pointer-events: none;
+  display: flex;
+  z-index: 2;
+}
+
+.form-input {
+  width: 100%;
+  height: 46px;
+  padding: 0 14px 0 42px;
+  border: 1.5px solid #b7d5c3;
+  border-radius: 8px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  color: #1c2b24;
+  background: #f4f9f6;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: #2d6a4f;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);
+}
+
+.form-input:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.form-textarea {
+  height: auto;
+  padding-top: 12px;
+  padding-left: 42px;
+  resize: vertical;
+  min-height: 46px;
+}
+
+select.form-input {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235C7A6B' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+.is-invalid {
+  border-color: #dc2626 !important;
+  background: #fff5f5 !important;
+}
+
+.is-invalid:focus {
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15) !important;
+}
+
+.invalid-feedback {
+  color: #dc2626;
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
+
+.modal-actions {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.square-btn {
+  border-radius: 8px !important;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn-save {
+  background: linear-gradient(135deg, #2d6a4f 0%, #1a4731 100%);
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 4px 18px rgba(26, 71, 49, 0.3);
+}
+
+.btn-save:hover {
+  box-shadow: 0 6px 24px rgba(26, 71, 49, 0.38);
+  transform: translateY(-1px);
+}
+
+.btn-save:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ===== MY TRACKING CONTROLS ===== */
+.my-tracking-controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.btn-reserve-tracking-forest {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #1a4731 0%, #2d6a4f 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(26, 71, 49, 0.4);
+  font-family: "Inter", sans-serif;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.btn-reserve-tracking-forest:hover:not(:disabled) {
+  background: linear-gradient(135deg, #0d281a 0%, #1e4d2b 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(26, 71, 49, 0.5);
+}
+
+.btn-reserve-tracking-forest:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ===== TRACKING MODAL ===== */
+.tracking-modal {
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+}
+
+.tracking-modal .modal-content {
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.tracking-modal-body {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   padding: 20px;
+  max-height: calc(85vh - 80px);
+}
+
+.sticky-top-controls {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #f9fafb;
+  padding-bottom: 16px;
+  margin-bottom: 8px;
+  flex-shrink: 0;
+}
+
+.tracking-table-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: auto;
+  min-height: 200px;
+  max-height: calc(85vh - 250px);
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.tracking-table-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.tracking-table-scroll::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.tracking-table-scroll::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 4px;
+}
+
+.tracking-table-scroll .table-responsive {
+  margin-top: 0;
+}
+
+.tracking-table-scroll .office-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: #f8fafc;
+}
+
+.tracking-table-scroll .office-table thead th {
+  background: #f8fafc;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.tracking-pagination {
+  flex-shrink: 0;
+  padding-top: 12px;
+  border-top: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+/* ===== ENHANCED DOCUMENT VIEWER ===== */
+.document-view-modal {
+  max-width: 1400px;
+  width: 95vw;
+  max-height: 90vh;
+}
+
+.document-viewer-body {
+  padding: 0;
+  max-height: calc(90vh - 80px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.document-viewer-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 12px 20px;
+  background: #f8fafc;
+  border-bottom: 2px solid #e5e7eb;
+  flex-shrink: 0;
+}
+
+.viewer-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  font-family: "Inter", sans-serif;
+}
+
+.viewer-tab-btn:hover {
+  background: #f0fdf4;
+  border-color: #86efac;
+  color: #2d6a4f;
+  transform: translateY(-1px);
+}
+
+.viewer-tab-btn.active {
+  background: linear-gradient(135deg, #2d6a4f, #1e4d2b);
+  border-color: #2d6a4f;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(45, 106, 79, 0.3);
+}
+
+.document-viewer-layout {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  height: calc(90vh - 140px);
+  min-height: 500px;
+}
+
+/* ===== DETAILS PANEL ===== */
+.details-panel {
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.details-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 20px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e5e7eb;
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.details-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.details-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.details-content::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.details-content::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 3px;
+}
+
+.detail-card {
+  display: flex;
+  gap: 12px;
+  padding: 14px;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.detail-icon-wrapper {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  background: #e0f2fe;
+  color: #0284c7;
+}
+
+.detail-icon-wrapper.type-icon {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.detail-icon-wrapper.subject-icon {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.detail-icon-wrapper.sender-icon-card {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+
+.detail-icon-wrapper.date-icon-card {
+  background: #fce7f3;
+  color: #db2777;
+}
+
+.detail-icon-wrapper.desc-icon {
+  background: #fff7ed;
+  color: #ea580c;
+}
+
+.detail-icon-wrapper.meta-icon {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.detail-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.detail-info label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.detail-value {
+  font-size: 0.85rem;
+  color: #1e293b;
+  font-weight: 500;
+  word-break: break-word;
+  line-height: 1.4;
+}
+
+.tracking-number-large {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #2d6a4f;
+  font-family: "Courier New", monospace;
+  background: #f0fdf4;
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.doc-type-badge-large {
+  display: inline-block;
+  padding: 3px 12px;
+  background: #e0e7ff;
+  color: #3730a3;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid #c7d2fe;
+}
+
+.time-text {
+  color: #64748b;
+  font-size: 0.75rem;
+  display: block;
+  margin-top: 2px;
+}
+
+.description-card {
+  background: #fffbeb;
+  border-color: #fde68a;
+}
+
+.description-text {
+  color: #78350f;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+/* ===== PDF PANEL ===== */
+.pdf-panel {
+  display: flex;
+  flex-direction: column;
+  background: #f8fafc;
+  overflow: hidden;
+}
+
+.pdf-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  flex-shrink: 0;
+}
+
+.pdf-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 0.9rem;
+}
+
+.pdf-panel-title i {
+  color: #dc2626;
+  font-size: 1.2rem;
+}
+
+.pdf-controls {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.btn-pdf-control {
+  background: #f1f5f9;
+  border: 1px solid #e5e7eb;
+  color: #475569;
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+}
+
+.btn-pdf-control:hover:not(:disabled) {
+  background: #e2e8f0;
+  border-color: #94a3b8;
+  color: #1e293b;
+}
+
+.btn-pdf-control:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pdf-viewer-wrapper {
+  flex: 1;
+  overflow: auto;
+  background: #525659;
+  position: relative;
+  min-height: 400px;
+}
+
+.pdf-viewer-wrapper::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.pdf-viewer-wrapper::-webkit-scrollbar-track {
+  background: #3a3d40;
+}
+
+.pdf-viewer-wrapper::-webkit-scrollbar-thumb {
+  background: #6b7280;
+  border-radius: 5px;
+}
+
+.pdf-iframe {
+  border: none;
+  display: block;
+  background: #ffffff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.pdf-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 400px;
+  color: #9ca3af;
+  padding: 40px;
+}
+
+.pdf-loader-animation {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 16px;
+}
+
+.pdf-loader-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  color: #dc2626;
+  z-index: 2;
+}
+
+.pdf-state-text {
+  color: #d1d5db;
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
+
+.pdf-error {
+  color: #fca5a5;
+}
+
+.pdf-error h5 {
+  color: #fca5a5;
+  font-weight: 600;
+}
+
+.pdf-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 20px;
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  font-size: 0.75rem;
+  color: #64748b;
+  flex-shrink: 0;
+}
+
+.pdf-zoom-level {
+  font-weight: 600;
+  color: #2d6a4f;
+}
+
+.pdf-page-info {
+  font-family: "Courier New", monospace;
+}
+
+/* ===== ROUTE HISTORY PANEL ===== */
+.route-history-panel {
+  display: flex;
+  flex-direction: column;
+  height: calc(90vh - 140px);
+  background: #ffffff;
+  min-height: 500px;
+}
+
+.route-history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background: #f8fafc;
+  border-bottom: 2px solid #e5e7eb;
+  flex-shrink: 0;
+}
+
+.route-history-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 1rem;
+}
+
+.route-history-title i {
+  color: #2d6a4f;
+  font-size: 1.2rem;
+}
+
+.route-history-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #166534;
+}
+
+.route-history-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  background: #f9fafb;
+}
+
+.route-history-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.route-history-content::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.route-history-content::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 4px;
+}
+
+.route-state-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 300px;
   text-align: center;
 }
 
+.empty-icon-wrapper {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #94a3b8;
+  margin-bottom: 16px;
+}
+
+/* ===== TIMELINE ===== */
+.timeline-container {
+  position: relative;
+  padding-left: 45px;
+}
+
+.timeline-container::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  background: linear-gradient(180deg, #cbd5e1 0%, #e2e8f0 100%);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 32px;
+}
+
+.timeline-item.is-last {
+  margin-bottom: 0;
+}
+
+.timeline-node {
+  position: absolute;
+  left: -38px;
+  top: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  z-index: 2;
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  font-size: 0.8rem;
+}
+
+.node-completed {
+  background: #059669;
+}
+.node-active {
+  background: #2563eb;
+  animation: pulse 2s infinite;
+}
+.node-pending {
+  background: #d97706;
+}
+.node-rejected {
+  background: #dc2626;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(37, 99, 235, 0.1);
+  }
+}
+
+.timeline-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.timeline-card:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+  border-color: #cbd5e1;
+}
+
+.timeline-card.active-card {
+  border-left: 4px solid #2563eb;
+  background: linear-gradient(135deg, #eff6ff, #ffffff);
+}
+
+.timeline-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e5e7eb;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.office-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.office-info i {
+  font-size: 1.25rem;
+  color: #2d6a4f;
+}
+
+.office-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.office-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.3;
+}
+
+.route-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.badge-completed {
+  background: #d1fae5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+.badge-active {
+  background: #dbeafe;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+}
+.badge-pending {
+  background: #fef3c7;
+  color: #d97706;
+  border: 1px solid #fde68a;
+}
+.badge-rejected {
+  background: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.timeline-card-body {
+  padding: 20px;
+}
+
+/* ===== ENHANCED INFO GRID ===== */
+.info-grid-enhanced {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+/* ===== INFO CARDS ===== */
+.info-card {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.received-card {
+  border-left: 4px solid #3b82f6;
+}
+
+.completed-card {
+  border-left: 4px solid #10b981;
+}
+
+.info-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.info-card-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.completed-icon {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.info-card-title {
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: #1e293b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  flex: 1;
+}
+
+.info-card-status {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.completed-status {
+  background: #d1fae5;
+  color: #059669;
+}
+
+.info-card-body {
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.info-field {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.field-icon {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.remarks-icon {
+  background: #fffbeb;
+  color: #d97706;
+}
+
+.notes-icon {
+  background: #f0fdf4;
+  color: #059669;
+}
+
+.field-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.field-label {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.field-value {
+  display: block;
+  font-size: 0.85rem;
+  color: #1e293b;
+  font-weight: 500;
+  word-break: break-word;
+  line-height: 1.4;
+}
+
+.received-date {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.completed-date {
+  color: #059669;
+  font-weight: 600;
+}
+
+.remarks-text {
+  font-style: italic;
+  color: #78350f;
+  background: #fffbeb;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border-left: 3px solid #f59e0b;
+}
+
+.notes-text {
+  background: #f0fdf4;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border-left: 3px solid #10b981;
+}
+
+.text-muted {
+  color: #94a3b8;
+}
+
+/* ===== FLOW SECTION ===== */
+.flow-section-enhanced {
+  margin-top: 8px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.flow-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.flow-node {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 150px;
+  padding: 10px 14px;
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+}
+
+.origin-node {
+  border-left: 4px solid #3b82f6;
+}
+
+.destination-node {
+  border-left: 4px solid #10b981;
+}
+
+.flow-node-icon {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.origin-node .flow-node-icon {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+.destination-node .flow-node-icon {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.flow-node-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.flow-node-label {
+  display: block;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.flow-node-value {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1e293b;
+  word-break: break-word;
+}
+
+.flow-arrow-enhanced {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  padding: 0 4px;
+}
+
+.arrow-line {
+  width: 20px;
+  height: 2px;
+  background: linear-gradient(90deg, #94a3b8, #cbd5e1);
+  border-radius: 2px;
+}
+
+.arrow-icon {
+  font-size: 1.4rem;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: arrowPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes arrowPulse {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(4px);
+    opacity: 0.6;
+  }
+}
+
+/* ===== LOADER ===== */
 .loader-spinner {
   width: 40px;
   height: 40px;
@@ -790,7 +3939,341 @@ export default {
   }
 }
 
-@media (max-width: 768px) {
+.empty-state {
+  padding: 20px;
+  text-align: center;
+}
+
+/* ===== FORWARD OFFICE MODAL ===== */
+.forward-doc-info {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.forward-doc-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.forward-doc-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  min-width: 80px;
+}
+
+.forward-doc-value {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+/* Office List Container */
+.office-list-container {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.office-list-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.office-list-container::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.office-list-container::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 3px;
+}
+
+.office-select-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid #f3f4f6;
+  position: relative;
+}
+
+.office-select-item:last-child {
+  border-bottom: none;
+}
+
+.office-select-item:hover {
+  background: #f0fdf4;
+}
+
+.office-select-item.selected {
+  background: #f0fdf4;
+  border-left: 3px solid #059669;
+}
+
+.office-checkbox {
+  font-size: 1.2rem;
+  color: #059669;
+  min-width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.office-select-item:not(.selected) .office-checkbox {
+  color: #d1d5db;
+}
+
+.office-icon-wrapper {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 8px;
+  background: #e0e7ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3730a3;
+  font-size: 1rem;
+}
+
+.office-select-item.selected .office-icon-wrapper {
+  background: #d1fae5;
+  color: #059669;
+}
+
+.office-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.office-name-text {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.3;
+}
+
+.office-code {
+  display: block;
+  font-size: 0.7rem;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.selected-indicator {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #059669;
+  font-size: 1.1rem;
+}
+
+.selected-offices-summary {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+
+.selected-offices-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #166534;
+}
+
+.selected-offices-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.selected-office-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: #ffffff;
+  border: 1px solid #86efac;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #166534;
+}
+
+.remove-office-btn {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.remove-office-btn:hover {
+  color: #dc2626;
+}
+
+.remove-office-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===== DOCUMENT HEADER ===== */
+.document-header {
+  padding: 16px 24px;
+}
+
+.document-icon {
+  background: rgba(220, 38, 38, 0.2);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-header-action {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-header-action:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.btn-header-update {
+  background: rgba(251, 191, 36, 0.3);
+  border-color: rgba(251, 191, 36, 0.4);
+}
+
+.btn-header-update:hover {
+  background: rgba(251, 191, 36, 0.5);
+  transform: scale(1.05);
+}
+
+.tracking-badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-family: "Courier New", monospace;
+  font-size: 0.75rem;
+  margin-right: 8px;
+}
+
+.status-pill {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1200px) {
+  .document-view-modal {
+    max-width: 98vw;
+  }
+
+  .document-viewer-layout {
+    grid-template-columns: 340px 1fr;
+  }
+}
+
+@media (max-width: 1024px) {
+  .tabs-vertical-container {
+    flex-direction: column;
+  }
+
+  .tabs-vertical-nav {
+    flex-direction: row;
+    width: 100%;
+    min-width: 100%;
+    overflow-x: auto;
+    padding: 12px;
+    gap: 8px;
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .tab-vertical-button {
+    flex-direction: column;
+    min-width: 120px;
+    padding: 12px;
+    gap: 8px;
+  }
+
+  .tab-vertical-button::before {
+    left: 50%;
+    top: auto;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    border-radius: 4px 4px 0 0;
+    transition: width 0.3s ease;
+  }
+
+  .tab-vertical-button:hover::before {
+    width: 40%;
+    height: 3px;
+  }
+
+  .tab-vertical-button.active::before {
+    width: 60%;
+    height: 3px;
+  }
+
+  .tab-vertical-button:hover {
+    transform: translateY(-2px);
+  }
+
+  .tab-vertical-button.active {
+    transform: translateY(-2px);
+  }
+
+  .tab-vertical-indicator {
+    display: none;
+  }
+
+  .tabs-vertical-body {
+    padding: 16px;
+  }
+
   .search-filter-row {
     flex-direction: column;
   }
@@ -804,9 +4287,226 @@ export default {
     justify-content: center;
   }
 
+  .my-tracking-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 992px) {
+  .document-viewer-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    height: calc(90vh - 140px);
+  }
+
+  .details-panel {
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+    max-height: 350px;
+  }
+
+  .pdf-viewer-wrapper {
+    min-height: 350px;
+  }
+
+  .info-grid-enhanced {
+    grid-template-columns: 1fr;
+  }
+
+  .flow-container {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .flow-node {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .flow-arrow-enhanced {
+    transform: rotate(90deg);
+    padding: 0;
+  }
+
+  .arrow-line {
+    width: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .document-view-modal {
+    max-width: 100vw;
+    width: 100vw;
+    margin: 0;
+    border-radius: 0;
+    max-height: 100vh;
+  }
+
+  .document-viewer-tabs {
+    padding: 8px 12px;
+    gap: 4px;
+  }
+
+  .viewer-tab-btn {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+
+  .details-panel {
+    max-height: 280px;
+  }
+
+  .pdf-viewer-wrapper {
+    min-height: 300px;
+  }
+
+  .pdf-state {
+    min-height: 300px;
+  }
+
+  .route-history-content {
+    padding: 16px;
+  }
+
+  .timeline-container {
+    padding-left: 35px;
+  }
+
+  .timeline-node {
+    left: -30px;
+    width: 24px;
+    height: 24px;
+    font-size: 0.7rem;
+  }
+
+  .tracking-modal {
+    max-width: 98% !important;
+    margin: 0 5px;
+  }
+
+  .tracking-modal-body {
+    padding: 16px;
+    max-height: calc(80vh - 60px);
+  }
+
+  .my-tracking-controls .search-box-wrapper {
+    max-width: 100% !important;
+  }
+
+  .btn-reserve-tracking-forest {
+    width: 100%;
+    justify-content: center;
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  .tracking-table-scroll {
+    max-height: calc(75vh - 250px);
+  }
+
+  .tracking-table-scroll .office-table {
+    font-size: 12px;
+  }
+
+  .tracking-table-scroll .office-table th,
+  .tracking-table-scroll .office-table td {
+    padding: 8px 10px;
+  }
+
+  .info-card-body {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .info-field {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .field-icon {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    font-size: 0.75rem;
+  }
+
+  .flow-node {
+    padding: 8px 12px;
+  }
+
+  .flow-node-value {
+    font-size: 0.8rem;
+  }
+
+  .flow-section-enhanced {
+    padding: 12px 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  .document-header {
+    padding: 12px 16px;
+  }
+
+  .viewer-tab-btn span {
+    display: none;
+  }
+
+  .viewer-tab-btn i {
+    font-size: 16px;
+  }
+
+  .detail-card {
+    padding: 10px;
+  }
+
+  .detail-icon-wrapper {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    font-size: 0.9rem;
+  }
+
+  .btn-pdf-control {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+  }
+
+  .pdf-footer {
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+  }
+
+  .route-history-header {
+    padding: 12px 16px;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
   .active-filters {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .info-card {
+    border-radius: 8px;
+  }
+
+  .info-card-title {
+    font-size: 0.7rem;
+  }
+
+  .field-value {
+    font-size: 0.8rem;
+  }
+
+  .enhanced-modal {
+    max-width: 95%;
+    margin: 0 10px;
   }
 }
 </style>
