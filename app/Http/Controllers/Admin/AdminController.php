@@ -228,9 +228,9 @@ class AdminController extends Controller
    public function route_office()
         {
             $office = SubOffice::whereIn('sub_office_name', [
-                    'Office of the Regional Executive Director - (ORED)',
-                    'Office of the ARD for Management Services - (ARD-MS)',
-                    'Office of the ARD for Technical Services - (ARD-TS)'
+                    'OFFICE OF THE REGIONAL EXECUTIVE DIRECTOR - (ORED)',
+                    'OFFICE OF THE ARD FOR MANAGEMENT SERVICES - (ARD-MS)',
+                    'OFFICE OF THE ARD FOR TECHINICAL SERVICES - (ARD-TS)'
                 ])
                 ->where('status', 'Active')
                 ->get();
@@ -409,9 +409,9 @@ class AdminController extends Controller
         $document->document_type_id = $request->document_type;
         $document->date_receive = $request->date_received;
         $document->time_receive = $request->time_received . ':00';
-        $document->sender_name = $request->sender_name;
-        $document->subject = $request->subject;
-        $document->document_classification = $request->document_classification;
+        $document->sender_name = strtoupper($request->sender_name);
+        $document->subject = strtoupper($request->subject);
+        $document->document_classification = strtoupper($request->document_classification);
         $document->status = "IN-PROGRESS";
          $document->token = Str::random(64);
         $document->save();

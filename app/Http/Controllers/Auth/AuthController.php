@@ -56,9 +56,14 @@ class AuthController extends Controller
         // Role-based routing
         if ($user->role === 'Super Admin') {
             $redirect = url('/dashboard-super-admin');
-        } elseif ($user->role === 'Admin') {
+        } 
+        elseif ($user->role === 'Admin') {
             $redirect = url('/dashboard-admin');
+       
+        } elseif ($user->role === 'Secretariat') {
+            $redirect = url('/dashboard-secretariat');
         }
+        
 
         return response()->json([
             'success'  => true,

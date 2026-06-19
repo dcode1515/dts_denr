@@ -59,5 +59,11 @@ Route::put('/api/update-document/{id}', [App\Http\Controllers\Admin\AdminControl
 Route::get('/api/in-progress', [App\Http\Controllers\Admin\AdminController::class, 'get_data_in_progress']);
 Route::get('/view-document/{token}', [App\Http\Controllers\Admin\AdminController::class, 'view_document']);
 Route::post('/api/add-forward-document', [App\Http\Controllers\Admin\AdminController::class, 'forward_document']);
-
 /*END ADMIN RECORDS*/
+
+
+/*SECRETARIAT ROUTES*/
+Route::get('/dashboard-secretariat', [App\Http\Controllers\Secretariat\SecretariatController::class, 'dashboard']);
+Route::get('/incoming-document-secretariat', [App\Http\Controllers\Secretariat\SecretariatController::class, 'incoming_secretariat'])->name('incoming.secretariat');
+Route::get('/api/document/pending/', [App\Http\Controllers\Secretariat\SecretariatController::class, 'get_data_pending_incoming']);
+/*END SECRETARIAT ROUTES*/
