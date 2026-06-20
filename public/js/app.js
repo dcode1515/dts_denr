@@ -9104,7 +9104,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
               _this3.receiveError = "";
               _context2.p = 1;
               _context2.n = 2;
-              return axios.post("/dts_denr/api/receive-document", {
+              return axios.post("/dts_denr/api/receive-document/" + _this3.receiveDocument.id, {
                 document_route_id: _this3.receiveDocument.id,
                 tracking_number: _this3.receiveDocument.document.tracking_number,
                 received_at: new Date().toISOString()
@@ -9425,28 +9425,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_PaginationComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/PaginationComponent.vue */ "./resources/js/components/PaginationComponent.vue");
-function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
-function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "ForReleaseTab",
+  name: "ReceivedTab",
   components: {
     PaginationComponent: _components_PaginationComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  emits: ["view-document", "download-document", "release-document", "show-notification"],
+  emits: ["view-document", "show-notification"],
   props: {
     documentTypes: {
       type: Array,
@@ -9457,14 +9447,31 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
   },
   data: function data() {
     return {
-      // DOCUMENTS DATA
-      documents: [],
+      documents: {
+        data: [],
+        current_page: 1,
+        from: 1,
+        to: 1,
+        last_page: 1,
+        per_page: 10,
+        total: 0
+      },
       searchQuery: "",
       docTypeFilter: "",
       perPage: 10,
-      currentPage: 1,
       loading: false,
-      // VIEW MODAL
+      // Forward Modal
+      showForwardModal: false,
+      forwardDocument: null,
+      offices: [],
+      officesLoading: false,
+      selectedOffices: [],
+      forwarding: false,
+      forwardError: "",
+      officeSearchQuery: "",
+      selectedDuration: "",
+      remarks: "",
+      // View Modal
       showViewModal: false,
       selectedDocument: null,
       viewerActiveTab: "details",
@@ -9476,86 +9483,309 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     };
   },
   computed: {
-    filteredDocuments: function filteredDocuments() {
-      var _this = this;
-      var filtered = _toConsumableArray(this.documents);
-      if (this.docTypeFilter) {
-        filtered = filtered.filter(function (doc) {
-          return doc.document_type === _this.docTypeFilter;
-        });
-      }
-      if (this.searchQuery) {
-        var query = this.searchQuery.toLowerCase();
-        filtered = filtered.filter(function (doc) {
-          var _doc$tracking_number, _doc$document_type, _doc$subject, _doc$sender_name;
-          return ((_doc$tracking_number = doc.tracking_number) === null || _doc$tracking_number === void 0 ? void 0 : _doc$tracking_number.toLowerCase().includes(query)) || ((_doc$document_type = doc.document_type) === null || _doc$document_type === void 0 ? void 0 : _doc$document_type.toLowerCase().includes(query)) || ((_doc$subject = doc.subject) === null || _doc$subject === void 0 ? void 0 : _doc$subject.toLowerCase().includes(query)) || ((_doc$sender_name = doc.sender_name) === null || _doc$sender_name === void 0 ? void 0 : _doc$sender_name.toLowerCase().includes(query));
-        });
-      }
-      return filtered;
+    isConfidential: function isConfidential() {
+      var _this$selectedDocumen;
+      var classification = (_this$selectedDocumen = this.selectedDocument) === null || _this$selectedDocumen === void 0 || (_this$selectedDocumen = _this$selectedDocumen.document) === null || _this$selectedDocumen === void 0 ? void 0 : _this$selectedDocumen.document_classification;
+      return (classification === null || classification === void 0 ? void 0 : classification.toUpperCase()) === 'CONFIDENTIAL';
     },
-    paginatedDocuments: function paginatedDocuments() {
-      var start = (this.currentPage - 1) * this.perPage;
-      return this.filteredDocuments.slice(start, start + this.perPage);
-    },
-    totalPages: function totalPages() {
-      return Math.ceil(this.filteredDocuments.length / this.perPage) || 1;
-    },
-    startItem: function startItem() {
-      return this.filteredDocuments.length === 0 ? 0 : (this.currentPage - 1) * this.perPage + 1;
-    },
-    endItem: function endItem() {
-      return Math.min(this.currentPage * this.perPage, this.filteredDocuments.length);
+    filteredOffices: function filteredOffices() {
+      if (!this.officeSearchQuery) return this.offices;
+      var query = this.officeSearchQuery.toLowerCase();
+      return this.offices.filter(function (office) {
+        var _office$sub_office_na, _office$office_code;
+        return ((_office$sub_office_na = office.sub_office_name) === null || _office$sub_office_na === void 0 ? void 0 : _office$sub_office_na.toLowerCase().includes(query)) || ((_office$office_code = office.office_code) === null || _office$office_code === void 0 ? void 0 : _office$office_code.toLowerCase().includes(query));
+      });
     }
   },
   mounted: function mounted() {
-    //this.getDocuments();
+    this.getDataReceived();
   },
   methods: {
     // ===== DATA FETCHING =====
-    // async getDocuments() {
-    //   try {
-    //     this.loading = true;
-    //     const response = await axios.get("/dts_denr/api/for-release");
-    //     this.documents = response.data.data || [];
-    //   } catch (error) {
-    //     console.error("Error fetching for-release data:", error);
-    //     this.$emit("show-notification", {
-    //       message: "Failed to load for-release data.",
-    //       type: "error",
-    //     });
-    //   } finally {
-    //     this.loading = false;
-    //   }
-    // },
-    refreshData: function refreshData() {
-      this.getDocuments();
+    getDataReceived: function getDataReceived() {
+      var _arguments = arguments,
+        _this = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var page, response, _t;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.p = _context.n) {
+            case 0:
+              page = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 1;
+              _context.p = 1;
+              _this.loading = true;
+              _context.n = 2;
+              return axios.get("/dts_denr/api/document/receive", {
+                params: {
+                  page: page,
+                  per_page: _this.perPage,
+                  search: _this.searchQuery,
+                  document_type: _this.docTypeFilter
+                }
+              });
+            case 2:
+              response = _context.v;
+              _this.documents = response.data.data;
+              _context.n = 4;
+              break;
+            case 3:
+              _context.p = 3;
+              _t = _context.v;
+              console.error("Error fetching received data:", _t);
+              _this.$emit("show-notification", {
+                message: "Failed to load received data.",
+                type: "error"
+              });
+            case 4:
+              _context.p = 4;
+              _this.loading = false;
+              return _context.f(4);
+            case 5:
+              return _context.a(2);
+          }
+        }, _callee, null, [[1, 3, 4, 5]]);
+      }))();
     },
-    // ===== FILTER METHODS =====
     applyFilters: function applyFilters() {
-      this.currentPage = 1;
+      this.getDataReceived(1);
     },
     clearSearch: function clearSearch() {
       this.searchQuery = "";
-      this.currentPage = 1;
+      this.getDataReceived(1);
     },
     clearDocTypeFilter: function clearDocTypeFilter() {
       this.docTypeFilter = "";
-      this.currentPage = 1;
+      this.getDataReceived(1);
     },
     clearAllFilters: function clearAllFilters() {
       this.searchQuery = "";
       this.docTypeFilter = "";
-      this.currentPage = 1;
+      this.getDataReceived(1);
     },
     changePage: function changePage(page) {
-      if (page >= 1 && page <= this.totalPages && page !== this.currentPage) {
-        this.currentPage = page;
+      if (page >= 1 && page <= this.documents.last_page && page !== this.documents.current_page) {
+        this.getDataReceived(page);
       }
     },
     changePerPage: function changePerPage() {
-      this.currentPage = 1;
+      this.getDataReceived(1);
     },
-    // ===== DOCUMENT ACTIONS =====
+    // ===== DURATION HELPERS =====
+    getDurationValue: function getDurationValue() {
+      var _this$forwardDocument, _this$forwardDocument2;
+      if (!((_this$forwardDocument = this.forwardDocument) !== null && _this$forwardDocument !== void 0 && _this$forwardDocument.document)) return null;
+      return ((_this$forwardDocument2 = this.forwardDocument.document.set_user_duration_id) === null || _this$forwardDocument2 === void 0 ? void 0 : _this$forwardDocument2.duration) || this.forwardDocument.document.duration || null;
+    },
+    getDurationDisplay: function getDurationDisplay() {
+      var duration = this.getDurationValue();
+      if (!duration) return "Not Set";
+      var map = {
+        'Simple': 'Simple - 3 Days',
+        'Complex': 'Complex - 15 Days',
+        'Highly Technical': 'Highly Technical - 15 Days'
+      };
+      return map[duration] || duration;
+    },
+    getDurationBadgeClass: function getDurationBadgeClass(duration) {
+      if (!duration) return 'duration-not-set';
+      var d = duration.toLowerCase();
+      if (d.includes('simple')) return 'duration-simple';
+      if (d.includes('complex')) return 'duration-complex';
+      if (d.includes('highly technical')) return 'duration-highly-technical';
+      return 'duration-not-set';
+    },
+    getDurationIcon: function getDurationIcon(duration) {
+      if (!duration) return 'bi bi-clock';
+      var d = duration.toLowerCase();
+      if (d.includes('simple')) return 'bi bi-clock';
+      if (d.includes('complex')) return 'bi bi-clock-history';
+      if (d.includes('highly technical')) return 'bi bi-clock-fill';
+      return 'bi bi-clock';
+    },
+    hasExistingDuration: function hasExistingDuration() {
+      return this.getDurationValue() !== null;
+    },
+    getDocumentDuration: function getDocumentDuration() {
+      var _this$selectedDocumen2, _this$selectedDocumen3;
+      if (!((_this$selectedDocumen2 = this.selectedDocument) !== null && _this$selectedDocumen2 !== void 0 && _this$selectedDocumen2.document)) return null;
+      return ((_this$selectedDocumen3 = this.selectedDocument.document.set_user_duration_id) === null || _this$selectedDocumen3 === void 0 ? void 0 : _this$selectedDocumen3.duration) || this.selectedDocument.document.duration || null;
+    },
+    getDocumentDurationDisplay: function getDocumentDurationDisplay() {
+      var duration = this.getDocumentDuration();
+      if (!duration) return "Not Set";
+      var map = {
+        'Simple': 'Simple - 3 Days',
+        'Complex': 'Complex - 15 Days',
+        'Highly Technical': 'Highly Technical - 15 Days'
+      };
+      return map[duration] || duration;
+    },
+    // ===== CLASSIFICATION HELPERS =====
+    getClassificationBadgeClass: function getClassificationBadgeClass(classification) {
+      if (!classification) return '';
+      var c = classification.toUpperCase();
+      if (c === 'CONFIDENTIAL') return 'classification-confidential';
+      if (c === 'RESTRICTED') return 'classification-restricted';
+      if (c === 'TOP SECRET') return 'classification-top-secret';
+      return 'classification-general';
+    },
+    isDocumentConfidential: function isDocumentConfidential(classification) {
+      return (classification === null || classification === void 0 ? void 0 : classification.toUpperCase()) === 'CONFIDENTIAL';
+    },
+    // ===== FORWARD MODAL =====
+    openForwardModal: function openForwardModal(doc) {
+      this.forwardDocument = doc;
+      this.showForwardModal = true;
+      this.selectedOffices = [];
+      this.forwardError = "";
+      this.officeSearchQuery = "";
+      this.selectedDuration = "";
+      this.remarks = "";
+      this.fetchOffices();
+    },
+    closeForwardModal: function closeForwardModal() {
+      this.showForwardModal = false;
+      this.forwardDocument = null;
+      this.selectedOffices = [];
+      this.forwardError = "";
+      this.officeSearchQuery = "";
+      this.selectedDuration = "";
+      this.remarks = "";
+    },
+    clearForwardForm: function clearForwardForm() {
+      this.selectedOffices = [];
+      this.forwardError = "";
+      this.officeSearchQuery = "";
+      this.selectedDuration = "";
+      this.remarks = "";
+    },
+    clearOfficeSearch: function clearOfficeSearch() {
+      this.officeSearchQuery = "";
+    },
+    fetchOffices: function fetchOffices() {
+      var _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        var response, _t2;
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.p = _context2.n) {
+            case 0:
+              _this2.officesLoading = true;
+              _context2.p = 1;
+              _context2.n = 2;
+              return axios.get("/dts_denr/api/route-office-secratarirat");
+            case 2:
+              response = _context2.v;
+              _this2.offices = response.data.data || [];
+              _context2.n = 4;
+              break;
+            case 3:
+              _context2.p = 3;
+              _t2 = _context2.v;
+              console.error("Error fetching offices:", _t2);
+              _this2.forwardError = "Failed to load offices.";
+            case 4:
+              _context2.p = 4;
+              _this2.officesLoading = false;
+              return _context2.f(4);
+            case 5:
+              return _context2.a(2);
+          }
+        }, _callee2, null, [[1, 3, 4, 5]]);
+      }))();
+    },
+    isOfficeSelected: function isOfficeSelected(officeId) {
+      return this.selectedOffices.some(function (office) {
+        return office.id === officeId;
+      });
+    },
+    toggleOfficeSelection: function toggleOfficeSelection(office) {
+      if (this.forwarding) return;
+      this.forwardError = "";
+      var index = this.selectedOffices.findIndex(function (o) {
+        return o.id === office.id;
+      });
+      if (index > -1) {
+        this.selectedOffices.splice(index, 1);
+      } else {
+        this.selectedOffices.push(office);
+      }
+    },
+    removeOffice: function removeOffice(officeId) {
+      this.selectedOffices = this.selectedOffices.filter(function (office) {
+        return office.id !== officeId;
+      });
+    },
+    submitForwardDocument: function submitForwardDocument() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        var response, _error$response, _t3;
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.p = _context3.n) {
+            case 0:
+              if (!(_this3.selectedOffices.length === 0)) {
+                _context3.n = 1;
+                break;
+              }
+              _this3.forwardError = "Please select at least one office.";
+              return _context3.a(2);
+            case 1:
+              if (!(!_this3.hasExistingDuration() && !_this3.selectedDuration)) {
+                _context3.n = 2;
+                break;
+              }
+              _this3.forwardError = "Please select a duration.";
+              return _context3.a(2);
+            case 2:
+              _this3.forwarding = true;
+              _this3.forwardError = "";
+              _context3.p = 3;
+              _context3.n = 4;
+              return axios.post("/dts_denr/api/add-forward-document", {
+                document_id: _this3.forwardDocument.id,
+                tracking_number: _this3.forwardDocument.document.tracking_number,
+                offices: _this3.selectedOffices.map(function (office) {
+                  return office.id;
+                }),
+                duration: _this3.hasExistingDuration() ? _this3.getDurationValue() : _this3.selectedDuration,
+                remarks: _this3.remarks || null
+              });
+            case 4:
+              response = _context3.v;
+              _context3.n = 5;
+              return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+                title: "Forwarded!",
+                text: response.data.message || "Document forwarded successfully.",
+                icon: "success",
+                confirmButtonColor: "#1a4731"
+              });
+            case 5:
+              _this3.closeForwardModal();
+              _this3.$emit("show-notification", {
+                message: "Document forwarded successfully!",
+                type: "success"
+              });
+              _this3.getDataReceived(_this3.documents.current_page);
+              _context3.n = 7;
+              break;
+            case 6:
+              _context3.p = 6;
+              _t3 = _context3.v;
+              console.error("Forward error:", _t3);
+              _this3.forwardError = ((_error$response = _t3.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || "Failed to forward document.";
+              _this3.$emit("show-notification", {
+                message: _this3.forwardError,
+                type: "error"
+              });
+            case 7:
+              _context3.p = 7;
+              _this3.forwarding = false;
+              return _context3.f(7);
+            case 8:
+              return _context3.a(2);
+          }
+        }, _callee3, null, [[3, 6, 7, 8]]);
+      }))();
+    },
+    // ===== VIEW MODAL =====
     viewDocument: function viewDocument(doc) {
       this.selectedDocument = doc;
       this.showViewModal = true;
@@ -9564,67 +9794,26 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       this.pdfLoadError = false;
       this.pdfZoom = 1;
       this.pdfViewerHeight = 700;
-      this.$emit("view-document", doc);
     },
     closeViewModal: function closeViewModal() {
       this.showViewModal = false;
       this.selectedDocument = null;
-      this.viewerActiveTab = "details";
-      this.pdfLoading = true;
-      this.pdfLoadError = false;
-      this.pdfZoom = 1;
-      this.pdfViewerHeight = 700;
     },
-    releaseDocument: function releaseDocument(doc) {
-      var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-        var result;
-        return _regenerator().w(function (_context) {
-          while (1) switch (_context.n) {
-            case 0:
-              _context.n = 1;
-              return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
-                title: "Release Document?",
-                text: "Are you sure you want to release document ".concat(doc.tracking_number, "?"),
-                icon: "question",
-                showCancelButton: true,
-                confirmButtonColor: "#1a4731",
-                cancelButtonColor: "#6b7280",
-                confirmButtonText: "Yes, release it!",
-                cancelButtonText: "Cancel",
-                reverseButtons: true
-              });
-            case 1:
-              result = _context.v;
-              if (!result.isConfirmed) {
-                _context.n = 2;
-                break;
-              }
-              _this2.$emit("release-document", doc);
-              _this2.$emit("show-notification", {
-                message: "Document ".concat(doc.tracking_number, " released successfully!"),
-                type: "success"
-              });
-              // Refresh the list after release
-              _context.n = 2;
-              return _this2.getDocuments();
-            case 2:
-              return _context.a(2);
-          }
-        }, _callee);
-      }))();
+    getDocumentRoutes: function getDocumentRoutes() {
+      var _this$selectedDocumen4;
+      return ((_this$selectedDocumen4 = this.selectedDocument) === null || _this$selectedDocumen4 === void 0 || (_this$selectedDocumen4 = _this$selectedDocumen4.document) === null || _this$selectedDocumen4 === void 0 ? void 0 : _this$selectedDocumen4.document_route) || [];
     },
-    downloadDocument: function downloadDocument(doc) {
-      this.$emit("download-document", doc);
+    getRouteOfficeName: function getRouteOfficeName(route) {
+      var _route$office;
+      return ((_route$office = route.office) === null || _route$office === void 0 ? void 0 : _route$office.sub_office_name) || route.sub_office_name || "Unknown Office";
     },
-    // ===== PDF METHODS =====
     getPdfUrl: function getPdfUrl(document) {
-      if (!document || !document.tracking_number) return "";
-      if (document.draft_attachment) {
-        return "/dts_denr/storage/app/public/".concat(document.draft_attachment);
+      var _document$document;
+      if (!(document !== null && document !== void 0 && (_document$document = document.document) !== null && _document$document !== void 0 && _document$document.tracking_number)) return "";
+      if (document.document.draft_attachment) {
+        return "/dts_denr/storage/app/public/".concat(document.document.draft_attachment);
       }
-      var trackingNumber = document.tracking_number;
-      return "/dts_denr/storage/app/public/attachments/".concat(trackingNumber, "/draft_attachment.pdf");
+      return "/dts_denr/storage/app/public/attachments/".concat(document.document.tracking_number, "/draft_attachment.pdf");
     },
     onPdfLoaded: function onPdfLoaded() {
       this.pdfLoading = false;
@@ -9645,24 +9834,17 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     zoomIn: function zoomIn() {
       if (this.pdfZoom < 2) {
         this.pdfZoom += 0.25;
-        this.adjustViewerHeight();
+        this.pdfViewerHeight = Math.round(700 / this.pdfZoom);
       }
     },
     zoomOut: function zoomOut() {
       if (this.pdfZoom > 0.5) {
         this.pdfZoom -= 0.25;
-        this.adjustViewerHeight();
+        this.pdfViewerHeight = Math.round(700 / this.pdfZoom);
       }
     },
-    adjustViewerHeight: function adjustViewerHeight() {
-      this.pdfViewerHeight = Math.round(700 / this.pdfZoom);
-    },
-    // ===== ROUTE HISTORY =====
-    switchToHistoryTab: function switchToHistoryTab() {
-      this.viewerActiveTab = "history";
-    },
     isRouteActive: function isRouteActive(route) {
-      return route.status === "In Progress" || route.status === "Active" || route.status === "Current" || route.is_current === true;
+      return ["In Progress", "Active", "Current"].includes(route.status) || route.is_current === true;
     },
     getRouteStatusType: function getRouteStatusType(status) {
       if (!status) return "pending";
@@ -9679,36 +9861,29 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       return "badge-".concat(this.getRouteStatusType(status));
     },
     getRouteStatusIcon: function getRouteStatusIcon(status) {
-      var t = this.getRouteStatusType(status);
-      if (t === "completed") return "bi bi-check-circle-fill";
-      if (t === "active") return "bi bi-arrow-repeat";
-      if (t === "rejected") return "bi bi-x-circle-fill";
-      return "bi bi-clock-fill";
+      var map = {
+        completed: "bi bi-check-circle-fill",
+        active: "bi bi-arrow-repeat",
+        rejected: "bi bi-x-circle-fill",
+        pending: "bi bi-clock-fill"
+      };
+      return map[this.getRouteStatusType(status)] || "bi bi-clock-fill";
     },
-    // ===== UTILITY METHODS =====
+    // ===== UTILITY =====
     formatDate: function formatDate(dateString) {
       if (!dateString) return "N/A";
       return new Date(dateString).toLocaleDateString("en-PH", {
         year: "numeric",
         month: "short",
-        day: "numeric"
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true
       });
-    },
-    formatTime: function formatTime(t) {
-      if (!t) return "";
-      if (typeof t === "string" && (t.toUpperCase().includes("AM") || t.toUpperCase().includes("PM"))) return t;
-      var _t$split$map = t.split(":").map(Number),
-        _t$split$map2 = _slicedToArray(_t$split$map, 2),
-        h = _t$split$map2[0],
-        m = _t$split$map2[1],
-        period = h >= 12 ? "PM" : "AM",
-        displayHour = h % 12 || 12;
-      return "".concat(displayHour, ":").concat(m.toString().padStart(2, "0"), " ").concat(period);
     },
     formatDateTime: function formatDateTime(dateString) {
       if (!dateString) return "N/A";
-      var date = new Date(dateString);
-      return date.toLocaleString("en-PH", {
+      return new Date(dateString).toLocaleString("en-PH", {
         year: "numeric",
         month: "short",
         day: "numeric",
@@ -9719,11 +9894,16 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     getStatusClass: function getStatusClass(status) {
       var map = {
+        "PENDING": "status-in-progress",
         "In-Progress": "status-in-progress",
         "For-Release": "status-for-release",
-        Released: "status-released"
+        "Released": "status-released",
+        "Completed": "status-released"
       };
       return map[status] || "";
+    },
+    refreshData: function refreshData() {
+      this.getDataReceived(1);
     }
   }
 });
@@ -20666,7 +20846,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function render() {
-  var _vm$selectedDocument, _vm$selectedDocument2, _vm$selectedDocument3, _vm$selectedDocument4, _vm$selectedDocument$, _vm$selectedDocument5, _vm$selectedDocument6, _vm$selectedDocument7, _vm$selectedDocument8;
+  var _vm$forwardDocument, _vm$forwardDocument2, _vm$forwardDocument3, _vm$selectedDocument, _vm$selectedDocument2, _vm$selectedDocument3, _vm$selectedDocument$, _vm$selectedDocument4, _vm$selectedDocument5;
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", [_c("div", {
@@ -20819,47 +20999,55 @@ var render = function render() {
     staticClass: "results-summary"
   }, [_c("span", {
     staticClass: "results-count"
-  }, [_vm._v(_vm._s(_vm.filteredDocuments.length))]), _vm._v("\n      document(s) found in "), _c("strong", [_vm._v("Forwarded")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v(_vm._s(_vm.documents.total))]), _vm._v("\n      document(s) found in "), _c("strong", [_vm._v("Received")])])]), _vm._v(" "), _c("div", {
     staticClass: "table-responsive"
   }, [_c("table", {
     staticClass: "office-table"
-  }, [_vm._m(0), _vm._v(" "), _c("tbody", [_vm.loading && _vm.documents.length === 0 ? _c("tr", [_vm._m(1)]) : !_vm.loading && _vm.filteredDocuments.length === 0 ? _c("tr", [_c("td", {
-    staticClass: "text-center py-5",
+  }, [_vm._m(0), _vm._v(" "), _c("tbody", [_vm.loading && _vm.documents.data.length === 0 ? _c("tr", [_vm._m(1)]) : !_vm.loading && _vm.documents.data.length === 0 ? _c("tr", [_c("td", {
+    staticClass: "text-center",
     attrs: {
       colspan: "7"
     }
   }, [_c("div", {
     staticClass: "empty-state"
   }, [_c("i", {
-    staticClass: "bi bi-file-earmark-x",
+    staticClass: "bi bi-inbox",
     staticStyle: {
       "font-size": "3rem",
       color: "#9ca3af"
     }
   }), _vm._v(" "), _c("p", {
     staticClass: "mt-2 text-muted"
-  }, [_vm._v("\n                " + _vm._s(_vm.searchQuery || _vm.docTypeFilter ? "No documents match your filters" : "No For Receive Documents") + "\n              ")])])])]) : _vm._e(), _vm._v(" "), _vm._l(_vm.paginatedDocuments, function (doc, index) {
+  }, [_vm._v("\n                " + _vm._s(_vm.searchQuery || _vm.docTypeFilter ? "No documents match your filters" : "No Received Documents") + "\n              ")])])])]) : _vm._e(), _vm._v(" "), _vm._l(_vm.documents.data, function (document, index) {
+    var _document$document$do;
     return _c("tr", {
-      key: doc.id
+      key: document.id
     }, [_c("td", {
       staticClass: "text-center"
     }, [_c("span", {
       staticClass: "row-number"
-    }, [_vm._v(_vm._s((_vm.currentPage - 1) * _vm.perPage + index + 1))])]), _vm._v(" "), _c("td", [_c("span", {
+    }, [_vm._v(_vm._s((_vm.documents.current_page - 1) * _vm.documents.per_page + index + 1))])]), _vm._v(" "), _c("td", [_c("span", {
       staticClass: "tracking-number"
-    }, [_vm._v(_vm._s(doc.tracking_number))])]), _vm._v(" "), _c("td", [_c("span", {
+    }, [_vm._v(_vm._s(document.document.tracking_number))])]), _vm._v(" "), _c("td", [_c("span", {
+      "class": _vm.getClassificationBadgeClass(document.document.document_classification)
+    }, [_vm._v("\n              " + _vm._s(document.document.document_classification) + "\n            ")])]), _vm._v(" "), _c("td", [_c("span", {
       staticClass: "doc-type-badge"
-    }, [_vm._v(_vm._s(doc.document_type))])]), _vm._v(" "), _c("td", [_c("div", {
-      staticClass: "subject-text"
-    }, [_vm._v(_vm._s(doc.subject || doc.title))])]), _vm._v(" "), _c("td", [_c("div", {
-      staticClass: "sender-text"
+    }, [_vm._v(_vm._s(((_document$document$do = document.document.document_type) === null || _document$document$do === void 0 ? void 0 : _document$document$do.document_type_name) || document.document.document_type))])]), _vm._v(" "), _c("td", [_c("div", {
+      staticClass: "subject-text",
+      "class": {
+        "confidential-blur-static": _vm.isDocumentConfidential(document.document.document_classification)
+      }
+    }, [_vm._v("\n              " + _vm._s(document.document.subject) + "\n              "), _vm.isDocumentConfidential(document.document.document_classification) ? _c("span", {
+      staticClass: "confidential-label"
+    }, [_vm._v("CONFIDENTIAL")]) : _vm._e()])]), _vm._v(" "), _c("td", [_c("div", {
+      staticClass: "date-received"
     }, [_c("i", {
-      staticClass: "bi bi-person-circle sender-icon"
-    }), _vm._v("\n              " + _vm._s(doc.sender_name || doc.origin) + "\n            ")])]), _vm._v(" "), _c("td", [_c("div", {
+      staticClass: "bi bi-person-circle date-icon"
+    }), _vm._v("\n            " + _vm._s(document.received_by.firstname) + "  " + _vm._s(document.received_by.middlename) + ",  " + _vm._s(document.received_by.lastname) + "\n             ")])]), _vm._v(" "), _c("td", [_c("div", {
       staticClass: "date-received"
     }, [_c("i", {
       staticClass: "bi bi-calendar3 date-icon"
-    }), _vm._v("\n              " + _vm._s(_vm.formatDate(doc.date_received || doc.created_at)) + "\n            ")])]), _vm._v(" "), _c("td", [_c("div", {
+    }), _vm._v("\n              " + _vm._s(document.date_receive ? _vm.formatDate(document.date_receive) : "NOT YET RECEIVED") + "\n            ")])]), _vm._v(" "), _c("td", [_c("div", {
       staticClass: "action-buttons"
     }, [_c("button", {
       staticClass: "btn-action btn-view",
@@ -20868,49 +21056,364 @@ var render = function render() {
       },
       on: {
         click: function click($event) {
-          return _vm.viewDocument(doc);
+          return _vm.viewDocument(document);
         }
       }
     }, [_c("i", {
       staticClass: "bi bi-eye"
     })]), _vm._v(" "), _c("button", {
-      staticClass: "btn-action btn-release",
+      staticClass: "btn-action btn-forward",
       attrs: {
-        title: "Release Document"
+        title: "Forward Office"
       },
       on: {
         click: function click($event) {
-          return _vm.releaseDocument(doc);
+          return _vm.openForwardModal(document);
         }
       }
     }, [_c("i", {
-      staticClass: "bi bi-send-check"
-    })]), _vm._v(" "), _c("button", {
-      staticClass: "btn-action btn-download",
-      attrs: {
-        title: "Download"
-      },
-      on: {
-        click: function click($event) {
-          return _vm.downloadDocument(doc);
-        }
-      }
-    }, [_c("i", {
-      staticClass: "bi bi-download"
+      staticClass: "bi bi-arrow-right-circle"
     })])])])]);
   })], 2)])]), _vm._v(" "), _c("PaginationComponent", {
     attrs: {
-      "current-page": _vm.currentPage,
-      "total-pages": _vm.totalPages,
-      total: _vm.filteredDocuments.length,
-      "per-page": _vm.perPage,
-      from: _vm.startItem,
-      to: _vm.endItem
+      "current-page": Number(_vm.documents.current_page),
+      "total-pages": Number(_vm.documents.last_page),
+      total: Number(_vm.documents.total),
+      "per-page": Number(_vm.documents.per_page),
+      from: Number(_vm.documents.from),
+      to: Number(_vm.documents.to)
     },
     on: {
       "page-change": _vm.changePage
     }
-  }), _vm._v(" "), _vm.showViewModal ? _c("div", {
+  }), _vm._v(" "), _vm.showForwardModal ? _c("div", {
+    staticClass: "modal-overlay",
+    on: {
+      click: function click($event) {
+        if ($event.target !== $event.currentTarget) return null;
+        return _vm.closeForwardModal.apply(null, arguments);
+      }
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog enhanced-modal",
+    staticStyle: {
+      "max-width": "800px"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content square-modal"
+  }, [_c("div", {
+    staticClass: "square-header"
+  }, [_vm._m(2), _vm._v(" "), _c("button", {
+    staticClass: "square-close",
+    attrs: {
+      type: "button",
+      disabled: _vm.forwarding
+    },
+    on: {
+      click: _vm.closeForwardModal
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-x-lg"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body"
+  }, [_vm.forwardError ? _c("div", {
+    staticClass: "error-msg"
+  }, [_c("svg", {
+    attrs: {
+      width: "15",
+      height: "15",
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: "currentColor",
+      "stroke-width": "2.2"
+    }
+  }, [_c("circle", {
+    attrs: {
+      cx: "12",
+      cy: "12",
+      r: "10"
+    }
+  }), _vm._v(" "), _c("line", {
+    attrs: {
+      x1: "12",
+      y1: "8",
+      x2: "12",
+      y2: "12"
+    }
+  }), _vm._v(" "), _c("circle", {
+    attrs: {
+      cx: "12",
+      cy: "16.5",
+      r: "0.7",
+      fill: "currentColor",
+      stroke: "none"
+    }
+  })]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.forwardError))])]) : _vm._e(), _vm._v(" "), _c("div", {
+    staticClass: "forward-doc-info"
+  }, [_c("div", {
+    staticClass: "forward-doc-row"
+  }, [_c("span", {
+    staticClass: "forward-doc-label"
+  }, [_vm._v("Tracking:")]), _vm._v(" "), _c("span", {
+    staticClass: "forward-doc-value"
+  }, [_vm._v(_vm._s(((_vm$forwardDocument = _vm.forwardDocument) === null || _vm$forwardDocument === void 0 || (_vm$forwardDocument = _vm$forwardDocument.document) === null || _vm$forwardDocument === void 0 ? void 0 : _vm$forwardDocument.tracking_number) || "N/A"))])]), _vm._v(" "), _c("div", {
+    staticClass: "forward-doc-row"
+  }, [_c("span", {
+    staticClass: "forward-doc-label"
+  }, [_vm._v("Type:")]), _vm._v(" "), _c("span", {
+    staticClass: "doc-type-badge"
+  }, [_vm._v(_vm._s(((_vm$forwardDocument2 = _vm.forwardDocument) === null || _vm$forwardDocument2 === void 0 || (_vm$forwardDocument2 = _vm$forwardDocument2.document) === null || _vm$forwardDocument2 === void 0 || (_vm$forwardDocument2 = _vm$forwardDocument2.document_type) === null || _vm$forwardDocument2 === void 0 ? void 0 : _vm$forwardDocument2.document_type_name) || ((_vm$forwardDocument3 = _vm.forwardDocument) === null || _vm$forwardDocument3 === void 0 || (_vm$forwardDocument3 = _vm$forwardDocument3.document) === null || _vm$forwardDocument3 === void 0 ? void 0 : _vm$forwardDocument3.document_type) || "N/A"))])]), _vm._v(" "), _c("div", {
+    staticClass: "forward-doc-row"
+  }, [_c("span", {
+    staticClass: "forward-doc-label"
+  }, [_vm._v("Duration:")]), _vm._v(" "), _c("span", {
+    staticClass: "duration-badge",
+    "class": _vm.getDurationBadgeClass(_vm.getDurationValue())
+  }, [_c("i", {
+    "class": _vm.getDurationIcon(_vm.getDurationValue())
+  }), _vm._v("\n                " + _vm._s(_vm.getDurationDisplay()) + "\n              ")])])]), _vm._v(" "), _c("div", {
+    staticClass: "forward-grid"
+  }, [_c("div", {
+    staticClass: "forward-col"
+  }, [_vm._m(3), _vm._v(" "), _c("div", {
+    staticClass: "office-search-box"
+  }, [_c("i", {
+    staticClass: "bi bi-search office-search-icon"
+  }), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.officeSearchQuery,
+      expression: "officeSearchQuery"
+    }],
+    staticClass: "office-search-input",
+    attrs: {
+      type: "text",
+      placeholder: "Search offices..."
+    },
+    domProps: {
+      value: _vm.officeSearchQuery
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.officeSearchQuery = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _vm.officeSearchQuery ? _c("button", {
+    staticClass: "office-search-clear",
+    on: {
+      click: _vm.clearOfficeSearch
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-x-circle"
+  })]) : _vm._e()]), _vm._v(" "), _vm.officesLoading ? _c("div", {
+    staticClass: "text-center py-3"
+  }, [_c("div", {
+    staticClass: "loader-spinner",
+    staticStyle: {
+      width: "30px",
+      height: "30px"
+    }
+  }), _vm._v(" "), _c("p", {
+    staticClass: "mt-1 text-muted"
+  }, [_vm._v("Loading offices...")])]) : _vm.filteredOffices.length === 0 ? _c("div", {
+    staticClass: "text-center py-3"
+  }, [_c("i", {
+    staticClass: "bi bi-building",
+    staticStyle: {
+      "font-size": "1.5rem",
+      color: "#9ca3af"
+    }
+  }), _vm._v(" "), _c("p", {
+    staticClass: "mt-1 text-muted"
+  }, [_vm._v("\n                  " + _vm._s(_vm.officeSearchQuery ? "No offices match" : "No offices available") + "\n                ")])]) : _c("div", {
+    staticClass: "office-list-container"
+  }, _vm._l(_vm.filteredOffices, function (office) {
+    return _c("div", {
+      key: office.id,
+      staticClass: "office-select-item",
+      "class": {
+        selected: _vm.isOfficeSelected(office.id)
+      },
+      on: {
+        click: function click($event) {
+          return _vm.toggleOfficeSelection(office);
+        }
+      }
+    }, [_c("div", {
+      staticClass: "office-checkbox"
+    }, [_c("i", {
+      "class": _vm.isOfficeSelected(office.id) ? "bi bi-check-square-fill" : "bi bi-square"
+    })]), _vm._v(" "), _vm._m(4, true), _vm._v(" "), _c("div", {
+      staticClass: "office-details"
+    }, [_c("span", {
+      staticClass: "office-name-text"
+    }, [_vm._v(_vm._s(office.sub_office_name))]), _vm._v(" "), office.office_code ? _c("span", {
+      staticClass: "office-code"
+    }, [_vm._v(_vm._s(office.office_code))]) : _vm._e()]), _vm._v(" "), _vm.isOfficeSelected(office.id) ? _c("div", {
+      staticClass: "selected-indicator"
+    }, [_c("i", {
+      staticClass: "bi bi-check-circle-fill"
+    })]) : _vm._e()]);
+  }), 0), _vm._v(" "), _vm.selectedOffices.length > 0 ? _c("div", {
+    staticClass: "selection-counter"
+  }, [_c("i", {
+    staticClass: "bi bi-check2-circle"
+  }), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.selectedOffices.length) + " office(s) selected")])]) : _vm._e()]), _vm._v(" "), _c("div", {
+    staticClass: "forward-col"
+  }, [_vm._m(5), _vm._v(" "), _vm.hasExistingDuration() ? _c("div", {
+    staticClass: "duration-display-container"
+  }, [_c("div", {
+    staticClass: "duration-display-box"
+  }, [_c("div", {
+    staticClass: "duration-display-icon"
+  }, [_c("i", {
+    "class": _vm.getDurationIcon(_vm.getDurationValue())
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "duration-display-content"
+  }, [_c("span", {
+    staticClass: "duration-display-label"
+  }, [_vm._v("Current Duration")]), _vm._v(" "), _c("span", {
+    staticClass: "duration-display-value",
+    "class": _vm.getDurationBadgeClass(_vm.getDurationValue())
+  }, [_vm._v("\n                      " + _vm._s(_vm.getDurationDisplay()) + "\n                    ")])]), _vm._v(" "), _vm._m(6)]), _vm._v(" "), _vm._m(7)]) : _c("div", [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.selectedDuration,
+      expression: "selectedDuration"
+    }],
+    staticClass: "duration-select",
+    attrs: {
+      disabled: _vm.forwarding
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.selectedDuration = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: ""
+    }
+  }, [_vm._v("Select Duration")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Simple"
+    }
+  }, [_vm._v("Simple - 3 Days")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Complex"
+    }
+  }, [_vm._v("Complex - 15 Days")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Highly Technical"
+    }
+  }, [_vm._v("Highly Technical - 15 Days")])]), _vm._v(" "), _vm._m(8)]), _vm._v(" "), _c("label", {
+    staticClass: "form-label",
+    staticStyle: {
+      "margin-top": "12px"
+    }
+  }, [_vm._v("\n                Remarks / Instructions\n              ")]), _vm._v(" "), _c("textarea", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.remarks,
+      expression: "remarks"
+    }],
+    staticClass: "remarks-textarea",
+    attrs: {
+      rows: "3",
+      placeholder: "Add remarks or instructions...",
+      disabled: _vm.forwarding,
+      maxlength: "500"
+    },
+    domProps: {
+      value: _vm.remarks
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.remarks = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "remarks-counter",
+    "class": {
+      "text-danger": _vm.remarks.length > 450
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.remarks.length) + "/500\n              ")])])]), _vm._v(" "), _vm.selectedOffices.length > 0 ? _c("div", {
+    staticClass: "selected-offices-summary"
+  }, [_c("div", {
+    staticClass: "selected-offices-header"
+  }, [_c("i", {
+    staticClass: "bi bi-check2-all"
+  }), _vm._v(" "), _c("span", [_vm._v("Selected (" + _vm._s(_vm.selectedOffices.length) + ")")])]), _vm._v(" "), _c("div", {
+    staticClass: "selected-offices-list"
+  }, _vm._l(_vm.selectedOffices, function (office) {
+    return _c("span", {
+      key: office.id,
+      staticClass: "selected-office-tag"
+    }, [_vm._v("\n                " + _vm._s(office.sub_office_name) + "\n                "), _c("button", {
+      staticClass: "remove-office-btn",
+      attrs: {
+        disabled: _vm.forwarding
+      },
+      on: {
+        click: function click($event) {
+          return _vm.removeOffice(office.id);
+        }
+      }
+    }, [_c("i", {
+      staticClass: "bi bi-x"
+    })])]);
+  }), 0)]) : _vm._e(), _vm._v(" "), _c("div", {
+    staticClass: "modal-actions"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-secondary square-btn",
+    attrs: {
+      type: "button",
+      disabled: _vm.forwarding
+    },
+    on: {
+      click: _vm.clearForwardForm
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-arrow-counterclockwise me-1"
+  }), _vm._v(" Reset\n            ")]), _vm._v(" "), _c("div", {
+    staticClass: "d-flex gap-2"
+  }, [_c("button", {
+    staticClass: "btn btn-light square-btn",
+    attrs: {
+      type: "button",
+      disabled: _vm.forwarding
+    },
+    on: {
+      click: _vm.closeForwardModal
+    }
+  }, [_vm._v("\n                Cancel\n              ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn-save square-btn",
+    attrs: {
+      type: "button",
+      disabled: _vm.forwarding || _vm.selectedOffices.length === 0 || !_vm.hasExistingDuration() && !_vm.selectedDuration
+    },
+    on: {
+      click: _vm.submitForwardDocument
+    }
+  }, [_vm.forwarding ? _c("span", {
+    staticClass: "spinner-border spinner-border-sm me-1",
+    attrs: {
+      role: "status"
+    }
+  }) : _c("i", {
+    staticClass: "bi bi-send-check me-1"
+  }), _vm._v("\n                " + _vm._s(_vm.forwarding ? "Forwarding..." : "Forward") + "\n              ")])])])])])])]) : _vm._e(), _vm._v(" "), _vm.showViewModal ? _c("div", {
     staticClass: "modal-overlay",
     on: {
       click: function click($event) {
@@ -20923,29 +21426,21 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "modal-content square-modal"
   }, [_c("div", {
-    staticClass: "modal-header-enhanced square-header document-header"
+    staticClass: "square-header document-header"
   }, [_c("div", {
     staticClass: "d-flex align-items-center"
-  }, [_vm._m(2), _vm._v(" "), _c("div", [_c("h5", {
+  }, [_vm._m(9), _vm._v(" "), _c("div", [_c("h5", {
     staticClass: "modal-title"
   }, [_vm._v("Document Viewer")]), _vm._v(" "), _c("small", {
     staticClass: "modal-subtitle"
   }, [_c("span", {
     staticClass: "tracking-badge"
-  }, [_vm._v(_vm._s((_vm$selectedDocument = _vm.selectedDocument) === null || _vm$selectedDocument === void 0 ? void 0 : _vm$selectedDocument.tracking_number))]), _vm._v(" "), _c("span", {
+  }, [_vm._v(_vm._s((_vm$selectedDocument = _vm.selectedDocument) === null || _vm$selectedDocument === void 0 || (_vm$selectedDocument = _vm$selectedDocument.document) === null || _vm$selectedDocument === void 0 ? void 0 : _vm$selectedDocument.tracking_number))]), _vm._v(" "), _c("span", {
     "class": ["status-pill", _vm.getStatusClass((_vm$selectedDocument2 = _vm.selectedDocument) === null || _vm$selectedDocument2 === void 0 ? void 0 : _vm$selectedDocument2.status)]
   }, [_vm._v(_vm._s((_vm$selectedDocument3 = _vm.selectedDocument) === null || _vm$selectedDocument3 === void 0 ? void 0 : _vm$selectedDocument3.status))])])])]), _vm._v(" "), _c("div", {
     staticClass: "header-actions"
-  }, [_c("a", {
-    staticClass: "btn-header-action btn-header-update",
-    attrs: {
-      href: "/dts_denr/view-document/".concat((_vm$selectedDocument4 = _vm.selectedDocument) === null || _vm$selectedDocument4 === void 0 ? void 0 : _vm$selectedDocument4.token),
-      title: "Update Document"
-    }
-  }, [_c("i", {
-    staticClass: "bi bi-pencil-square"
-  })]), _vm._v(" "), _c("button", {
-    staticClass: "btn-close-custom square-close",
+  }, [_c("button", {
+    staticClass: "square-close",
     attrs: {
       type: "button"
     },
@@ -20955,7 +21450,7 @@ var render = function render() {
   }, [_c("i", {
     staticClass: "bi bi-x-lg"
   })])])]), _vm._v(" "), _c("div", {
-    staticClass: "modal-body-enhanced document-viewer-body"
+    staticClass: "modal-body document-viewer-body"
   }, [_c("div", {
     staticClass: "document-viewer-tabs"
   }, [_c("button", {
@@ -20976,7 +21471,9 @@ var render = function render() {
       active: _vm.viewerActiveTab === "history"
     },
     on: {
-      click: _vm.switchToHistoryTab
+      click: function click($event) {
+        _vm.viewerActiveTab = "history";
+      }
     }
   }, [_c("i", {
     staticClass: "bi bi-clock-history"
@@ -20990,57 +21487,66 @@ var render = function render() {
     staticClass: "document-viewer-layout"
   }, [_c("div", {
     staticClass: "details-panel"
-  }, [_vm._m(3), _vm._v(" "), _vm.selectedDocument ? _c("div", {
+  }, [_vm._m(10), _vm._v(" "), _vm.selectedDocument ? _c("div", {
     staticClass: "details-content"
   }, [_c("div", {
     staticClass: "detail-card"
-  }, [_vm._m(4), _vm._v(" "), _c("div", {
+  }, [_vm._m(11), _vm._v(" "), _c("div", {
     staticClass: "detail-info"
   }, [_c("label", [_vm._v("Tracking Number")]), _vm._v(" "), _c("span", {
     staticClass: "tracking-number-large"
-  }, [_vm._v(_vm._s(_vm.selectedDocument.tracking_number))])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v(_vm._s(_vm.selectedDocument.document.tracking_number))])])]), _vm._v(" "), _c("div", {
     staticClass: "detail-card"
-  }, [_vm._m(5), _vm._v(" "), _c("div", {
+  }, [_vm._m(12), _vm._v(" "), _c("div", {
+    staticClass: "detail-info"
+  }, [_c("label", [_vm._v("Classification")]), _vm._v(" "), _c("span", {
+    "class": ["classification-badge-large", _vm.getClassificationBadgeClass(_vm.selectedDocument.document.document_classification)]
+  }, [_vm._v("\n                      " + _vm._s(_vm.selectedDocument.document.document_classification || "N/A") + "\n                    ")])])]), _vm._v(" "), _c("div", {
+    staticClass: "detail-card"
+  }, [_vm._m(13), _vm._v(" "), _c("div", {
     staticClass: "detail-info"
   }, [_c("label", [_vm._v("Document Type")]), _vm._v(" "), _c("span", {
     staticClass: "doc-type-badge-large"
-  }, [_vm._v(_vm._s(((_vm$selectedDocument$ = _vm.selectedDocument.document_type) === null || _vm$selectedDocument$ === void 0 ? void 0 : _vm$selectedDocument$.document_type_name) || _vm.selectedDocument.document_type))])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v(_vm._s(((_vm$selectedDocument$ = _vm.selectedDocument.document.document_type) === null || _vm$selectedDocument$ === void 0 ? void 0 : _vm$selectedDocument$.document_type_name) || _vm.selectedDocument.document.document_type))])])]), _vm._v(" "), _c("div", {
     staticClass: "detail-card"
-  }, [_vm._m(6), _vm._v(" "), _c("div", {
+  }, [_vm._m(14), _vm._v(" "), _c("div", {
     staticClass: "detail-info"
   }, [_c("label", [_vm._v("Subject / Title")]), _vm._v(" "), _c("span", {
-    staticClass: "detail-value"
-  }, [_vm._v(_vm._s(_vm.selectedDocument.subject || _vm.selectedDocument.title))])])]), _vm._v(" "), _c("div", {
+    staticClass: "detail-value",
+    "class": {
+      "confidential-blur-static": _vm.isConfidential
+    }
+  }, [_vm._v("\n                      " + _vm._s(_vm.selectedDocument.document.subject) + "\n                      "), _vm.isConfidential ? _c("span", {
+    staticClass: "confidential-label"
+  }, [_vm._v("CONFIDENTIAL")]) : _vm._e()])])]), _vm._v(" "), _c("div", {
     staticClass: "detail-card"
-  }, [_vm._m(7), _vm._v(" "), _c("div", {
+  }, [_vm._m(15), _vm._v(" "), _c("div", {
     staticClass: "detail-info"
   }, [_c("label", [_vm._v("Sender / Origin")]), _vm._v(" "), _c("span", {
-    staticClass: "detail-value"
-  }, [_vm._v(_vm._s(_vm.selectedDocument.sender_name || _vm.selectedDocument.origin))])])]), _vm._v(" "), _c("div", {
-    staticClass: "detail-card"
-  }, [_vm._m(8), _vm._v(" "), _c("div", {
+    staticClass: "detail-value",
+    "class": {
+      "confidential-blur-static": _vm.isConfidential
+    }
+  }, [_vm._v("\n                      " + _vm._s(_vm.selectedDocument.document.sender_name) + "\n                      "), _vm.isConfidential ? _c("span", {
+    staticClass: "confidential-label"
+  }, [_vm._v("CONFIDENTIAL")]) : _vm._e()])])]), _vm._v(" "), _c("div", {
+    staticClass: "detail-card duration-detail-card"
+  }, [_vm._m(16), _vm._v(" "), _c("div", {
     staticClass: "detail-info"
-  }, [_c("label", [_vm._v("Date Received")]), _vm._v(" "), _c("span", {
-    staticClass: "detail-value"
-  }, [_vm._v("\n                      " + _vm._s(_vm.formatDate(_vm.selectedDocument.date_receive || _vm.selectedDocument.date_received || _vm.selectedDocument.created_at)) + "\n                      "), _vm.selectedDocument.time_receive ? _c("small", {
-    staticClass: "time-text"
-  }, [_vm._v("at\n                        " + _vm._s(_vm.formatTime(_vm.selectedDocument.time_receive)))]) : _vm._e()])])]), _vm._v(" "), _vm.selectedDocument.description ? _c("div", {
-    staticClass: "detail-card description-card"
-  }, [_vm._m(9), _vm._v(" "), _c("div", {
-    staticClass: "detail-info"
-  }, [_c("label", [_vm._v("Description")]), _vm._v(" "), _c("p", {
-    staticClass: "detail-value description-text"
-  }, [_vm._v("\n                      " + _vm._s(_vm.selectedDocument.description) + "\n                    ")])])]) : _vm._e(), _vm._v(" "), _c("div", {
-    staticClass: "detail-card meta-card"
-  }, [_vm._m(10), _vm._v(" "), _c("div", {
-    staticClass: "detail-info"
-  }, [_c("label", [_vm._v("Status")]), _vm._v(" "), _c("span", {
-    "class": ["status-badge", _vm.getStatusClass((_vm$selectedDocument5 = _vm.selectedDocument) === null || _vm$selectedDocument5 === void 0 ? void 0 : _vm$selectedDocument5.status)]
-  }, [_vm._v(_vm._s(((_vm$selectedDocument6 = _vm.selectedDocument) === null || _vm$selectedDocument6 === void 0 ? void 0 : _vm$selectedDocument6.status) || "Unknown"))])])])]) : _vm._e()]), _vm._v(" "), _c("div", {
+  }, [_c("label", [_vm._v("Duration")]), _vm._v(" "), _c("span", {
+    staticClass: "duration-badge-large",
+    "class": _vm.getDurationBadgeClass(_vm.getDocumentDuration())
+  }, [_c("i", {
+    "class": _vm.getDurationIcon(_vm.getDocumentDuration())
+  }), _vm._v("\n                      " + _vm._s(_vm.getDocumentDurationDisplay()) + "\n                    ")])])])]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "pdf-panel"
   }, [_c("div", {
     staticClass: "pdf-panel-header"
-  }, [_vm._m(11), _vm._v(" "), _c("div", {
+  }, [_c("div", {
+    staticClass: "pdf-panel-title"
+  }, [_c("i", {
+    "class": _vm.isConfidential ? "bi bi-shield-lock text-danger" : "bi bi-file-pdf"
+  }), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.isConfidential ? "Document Preview" : "Document Preview"))])]), _vm._v(" "), !_vm.isConfidential ? _c("div", {
     staticClass: "pdf-controls"
   }, [_c("button", {
     staticClass: "btn-pdf-control",
@@ -21064,11 +21570,29 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "bi bi-zoom-out"
-  })])])]), _vm._v(" "), _c("div", {
+  })])]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "pdf-viewer-wrapper"
-  }, [_vm.pdfLoading && !_vm.pdfLoadError ? _c("div", {
+  }, [_vm.isConfidential ? _c("div", {
+    staticClass: "confidential-notice"
+  }, [_vm._m(17), _vm._v(" "), _c("h3", {
+    staticClass: "confidential-title"
+  }, [_vm._v("CONFIDENTIAL DOCUMENT")]), _vm._v(" "), _c("div", {
+    staticClass: "confidential-divider"
+  }), _vm._v(" "), _vm._m(18), _vm._v(" "), _c("p", {
+    staticClass: "confidential-sub-message"
+  }, [_vm._v("\n                    PDF preview is restricted for security purposes.\n                  ")]), _vm._v(" "), _c("div", {
+    staticClass: "confidential-details"
+  }, [_c("div", {
+    staticClass: "confidential-detail-item"
+  }, [_c("i", {
+    staticClass: "bi bi-upc-scan"
+  }), _vm._v(" "), _c("span", [_vm._v("Tracking No: " + _vm._s((_vm$selectedDocument4 = _vm.selectedDocument) === null || _vm$selectedDocument4 === void 0 || (_vm$selectedDocument4 = _vm$selectedDocument4.document) === null || _vm$selectedDocument4 === void 0 ? void 0 : _vm$selectedDocument4.tracking_number))])]), _vm._v(" "), _c("div", {
+    staticClass: "confidential-detail-item"
+  }, [_c("i", {
+    staticClass: "bi bi-file-earmark-lock"
+  }), _vm._v(" "), _c("span", [_vm._v("Classification: " + _vm._s((_vm$selectedDocument5 = _vm.selectedDocument) === null || _vm$selectedDocument5 === void 0 || (_vm$selectedDocument5 = _vm$selectedDocument5.document) === null || _vm$selectedDocument5 === void 0 ? void 0 : _vm$selectedDocument5.document_classification))])])]), _vm._v(" "), _vm._m(19)]) : [_vm.pdfLoading && !_vm.pdfLoadError ? _c("div", {
     staticClass: "pdf-state"
-  }, [_vm._m(12), _vm._v(" "), _c("p", {
+  }, [_vm._m(20), _vm._v(" "), _c("p", {
     staticClass: "pdf-state-text"
   }, [_vm._v("Loading document preview...")])]) : _vm._e(), _vm._v(" "), _c("iframe", {
     directives: [{
@@ -21102,20 +21626,20 @@ var render = function render() {
     staticClass: "mt-3"
   }, [_vm._v("PDF Not Available")]), _vm._v(" "), _c("p", {
     staticClass: "text-muted"
-  }, [_vm._v("\n                    The attachment could not be loaded or doesn't exist.\n                  ")]), _vm._v(" "), _c("button", {
+  }, [_vm._v("The attachment could not be loaded.")]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-outline-secondary btn-sm mt-3",
     on: {
       click: _vm.retryPdfLoad
     }
   }, [_c("i", {
     staticClass: "bi bi-arrow-repeat me-1"
-  }), _vm._v(" Retry\n                  ")])]) : _vm._e()]), _vm._v(" "), !_vm.pdfLoadError ? _c("div", {
+  }), _vm._v(" Retry\n                    ")])]) : _vm._e()]], 2), _vm._v(" "), !_vm.pdfLoadError && !_vm.isConfidential ? _c("div", {
     staticClass: "pdf-footer"
   }, [_c("span", {
     staticClass: "pdf-zoom-level"
   }, [_vm._v("Zoom: " + _vm._s(Math.round(_vm.pdfZoom * 100)) + "%")]), _vm._v(" "), _vm.selectedDocument ? _c("span", {
     staticClass: "pdf-page-info"
-  }, [_vm._v("File:\n                  " + _vm._s(_vm.selectedDocument.tracking_number) + "_attachment.pdf")]) : _vm._e()]) : _vm._e()])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("File: " + _vm._s(_vm.selectedDocument.document.tracking_number) + "_attachment.pdf")]) : _vm._e()]) : _vm._e()])]), _vm._v(" "), _c("div", {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -21125,11 +21649,11 @@ var render = function render() {
     staticClass: "route-history-panel"
   }, [_c("div", {
     staticClass: "route-history-header"
-  }, [_vm._m(13), _vm._v(" "), (_vm$selectedDocument7 = _vm.selectedDocument) !== null && _vm$selectedDocument7 !== void 0 && _vm$selectedDocument7.document_route && _vm.selectedDocument.document_route.length > 0 ? _c("div", {
+  }, [_vm._m(21), _vm._v(" "), _vm.getDocumentRoutes().length > 0 ? _c("div", {
     staticClass: "route-history-badge"
   }, [_c("i", {
     staticClass: "bi bi-arrow-left-right"
-  }), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.selectedDocument.document_route.length) + " Route" + _vm._s(_vm.selectedDocument.document_route.length !== 1 ? "s" : ""))])]) : _vm._e()]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.getDocumentRoutes().length) + " Route" + _vm._s(_vm.getDocumentRoutes().length !== 1 ? "s" : ""))])]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "route-history-content"
   }, [_vm.routeHistoryLoading ? _c("div", {
     staticClass: "route-state-box"
@@ -21137,21 +21661,20 @@ var render = function render() {
     staticClass: "loader-spinner"
   }), _vm._v(" "), _c("p", {
     staticClass: "mt-3 text-muted"
-  }, [_vm._v("Loading route history...")])]) : !((_vm$selectedDocument8 = _vm.selectedDocument) !== null && _vm$selectedDocument8 !== void 0 && _vm$selectedDocument8.document_route) || _vm.selectedDocument.document_route.length === 0 ? _c("div", {
+  }, [_vm._v("Loading route history...")])]) : _vm.getDocumentRoutes().length === 0 ? _c("div", {
     staticClass: "route-state-box"
-  }, [_vm._m(14), _vm._v(" "), _c("h5", {
+  }, [_vm._m(22), _vm._v(" "), _c("h5", {
     staticClass: "mt-3"
   }, [_vm._v("No Route History")]), _vm._v(" "), _c("p", {
     staticClass: "text-muted"
-  }, [_vm._v("\n                  This document hasn't been routed yet.\n                ")])]) : _c("div", {
+  }, [_vm._v("This document hasn't been routed yet.")])]) : _c("div", {
     staticClass: "timeline-container"
-  }, _vm._l(_vm.selectedDocument.document_route, function (route, rIndex) {
-    var _route$office;
+  }, _vm._l(_vm.getDocumentRoutes(), function (route, rIndex) {
     return _c("div", {
       key: rIndex,
       staticClass: "timeline-item",
       "class": {
-        "is-last": rIndex === _vm.selectedDocument.document_route.length - 1
+        "is-last": rIndex === _vm.getDocumentRoutes().length - 1
       }
     }, [_c("div", {
       staticClass: "timeline-node",
@@ -21173,7 +21696,7 @@ var render = function render() {
       staticClass: "office-text"
     }, [_c("span", {
       staticClass: "office-name"
-    }, [_vm._v(_vm._s(((_route$office = route.office) === null || _route$office === void 0 ? void 0 : _route$office.sub_office_name) || route.sub_office_name || "Unknown Office"))])])]), _vm._v(" "), _c("span", {
+    }, [_vm._v(_vm._s(_vm.getRouteOfficeName(route)))])])]), _vm._v(" "), _c("span", {
       staticClass: "route-status-badge",
       "class": _vm.getRouteStatusClass(route.status)
     }, [_c("i", {
@@ -21188,7 +21711,7 @@ var render = function render() {
       staticClass: "info-card-body"
     }, [_c("div", {
       staticClass: "info-field"
-    }, [_vm._m(15, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(23, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
@@ -21198,25 +21721,25 @@ var render = function render() {
       staticClass: "bi bi-clock me-1"
     }), _vm._v("\n                                  " + _vm._s(_vm.formatDateTime(route.date_receive)) + "\n                                ")])])]), _vm._v(" "), route.received_by || route.received_by_name ? _c("div", {
       staticClass: "info-field"
-    }, [_vm._m(16, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(24, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
     }, [_vm._v("Received By")]), _vm._v(" "), _c("span", {
-      staticClass: "field-value received-by"
+      staticClass: "field-value"
     }, [route.received_by ? [_vm._v("\n                                    " + _vm._s(route.received_by.firstname || "") + "\n                                    " + _vm._s(route.received_by.middlename ? route.received_by.middlename + " " : "") + "\n                                    " + _vm._s(route.received_by.lastname || "") + "\n                                  ")] : route.received_by_name ? [_vm._v("\n                                    " + _vm._s(route.received_by_name) + "\n                                  ")] : _vm._e()], 2)])]) : _vm._e(), _vm._v(" "), route.remarks ? _c("div", {
-      staticClass: "info-field remarks-field"
-    }, [_vm._m(17, true), _vm._v(" "), _c("div", {
+      staticClass: "info-field"
+    }, [_vm._m(25, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
     }, [_vm._v("Remarks")]), _vm._v(" "), _c("span", {
       staticClass: "field-value remarks-text"
-    }, [_vm._v("\n                                  " + _vm._s(route.remarks) + "\n                                ")])])]) : _vm._e()])]) : _vm._e(), _vm._v(" "), route.date_document_out ? _c("div", {
+    }, [_vm._v(_vm._s(route.remarks))])])]) : _vm._e()])]) : _vm._e(), _vm._v(" "), route.date_document_out ? _c("div", {
       staticClass: "info-card completed-card"
     }, [_c("div", {
       staticClass: "info-card-header"
-    }, [_vm._m(18, true), _vm._v(" "), _c("span", {
+    }, [_vm._m(26, true), _vm._v(" "), _c("span", {
       staticClass: "info-card-title"
     }, [_vm._v("Completion Information")]), _vm._v(" "), route.status === "Completed" ? _c("span", {
       staticClass: "info-card-status completed-status"
@@ -21226,7 +21749,7 @@ var render = function render() {
       staticClass: "info-card-body"
     }, [_c("div", {
       staticClass: "info-field"
-    }, [_vm._m(19, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(27, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
@@ -21236,7 +21759,7 @@ var render = function render() {
       staticClass: "bi bi-check-circle me-1"
     }), _vm._v("\n                                  " + _vm._s(_vm.formatDateTime(route.date_document_out)) + "\n                                ")])])]), _vm._v(" "), route.completed_by || route.completed_by_name ? _c("div", {
       staticClass: "info-field"
-    }, [_vm._m(20, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(28, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
@@ -21244,51 +21767,39 @@ var render = function render() {
       staticClass: "field-value"
     }, [route.completed_by ? [_vm._v("\n                                    " + _vm._s(route.completed_by.firstname || "") + "\n                                    " + _vm._s(route.completed_by.middlename ? route.completed_by.middlename + " " : "") + "\n                                    " + _vm._s(route.completed_by.lastname || "") + "\n                                  ")] : route.completed_by_name ? [_vm._v("\n                                    " + _vm._s(route.completed_by_name) + "\n                                  ")] : _vm._e()], 2)])]) : _vm._e(), _vm._v(" "), route.remarks ? _c("div", {
       staticClass: "info-field"
-    }, [_vm._m(21, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(29, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
     }, [_vm._v("Completion Notes")]), _vm._v(" "), _c("span", {
       staticClass: "field-value notes-text"
-    }, [_vm._v("\n                                  " + _vm._s(route.remarks) + "\n                                ")])])]) : _vm._e()])]) : _vm._e()]), _vm._v(" "), route.from_office || route.to_office ? _c("div", {
-      staticClass: "flow-section-enhanced"
+    }, [_vm._v(_vm._s(route.remarks))])])]) : _vm._e()])]) : _vm._e()]), _vm._v(" "), route.from_office || route.to_office ? _c("div", {
+      staticClass: "flow-section"
     }, [_c("div", {
       staticClass: "flow-container"
     }, [route.from_office ? _c("div", {
       staticClass: "flow-node origin-node"
-    }, [_vm._m(22, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(30, true), _vm._v(" "), _c("div", {
       staticClass: "flow-node-content"
     }, [_c("span", {
       staticClass: "flow-node-label"
     }, [_vm._v("From")]), _vm._v(" "), _c("span", {
       staticClass: "flow-node-value"
     }, [_vm._v(_vm._s(route.from_office))])])]) : _vm._e(), _vm._v(" "), route.from_office && route.to_office ? _c("div", {
-      staticClass: "flow-arrow-enhanced"
+      staticClass: "flow-arrow"
     }, [_c("div", {
       staticClass: "arrow-line"
-    }), _vm._v(" "), _vm._m(23, true), _vm._v(" "), _c("div", {
+    }), _vm._v(" "), _vm._m(31, true), _vm._v(" "), _c("div", {
       staticClass: "arrow-line"
     })]) : _vm._e(), _vm._v(" "), route.to_office ? _c("div", {
       staticClass: "flow-node destination-node"
-    }, [_vm._m(24, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(32, true), _vm._v(" "), _c("div", {
       staticClass: "flow-node-content"
     }, [_c("span", {
       staticClass: "flow-node-label"
     }, [_vm._v("To")]), _vm._v(" "), _c("span", {
       staticClass: "flow-node-value"
-    }, [_vm._v(_vm._s(route.to_office))])])]) : _vm._e()])]) : _vm._e(), _vm._v(" "), !route.date_receive && !route.date_document_out && !route.from_office && !route.to_office ? _c("div", {
-      staticClass: "text-center py-3 text-muted"
-    }, [_c("i", {
-      staticClass: "bi bi-hourglass-split",
-      staticStyle: {
-        "font-size": "1.5rem"
-      }
-    }), _vm._v(" "), _c("p", {
-      staticClass: "mt-2 mb-0",
-      staticStyle: {
-        "font-size": "0.85rem"
-      }
-    }, [_vm._v("Awaiting action")])]) : _vm._e()])])]);
+    }, [_vm._v(_vm._s(route.to_office))])])]) : _vm._e()])]) : _vm._e()])])]);
   }), 0)])])])])])]) : _vm._e()], 1);
 };
 var staticRenderFns = [function () {
@@ -21296,7 +21807,7 @@ var staticRenderFns = [function () {
     _c = _vm._self._c;
   return _c("thead", [_c("tr", [_c("th", {
     staticStyle: {
-      width: "5%"
+      width: "4%"
     }
   }, [_vm._v("#")]), _vm._v(" "), _c("th", {
     staticStyle: {
@@ -21304,43 +21815,105 @@ var staticRenderFns = [function () {
     }
   }, [_vm._v("Tracking No.")]), _vm._v(" "), _c("th", {
     staticStyle: {
-      width: "18%"
+      width: "13%"
+    }
+  }, [_vm._v("Classification")]), _vm._v(" "), _c("th", {
+    staticStyle: {
+      width: "15%"
     }
   }, [_vm._v("Document Type")]), _vm._v(" "), _c("th", {
     staticStyle: {
-      width: "22%"
+      width: "20%"
     }
   }, [_vm._v("Subject/Title")]), _vm._v(" "), _c("th", {
     staticStyle: {
-      width: "15%"
+      width: "13%"
     }
-  }, [_vm._v("Sender/Origin")]), _vm._v(" "), _c("th", {
+  }, [_vm._v("Receive By")]), _vm._v(" "), _c("th", {
     staticStyle: {
-      width: "15%"
+      width: "13%"
     }
   }, [_vm._v("Date Received")]), _vm._v(" "), _c("th", {
     staticStyle: {
-      width: "10%"
+      width: "20%"
     }
   }, [_vm._v("Actions")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("td", {
-    staticClass: "text-center py-5",
+    staticClass: "text-center",
     attrs: {
       colspan: "7"
     }
   }, [_c("div", {
     staticClass: "loader-spinner"
-  }), _vm._v(" "), _c("div", {
-    staticClass: "mt-2"
-  }, [_vm._v("Loading documents...")])]);
+  }), _vm._v("\n            Loading...\n          ")]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "modal-icon-wrapper square-icon document-icon"
+    staticClass: "d-flex align-items-center"
+  }, [_c("div", {
+    staticClass: "square-icon"
+  }, [_c("i", {
+    staticClass: "bi bi-arrow-right-circle"
+  })]), _vm._v(" "), _c("div", [_c("h5", {
+    staticClass: "modal-title"
+  }, [_vm._v("Forward Document")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("label", {
+    staticClass: "form-label"
+  }, [_vm._v("\n                Select Office(s) "), _c("span", {
+    staticClass: "required-star"
+  }, [_vm._v("*")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "office-icon-wrapper"
+  }, [_c("i", {
+    staticClass: "bi bi-building"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("label", {
+    staticClass: "form-label"
+  }, [_vm._v("\n                Duration "), _c("span", {
+    staticClass: "required-star"
+  }, [_vm._v("*")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "duration-display-badge"
+  }, [_c("span", {
+    staticClass: "badge-readonly"
+  }, [_vm._v("Read Only")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "existing-duration-info"
+  }, [_c("i", {
+    staticClass: "bi bi-info-circle-fill"
+  }), _vm._v(" "), _c("span", [_vm._v("Duration is set and cannot be changed.")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "duration-hint"
+  }, [_c("i", {
+    staticClass: "bi bi-info-circle"
+  }), _vm._v(" "), _c("span", [_vm._v("No duration set. Please select one.")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "square-icon document-icon"
   }, [_c("i", {
     staticClass: "bi bi-file-earmark-pdf"
   })]);
@@ -21359,6 +21932,14 @@ var staticRenderFns = [function () {
     staticClass: "detail-icon-wrapper"
   }, [_c("i", {
     staticClass: "bi bi-upc-scan"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "detail-icon-wrapper classification-icon"
+  }, [_c("i", {
+    staticClass: "bi bi-shield-lock"
   })]);
 }, function () {
   var _vm = this,
@@ -21388,34 +21969,36 @@ var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "detail-icon-wrapper date-icon-card"
+    staticClass: "detail-icon-wrapper duration-icon"
   }, [_c("i", {
-    staticClass: "bi bi-calendar-check"
+    staticClass: "bi bi-clock-history"
   })]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "detail-icon-wrapper desc-icon"
+    staticClass: "confidential-icon-wrapper"
+  }, [_c("div", {
+    staticClass: "confidential-icon"
   }, [_c("i", {
-    staticClass: "bi bi-blockquote-right"
+    staticClass: "bi bi-shield-lock-fill"
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "confidential-ring"
   })]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "detail-icon-wrapper meta-icon"
-  }, [_c("i", {
-    staticClass: "bi bi-info-circle"
-  })]);
+  return _c("p", {
+    staticClass: "confidential-message"
+  }, [_vm._v("\n                    This document is classified as "), _c("strong", [_vm._v("CONFIDENTIAL")]), _vm._v(".\n                  ")]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "pdf-panel-title"
+    staticClass: "confidential-footer-note"
   }, [_c("i", {
-    staticClass: "bi bi-file-pdf"
-  }), _vm._v(" "), _c("span", [_vm._v("Document Preview")])]);
+    staticClass: "bi bi-exclamation-triangle-fill"
+  }), _vm._v(" "), _c("span", [_vm._v("Unauthorized access prohibited.")])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -27956,7 +28539,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* ===== VERTICAL TABS LAYOUT ===== */\n.tabs-vertical-container[data-v-71b451b1] {\r\n  display: flex;\r\n  gap: 0;\r\n  min-height: 400px;\r\n  background: #ffffff;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 12px;\r\n  overflow: hidden;\r\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);\n}\n.tabs-vertical-nav[data-v-71b451b1] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 220px;\r\n  min-width: 220px;\r\n  background: #f8fafc;\r\n  border-right: 1px solid #e5e7eb;\r\n  padding: 12px;\r\n  gap: 6px;\n}\n.tab-vertical-button[data-v-71b451b1] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 10px;\r\n  padding: 12px 14px;\r\n  background: #ffffff;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  cursor: pointer;\r\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\r\n  position: relative;\r\n  overflow: hidden;\n}\n.tab-vertical-button[data-v-71b451b1]::before {\r\n  content: \"\";\r\n  position: absolute;\r\n  left: 0;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  width: 3px;\r\n  height: 0;\r\n  background: linear-gradient(180deg, #2d6a4f, #1e4d2b);\r\n  border-radius: 0 3px 3px 0;\r\n  transition: height 0.3s ease;\n}\n.tab-vertical-button[data-v-71b451b1]:hover {\r\n  background: #f0fdf4;\r\n  border-color: #86efac;\r\n  transform: translateX(3px);\r\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);\n}\n.tab-vertical-button.active[data-v-71b451b1] {\r\n  background: linear-gradient(135deg, #2d6a4f, #1e4d2b);\r\n  border-color: #2d6a4f;\r\n  color: #ffffff;\r\n  transform: translateX(3px);\r\n  box-shadow: 0 8px 25px rgba(45, 106, 79, 0.4);\n}\n.tab-vertical-icon[data-v-71b451b1] {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 32px;\r\n  height: 32px;\r\n  border-radius: 8px;\r\n  background: #f0fdf4;\r\n  transition: all 0.3s ease;\r\n  flex-shrink: 0;\n}\n.tab-vertical-button.active .tab-vertical-icon[data-v-71b451b1] {\r\n  background: rgba(255, 255, 255, 0.25);\n}\n.tab-vertical-content[data-v-71b451b1] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 1px;\r\n  flex: 1;\n}\n.tab-vertical-label[data-v-71b451b1] {\r\n  font-size: 11px;\r\n  font-weight: 700;\r\n  letter-spacing: 0.8px;\r\n  color: #374151;\n}\n.tab-vertical-button.active .tab-vertical-label[data-v-71b451b1] {\r\n  color: #ffffff;\n}\n.tab-vertical-count[data-v-71b451b1] {\r\n  font-size: 17px;\r\n  font-weight: 800;\r\n  color: #2d6a4f;\n}\n.tab-vertical-button.active .tab-vertical-count[data-v-71b451b1] {\r\n  color: #ffffff;\n}\n.tab-vertical-indicator[data-v-71b451b1] {\r\n  position: absolute;\r\n  right: 12px;\r\n  width: 8px;\r\n  height: 8px;\r\n  border-radius: 50%;\r\n  background: #e5e7eb;\r\n  transition: all 0.3s ease;\n}\n.tab-vertical-button.active .tab-vertical-indicator[data-v-71b451b1] {\r\n  background: #52b788;\r\n  box-shadow: 0 0 10px rgba(82, 183, 136, 0.6);\n}\n.tabs-vertical-body[data-v-71b451b1] {\r\n  flex: 1;\r\n  padding: 20px;\r\n  background: #ffffff;\r\n  min-width: 0;\n}\r\n\r\n/* ===== FILTER CONTROLS ===== */\n.filter-controls[data-v-71b451b1] {\r\n  margin-bottom: 20px;\n}\n.search-filter-row[data-v-71b451b1] {\r\n  display: flex;\r\n  gap: 12px;\r\n  align-items: center;\r\n  flex-wrap: wrap;\n}\n.search-box-wrapper[data-v-71b451b1] {\r\n  flex: 1;\r\n  min-width: 200px;\n}\n.search-box[data-v-71b451b1] {\r\n  position: relative;\r\n  width: 100%;\n}\n.search-icon[data-v-71b451b1] {\r\n  position: absolute;\r\n  left: 12px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  color: #9ca3af;\r\n  z-index: 1;\n}\n.search-input[data-v-71b451b1] {\r\n  width: 100%;\r\n  padding: 10px 35px 10px 36px;\r\n  border: 2px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  font-size: 14px;\r\n  outline: none;\r\n  background: #ffffff;\r\n  transition: all 0.3s ease;\n}\n.search-input[data-v-71b451b1]:focus {\r\n  border-color: #2d6a4f;\r\n  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\n.search-clear-btn[data-v-71b451b1] {\r\n  position: absolute;\r\n  right: 8px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  background: none;\r\n  border: none;\r\n  color: #9ca3af;\r\n  cursor: pointer;\r\n  padding: 4px;\n}\n.search-clear-btn[data-v-71b451b1]:hover {\r\n  color: #ef4444;\n}\n.per-page-wrapper[data-v-71b451b1] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  white-space: nowrap;\n}\n.per-page-label[data-v-71b451b1] {\r\n  font-size: 13px;\r\n  color: #6b7280;\r\n  font-weight: 500;\n}\n.per-page-select[data-v-71b451b1] {\r\n  padding: 8px 12px;\r\n  border: 2px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  font-size: 13px;\r\n  background: #ffffff;\r\n  outline: none;\r\n  cursor: pointer;\r\n  transition: all 0.3s ease;\n}\n.per-page-select[data-v-71b451b1]:focus {\r\n  border-color: #2d6a4f;\n}\n.filter-wrapper[data-v-71b451b1] {\r\n  min-width: 180px;\n}\n.filter-box[data-v-71b451b1] {\r\n  position: relative;\n}\n.filter-icon[data-v-71b451b1] {\r\n  position: absolute;\r\n  left: 12px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  color: #9ca3af;\r\n  z-index: 1;\n}\n.filter-select[data-v-71b451b1] {\r\n  width: 100%;\r\n  padding: 10px 12px 10px 36px;\r\n  border: 2px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  font-size: 13px;\r\n  background: #ffffff;\r\n  outline: none;\r\n  cursor: pointer;\r\n  -webkit-appearance: none;\r\n     -moz-appearance: none;\r\n          appearance: none;\r\n  background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E\");\r\n  background-repeat: no-repeat;\r\n  background-position: right 12px center;\r\n  transition: all 0.3s ease;\n}\n.filter-select[data-v-71b451b1]:focus {\r\n  border-color: #2d6a4f;\r\n  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\r\n\r\n/* ===== ACTIVE FILTERS ===== */\n.active-filters[data-v-71b451b1] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  margin-top: 12px;\r\n  padding: 10px 14px;\r\n  background: #f0fdf4;\r\n  border: 1px solid #bbf7d0;\r\n  border-radius: 8px;\r\n  flex-wrap: wrap;\n}\n.active-filters-label[data-v-71b451b1] {\r\n  font-size: 12px;\r\n  font-weight: 600;\r\n  color: #166534;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\n}\n.filter-tag[data-v-71b451b1] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  padding: 4px 10px;\r\n  background: #ffffff;\r\n  border: 1px solid #86efac;\r\n  border-radius: 20px;\r\n  font-size: 12px;\r\n  color: #166534;\r\n  font-weight: 500;\n}\n.filter-tag-close[data-v-71b451b1] {\r\n  background: none;\r\n  border: none;\r\n  color: #6b7280;\r\n  cursor: pointer;\r\n  padding: 0;\r\n  display: flex;\r\n  align-items: center;\n}\n.filter-tag-close[data-v-71b451b1]:hover {\r\n  color: #ef4444;\n}\n.clear-all-filters[data-v-71b451b1] {\r\n  padding: 4px 12px;\r\n  background: none;\r\n  border: 1px solid #86efac;\r\n  border-radius: 6px;\r\n  font-size: 12px;\r\n  color: #166534;\r\n  cursor: pointer;\r\n  font-weight: 600;\r\n  transition: all 0.2s;\n}\n.clear-all-filters[data-v-71b451b1]:hover {\r\n  background: #dcfce7;\r\n  border-color: #166534;\n}\n.results-summary[data-v-71b451b1] {\r\n  margin-top: 10px;\r\n  font-size: 13px;\r\n  color: #6b7280;\n}\n.results-count[data-v-71b451b1] {\r\n  font-weight: 700;\r\n  color: #2d6a4f;\r\n  font-size: 16px;\n}\r\n\r\n/* ===== TABLE ===== */\n.table-responsive[data-v-71b451b1] {\r\n  overflow-x: auto;\r\n  margin-top: 16px;\n}\n.office-table[data-v-71b451b1] {\r\n  width: 100%;\r\n  border-collapse: collapse;\r\n  font-size: 13px;\r\n  background: white;\n}\n.office-table th[data-v-71b451b1],\r\n.office-table td[data-v-71b451b1] {\r\n  border: 1px solid #f3f4f6;\r\n  padding: 12px 14px;\r\n  text-align: left;\r\n  vertical-align: middle;\n}\n.office-table thead th[data-v-71b451b1] {\r\n  background: #f8fafc;\r\n  font-weight: 700;\r\n  color: #374151;\r\n  text-transform: uppercase;\r\n  font-size: 11px;\r\n  letter-spacing: 0.5px;\r\n  border-bottom: 2px solid #e5e7eb;\n}\n.office-table tbody tr[data-v-71b451b1]:hover {\r\n  background: #f0fdf4;\n}\n.office-table tbody tr[data-v-71b451b1]:nth-child(even) {\r\n  background: #fafafa;\n}\n.office-table tbody tr[data-v-71b451b1]:nth-child(even):hover {\r\n  background: #f0fdf4;\n}\n.row-number[data-v-71b451b1] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 28px;\r\n  height: 28px;\r\n  border-radius: 6px;\r\n  background: #f3f4f6;\r\n  color: #6b7280;\r\n  font-size: 12px;\r\n  font-weight: 600;\n}\n.tracking-number[data-v-71b451b1] {\r\n  font-weight: 700;\r\n  color: #2d6a4f;\r\n  font-family: \"Courier New\", monospace;\r\n  font-size: 13px;\r\n  padding: 2px 8px;\r\n  background: #f0fdf4;\r\n  border-radius: 4px;\n}\n.doc-type-badge[data-v-71b451b1] {\r\n  display: inline-block;\r\n  padding: 3px 10px;\r\n  background: #e0e7ff;\r\n  color: #3730a3;\r\n  border-radius: 4px;\r\n  font-size: 11px;\r\n  font-weight: 600;\r\n  border: 1px solid #c7d2fe;\n}\n.subject-text[data-v-71b451b1] {\r\n  color: #1e293b;\r\n  font-weight: 500;\r\n  line-height: 1.4;\r\n  font-size: 13px;\n}\n.sender-text[data-v-71b451b1] {\r\n  color: #475569;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  font-size: 13px;\n}\n.sender-icon[data-v-71b451b1] {\r\n  color: #94a3b8;\r\n  font-size: 14px;\n}\n.date-received[data-v-71b451b1] {\r\n  color: #64748b;\r\n  font-size: 12px;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\n}\n.date-icon[data-v-71b451b1] {\r\n  color: #94a3b8;\r\n  font-size: 13px;\n}\r\n\r\n/* ===== ACTION BUTTONS ===== */\n.action-buttons[data-v-71b451b1] {\r\n  display: flex;\r\n  gap: 6px;\r\n  align-items: center;\n}\n.btn-action[data-v-71b451b1] {\r\n  background: none;\r\n  border: 1px solid transparent;\r\n  border-radius: 6px;\r\n  padding: 6px 10px;\r\n  cursor: pointer;\r\n  font-size: 0.95rem;\r\n  transition: all 0.2s;\r\n  text-decoration: none;\n}\n.btn-view[data-v-71b451b1] {\r\n  color: #6366f1;\r\n  border-color: #c7d2fe;\r\n  background: #eef2ff;\n}\n.btn-view[data-v-71b451b1]:hover {\r\n  background: #ddd6fe;\r\n  transform: scale(1.05);\n}\n.btn-release[data-v-71b451b1] {\r\n  color: #059669;\r\n  border-color: #a7f3d0;\r\n  background: #d1fae5;\n}\n.btn-release[data-v-71b451b1]:hover {\r\n  background: #a7f3d0;\r\n  transform: scale(1.05);\n}\n.btn-download[data-v-71b451b1] {\r\n  color: #0891b2;\r\n  border-color: #67e8f9;\r\n  background: #cffafe;\n}\n.btn-download[data-v-71b451b1]:hover {\r\n  background: #67e8f9;\r\n  transform: scale(1.05);\n}\r\n\r\n/* ===== STATUS BADGE ===== */\n.status-badge[data-v-71b451b1] {\r\n  display: inline-block;\r\n  padding: 4px 12px;\r\n  border-radius: 20px;\r\n  font-size: 0.75rem;\r\n  font-weight: 600;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\n}\n.status-in-progress[data-v-71b451b1] {\r\n  background: #fef3c7;\r\n  color: #d97706;\r\n  border: 1px solid #fde68a;\n}\n.status-for-release[data-v-71b451b1] {\r\n  background: #dbeafe;\r\n  color: #2563eb;\r\n  border: 1px solid #bfdbfe;\n}\n.status-released[data-v-71b451b1] {\r\n  background: #d1fae5;\r\n  color: #059669;\r\n  border: 1px solid #a7f3d0;\n}\r\n\r\n/* ===== LOADER ===== */\n.loader-spinner[data-v-71b451b1] {\r\n  width: 40px;\r\n  height: 40px;\r\n  border: 3px solid #e5e7eb;\r\n  border-top-color: #2d6a4f;\r\n  border-radius: 50%;\r\n  animation: spin-71b451b1 0.8s linear infinite;\r\n  margin: 0 auto 10px;\n}\n@keyframes spin-71b451b1 {\nto {\r\n    transform: rotate(360deg);\n}\n}\n.empty-state[data-v-71b451b1] {\r\n  padding: 20px;\r\n  text-align: center;\n}\r\n\r\n/* ===== MODAL OVERLAY ===== */\n.modal-overlay[data-v-71b451b1] {\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background: rgba(0, 0, 0, 0.55);\r\n  backdrop-filter: blur(4px);\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  z-index: 1050;\r\n  animation: fadeIn-71b451b1 0.2s ease-out;\n}\n.enhanced-modal[data-v-71b451b1] {\r\n  width: 100%;\r\n  max-width: 620px;\r\n  margin: 0 15px;\r\n  animation: modalSlideUp-71b451b1 0.3s ease-out;\n}\n@keyframes modalSlideUp-71b451b1 {\nfrom {\r\n    transform: translateY(30px);\r\n    opacity: 0;\n}\nto {\r\n    transform: translateY(0);\r\n    opacity: 1;\n}\n}\n@keyframes fadeIn-71b451b1 {\nfrom {\r\n    opacity: 0;\n}\nto {\r\n    opacity: 1;\n}\n}\n.square-modal[data-v-71b451b1] {\r\n  border: none;\r\n  border-radius: 12px;\r\n  overflow: hidden;\r\n  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);\r\n  background: #fff;\r\n  position: relative;\n}\n.square-header[data-v-71b451b1] {\r\n  background: linear-gradient(135deg, #1e4d2b, #2d6a4f);\r\n  padding: 20px 24px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n  color: white;\r\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n}\n.square-icon[data-v-71b451b1] {\r\n  width: 42px;\r\n  height: 42px;\r\n  background: rgba(255, 255, 255, 0.2);\r\n  border-radius: 10px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1.4rem;\r\n  margin-right: 14px;\n}\n.modal-title[data-v-71b451b1] {\r\n  font-weight: 700;\r\n  font-size: 1.25rem;\n}\n.modal-subtitle[data-v-71b451b1] {\r\n  font-size: 0.85rem;\r\n  opacity: 0.85;\n}\n.square-close[data-v-71b451b1] {\r\n  background: rgba(255, 255, 255, 0.15);\r\n  border: none;\r\n  color: white;\r\n  width: 36px;\r\n  height: 36px;\r\n  border-radius: 8px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  cursor: pointer;\r\n  transition: background 0.2s;\n}\n.square-close[data-v-71b451b1]:hover {\r\n  background: rgba(255, 255, 255, 0.3);\n}\n.modal-body-enhanced[data-v-71b451b1] {\r\n  padding: 24px;\r\n  background: #f9fafb;\n}\r\n\r\n/* ===== ENHANCED DOCUMENT VIEWER ===== */\n.document-view-modal[data-v-71b451b1] {\r\n  max-width: 1400px;\r\n  width: 95vw;\r\n  max-height: 90vh;\n}\n.document-viewer-body[data-v-71b451b1] {\r\n  padding: 0;\r\n  max-height: calc(90vh - 80px);\r\n  overflow: hidden;\r\n  display: flex;\r\n  flex-direction: column;\n}\n.document-viewer-tabs[data-v-71b451b1] {\r\n  display: flex;\r\n  gap: 4px;\r\n  padding: 12px 20px;\r\n  background: #f8fafc;\r\n  border-bottom: 2px solid #e5e7eb;\r\n  flex-shrink: 0;\n}\n.viewer-tab-btn[data-v-71b451b1] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  padding: 10px 20px;\r\n  background: #ffffff;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  color: #64748b;\r\n  font-size: 13px;\r\n  font-weight: 600;\r\n  cursor: pointer;\r\n  white-space: nowrap;\r\n  transition: all 0.3s ease;\r\n  font-family: \"Inter\", sans-serif;\n}\n.viewer-tab-btn[data-v-71b451b1]:hover {\r\n  background: #f0fdf4;\r\n  border-color: #86efac;\r\n  color: #2d6a4f;\r\n  transform: translateY(-1px);\n}\n.viewer-tab-btn.active[data-v-71b451b1] {\r\n  background: linear-gradient(135deg, #2d6a4f, #1e4d2b);\r\n  border-color: #2d6a4f;\r\n  color: #ffffff;\r\n  box-shadow: 0 4px 12px rgba(45, 106, 79, 0.3);\n}\n.document-viewer-layout[data-v-71b451b1] {\r\n  display: grid;\r\n  grid-template-columns: 380px 1fr;\r\n  height: calc(90vh - 140px);\r\n  min-height: 500px;\n}\r\n\r\n/* ===== DETAILS PANEL ===== */\n.details-panel[data-v-71b451b1] {\r\n  background: #ffffff;\r\n  border-right: 1px solid #e5e7eb;\r\n  display: flex;\r\n  flex-direction: column;\r\n  overflow: hidden;\n}\n.details-panel-header[data-v-71b451b1] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 10px;\r\n  padding: 16px 20px;\r\n  background: #f8fafc;\r\n  border-bottom: 1px solid #e5e7eb;\r\n  font-weight: 700;\r\n  color: #1e293b;\r\n  font-size: 0.9rem;\r\n  flex-shrink: 0;\n}\n.details-content[data-v-71b451b1] {\r\n  flex: 1;\r\n  overflow-y: auto;\r\n  padding: 16px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 12px;\n}\n.details-content[data-v-71b451b1]::-webkit-scrollbar {\r\n  width: 6px;\n}\n.details-content[data-v-71b451b1]::-webkit-scrollbar-track {\r\n  background: #f1f5f9;\n}\n.details-content[data-v-71b451b1]::-webkit-scrollbar-thumb {\r\n  background: #94a3b8;\r\n  border-radius: 3px;\n}\n.detail-card[data-v-71b451b1] {\r\n  display: flex;\r\n  gap: 12px;\r\n  padding: 14px;\r\n  background: #f8fafc;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 10px;\r\n  transition: all 0.2s ease;\n}\n.detail-icon-wrapper[data-v-71b451b1] {\r\n  width: 40px;\r\n  height: 40px;\r\n  min-width: 40px;\r\n  border-radius: 8px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1.1rem;\r\n  background: #e0f2fe;\r\n  color: #0284c7;\n}\n.detail-icon-wrapper.type-icon[data-v-71b451b1] {\r\n  background: #fef3c7;\r\n  color: #d97706;\n}\n.detail-icon-wrapper.subject-icon[data-v-71b451b1] {\r\n  background: #dcfce7;\r\n  color: #16a34a;\n}\n.detail-icon-wrapper.sender-icon-card[data-v-71b451b1] {\r\n  background: #ede9fe;\r\n  color: #7c3aed;\n}\n.detail-icon-wrapper.date-icon-card[data-v-71b451b1] {\r\n  background: #fce7f3;\r\n  color: #db2777;\n}\n.detail-icon-wrapper.desc-icon[data-v-71b451b1] {\r\n  background: #fff7ed;\r\n  color: #ea580c;\n}\n.detail-icon-wrapper.meta-icon[data-v-71b451b1] {\r\n  background: #f1f5f9;\r\n  color: #64748b;\n}\n.detail-info[data-v-71b451b1] {\r\n  flex: 1;\r\n  min-width: 0;\n}\n.detail-info label[data-v-71b451b1] {\r\n  display: block;\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  color: #64748b;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  margin-bottom: 4px;\n}\n.detail-value[data-v-71b451b1] {\r\n  font-size: 0.85rem;\r\n  color: #1e293b;\r\n  font-weight: 500;\r\n  word-break: break-word;\r\n  line-height: 1.4;\n}\n.tracking-number-large[data-v-71b451b1] {\r\n  font-size: 0.9rem;\r\n  font-weight: 700;\r\n  color: #2d6a4f;\r\n  font-family: \"Courier New\", monospace;\r\n  background: #f0fdf4;\r\n  padding: 2px 8px;\r\n  border-radius: 4px;\r\n  display: inline-block;\n}\n.doc-type-badge-large[data-v-71b451b1] {\r\n  display: inline-block;\r\n  padding: 3px 12px;\r\n  background: #e0e7ff;\r\n  color: #3730a3;\r\n  border-radius: 6px;\r\n  font-size: 0.8rem;\r\n  font-weight: 600;\r\n  border: 1px solid #c7d2fe;\n}\n.time-text[data-v-71b451b1] {\r\n  color: #64748b;\r\n  font-size: 0.75rem;\r\n  display: block;\r\n  margin-top: 2px;\n}\n.description-card[data-v-71b451b1] {\r\n  background: #fffbeb;\r\n  border-color: #fde68a;\n}\n.description-text[data-v-71b451b1] {\r\n  color: #78350f;\r\n  font-style: italic;\r\n  line-height: 1.6;\n}\r\n\r\n/* ===== PDF PANEL ===== */\n.pdf-panel[data-v-71b451b1] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  background: #f8fafc;\r\n  overflow: hidden;\n}\n.pdf-panel-header[data-v-71b451b1] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 12px 20px;\r\n  background: #ffffff;\r\n  border-bottom: 1px solid #e5e7eb;\r\n  flex-shrink: 0;\n}\n.pdf-panel-title[data-v-71b451b1] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  font-weight: 700;\r\n  color: #1e293b;\r\n  font-size: 0.9rem;\n}\n.pdf-panel-title i[data-v-71b451b1] {\r\n  color: #dc2626;\r\n  font-size: 1.2rem;\n}\n.pdf-controls[data-v-71b451b1] {\r\n  display: flex;\r\n  gap: 4px;\r\n  align-items: center;\n}\n.btn-pdf-control[data-v-71b451b1] {\r\n  background: #f1f5f9;\r\n  border: 1px solid #e5e7eb;\r\n  color: #475569;\r\n  width: 34px;\r\n  height: 34px;\r\n  border-radius: 6px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  cursor: pointer;\r\n  transition: all 0.2s;\r\n  font-size: 0.9rem;\n}\n.btn-pdf-control[data-v-71b451b1]:hover:not(:disabled) {\r\n  background: #e2e8f0;\r\n  border-color: #94a3b8;\r\n  color: #1e293b;\n}\n.btn-pdf-control[data-v-71b451b1]:disabled {\r\n  opacity: 0.5;\r\n  cursor: not-allowed;\n}\n.pdf-viewer-wrapper[data-v-71b451b1] {\r\n  flex: 1;\r\n  overflow: auto;\r\n  background: #525659;\r\n  position: relative;\r\n  min-height: 400px;\n}\n.pdf-viewer-wrapper[data-v-71b451b1]::-webkit-scrollbar {\r\n  width: 10px;\r\n  height: 10px;\n}\n.pdf-viewer-wrapper[data-v-71b451b1]::-webkit-scrollbar-track {\r\n  background: #3a3d40;\n}\n.pdf-viewer-wrapper[data-v-71b451b1]::-webkit-scrollbar-thumb {\r\n  background: #6b7280;\r\n  border-radius: 5px;\n}\n.pdf-iframe[data-v-71b451b1] {\r\n  border: none;\r\n  display: block;\r\n  background: #ffffff;\r\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);\n}\n.pdf-state[data-v-71b451b1] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  height: 100%;\r\n  min-height: 400px;\r\n  color: #9ca3af;\r\n  padding: 40px;\n}\n.pdf-loader-animation[data-v-71b451b1] {\r\n  position: relative;\r\n  width: 80px;\r\n  height: 80px;\r\n  margin-bottom: 16px;\n}\n.pdf-loader-icon[data-v-71b451b1] {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 50%;\r\n  transform: translate(-50%, -50%);\r\n  font-size: 2rem;\r\n  color: #dc2626;\r\n  z-index: 2;\n}\n.pdf-state-text[data-v-71b451b1] {\r\n  color: #d1d5db;\r\n  font-size: 0.9rem;\r\n  margin-top: 8px;\n}\n.pdf-error[data-v-71b451b1] {\r\n  color: #fca5a5;\n}\n.pdf-error h5[data-v-71b451b1] {\r\n  color: #fca5a5;\r\n  font-weight: 600;\n}\n.pdf-footer[data-v-71b451b1] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 8px 20px;\r\n  background: #ffffff;\r\n  border-top: 1px solid #e5e7eb;\r\n  font-size: 0.75rem;\r\n  color: #64748b;\r\n  flex-shrink: 0;\n}\n.pdf-zoom-level[data-v-71b451b1] {\r\n  font-weight: 600;\r\n  color: #2d6a4f;\n}\n.pdf-page-info[data-v-71b451b1] {\r\n  font-family: \"Courier New\", monospace;\n}\r\n\r\n/* ===== ROUTE HISTORY PANEL ===== */\n.route-history-panel[data-v-71b451b1] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: calc(90vh - 140px);\r\n  background: #ffffff;\r\n  min-height: 500px;\n}\n.route-history-header[data-v-71b451b1] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 16px 24px;\r\n  background: #f8fafc;\r\n  border-bottom: 2px solid #e5e7eb;\r\n  flex-shrink: 0;\n}\n.route-history-title[data-v-71b451b1] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 10px;\r\n  font-weight: 700;\r\n  color: #1e293b;\r\n  font-size: 1rem;\n}\n.route-history-title i[data-v-71b451b1] {\r\n  color: #2d6a4f;\r\n  font-size: 1.2rem;\n}\n.route-history-badge[data-v-71b451b1] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  padding: 6px 14px;\r\n  background: #f0fdf4;\r\n  border: 1px solid #bbf7d0;\r\n  border-radius: 20px;\r\n  font-size: 0.8rem;\r\n  font-weight: 600;\r\n  color: #166534;\n}\n.route-history-content[data-v-71b451b1] {\r\n  flex: 1;\r\n  overflow-y: auto;\r\n  padding: 24px;\r\n  background: #f9fafb;\n}\n.route-history-content[data-v-71b451b1]::-webkit-scrollbar {\r\n  width: 8px;\n}\n.route-history-content[data-v-71b451b1]::-webkit-scrollbar-track {\r\n  background: #f1f5f9;\r\n  border-radius: 4px;\n}\n.route-history-content[data-v-71b451b1]::-webkit-scrollbar-thumb {\r\n  background: #94a3b8;\r\n  border-radius: 4px;\n}\n.route-state-box[data-v-71b451b1] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  height: 100%;\r\n  min-height: 300px;\r\n  text-align: center;\n}\n.empty-icon-wrapper[data-v-71b451b1] {\r\n  width: 80px;\r\n  height: 80px;\r\n  border-radius: 50%;\r\n  background: #f1f5f9;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 2rem;\r\n  color: #94a3b8;\r\n  margin-bottom: 16px;\n}\r\n\r\n/* ===== TIMELINE ===== */\n.timeline-container[data-v-71b451b1] {\r\n  position: relative;\r\n  padding-left: 45px;\n}\n.timeline-container[data-v-71b451b1]::before {\r\n  content: \"\";\r\n  position: absolute;\r\n  left: 14px;\r\n  top: 10px;\r\n  bottom: 10px;\r\n  width: 2px;\r\n  background: linear-gradient(180deg, #cbd5e1 0%, #e2e8f0 100%);\n}\n.timeline-item[data-v-71b451b1] {\r\n  position: relative;\r\n  margin-bottom: 32px;\n}\n.timeline-item.is-last[data-v-71b451b1] {\r\n  margin-bottom: 0;\n}\n.timeline-node[data-v-71b451b1] {\r\n  position: absolute;\r\n  left: -38px;\r\n  top: 0;\r\n  width: 30px;\r\n  height: 30px;\r\n  border-radius: 50%;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  color: white;\r\n  z-index: 2;\r\n  border: 3px solid #ffffff;\r\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);\r\n  font-size: 0.8rem;\n}\n.node-completed[data-v-71b451b1] {\r\n  background: #059669;\n}\n.node-active[data-v-71b451b1] {\r\n  background: #2563eb;\r\n  animation: pulse-71b451b1 2s infinite;\n}\n.node-pending[data-v-71b451b1] {\r\n  background: #d97706;\n}\n.node-rejected[data-v-71b451b1] {\r\n  background: #dc2626;\n}\n@keyframes pulse-71b451b1 {\n0%,\r\n  100% {\r\n    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);\n}\n50% {\r\n    box-shadow: 0 0 0 8px rgba(37, 99, 235, 0.1);\n}\n}\n.timeline-card[data-v-71b451b1] {\r\n  background: #ffffff;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 12px;\r\n  transition: all 0.3s ease;\r\n  overflow: hidden;\r\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);\n}\n.timeline-card[data-v-71b451b1]:hover {\r\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);\r\n  transform: translateY(-2px);\r\n  border-color: #cbd5e1;\n}\n.timeline-card.active-card[data-v-71b451b1] {\r\n  border-left: 4px solid #2563eb;\r\n  background: linear-gradient(135deg, #eff6ff, #ffffff);\n}\n.timeline-card-header[data-v-71b451b1] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 16px 20px;\r\n  background: #f8fafc;\r\n  border-bottom: 1px solid #e5e7eb;\r\n  flex-wrap: wrap;\r\n  gap: 12px;\n}\n.office-info[data-v-71b451b1] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 12px;\n}\n.office-info i[data-v-71b451b1] {\r\n  font-size: 1.25rem;\r\n  color: #2d6a4f;\n}\n.office-text[data-v-71b451b1] {\r\n  display: flex;\r\n  flex-direction: column;\n}\n.office-name[data-v-71b451b1] {\r\n  font-size: 1rem;\r\n  font-weight: 700;\r\n  color: #1e293b;\r\n  line-height: 1.3;\n}\n.route-status-badge[data-v-71b451b1] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  font-size: 0.75rem;\r\n  font-weight: 700;\r\n  padding: 5px 12px;\r\n  border-radius: 20px;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  white-space: nowrap;\n}\n.badge-completed[data-v-71b451b1] {\r\n  background: #d1fae5;\r\n  color: #059669;\r\n  border: 1px solid #a7f3d0;\n}\n.badge-active[data-v-71b451b1] {\r\n  background: #dbeafe;\r\n  color: #2563eb;\r\n  border: 1px solid #bfdbfe;\n}\n.badge-pending[data-v-71b451b1] {\r\n  background: #fef3c7;\r\n  color: #d97706;\r\n  border: 1px solid #fde68a;\n}\n.badge-rejected[data-v-71b451b1] {\r\n  background: #fee2e2;\r\n  color: #dc2626;\r\n  border: 1px solid #fecaca;\n}\n.timeline-card-body[data-v-71b451b1] {\r\n  padding: 20px;\n}\r\n\r\n/* ===== ENHANCED INFO GRID ===== */\n.info-grid-enhanced[data-v-71b451b1] {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));\r\n  gap: 16px;\r\n  margin-bottom: 20px;\n}\r\n\r\n/* ===== INFO CARDS ===== */\n.info-card[data-v-71b451b1] {\r\n  background: #ffffff;\r\n  border-radius: 12px;\r\n  border: 1px solid #e5e7eb;\r\n  overflow: hidden;\r\n  transition: all 0.3s ease;\n}\n.received-card[data-v-71b451b1] {\r\n  border-left: 4px solid #3b82f6;\n}\n.completed-card[data-v-71b451b1] {\r\n  border-left: 4px solid #10b981;\n}\n.info-card-header[data-v-71b451b1] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 10px;\r\n  padding: 12px 16px;\r\n  background: #f8fafc;\r\n  border-bottom: 1px solid #e5e7eb;\n}\n.info-card-icon[data-v-71b451b1] {\r\n  width: 32px;\r\n  height: 32px;\r\n  border-radius: 8px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1rem;\r\n  color: #ffffff;\r\n  flex-shrink: 0;\n}\n.completed-icon[data-v-71b451b1] {\r\n  background: linear-gradient(135deg, #10b981, #059669);\n}\n.info-card-title[data-v-71b451b1] {\r\n  font-weight: 700;\r\n  font-size: 0.8rem;\r\n  color: #1e293b;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  flex: 1;\n}\n.info-card-status[data-v-71b451b1] {\r\n  font-size: 0.65rem;\r\n  font-weight: 700;\r\n  padding: 3px 10px;\r\n  border-radius: 20px;\n}\n.completed-status[data-v-71b451b1] {\r\n  background: #d1fae5;\r\n  color: #059669;\n}\n.info-card-body[data-v-71b451b1] {\r\n  padding: 12px 16px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 10px;\n}\n.info-field[data-v-71b451b1] {\r\n  display: flex;\r\n  gap: 12px;\r\n  align-items: flex-start;\n}\n.field-icon[data-v-71b451b1] {\r\n  width: 28px;\r\n  height: 28px;\r\n  min-width: 28px;\r\n  border-radius: 6px;\r\n  background: #f1f5f9;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 0.85rem;\r\n  color: #64748b;\n}\n.remarks-icon[data-v-71b451b1] {\r\n  background: #fffbeb;\r\n  color: #d97706;\n}\n.notes-icon[data-v-71b451b1] {\r\n  background: #f0fdf4;\r\n  color: #059669;\n}\n.field-content[data-v-71b451b1] {\r\n  flex: 1;\r\n  min-width: 0;\n}\n.field-label[data-v-71b451b1] {\r\n  display: block;\r\n  font-size: 0.65rem;\r\n  font-weight: 600;\r\n  color: #64748b;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  margin-bottom: 2px;\n}\n.field-value[data-v-71b451b1] {\r\n  display: block;\r\n  font-size: 0.85rem;\r\n  color: #1e293b;\r\n  font-weight: 500;\r\n  word-break: break-word;\r\n  line-height: 1.4;\n}\n.received-date[data-v-71b451b1] {\r\n  color: #2563eb;\r\n  font-weight: 600;\n}\n.completed-date[data-v-71b451b1] {\r\n  color: #059669;\r\n  font-weight: 600;\n}\n.remarks-text[data-v-71b451b1] {\r\n  font-style: italic;\r\n  color: #78350f;\r\n  background: #fffbeb;\r\n  padding: 4px 10px;\r\n  border-radius: 6px;\r\n  border-left: 3px solid #f59e0b;\n}\n.notes-text[data-v-71b451b1] {\r\n  background: #f0fdf4;\r\n  padding: 4px 10px;\r\n  border-radius: 6px;\r\n  border-left: 3px solid #10b981;\n}\n.text-muted[data-v-71b451b1] {\r\n  color: #94a3b8;\n}\r\n\r\n/* ===== FLOW SECTION ===== */\n.flow-section-enhanced[data-v-71b451b1] {\r\n  margin-top: 8px;\r\n  padding: 16px 20px;\r\n  background: linear-gradient(135deg, #f8fafc, #f1f5f9);\r\n  border-radius: 12px;\r\n  border: 1px solid #e5e7eb;\n}\n.flow-container[data-v-71b451b1] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 16px;\r\n  flex-wrap: wrap;\n}\n.flow-node[data-v-71b451b1] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 12px;\r\n  flex: 1;\r\n  min-width: 150px;\r\n  padding: 10px 14px;\r\n  background: #ffffff;\r\n  border-radius: 10px;\r\n  border: 1px solid #e5e7eb;\r\n  transition: all 0.3s ease;\n}\n.origin-node[data-v-71b451b1] {\r\n  border-left: 4px solid #3b82f6;\n}\n.destination-node[data-v-71b451b1] {\r\n  border-left: 4px solid #10b981;\n}\n.flow-node-icon[data-v-71b451b1] {\r\n  width: 32px;\r\n  height: 32px;\r\n  min-width: 32px;\r\n  border-radius: 8px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1rem;\r\n  color: #ffffff;\n}\n.origin-node .flow-node-icon[data-v-71b451b1] {\r\n  background: linear-gradient(135deg, #3b82f6, #2563eb);\n}\n.destination-node .flow-node-icon[data-v-71b451b1] {\r\n  background: linear-gradient(135deg, #10b981, #059669);\n}\n.flow-node-content[data-v-71b451b1] {\r\n  flex: 1;\r\n  min-width: 0;\n}\n.flow-node-label[data-v-71b451b1] {\r\n  display: block;\r\n  font-size: 0.6rem;\r\n  font-weight: 700;\r\n  color: #64748b;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\n}\n.flow-node-value[data-v-71b451b1] {\r\n  display: block;\r\n  font-size: 0.85rem;\r\n  font-weight: 600;\r\n  color: #1e293b;\r\n  word-break: break-word;\n}\n.flow-arrow-enhanced[data-v-71b451b1] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 4px;\r\n  flex-shrink: 0;\r\n  padding: 0 4px;\n}\n.arrow-line[data-v-71b451b1] {\r\n  width: 20px;\r\n  height: 2px;\r\n  background: linear-gradient(90deg, #94a3b8, #cbd5e1);\r\n  border-radius: 2px;\n}\n.arrow-icon[data-v-71b451b1] {\r\n  font-size: 1.4rem;\r\n  color: #94a3b8;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  animation: arrowPulse-71b451b1 1.5s ease-in-out infinite;\n}\n@keyframes arrowPulse-71b451b1 {\n0%,\r\n  100% {\r\n    transform: translateX(0);\r\n    opacity: 1;\n}\n50% {\r\n    transform: translateX(4px);\r\n    opacity: 0.6;\n}\n}\r\n\r\n/* ===== DOCUMENT HEADER ===== */\n.document-header[data-v-71b451b1] {\r\n  padding: 16px 24px;\n}\n.document-icon[data-v-71b451b1] {\r\n  background: rgba(220, 38, 38, 0.2);\n}\n.header-actions[data-v-71b451b1] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\n}\n.btn-header-action[data-v-71b451b1] {\r\n  background: rgba(255, 255, 255, 0.15);\r\n  border: 1px solid rgba(255, 255, 255, 0.2);\r\n  color: white;\r\n  width: 36px;\r\n  height: 36px;\r\n  border-radius: 8px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  cursor: pointer;\r\n  transition: all 0.2s;\n}\n.btn-header-action[data-v-71b451b1]:hover {\r\n  background: rgba(255, 255, 255, 0.3);\r\n  transform: scale(1.05);\n}\n.btn-header-update[data-v-71b451b1] {\r\n  background: rgba(251, 191, 36, 0.3);\r\n  border-color: rgba(251, 191, 36, 0.4);\n}\n.btn-header-update[data-v-71b451b1]:hover {\r\n  background: rgba(251, 191, 36, 0.5);\r\n  transform: scale(1.05);\n}\n.tracking-badge[data-v-71b451b1] {\r\n  background: rgba(255, 255, 255, 0.2);\r\n  padding: 2px 10px;\r\n  border-radius: 12px;\r\n  font-family: \"Courier New\", monospace;\r\n  font-size: 0.75rem;\r\n  margin-right: 8px;\n}\n.status-pill[data-v-71b451b1] {\r\n  display: inline-block;\r\n  padding: 2px 10px;\r\n  border-radius: 12px;\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  background: rgba(255, 255, 255, 0.2);\r\n  border: 1px solid rgba(255, 255, 255, 0.3);\n}\r\n\r\n/* ===== RESPONSIVE ===== */\n@media (max-width: 1200px) {\n.document-view-modal[data-v-71b451b1] {\r\n    max-width: 98vw;\n}\n.document-viewer-layout[data-v-71b451b1] {\r\n    grid-template-columns: 340px 1fr;\n}\n}\n@media (max-width: 1024px) {\n.tabs-vertical-container[data-v-71b451b1] {\r\n    flex-direction: column;\n}\n.tabs-vertical-nav[data-v-71b451b1] {\r\n    flex-direction: row;\r\n    width: 100%;\r\n    min-width: 100%;\r\n    overflow-x: auto;\r\n    padding: 12px;\r\n    gap: 8px;\r\n    border-right: none;\r\n    border-bottom: 1px solid #e5e7eb;\n}\n.tab-vertical-button[data-v-71b451b1] {\r\n    flex-direction: column;\r\n    min-width: 120px;\r\n    padding: 12px;\r\n    gap: 8px;\n}\n.tab-vertical-button[data-v-71b451b1]::before {\r\n    left: 50%;\r\n    top: auto;\r\n    bottom: 0;\r\n    transform: translateX(-50%);\r\n    width: 0;\r\n    height: 3px;\r\n    border-radius: 4px 4px 0 0;\r\n    transition: width 0.3s ease;\n}\n.tab-vertical-button[data-v-71b451b1]:hover::before {\r\n    width: 40%;\r\n    height: 3px;\n}\n.tab-vertical-button.active[data-v-71b451b1]::before {\r\n    width: 60%;\r\n    height: 3px;\n}\n.tab-vertical-button[data-v-71b451b1]:hover {\r\n    transform: translateY(-2px);\n}\n.tab-vertical-button.active[data-v-71b451b1] {\r\n    transform: translateY(-2px);\n}\n.tab-vertical-indicator[data-v-71b451b1] {\r\n    display: none;\n}\n.tabs-vertical-body[data-v-71b451b1] {\r\n    padding: 16px;\n}\n.search-filter-row[data-v-71b451b1] {\r\n    flex-direction: column;\n}\n.filter-wrapper[data-v-71b451b1] {\r\n    min-width: 100%;\n}\n}\n@media (max-width: 992px) {\n.document-viewer-layout[data-v-71b451b1] {\r\n    grid-template-columns: 1fr;\r\n    grid-template-rows: auto 1fr;\r\n    height: calc(90vh - 140px);\n}\n.details-panel[data-v-71b451b1] {\r\n    border-right: none;\r\n    border-bottom: 1px solid #e5e7eb;\r\n    max-height: 350px;\n}\n.pdf-viewer-wrapper[data-v-71b451b1] {\r\n    min-height: 350px;\n}\n.info-grid-enhanced[data-v-71b451b1] {\r\n    grid-template-columns: 1fr;\n}\n.flow-container[data-v-71b451b1] {\r\n    flex-direction: column;\r\n    gap: 8px;\n}\n.flow-node[data-v-71b451b1] {\r\n    width: 100%;\r\n    min-width: unset;\n}\n.flow-arrow-enhanced[data-v-71b451b1] {\r\n    transform: rotate(90deg);\r\n    padding: 0;\n}\n.arrow-line[data-v-71b451b1] {\r\n    width: 30px;\n}\n}\n@media (max-width: 768px) {\n.document-view-modal[data-v-71b451b1] {\r\n    max-width: 100vw;\r\n    width: 100vw;\r\n    margin: 0;\r\n    border-radius: 0;\r\n    max-height: 100vh;\n}\n.document-viewer-tabs[data-v-71b451b1] {\r\n    padding: 8px 12px;\r\n    gap: 4px;\n}\n.viewer-tab-btn[data-v-71b451b1] {\r\n    padding: 8px 14px;\r\n    font-size: 12px;\n}\n.details-panel[data-v-71b451b1] {\r\n    max-height: 280px;\n}\n.pdf-viewer-wrapper[data-v-71b451b1] {\r\n    min-height: 300px;\n}\n.pdf-state[data-v-71b451b1] {\r\n    min-height: 300px;\n}\n.route-history-content[data-v-71b451b1] {\r\n    padding: 16px;\n}\n.timeline-container[data-v-71b451b1] {\r\n    padding-left: 35px;\n}\n.timeline-node[data-v-71b451b1] {\r\n    left: -30px;\r\n    width: 24px;\r\n    height: 24px;\r\n    font-size: 0.7rem;\n}\n.info-card-body[data-v-71b451b1] {\r\n    padding: 10px 12px;\r\n    gap: 8px;\n}\n.info-field[data-v-71b451b1] {\r\n    flex-direction: column;\r\n    gap: 4px;\n}\n.field-icon[data-v-71b451b1] {\r\n    width: 24px;\r\n    height: 24px;\r\n    min-width: 24px;\r\n    font-size: 0.75rem;\n}\n.flow-node[data-v-71b451b1] {\r\n    padding: 8px 12px;\n}\n.flow-node-value[data-v-71b451b1] {\r\n    font-size: 0.8rem;\n}\n.flow-section-enhanced[data-v-71b451b1] {\r\n    padding: 12px 14px;\n}\n}\n@media (max-width: 576px) {\n.document-header[data-v-71b451b1] {\r\n    padding: 12px 16px;\n}\n.viewer-tab-btn span[data-v-71b451b1] {\r\n    display: none;\n}\n.viewer-tab-btn i[data-v-71b451b1] {\r\n    font-size: 16px;\n}\n.detail-card[data-v-71b451b1] {\r\n    padding: 10px;\n}\n.detail-icon-wrapper[data-v-71b451b1] {\r\n    width: 34px;\r\n    height: 34px;\r\n    min-width: 34px;\r\n    font-size: 0.9rem;\n}\n.btn-pdf-control[data-v-71b451b1] {\r\n    width: 30px;\r\n    height: 30px;\r\n    font-size: 0.8rem;\n}\n.pdf-footer[data-v-71b451b1] {\r\n    flex-direction: column;\r\n    gap: 4px;\r\n    align-items: flex-start;\n}\n.route-history-header[data-v-71b451b1] {\r\n    padding: 12px 16px;\r\n    flex-direction: column;\r\n    gap: 8px;\r\n    align-items: flex-start;\n}\n.active-filters[data-v-71b451b1] {\r\n    flex-direction: column;\r\n    align-items: flex-start;\n}\n.info-card[data-v-71b451b1] {\r\n    border-radius: 8px;\n}\n.info-card-title[data-v-71b451b1] {\r\n    font-size: 0.7rem;\n}\n.field-value[data-v-71b451b1] {\r\n    font-size: 0.8rem;\n}\n.enhanced-modal[data-v-71b451b1] {\r\n    max-width: 95%;\r\n    margin: 0 10px;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* ===== FILTER CONTROLS ===== */\n.filter-controls[data-v-71b451b1] { margin-bottom: 20px;\n}\n.search-filter-row[data-v-71b451b1] { display: flex; gap: 12px; align-items: center; flex-wrap: wrap;\n}\n.search-box-wrapper[data-v-71b451b1] { flex: 1; min-width: 200px;\n}\n.search-box[data-v-71b451b1] { position: relative;\n}\n.search-icon[data-v-71b451b1] { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #9ca3af;\n}\n.search-input[data-v-71b451b1] { width: 100%; padding: 10px 35px 10px 36px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px; outline: none; background: #fff; transition: all 0.3s ease;\n}\n.search-input[data-v-71b451b1]:focus { border-color: #2d6a4f; box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\n.search-clear-btn[data-v-71b451b1] { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #9ca3af; cursor: pointer; padding: 4px;\n}\n.search-clear-btn[data-v-71b451b1]:hover { color: #ef4444;\n}\n.per-page-wrapper[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; white-space: nowrap;\n}\n.per-page-label[data-v-71b451b1] { font-size: 13px; color: #6b7280; font-weight: 500;\n}\n.per-page-select[data-v-71b451b1] { padding: 8px 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 13px; background: #fff; outline: none; cursor: pointer; transition: all 0.3s ease;\n}\n.per-page-select[data-v-71b451b1]:focus { border-color: #2d6a4f;\n}\n.filter-wrapper[data-v-71b451b1] { min-width: 180px;\n}\n.filter-box[data-v-71b451b1] { position: relative;\n}\n.filter-icon[data-v-71b451b1] { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #9ca3af;\n}\n.filter-select[data-v-71b451b1] { width: 100%; padding: 10px 12px 10px 36px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 13px; background: #fff; outline: none; cursor: pointer; -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E\"); background-repeat: no-repeat; background-position: right 12px center; transition: all 0.3s ease;\n}\n.filter-select[data-v-71b451b1]:focus { border-color: #2d6a4f; box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\n.active-filters[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; margin-top: 12px; padding: 10px 14px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; flex-wrap: wrap;\n}\n.active-filters-label[data-v-71b451b1] { font-size: 12px; font-weight: 600; color: #166534; text-transform: uppercase; letter-spacing: 0.5px;\n}\n.filter-tag[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: #fff; border: 1px solid #86efac; border-radius: 20px; font-size: 12px; color: #166534; font-weight: 500;\n}\n.filter-tag-close[data-v-71b451b1] { background: none; border: none; color: #6b7280; cursor: pointer; padding: 0;\n}\n.filter-tag-close[data-v-71b451b1]:hover { color: #ef4444;\n}\n.clear-all-filters[data-v-71b451b1] { padding: 4px 12px; background: none; border: 1px solid #86efac; border-radius: 6px; font-size: 12px; color: #166534; cursor: pointer; font-weight: 600; transition: all 0.2s;\n}\n.clear-all-filters[data-v-71b451b1]:hover { background: #dcfce7; border-color: #166534;\n}\n.results-summary[data-v-71b451b1] { margin-top: 10px; font-size: 13px; color: #6b7280;\n}\n.results-count[data-v-71b451b1] { font-weight: 700; color: #2d6a4f; font-size: 16px;\n}\r\n\r\n/* ===== TABLE ===== */\n.table-responsive[data-v-71b451b1] { overflow-x: auto; margin-top: 16px;\n}\n.office-table[data-v-71b451b1] { width: 100%; border-collapse: collapse; font-size: 13px; background: #fff;\n}\n.office-table th[data-v-71b451b1], .office-table td[data-v-71b451b1] { border: 1px solid #f3f4f6; padding: 12px 14px; text-align: left; vertical-align: middle;\n}\n.office-table thead th[data-v-71b451b1] { background: #f8fafc; font-weight: 700; color: #374151; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; border-bottom: 2px solid #e5e7eb;\n}\n.office-table tbody tr[data-v-71b451b1]:hover { background: #f0fdf4;\n}\n.office-table tbody tr[data-v-71b451b1]:nth-child(even) { background: #fafafa;\n}\n.office-table tbody tr[data-v-71b451b1]:nth-child(even):hover { background: #f0fdf4;\n}\n.row-number[data-v-71b451b1] { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 6px; background: #f3f4f6; color: #6b7280; font-size: 12px; font-weight: 600;\n}\n.tracking-number[data-v-71b451b1] { font-weight: 700; color: #2d6a4f; font-family: \"Courier New\", monospace; font-size: 13px; padding: 2px 8px; background: #f0fdf4; border-radius: 4px;\n}\n.doc-type-badge[data-v-71b451b1] { display: inline-block; padding: 3px 10px; background: #e0e7ff; color: #3730a3; border-radius: 4px; font-size: 11px; font-weight: 600; border: 1px solid #c7d2fe;\n}\n.subject-text[data-v-71b451b1] { color: #1e293b; font-weight: 500; line-height: 1.4; font-size: 13px; position: relative;\n}\n.date-received[data-v-71b451b1] { color: #64748b; font-size: 12px; display: flex; align-items: center; gap: 6px;\n}\n.date-icon[data-v-71b451b1] { color: #94a3b8; font-size: 13px;\n}\r\n\r\n/* ===== CONFIDENTIAL ===== */\n.confidential-blur-static[data-v-71b451b1] { filter: blur(8px); -webkit-user-select: none; -moz-user-select: none; user-select: none; pointer-events: none; position: relative;\n}\n.confidential-blur-static .confidential-label[data-v-71b451b1] { display: inline-block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.7rem; font-weight: 800; color: #dc2626; background: rgba(255,255,255,0.95); padding: 2px 10px; border-radius: 4px; border: 2px solid #dc2626; letter-spacing: 1px; text-transform: uppercase; pointer-events: none; white-space: nowrap; filter: none;\n}\n.confidential-label[data-v-71b451b1] { display: inline-block; font-size: 0.7rem; font-weight: 800; color: #dc2626; background: rgba(255,255,255,0.95); padding: 2px 10px; border-radius: 4px; border: 2px solid #dc2626; letter-spacing: 1px; text-transform: uppercase; margin-left: 8px; white-space: nowrap;\n}\r\n\r\n/* ===== CLASSIFICATION BADGES ===== */\n.classification-confidential[data-v-71b451b1] { display: inline-block; padding: 3px 10px; background: #fee2e2; color: #991b1b; border-radius: 4px; font-size: 11px; font-weight: 700; border: 1px solid #fecaca; text-transform: uppercase;\n}\n.classification-restricted[data-v-71b451b1] { display: inline-block; padding: 3px 10px; background: #fed7aa; color: #9a3412; border-radius: 4px; font-size: 11px; font-weight: 700; border: 1px solid #fdba74; text-transform: uppercase;\n}\n.classification-top-secret[data-v-71b451b1] { display: inline-block; padding: 3px 10px; background: #fce7f3; color: #9d174d; border-radius: 4px; font-size: 11px; font-weight: 700; border: 1px solid #f9a8d4; text-transform: uppercase;\n}\n.classification-general[data-v-71b451b1] { display: inline-block; padding: 3px 10px; background: #d1fae5; color: #065f46; border-radius: 4px; font-size: 11px; font-weight: 700; border: 1px solid #a7f3d0; text-transform: uppercase;\n}\n.classification-badge-large[data-v-71b451b1] { display: inline-block; padding: 4px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;\n}\r\n\r\n/* ===== DURATION BADGES ===== */\n.duration-badge[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;\n}\n.duration-simple[data-v-71b451b1] { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd;\n}\n.duration-complex[data-v-71b451b1] { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d;\n}\n.duration-highly-technical[data-v-71b451b1] { background: #fce7f3; color: #9d174d; border: 1px solid #f9a8d4;\n}\n.duration-not-set[data-v-71b451b1] { background: #f3f4f6; color: #6b7280; border: 1px solid #d1d5db;\n}\n.duration-badge-large[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 6px; padding: 4px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 700;\n}\n.duration-detail-card[data-v-71b451b1] { background: #f0fdf4; border-color: #86efac;\n}\r\n\r\n/* ===== DURATION DISPLAY ===== */\n.duration-display-container[data-v-71b451b1] { display: flex; flex-direction: column; gap: 8px;\n}\n.duration-display-box[data-v-71b451b1] { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: #f8fafc; border: 2px solid #e5e7eb; border-radius: 8px; transition: all 0.3s ease;\n}\n.duration-display-box[data-v-71b451b1]:hover { border-color: #2d6a4f; background: #f0fdf4;\n}\n.duration-display-icon[data-v-71b451b1] { width: 36px; height: 36px; min-width: 36px; border-radius: 8px; background: #d1fae5; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: #059669;\n}\n.duration-display-content[data-v-71b451b1] { flex: 1; display: flex; flex-direction: column;\n}\n.duration-display-label[data-v-71b451b1] { font-size: 0.6rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;\n}\n.duration-display-value[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 6px; padding: 2px 12px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; margin-top: 2px; width: -moz-fit-content; width: fit-content;\n}\n.duration-display-value.duration-simple[data-v-71b451b1] { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd;\n}\n.duration-display-value.duration-complex[data-v-71b451b1] { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d;\n}\n.duration-display-value.duration-highly-technical[data-v-71b451b1] { background: #fce7f3; color: #9d174d; border: 1px solid #f9a8d4;\n}\n.duration-display-value.duration-not-set[data-v-71b451b1] { background: #f3f4f6; color: #6b7280; border: 1px solid #d1d5db;\n}\n.badge-readonly[data-v-71b451b1] { padding: 2px 10px; background: #e5e7eb; color: #6b7280; border-radius: 12px; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;\n}\n.duration-hint[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: #fef3c7; border: 1px solid #fcd34d; border-radius: 4px; font-size: 0.7rem; color: #92400e; margin-top: 4px;\n}\n.duration-hint i[data-v-71b451b1] { color: #d97706;\n}\n.existing-duration-info[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; padding: 4px 10px; background: #f0fdf4; border: 1px solid #86efac; border-radius: 4px; font-size: 0.7rem; color: #166534;\n}\n.existing-duration-info i[data-v-71b451b1] { color: #16a34a;\n}\r\n\r\n/* ===== ACTION BUTTONS ===== */\n.action-buttons[data-v-71b451b1] { display: flex; gap: 6px; align-items: center;\n}\n.btn-action[data-v-71b451b1] { background: none; border: 1px solid transparent; border-radius: 6px; padding: 6px 10px; cursor: pointer; font-size: 0.95rem; transition: all 0.2s;\n}\n.btn-view[data-v-71b451b1] { color: #6366f1; border-color: #c7d2fe; background: #eef2ff;\n}\n.btn-view[data-v-71b451b1]:hover { background: #ddd6fe; transform: scale(1.05);\n}\n.btn-forward[data-v-71b451b1] { color: #0891b2; border-color: #67e8f9; background: #cffafe;\n}\n.btn-forward[data-v-71b451b1]:hover { background: #67e8f9; transform: scale(1.05);\n}\r\n\r\n/* ===== STATUS BADGE ===== */\n.status-badge[data-v-71b451b1] { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;\n}\n.status-in-progress[data-v-71b451b1] { background: #fef3c7; color: #d97706; border: 1px solid #fde68a;\n}\n.status-for-release[data-v-71b451b1] { background: #dbeafe; color: #2563eb; border: 1px solid #bfdbfe;\n}\n.status-released[data-v-71b451b1] { background: #d1fae5; color: #059669; border: 1px solid #a7f3d0;\n}\r\n\r\n/* ===== MODAL ===== */\n.modal-overlay[data-v-71b451b1] { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.55); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 1050; animation: fadeIn-71b451b1 0.2s ease-out;\n}\n.enhanced-modal[data-v-71b451b1] { width: 100%; max-width: 620px; margin: 0 15px; animation: slideUp-71b451b1 0.3s ease-out;\n}\n@keyframes slideUp-71b451b1 {\nfrom { transform: translateY(30px); opacity: 0;\n}\nto { transform: translateY(0); opacity: 1;\n}\n}\n@keyframes fadeIn-71b451b1 {\nfrom { opacity: 0;\n}\nto { opacity: 1;\n}\n}\n.square-modal[data-v-71b451b1] { border: none; border-radius: 12px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.3); background: #fff;\n}\n.square-header[data-v-71b451b1] { background: linear-gradient(135deg, #1e4d2b, #2d6a4f); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1);\n}\n.square-icon[data-v-71b451b1] { width: 38px; height: 38px; background: rgba(255,255,255,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-right: 12px;\n}\n.modal-title[data-v-71b451b1] { font-weight: 700; font-size: 1.1rem;\n}\n.modal-subtitle[data-v-71b451b1] { font-size: 0.8rem; opacity: 0.85;\n}\n.square-close[data-v-71b451b1] { background: rgba(255,255,255,0.15); border: none; color: #fff; width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s;\n}\n.square-close[data-v-71b451b1]:hover { background: rgba(255,255,255,0.3);\n}\n.modal-body[data-v-71b451b1] { padding: 16px 20px; background: #f9fafb;\n}\n.error-msg[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; background: #fef0ef; border: 1px solid #f5c6c3; border-radius: 6px; padding: 8px 12px; font-size: 12px; color: #c0392b; margin-bottom: 12px; font-weight: 500;\n}\n.form-label[data-v-71b451b1] { font-weight: 600; font-size: 0.8rem; color: #1e293b; margin-bottom: 4px; display: block;\n}\n.required-star[data-v-71b451b1] { color: #dc2626; margin-left: 2px;\n}\n.modal-actions[data-v-71b451b1] { margin-top: 16px; padding-top: 12px; border-top: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;\n}\n.square-btn[data-v-71b451b1] { border-radius: 6px !important; font-weight: 600; transition: all 0.2s; padding: 6px 16px !important; font-size: 0.85rem !important;\n}\n.btn-save[data-v-71b451b1] { background: linear-gradient(135deg, #1e4d2b, #2d6a4f); color: #fff; border: none; padding: 6px 16px; font-weight: 600; display: inline-flex; align-items: center; box-shadow: 0 2px 12px rgba(26,71,49,0.3);\n}\n.btn-save[data-v-71b451b1]:hover { box-shadow: 0 4px 16px rgba(26,71,49,0.4); transform: translateY(-1px);\n}\n.btn-save[data-v-71b451b1]:disabled { opacity: 0.7; cursor: not-allowed; transform: none;\n}\r\n\r\n/* ===== FORWARD MODAL ===== */\n.forward-doc-info[data-v-71b451b1] { display: flex; gap: 16px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 6px; padding: 8px 14px; margin-bottom: 12px; flex-wrap: wrap;\n}\n.forward-doc-row[data-v-71b451b1] { display: flex; align-items: center; gap: 6px;\n}\n.forward-doc-label[data-v-71b451b1] { font-size: 0.7rem; font-weight: 600; color: #64748b; text-transform: uppercase;\n}\n.forward-doc-value[data-v-71b451b1] { font-size: 0.85rem; font-weight: 600; color: #1e293b;\n}\n.forward-grid[data-v-71b451b1] { display: grid; grid-template-columns: 1fr 1fr; gap: 16px;\n}\n.forward-col[data-v-71b451b1] { display: flex; flex-direction: column;\n}\n.office-search-box[data-v-71b451b1] { position: relative; margin-bottom: 8px;\n}\n.office-search-icon[data-v-71b451b1] { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #9ca3af; font-size: 0.85rem;\n}\n.office-search-input[data-v-71b451b1] { width: 100%; padding: 6px 30px 6px 32px; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 0.8rem; outline: none; background: #fff; transition: all 0.3s ease;\n}\n.office-search-input[data-v-71b451b1]:focus { border-color: #2d6a4f; box-shadow: 0 0 0 2px rgba(45,106,79,0.1);\n}\n.office-search-clear[data-v-71b451b1] { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #9ca3af; cursor: pointer; padding: 2px;\n}\n.office-search-clear[data-v-71b451b1]:hover { color: #ef4444;\n}\n.office-list-container[data-v-71b451b1] { max-height: 180px; overflow-y: auto; border: 1px solid #e5e7eb; border-radius: 6px; background: #fff;\n}\n.office-list-container[data-v-71b451b1]::-webkit-scrollbar { width: 4px;\n}\n.office-list-container[data-v-71b451b1]::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 2px;\n}\n.office-select-item[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; padding: 6px 10px; cursor: pointer; transition: all 0.15s ease; border-bottom: 1px solid #f3f4f6; position: relative;\n}\n.office-select-item[data-v-71b451b1]:last-child { border-bottom: none;\n}\n.office-select-item[data-v-71b451b1]:hover { background: #f0fdf4;\n}\n.office-select-item.selected[data-v-71b451b1] { background: #f0fdf4; border-left: 2px solid #059669;\n}\n.office-checkbox[data-v-71b451b1] { font-size: 1rem; color: #059669; min-width: 18px; display: flex; align-items: center; justify-content: center;\n}\n.office-select-item:not(.selected) .office-checkbox[data-v-71b451b1] { color: #d1d5db;\n}\n.office-icon-wrapper[data-v-71b451b1] { width: 28px; height: 28px; min-width: 28px; border-radius: 6px; background: #e0e7ff; display: flex; align-items: center; justify-content: center; color: #3730a3; font-size: 0.8rem;\n}\n.office-select-item.selected .office-icon-wrapper[data-v-71b451b1] { background: #d1fae5; color: #059669;\n}\n.office-details[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.office-name-text[data-v-71b451b1] { display: block; font-size: 0.8rem; font-weight: 600; color: #1e293b; line-height: 1.2;\n}\n.office-code[data-v-71b451b1] { display: block; font-size: 0.6rem; color: #64748b;\n}\n.selected-indicator[data-v-71b451b1] { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); color: #059669; font-size: 0.9rem;\n}\n.selection-counter[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: #f0fdf4; border: 1px solid #86efac; border-radius: 16px; font-size: 0.75rem; font-weight: 600; color: #166534; margin-top: 6px;\n}\n.duration-select[data-v-71b451b1] { width: 100%; padding: 6px 10px; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 0.8rem; background: #fff; outline: none; cursor: pointer; -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E\"); background-repeat: no-repeat; background-position: right 10px center;\n}\n.duration-select[data-v-71b451b1]:focus { border-color: #2d6a4f; box-shadow: 0 0 0 2px rgba(45,106,79,0.1);\n}\n.duration-select[data-v-71b451b1]:disabled { opacity: 0.6; cursor: not-allowed;\n}\n.remarks-textarea[data-v-71b451b1] { width: 100%; padding: 6px 10px; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 0.8rem; outline: none; background: #fff; transition: all 0.3s ease; resize: vertical; font-family: inherit; min-height: 60px;\n}\n.remarks-textarea[data-v-71b451b1]:focus { border-color: #2d6a4f; box-shadow: 0 0 0 2px rgba(45,106,79,0.1);\n}\n.remarks-textarea[data-v-71b451b1]:disabled { opacity: 0.6; cursor: not-allowed;\n}\n.remarks-counter[data-v-71b451b1] { text-align: right; font-size: 0.65rem; color: #94a3b8; margin-top: 2px;\n}\n.remarks-counter.text-danger[data-v-71b451b1] { color: #dc2626;\n}\n.selected-offices-summary[data-v-71b451b1] { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 8px 12px; margin-top: 8px;\n}\n.selected-offices-header[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 0.75rem; color: #166534;\n}\n.selected-offices-list[data-v-71b451b1] { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px;\n}\n.selected-office-tag[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; background: #fff; border: 1px solid #86efac; border-radius: 12px; font-size: 0.7rem; font-weight: 600; color: #166534;\n}\n.remove-office-btn[data-v-71b451b1] { background: none; border: none; color: #6b7280; cursor: pointer; padding: 0; font-size: 0.8rem; transition: color 0.2s;\n}\n.remove-office-btn[data-v-71b451b1]:hover { color: #dc2626;\n}\n.remove-office-btn[data-v-71b451b1]:disabled { opacity: 0.5; cursor: not-allowed;\n}\r\n\r\n/* ===== DOCUMENT VIEWER ===== */\n.document-view-modal[data-v-71b451b1] { max-width: 1400px; width: 95vw; max-height: 90vh;\n}\n.document-viewer-body[data-v-71b451b1] { padding: 0; max-height: calc(90vh - 80px); overflow: hidden; display: flex; flex-direction: column;\n}\n.document-viewer-tabs[data-v-71b451b1] { display: flex; gap: 4px; padding: 10px 16px; background: #f8fafc; border-bottom: 2px solid #e5e7eb; flex-shrink: 0;\n}\n.viewer-tab-btn[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; padding: 8px 16px; background: #fff; border: 1px solid #e5e7eb; border-radius: 6px; color: #64748b; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s ease;\n}\n.viewer-tab-btn[data-v-71b451b1]:hover { background: #f0fdf4; border-color: #86efac; color: #2d6a4f; transform: translateY(-1px);\n}\n.viewer-tab-btn.active[data-v-71b451b1] { background: linear-gradient(135deg, #2d6a4f, #1e4d2b); border-color: #2d6a4f; color: #fff; box-shadow: 0 4px 12px rgba(45,106,79,0.3);\n}\n.document-viewer-layout[data-v-71b451b1] { display: grid; grid-template-columns: 340px 1fr; height: calc(90vh - 140px); min-height: 400px;\n}\n.details-panel[data-v-71b451b1] { background: #fff; border-right: 1px solid #e5e7eb; display: flex; flex-direction: column; overflow: hidden;\n}\n.details-panel-header[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; padding: 12px 16px; background: #f8fafc; border-bottom: 1px solid #e5e7eb; font-weight: 700; color: #1e293b; font-size: 0.85rem; flex-shrink: 0;\n}\n.details-content[data-v-71b451b1] { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px;\n}\n.details-content[data-v-71b451b1]::-webkit-scrollbar { width: 4px;\n}\n.details-content[data-v-71b451b1]::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 2px;\n}\n.detail-card[data-v-71b451b1] { display: flex; gap: 10px; padding: 10px 12px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px;\n}\n.detail-icon-wrapper[data-v-71b451b1] { width: 32px; height: 32px; min-width: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; background: #e0f2fe; color: #0284c7;\n}\n.detail-icon-wrapper.classification-icon[data-v-71b451b1] { background: #fee2e2; color: #991b1b;\n}\n.detail-icon-wrapper.type-icon[data-v-71b451b1] { background: #fef3c7; color: #d97706;\n}\n.detail-icon-wrapper.subject-icon[data-v-71b451b1] { background: #dcfce7; color: #16a34a;\n}\n.detail-icon-wrapper.sender-icon-card[data-v-71b451b1] { background: #ede9fe; color: #7c3aed;\n}\n.detail-icon-wrapper.duration-icon[data-v-71b451b1] { background: #f0fdf4; color: #16a34a;\n}\n.detail-info[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.detail-info label[data-v-71b451b1] { display: block; font-size: 0.6rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 2px;\n}\n.detail-value[data-v-71b451b1] { font-size: 0.8rem; color: #1e293b; font-weight: 500; word-break: break-word; line-height: 1.3; position: relative;\n}\n.tracking-number-large[data-v-71b451b1] { font-size: 0.85rem; font-weight: 700; color: #2d6a4f; font-family: \"Courier New\", monospace; background: #f0fdf4; padding: 2px 8px; border-radius: 4px; display: inline-block;\n}\n.doc-type-badge-large[data-v-71b451b1] { display: inline-block; padding: 2px 10px; background: #e0e7ff; color: #3730a3; border-radius: 4px; font-size: 0.75rem; font-weight: 600; border: 1px solid #c7d2fe;\n}\r\n\r\n/* ===== PDF PANEL ===== */\n.pdf-panel[data-v-71b451b1] { display: flex; flex-direction: column; background: #f8fafc; overflow: hidden;\n}\n.pdf-panel-header[data-v-71b451b1] { display: flex; justify-content: space-between; align-items: center; padding: 8px 16px; background: #fff; border-bottom: 1px solid #e5e7eb; flex-shrink: 0;\n}\n.pdf-panel-title[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; font-weight: 700; color: #1e293b; font-size: 0.85rem;\n}\n.pdf-panel-title i[data-v-71b451b1] { color: #dc2626; font-size: 1rem;\n}\n.text-danger[data-v-71b451b1] { color: #dc2626 !important;\n}\n.pdf-controls[data-v-71b451b1] { display: flex; gap: 4px; align-items: center;\n}\n.btn-pdf-control[data-v-71b451b1] { background: #f1f5f9; border: 1px solid #e5e7eb; color: #475569; width: 28px; height: 28px; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 0.8rem;\n}\n.btn-pdf-control[data-v-71b451b1]:hover:not(:disabled) { background: #e2e8f0; border-color: #94a3b8; color: #1e293b;\n}\n.btn-pdf-control[data-v-71b451b1]:disabled { opacity: 0.5; cursor: not-allowed;\n}\n.pdf-viewer-wrapper[data-v-71b451b1] { flex: 1; overflow: auto; background: #525659; position: relative; min-height: 300px;\n}\n.pdf-viewer-wrapper[data-v-71b451b1]::-webkit-scrollbar { width: 8px; height: 8px;\n}\n.pdf-viewer-wrapper[data-v-71b451b1]::-webkit-scrollbar-track { background: #3a3d40;\n}\n.pdf-viewer-wrapper[data-v-71b451b1]::-webkit-scrollbar-thumb { background: #6b7280; border-radius: 4px;\n}\n.pdf-iframe[data-v-71b451b1] { border: none; display: block; background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.3);\n}\n.pdf-state[data-v-71b451b1] { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 300px; color: #9ca3af; padding: 30px;\n}\n.pdf-loader-animation[data-v-71b451b1] { position: relative; width: 60px; height: 60px; margin-bottom: 12px;\n}\n.pdf-loader-icon[data-v-71b451b1] { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.5rem; color: #dc2626; z-index: 2;\n}\n.pdf-state-text[data-v-71b451b1] { color: #d1d5db; font-size: 0.85rem; margin-top: 6px;\n}\n.pdf-error[data-v-71b451b1] { color: #fca5a5;\n}\n.pdf-error h5[data-v-71b451b1] { color: #fca5a5; font-weight: 600; font-size: 1rem;\n}\n.pdf-footer[data-v-71b451b1] { display: flex; justify-content: space-between; align-items: center; padding: 6px 16px; background: #fff; border-top: 1px solid #e5e7eb; font-size: 0.7rem; color: #64748b; flex-shrink: 0;\n}\n.pdf-zoom-level[data-v-71b451b1] { font-weight: 600; color: #2d6a4f;\n}\n.pdf-page-info[data-v-71b451b1] { font-family: \"Courier New\", monospace;\n}\r\n\r\n/* ===== ROUTE HISTORY ===== */\n.route-history-panel[data-v-71b451b1] { display: flex; flex-direction: column; height: calc(90vh - 140px); background: #fff; min-height: 400px;\n}\n.route-history-header[data-v-71b451b1] { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; background: #f8fafc; border-bottom: 2px solid #e5e7eb; flex-shrink: 0;\n}\n.route-history-title[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; font-weight: 700; color: #1e293b; font-size: 0.9rem;\n}\n.route-history-title i[data-v-71b451b1] { color: #2d6a4f; font-size: 1rem;\n}\n.route-history-badge[data-v-71b451b1] { display: flex; align-items: center; gap: 4px; padding: 4px 12px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; font-size: 0.7rem; font-weight: 600; color: #166534;\n}\n.route-history-content[data-v-71b451b1] { flex: 1; overflow-y: auto; padding: 16px; background: #f9fafb;\n}\n.route-history-content[data-v-71b451b1]::-webkit-scrollbar { width: 6px;\n}\n.route-history-content[data-v-71b451b1]::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 3px;\n}\n.route-state-box[data-v-71b451b1] { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 200px; text-align: center;\n}\n.empty-icon-wrapper[data-v-71b451b1] { width: 60px; height: 60px; border-radius: 50%; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #94a3b8; margin-bottom: 12px;\n}\n.timeline-container[data-v-71b451b1] { position: relative; padding-left: 35px;\n}\n.timeline-container[data-v-71b451b1]::before { content: \"\"; position: absolute; left: 12px; top: 10px; bottom: 10px; width: 2px; background: linear-gradient(180deg, #cbd5e1, #e2e8f0);\n}\n.timeline-item[data-v-71b451b1] { position: relative; margin-bottom: 20px;\n}\n.timeline-item.is-last[data-v-71b451b1] { margin-bottom: 0;\n}\n.timeline-node[data-v-71b451b1] { position: absolute; left: -30px; top: 0; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; z-index: 2; border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.15); font-size: 0.65rem;\n}\n.node-completed[data-v-71b451b1] { background: #059669;\n}\n.node-active[data-v-71b451b1] { background: #2563eb; animation: pulse-71b451b1 2s infinite;\n}\n.node-pending[data-v-71b451b1] { background: #d97706;\n}\n.node-rejected[data-v-71b451b1] { background: #dc2626;\n}\n@keyframes pulse-71b451b1 {\n0%, 100% { box-shadow: 0 0 0 0 rgba(37,99,235,0.4);\n}\n50% { box-shadow: 0 0 0 6px rgba(37,99,235,0.1);\n}\n}\n.timeline-card[data-v-71b451b1] { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; transition: all 0.3s ease; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05);\n}\n.timeline-card[data-v-71b451b1]:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); transform: translateY(-1px);\n}\n.timeline-card.active-card[data-v-71b451b1] { border-left: 3px solid #2563eb; background: linear-gradient(135deg, #eff6ff, #fff);\n}\n.timeline-card-header[data-v-71b451b1] { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #f8fafc; border-bottom: 1px solid #e5e7eb; flex-wrap: wrap; gap: 8px;\n}\n.office-info[data-v-71b451b1] { display: flex; align-items: center; gap: 8px;\n}\n.office-info i[data-v-71b451b1] { font-size: 1rem; color: #2d6a4f;\n}\n.office-name[data-v-71b451b1] { font-size: 0.85rem; font-weight: 700; color: #1e293b; line-height: 1.2;\n}\n.route-status-badge[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 4px; font-size: 0.65rem; font-weight: 700; padding: 3px 10px; border-radius: 16px; text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap;\n}\n.badge-completed[data-v-71b451b1] { background: #d1fae5; color: #059669; border: 1px solid #a7f3d0;\n}\n.badge-active[data-v-71b451b1] { background: #dbeafe; color: #2563eb; border: 1px solid #bfdbfe;\n}\n.badge-pending[data-v-71b451b1] { background: #fef3c7; color: #d97706; border: 1px solid #fde68a;\n}\n.badge-rejected[data-v-71b451b1] { background: #fee2e2; color: #dc2626; border: 1px solid #fecaca;\n}\n.timeline-card-body[data-v-71b451b1] { padding: 12px 14px;\n}\n.info-grid-enhanced[data-v-71b451b1] { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;\n}\n.info-card[data-v-71b451b1] { background: #fff; border-radius: 8px; border: 1px solid #e5e7eb; overflow: hidden;\n}\n.received-card[data-v-71b451b1] { border-left: 3px solid #3b82f6;\n}\n.completed-card[data-v-71b451b1] { border-left: 3px solid #10b981;\n}\n.info-card-header[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #f8fafc; border-bottom: 1px solid #e5e7eb;\n}\n.info-card-icon[data-v-71b451b1] { width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #fff; flex-shrink: 0;\n}\n.completed-icon[data-v-71b451b1] { background: linear-gradient(135deg, #10b981, #059669);\n}\n.info-card-title[data-v-71b451b1] { font-weight: 700; font-size: 0.65rem; color: #1e293b; text-transform: uppercase; letter-spacing: 0.3px; flex: 1;\n}\n.info-card-status[data-v-71b451b1] { font-size: 0.55rem; font-weight: 700; padding: 2px 8px; border-radius: 12px;\n}\n.completed-status[data-v-71b451b1] { background: #d1fae5; color: #059669;\n}\n.info-card-body[data-v-71b451b1] { padding: 8px 12px; display: flex; flex-direction: column; gap: 6px;\n}\n.info-field[data-v-71b451b1] { display: flex; gap: 8px; align-items: flex-start;\n}\n.field-icon[data-v-71b451b1] { width: 20px; height: 20px; min-width: 20px; border-radius: 4px; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #64748b;\n}\n.remarks-icon[data-v-71b451b1] { background: #fffbeb; color: #d97706;\n}\n.notes-icon[data-v-71b451b1] { background: #f0fdf4; color: #059669;\n}\n.field-content[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.field-label[data-v-71b451b1] { display: block; font-size: 0.55rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 1px;\n}\n.field-value[data-v-71b451b1] { display: block; font-size: 0.75rem; color: #1e293b; font-weight: 500; word-break: break-word; line-height: 1.3;\n}\n.received-date[data-v-71b451b1] { color: #2563eb; font-weight: 600;\n}\n.completed-date[data-v-71b451b1] { color: #059669; font-weight: 600;\n}\n.remarks-text[data-v-71b451b1] { font-style: italic; color: #78350f; background: #fffbeb; padding: 2px 8px; border-radius: 4px; border-left: 2px solid #f59e0b; font-size: 0.7rem;\n}\n.notes-text[data-v-71b451b1] { background: #f0fdf4; padding: 2px 8px; border-radius: 4px; border-left: 2px solid #10b981; font-size: 0.7rem;\n}\n.text-muted[data-v-71b451b1] { color: #94a3b8;\n}\r\n\r\n/* ===== FLOW SECTION ===== */\n.flow-section[data-v-71b451b1] { margin-top: 6px; padding: 10px 14px; background: linear-gradient(135deg, #f8fafc, #f1f5f9); border-radius: 8px; border: 1px solid #e5e7eb;\n}\n.flow-container[data-v-71b451b1] { display: flex; align-items: center; gap: 12px; flex-wrap: wrap;\n}\n.flow-node[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 120px; padding: 6px 10px; background: #fff; border-radius: 6px; border: 1px solid #e5e7eb;\n}\n.origin-node[data-v-71b451b1] { border-left: 3px solid #3b82f6;\n}\n.destination-node[data-v-71b451b1] { border-left: 3px solid #10b981;\n}\n.flow-node-icon[data-v-71b451b1] { width: 24px; height: 24px; min-width: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #fff;\n}\n.origin-node .flow-node-icon[data-v-71b451b1] { background: linear-gradient(135deg, #3b82f6, #2563eb);\n}\n.destination-node .flow-node-icon[data-v-71b451b1] { background: linear-gradient(135deg, #10b981, #059669);\n}\n.flow-node-content[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.flow-node-label[data-v-71b451b1] { display: block; font-size: 0.5rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.3px;\n}\n.flow-node-value[data-v-71b451b1] { display: block; font-size: 0.75rem; font-weight: 600; color: #1e293b; word-break: break-word;\n}\n.flow-arrow[data-v-71b451b1] { display: flex; align-items: center; gap: 2px; flex-shrink: 0; padding: 0 2px;\n}\n.arrow-line[data-v-71b451b1] { width: 16px; height: 2px; background: linear-gradient(90deg, #94a3b8, #cbd5e1); border-radius: 1px;\n}\n.arrow-icon[data-v-71b451b1] { font-size: 1rem; color: #94a3b8; display: flex; align-items: center; justify-content: center; animation: arrowPulse-71b451b1 1.5s ease-in-out infinite;\n}\n@keyframes arrowPulse-71b451b1 {\n0%, 100% { transform: translateX(0); opacity: 1;\n}\n50% { transform: translateX(3px); opacity: 0.6;\n}\n}\r\n\r\n/* ===== LOADER ===== */\n.loader-spinner[data-v-71b451b1] { width: 30px; height: 30px; border: 2px solid #e5e7eb; border-top-color: #2d6a4f; border-radius: 50%; animation: spin-71b451b1 0.8s linear infinite; margin: 0 auto 6px;\n}\n@keyframes spin-71b451b1 {\nto { transform: rotate(360deg);\n}\n}\n.empty-state[data-v-71b451b1] { padding: 16px; text-align: center;\n}\r\n\r\n/* ===== DOCUMENT HEADER ===== */\n.document-header[data-v-71b451b1] { padding: 12px 20px;\n}\n.document-icon[data-v-71b451b1] { background: rgba(220,38,38,0.2);\n}\n.header-actions[data-v-71b451b1] { display: flex; align-items: center; gap: 6px;\n}\n.tracking-badge[data-v-71b451b1] { background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 10px; font-family: \"Courier New\", monospace; font-size: 0.7rem; margin-right: 6px;\n}\n.status-pill[data-v-71b451b1] { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3);\n}\r\n\r\n/* ===== CONFIDENTIAL NOTICE ===== */\n.confidential-notice[data-v-71b451b1] { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 300px; padding: 30px; background: linear-gradient(135deg, #1a1a2e, #16213e 50%, #0f3460); text-align: center;\n}\n.confidential-icon-wrapper[data-v-71b451b1] { position: relative; width: 90px; height: 90px; margin-bottom: 16px; display: flex; align-items: center; justify-content: center;\n}\n.confidential-icon[data-v-71b451b1] { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #dc2626, #991b1b); display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff; z-index: 2; box-shadow: 0 0 30px rgba(220,38,38,0.4);\n}\n.confidential-ring[data-v-71b451b1] { position: absolute; width: 90px; height: 90px; border-radius: 50%; border: 2px solid rgba(220,38,38,0.3); animation: ringPulse-71b451b1 2s ease-in-out infinite;\n}\n@keyframes ringPulse-71b451b1 {\n0%, 100% { transform: scale(1); opacity: 0.3;\n}\n50% { transform: scale(1.1); opacity: 0.6;\n}\n}\n.confidential-title[data-v-71b451b1] { font-size: 1.4rem; font-weight: 800; color: #dc2626; letter-spacing: 2px; margin-bottom: 6px; text-shadow: 0 0 20px rgba(220,38,38,0.3);\n}\n.confidential-divider[data-v-71b451b1] { width: 60px; height: 2px; background: linear-gradient(90deg, transparent, #dc2626, transparent); margin-bottom: 12px;\n}\n.confidential-message[data-v-71b451b1] { color: #e2e8f0; font-size: 0.9rem; margin-bottom: 6px;\n}\n.confidential-sub-message[data-v-71b451b1] { color: #94a3b8; font-size: 0.8rem; margin-bottom: 16px; max-width: 350px;\n}\n.confidential-details[data-v-71b451b1] { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; padding: 12px 16px; background: rgba(255,255,255,0.05); border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);\n}\n.confidential-detail-item[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; color: #cbd5e1; font-size: 0.75rem; font-family: \"Courier New\", monospace;\n}\n.confidential-detail-item i[data-v-71b451b1] { color: #dc2626; font-size: 0.85rem;\n}\n.confidential-footer-note[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: rgba(220,38,38,0.1); border: 1px solid rgba(220,38,38,0.2); border-radius: 4px; color: #fca5a5; font-size: 0.65rem; max-width: 400px;\n}\r\n\r\n/* ===== RESPONSIVE ===== */\n@media (max-width: 1200px) {\n.document-viewer-layout[data-v-71b451b1] { grid-template-columns: 300px 1fr;\n}\n}\n@media (max-width: 992px) {\n.document-viewer-layout[data-v-71b451b1] { grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: calc(90vh - 140px);\n}\n.details-panel[data-v-71b451b1] { border-right: none; border-bottom: 1px solid #e5e7eb; max-height: 300px;\n}\n.pdf-viewer-wrapper[data-v-71b451b1] { min-height: 300px;\n}\n.forward-grid[data-v-71b451b1] { grid-template-columns: 1fr;\n}\n.info-grid-enhanced[data-v-71b451b1] { grid-template-columns: 1fr;\n}\n.flow-container[data-v-71b451b1] { flex-direction: column; gap: 6px;\n}\n.flow-node[data-v-71b451b1] { width: 100%; min-width: unset;\n}\n.flow-arrow[data-v-71b451b1] { transform: rotate(90deg); padding: 0;\n}\n.arrow-line[data-v-71b451b1] { width: 24px;\n}\n.forward-doc-info[data-v-71b451b1] { flex-direction: column; gap: 4px;\n}\n}\n@media (max-width: 768px) {\n.document-view-modal[data-v-71b451b1] { max-width: 100vw; width: 100vw; margin: 0; border-radius: 0; max-height: 100vh;\n}\n.document-viewer-tabs[data-v-71b451b1] { padding: 6px 10px; gap: 3px;\n}\n.viewer-tab-btn[data-v-71b451b1] { padding: 6px 12px; font-size: 11px;\n}\n.details-panel[data-v-71b451b1] { max-height: 250px;\n}\n.pdf-viewer-wrapper[data-v-71b451b1] { min-height: 250px;\n}\n.pdf-state[data-v-71b451b1] { min-height: 250px;\n}\n.route-history-content[data-v-71b451b1] { padding: 12px;\n}\n.timeline-container[data-v-71b451b1] { padding-left: 30px;\n}\n.timeline-node[data-v-71b451b1] { left: -26px; width: 20px; height: 20px; font-size: 0.55rem;\n}\n.info-card-body[data-v-71b451b1] { padding: 6px 10px; gap: 4px;\n}\n.info-field[data-v-71b451b1] { flex-direction: column; gap: 2px;\n}\n.field-icon[data-v-71b451b1] { width: 20px; height: 20px; min-width: 20px; font-size: 0.65rem;\n}\n.flow-node[data-v-71b451b1] { padding: 4px 8px;\n}\n.flow-node-value[data-v-71b451b1] { font-size: 0.7rem;\n}\n.flow-section[data-v-71b451b1] { padding: 8px 10px;\n}\n.confidential-notice[data-v-71b451b1] { padding: 20px;\n}\n.confidential-title[data-v-71b451b1] { font-size: 1.2rem;\n}\n.forward-grid[data-v-71b451b1] { grid-template-columns: 1fr; gap: 10px;\n}\n.office-list-container[data-v-71b451b1] { max-height: 140px;\n}\n}\n@media (max-width: 576px) {\n.document-header[data-v-71b451b1] { padding: 10px 14px;\n}\n.viewer-tab-btn span[data-v-71b451b1] { display: none;\n}\n.viewer-tab-btn i[data-v-71b451b1] { font-size: 14px;\n}\n.detail-card[data-v-71b451b1] { padding: 8px;\n}\n.detail-icon-wrapper[data-v-71b451b1] { width: 28px; height: 28px; min-width: 28px; font-size: 0.8rem;\n}\n.btn-pdf-control[data-v-71b451b1] { width: 26px; height: 26px; font-size: 0.7rem;\n}\n.pdf-footer[data-v-71b451b1] { flex-direction: column; gap: 2px; align-items: flex-start;\n}\n.route-history-header[data-v-71b451b1] { padding: 10px 14px; flex-direction: column; gap: 6px; align-items: flex-start;\n}\n.active-filters[data-v-71b451b1] { flex-direction: column; align-items: flex-start;\n}\n.modal-actions[data-v-71b451b1] { flex-direction: column; gap: 8px; align-items: stretch;\n}\n.modal-actions .d-flex[data-v-71b451b1] { justify-content: center;\n}\n.square-btn[data-v-71b451b1] { width: 100%; justify-content: center;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

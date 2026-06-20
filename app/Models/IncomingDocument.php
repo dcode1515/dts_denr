@@ -16,6 +16,8 @@ class IncomingDocument extends Model
    protected $fillable = [
         'tracking_number',
         'token',
+        'set_user_duration_id',
+        'duration',
         'document_type_id',
         'document_classification',
         'sender_name',

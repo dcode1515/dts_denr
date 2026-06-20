@@ -1013,7 +1013,7 @@ export default {
       this.receiveError = "";
 
       try {
-        const response = await axios.post("/dts_denr/api/receive-document", {
+        const response = await axios.post("/dts_denr/api/receive-document/" + this.receiveDocument.id, {
           document_route_id: this.receiveDocument.id,
           tracking_number: this.receiveDocument.document.tracking_number,
           received_at: new Date().toISOString(),
