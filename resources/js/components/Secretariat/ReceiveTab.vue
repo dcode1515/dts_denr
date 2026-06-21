@@ -73,23 +73,23 @@
           <tr>
             <th style="width: 4%">#</th>
             <th style="width: 15%">Tracking No.</th>
-            <th style="width: 13%">Classification</th>
+            <!-- <th style="width: 13%">Classification</th> -->
             <th style="width: 15%">Document Type</th>
             <th style="width: 20%">Subject/Title</th>
-              <th style="width: 13%">Receive By</th>
+            <th style="width: 13%">Receive By</th>
             <th style="width: 13%">Date Received</th>
             <th style="width: 20%">Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr v-if="loading && documents.data.length === 0">
-            <td colspan="7" class="text-center">
+            <td colspan="8" class="text-center">
               <div class="loader-spinner"></div>
               Loading...
             </td>
           </tr>
           <tr v-else-if="!loading && documents.data.length === 0">
-            <td colspan="7" class="text-center">
+            <td colspan="8" class="text-center">
               <div class="empty-state">
                 <i class="bi bi-inbox" style="font-size: 3rem; color: #9ca3af"></i>
                 <p class="mt-2 text-muted">
@@ -105,11 +105,11 @@
             <td>
               <span class="tracking-number">{{ document.document.tracking_number }}</span>
             </td>
-            <td>
+            <!-- <td>
               <span :class="getClassificationBadgeClass(document.document.document_classification)">
                 {{ document.document.document_classification }}
               </span>
-            </td>
+            </td> -->
             <td>
               <span class="doc-type-badge">{{ document.document.document_type?.document_type_name || document.document.document_type }}</span>
             </td>
@@ -125,10 +125,9 @@
             <td>
                <div class="date-received">
                 <i class="bi bi-person-circle date-icon"></i>
-              {{document.received_by.firstname}}  {{document.received_by.middlename}},  {{document.received_by.lastname}}
+                {{ document.received_by?.firstname || '' }} {{ document.received_by?.middlename || '' }} {{ document.received_by?.lastname || '' }}
                </div>
-              </td>
-            
+            </td>
             <td>
               <div class="date-received">
                 <i class="bi bi-calendar3 date-icon"></i>
@@ -142,6 +141,12 @@
                 </button>
                 <button class="btn-action btn-forward" @click="openForwardModal(document)" title="Forward Office">
                   <i class="bi bi-arrow-right-circle"></i>
+                </button>
+                <button class="btn-action btn-release" @click="openReleaseModal(document)" title="For Release">
+                  <i class="bi bi-check2-circle"></i>
+                </button>
+                <button class="btn-action btn-archive" @click="openArchiveModal(document)" title="Archive">
+                  <i class="bi bi-archive"></i>
                 </button>
               </div>
             </td>
@@ -271,7 +276,7 @@
                 </div>
               </div>
 
-              <!-- Right Column: Duration & Remarks -->
+              <!-- Right Column: Duration, Remarks & Attachments -->
               <div class="forward-col">
                 <label class="form-label">
                   Duration <span class="required-star">*</span>
@@ -320,13 +325,82 @@
                 <textarea
                   v-model="remarks"
                   class="remarks-textarea"
-                  rows="3"
+                  rows="2"
                   placeholder="Add remarks or instructions..."
                   :disabled="forwarding"
                   maxlength="500"
                 ></textarea>
                 <div class="remarks-counter" :class="{ 'text-danger': remarks.length > 450 }">
                   {{ remarks.length }}/500
+                </div>
+
+                <!-- File Attachment -->
+                <label class="form-label" style="margin-top: 10px;">
+                  Attachments (Optional)
+                </label>
+                <div class="file-upload-container">
+                  <div class="file-drop-zone" @dragover.prevent @drop.prevent="handleFileDrop" @click="$refs.fileInput.click()">
+                    <div class="file-drop-content">
+                      <i class="bi bi-cloud-upload file-upload-icon"></i>
+                      <p class="file-drop-text">Drag & drop files here or click to browse</p>
+                      <span class="file-drop-hint">Supported: PDF, DOC, DOCX, JPG, PNG (Max 10MB)</span>
+                    </div>
+                    <input
+                      type="file"
+                      ref="fileInput"
+                      @change="handleFileSelect"
+                      accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                      multiple
+                      :disabled="forwarding"
+                      style="display: none;"
+                    />
+                  </div>
+
+                  <!-- Uploaded Files List -->
+                  <div v-if="uploadedFiles.length > 0" class="uploaded-files-list">
+                    <div class="uploaded-files-header">
+                      <i class="bi bi-paperclip"></i>
+                      <span>{{ uploadedFiles.length }} file(s) attached</span>
+                    </div>
+                    <div v-for="(file, index) in uploadedFiles" :key="index" class="uploaded-file-item">
+                      <div class="file-info">
+                        <i :class="getFileIcon(file.type)"></i>
+                        <div class="file-details">
+                          <span class="file-name">{{ file.name }}</span>
+                          <span class="file-size">{{ formatFileSize(file.size) }}</span>
+                        </div>
+                      </div>
+                      <button 
+                        type="button" 
+                        class="remove-file-btn" 
+                        @click="removeFile(index)"
+                        :disabled="forwarding"
+                        title="Remove file"
+                      >
+                        <i class="bi bi-x-circle"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Existing Attachments from Document -->
+                <div v-if="forwardDocument?.document?.attachments && forwardDocument.document.attachments.length > 0" class="existing-attachments">
+                  <div class="existing-attachments-header">
+                    <i class="bi bi-paperclip"></i>
+                    <span>Existing Attachments</span>
+                  </div>
+                  <div v-for="(attachment, index) in forwardDocument.document.attachments" :key="index" class="existing-attachment-item">
+                    <i class="bi bi-file-earmark"></i>
+                    <span class="attachment-name">{{ attachment.filename || attachment.original_name || 'Attachment' }}</span>
+                    <button 
+                      type="button" 
+                      class="view-attachment-btn" 
+                      @click="viewAttachment(attachment)"
+                      title="View attachment"
+                    >
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -373,6 +447,297 @@
       </div>
     </div>
 
+    <!-- ==================== RELEASE DOCUMENT MODAL ==================== -->
+    <div v-if="showReleaseModal" class="modal-overlay" @click.self="closeReleaseModal">
+      <div class="modal-dialog enhanced-modal" style="max-width: 550px">
+        <div class="modal-content square-modal">
+          <div class="modal-header-enhanced square-header" style="background: linear-gradient(135deg, #2563eb, #1d4ed8)">
+            <div class="d-flex align-items-center">
+              <div class="modal-icon-wrapper square-icon" style="background: rgba(255, 255, 255, 0.2)">
+                <i class="bi bi-check2-circle"></i>
+              </div>
+              <div>
+                <h5 class="modal-title">Release Document</h5>
+              </div>
+            </div>
+            <button type="button" class="btn-close-custom square-close" @click="closeReleaseModal" :disabled="releasing">
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+
+          <div class="modal-body-enhanced">
+            <div v-if="releaseError" class="error-msg" role="alert">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <circle cx="12" cy="16.5" r="0.7" fill="currentColor" stroke="none" />
+              </svg>
+              <span>{{ releaseError }}</span>
+            </div>
+
+            <!-- Warning Icon -->
+            <div class="text-center mb-4">
+              <div class="release-warning-icon">
+                <i class="bi bi-question-circle-fill"></i>
+              </div>
+              <h5 class="mt-3" style="color: #1e293b; font-weight: 700;">Are you sure you want to release this document?</h5>
+              <p class="text-muted" style="font-size: 0.85rem;">This action will mark the document as released and ready for the next step.</p>
+            </div>
+
+            <!-- Document Info Summary -->
+            <div class="release-doc-info">
+              <div class="release-doc-row">
+                <div class="release-doc-icon-wrapper">
+                  <i class="bi bi-upc-scan"></i>
+                </div>
+                <div class="release-doc-content">
+                  <span class="release-doc-label">Tracking Number</span>
+                  <span class="release-doc-value">{{ releaseDocument?.document?.tracking_number || "N/A" }}</span>
+                </div>
+              </div>
+              <div class="release-doc-row">
+                <div class="release-doc-icon-wrapper">
+                  <i class="bi bi-file-earmark-text"></i>
+                </div>
+                <div class="release-doc-content">
+                  <span class="release-doc-label">Document Type</span>
+                  <span class="release-doc-value">{{ releaseDocument?.document?.document_type?.document_type_name || releaseDocument?.document?.document_type || "N/A" }}</span>
+                </div>
+              </div>
+              <div class="release-doc-row">
+                <div class="release-doc-icon-wrapper">
+                  <i class="bi bi-journal-text"></i>
+                </div>
+                <div class="release-doc-content">
+                  <span class="release-doc-label">Subject</span>
+                  <span class="release-doc-value">{{ releaseDocument?.document?.subject || "N/A" }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Remarks -->
+            <div class="mt-3">
+              <label class="form-label-enhanced">
+                Remarks (Optional)
+              </label>
+              <textarea
+                v-model="releaseRemarks"
+                class="remarks-textarea"
+                rows="3"
+                placeholder="Add remarks for releasing this document..."
+                :disabled="releasing"
+                maxlength="500"
+              ></textarea>
+              <div class="remarks-counter" :class="{ 'text-danger': releaseRemarks.length > 450 }">
+                {{ releaseRemarks.length }}/500
+              </div>
+            </div>
+
+            <!-- System Date and Time Display -->
+            <div class="system-datetime-box mt-3">
+              <div class="system-datetime-header" style="background: #2563eb;">
+                <i class="bi bi-clock-fill"></i>
+                <span>System Date & Time (Philippine Standard Time)</span>
+              </div>
+              <div class="system-datetime-display">
+                <div class="datetime-item">
+                  <i class="bi bi-calendar3"></i>
+                  <span class="datetime-label">Date:</span>
+                  <span class="datetime-value">{{ currentPstDate }}</span>
+                </div>
+                <div class="datetime-item">
+                  <i class="bi bi-clock"></i>
+                  <span class="datetime-label">Time:</span>
+                  <span class="datetime-value">{{ currentPstTime }}</span>
+                </div>
+              </div>
+              <div class="system-datetime-footer">
+                <i class="bi bi-info-circle"></i>
+                <small>This date and time will be recorded as the official release timestamp.</small>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="modal-actions">
+              <button
+                type="button"
+                class="btn btn-outline-secondary square-btn"
+                @click="closeReleaseModal"
+                :disabled="releasing"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                class="btn btn-release-doc square-btn"
+                @click="submitReleaseDocument"
+                :disabled="releasing"
+              >
+                <span v-if="releasing" class="spinner-border spinner-border-sm me-1" role="status"></span>
+                <i v-else class="bi bi-check2-circle me-1"></i>
+                {{ releasing ? "Processing..." : "Confirm Release" }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== ARCHIVE DOCUMENT MODAL ==================== -->
+    <div v-if="showArchiveModal" class="modal-overlay" @click.self="closeArchiveModal">
+      <div class="modal-dialog enhanced-modal" style="max-width: 550px">
+        <div class="modal-content square-modal">
+          <div class="modal-header-enhanced square-header" style="background: linear-gradient(135deg, #6b7280, #4b5563)">
+            <div class="d-flex align-items-center">
+              <div class="modal-icon-wrapper square-icon" style="background: rgba(255, 255, 255, 0.2)">
+                <i class="bi bi-archive"></i>
+              </div>
+              <div>
+                <h5 class="modal-title">Archive Document</h5>
+              </div>
+            </div>
+            <button type="button" class="btn-close-custom square-close" @click="closeArchiveModal" :disabled="archiving">
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+
+          <div class="modal-body-enhanced">
+            <div v-if="archiveError" class="error-msg" role="alert">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <circle cx="12" cy="16.5" r="0.7" fill="currentColor" stroke="none" />
+              </svg>
+              <span>{{ archiveError }}</span>
+            </div>
+
+            <!-- Warning Icon -->
+            <div class="text-center mb-4">
+              <div class="archive-warning-icon">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+              </div>
+              <h5 class="mt-3" style="color: #1e293b; font-weight: 700;">Are you sure you want to archive this document?</h5>
+              <p class="text-muted" style="font-size: 0.85rem;">This action will move the document to the archive. You can still access it from the archived records.</p>
+            </div>
+
+            <!-- Document Info Summary -->
+            <div class="archive-doc-info">
+              <div class="archive-doc-row">
+                <div class="archive-doc-icon-wrapper">
+                  <i class="bi bi-upc-scan"></i>
+                </div>
+                <div class="archive-doc-content">
+                  <span class="archive-doc-label">Tracking Number</span>
+                  <span class="archive-doc-value">{{ archiveDocument?.document?.tracking_number || "N/A" }}</span>
+                </div>
+              </div>
+              <div class="archive-doc-row">
+                <div class="archive-doc-icon-wrapper">
+                  <i class="bi bi-file-earmark-text"></i>
+                </div>
+                <div class="archive-doc-content">
+                  <span class="archive-doc-label">Document Type</span>
+                  <span class="archive-doc-value">{{ archiveDocument?.document?.document_type?.document_type_name || archiveDocument?.document?.document_type || "N/A" }}</span>
+                </div>
+              </div>
+              <div class="archive-doc-row">
+                <div class="archive-doc-icon-wrapper">
+                  <i class="bi bi-journal-text"></i>
+                </div>
+                <div class="archive-doc-content">
+                  <span class="archive-doc-label">Subject</span>
+                  <span class="archive-doc-value">{{ archiveDocument?.document?.subject || "N/A" }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Archive Reason -->
+            <div class="mt-3">
+              <label class="form-label-enhanced">
+                Archive Reason <span class="required-star">*</span>
+              </label>
+              <select v-model="archiveReason" class="archive-select" :disabled="archiving">
+                <option value="">Select Reason</option>
+                <option value="Completed">Completed</option>
+                <option value="Inactive">Inactive</option>
+                <option value="No Longer Needed">No Longer Needed</option>
+                <option value="Duplicate">Duplicate</option>
+                <option value="Other">Other</option>
+              </select>
+              <div class="archive-hint" v-if="!archiveReason">
+                <i class="bi bi-info-circle"></i>
+                <span>Please select a reason for archiving this document.</span>
+              </div>
+            </div>
+
+            <!-- Remarks -->
+            <div class="mt-3">
+              <label class="form-label-enhanced">
+                Remarks (Optional)
+              </label>
+              <textarea
+                v-model="archiveRemarks"
+                class="remarks-textarea"
+                rows="3"
+                placeholder="Add remarks for archiving this document..."
+                :disabled="archiving"
+                maxlength="500"
+              ></textarea>
+              <div class="remarks-counter" :class="{ 'text-danger': archiveRemarks.length > 450 }">
+                {{ archiveRemarks.length }}/500
+              </div>
+            </div>
+
+            <!-- System Date and Time Display -->
+            <div class="system-datetime-box mt-3">
+              <div class="system-datetime-header" style="background: #6b7280;">
+                <i class="bi bi-clock-fill"></i>
+                <span>System Date & Time (Philippine Standard Time)</span>
+              </div>
+              <div class="system-datetime-display">
+                <div class="datetime-item">
+                  <i class="bi bi-calendar3"></i>
+                  <span class="datetime-label">Date:</span>
+                  <span class="datetime-value">{{ currentPstDate }}</span>
+                </div>
+                <div class="datetime-item">
+                  <i class="bi bi-clock"></i>
+                  <span class="datetime-label">Time:</span>
+                  <span class="datetime-value">{{ currentPstTime }}</span>
+                </div>
+              </div>
+              <div class="system-datetime-footer">
+                <i class="bi bi-info-circle"></i>
+                <small>This date and time will be recorded as the official archive timestamp.</small>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="modal-actions">
+              <button
+                type="button"
+                class="btn btn-outline-secondary square-btn"
+                @click="closeArchiveModal"
+                :disabled="archiving"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                class="btn btn-archive-doc square-btn"
+                @click="submitArchiveDocument"
+                :disabled="archiving || !archiveReason"
+              >
+                <span v-if="archiving" class="spinner-border spinner-border-sm me-1" role="status"></span>
+                <i v-else class="bi bi-archive me-1"></i>
+                {{ archiving ? "Processing..." : "Confirm Archive" }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Document Viewer Modal -->
     <div v-if="showViewModal" class="modal-overlay" @click.self="closeViewModal">
       <div class="modal-dialog enhanced-modal document-view-modal">
@@ -406,6 +771,10 @@
               <button class="viewer-tab-btn" :class="{ active: viewerActiveTab === 'history' }" @click="viewerActiveTab = 'history'">
                 <i class="bi bi-clock-history"></i>
                 <span>Route History</span>
+              </button>
+              <button class="viewer-tab-btn" :class="{ active: viewerActiveTab === 'acted_attachments' }" @click="viewerActiveTab = 'acted_attachments'">
+                <i class="bi bi-file-earmark-check"></i>
+                <span>Acted Attachments</span>
               </button>
             </div>
 
@@ -770,6 +1139,66 @@
                 </div>
               </div>
             </div>
+
+            <!-- Acted Attachments Tab -->
+            <div v-show="viewerActiveTab === 'acted_attachments'" class="acted-attachments-panel">
+              <div class="acted-attachments-header">
+                <div class="acted-attachments-title">
+                  <i class="bi bi-file-earmark-check"></i>
+                  <span>Acted Attachments</span>
+                </div>
+                <div class="acted-attachments-badge" v-if="getAllActedAttachments().length > 0">
+                  <i class="bi bi-paperclip"></i>
+                  <span>{{ getAllActedAttachments().length }} Attachment{{ getAllActedAttachments().length !== 1 ? "s" : "" }}</span>
+                </div>
+              </div>
+
+              <div class="acted-attachments-content">
+                <div v-if="getAllActedAttachments().length === 0" class="acted-state-box">
+                  <div class="empty-icon-wrapper">
+                    <i class="bi bi-file-earmark-x"></i>
+                  </div>
+                  <h5 class="mt-3">No Acted Attachments</h5>
+                  <p class="text-muted">No attachments have been added to this document yet.</p>
+                </div>
+
+                <div v-else class="acted-grid">
+                  <div v-for="(attachment, index) in getAllActedAttachments()" :key="index" class="acted-card">
+                    <div class="acted-card-icon">
+                      <i :class="getAttachmentIcon(attachment)"></i>
+                    </div>
+                    <div class="acted-card-content">
+                      <div class="acted-card-header">
+                        <span class="acted-file-name">{{ getAttachmentName(attachment) }}</span>
+                        <span class="acted-file-size" v-if="attachment.size">{{ formatFileSize(attachment.size) }}</span>
+                      </div>
+                      <div class="acted-card-meta" v-if="attachment.uploaded_at || attachment.created_at">
+                        <i class="bi bi-clock"></i>
+                        <span>{{ attachment.uploaded_at ? formatDateTime(attachment.uploaded_at) : formatDateTime(attachment.created_at) }}</span>
+                      </div>
+                      <div class="acted-card-actions">
+                        <button 
+                          type="button" 
+                          class="acted-view-btn" 
+                          @click="viewActedAttachment(attachment)"
+                          title="View in new tab"
+                        >
+                          <i class="bi bi-eye"></i> View
+                        </button>
+                        <button 
+                          type="button" 
+                          class="acted-download-btn" 
+                          @click="downloadActedAttachment(attachment)"
+                          title="Download"
+                        >
+                          <i class="bi bi-download"></i> Download
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -825,6 +1254,23 @@ export default {
       officeSearchQuery: "",
       selectedDuration: "",
       remarks: "",
+      uploadedFiles: [],
+      uploadedFileData: [],
+
+      // Release Modal
+      showReleaseModal: false,
+      releaseDocument: null,
+      releasing: false,
+      releaseError: "",
+      releaseRemarks: "",
+
+      // Archive Modal
+      showArchiveModal: false,
+      archiveDocument: null,
+      archiving: false,
+      archiveError: "",
+      archiveReason: "",
+      archiveRemarks: "",
 
       // View Modal
       showViewModal: false,
@@ -835,6 +1281,11 @@ export default {
       pdfZoom: 1,
       pdfViewerHeight: 700,
       routeHistoryLoading: false,
+
+      // PST Clock
+      currentPstDate: "",
+      currentPstTime: "",
+      pstClockInterval: null,
     };
   },
   computed: {
@@ -853,8 +1304,37 @@ export default {
   },
   mounted() {
     this.getDataReceived();
+    this.updatePstDateTime();
+    this.pstClockInterval = setInterval(() => {
+      this.updatePstDateTime();
+    }, 1000);
+  },
+  beforeUnmount() {
+    if (this.pstClockInterval) {
+      clearInterval(this.pstClockInterval);
+    }
   },
   methods: {
+    // ===== PST CLOCK =====
+    updatePstDateTime() {
+      const now = new Date();
+      const options = {
+        timeZone: "Asia/Manila",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      };
+      const timeOptions = {
+        timeZone: "Asia/Manila",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      };
+      this.currentPstDate = now.toLocaleDateString("en-PH", options);
+      this.currentPstTime = now.toLocaleTimeString("en-PH", timeOptions);
+    },
+
     // ===== DATA FETCHING =====
     async getDataReceived(page = 1) {
       try {
@@ -907,6 +1387,180 @@ export default {
     
     changePerPage() { 
       this.getDataReceived(1); 
+    },
+
+    // ===== FILE HANDLING =====
+    handleFileSelect(event) {
+      const files = Array.from(event.target.files);
+      this.processFiles(files);
+      event.target.value = '';
+    },
+
+    handleFileDrop(event) {
+      const files = Array.from(event.dataTransfer.files);
+      this.processFiles(files);
+    },
+
+    processFiles(files) {
+      const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpeg', 'image/png'];
+      const maxSize = 10 * 1024 * 1024;
+
+      files.forEach(file => {
+        if (!validTypes.includes(file.type)) {
+          this.$emit('show-notification', {
+            message: `File "${file.name}" has unsupported format.`,
+            type: 'warning'
+          });
+          return;
+        }
+
+        if (file.size > maxSize) {
+          this.$emit('show-notification', {
+            message: `File "${file.name}" exceeds 10MB limit.`,
+            type: 'warning'
+          });
+          return;
+        }
+
+        if (this.uploadedFiles.some(f => f.name === file.name && f.size === file.size)) {
+          this.$emit('show-notification', {
+            message: `File "${file.name}" already added.`,
+            type: 'warning'
+          });
+          return;
+        }
+
+        this.uploadedFiles.push(file);
+        
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.uploadedFileData.push({
+            name: file.name,
+            type: file.type,
+            size: file.size,
+            data: e.target.result,
+            file: file
+          });
+        };
+        reader.readAsDataURL(file);
+      });
+    },
+
+    removeFile(index) {
+      this.uploadedFiles.splice(index, 1);
+      this.uploadedFileData.splice(index, 1);
+    },
+
+    getFileIcon(fileType) {
+      if (fileType.includes('pdf')) return 'bi bi-file-pdf';
+      if (fileType.includes('word') || fileType.includes('msword')) return 'bi bi-file-word';
+      if (fileType.includes('image')) return 'bi bi-file-image';
+      return 'bi bi-file-earmark';
+    },
+
+    formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    },
+
+    viewAttachment(attachment) {
+      if (attachment.file_path) {
+        window.open(`/storage/${attachment.file_path}`, '_blank');
+      } else if (attachment.url) {
+        window.open(attachment.url, '_blank');
+      } else {
+        this.$emit('show-notification', {
+          message: 'Unable to view attachment.',
+          type: 'warning'
+        });
+      }
+    },
+
+    // ===== ACTED ATTACHMENTS =====
+    getAllActedAttachments() {
+      if (!this.selectedDocument?.document) return [];
+      
+      const docAttachments = this.selectedDocument.document.attachments || [];
+      
+      const routeAttachments = [];
+      if (this.selectedDocument.document.document_route) {
+        this.selectedDocument.document.document_route.forEach(route => {
+          if (route.attachments && route.attachments.length > 0) {
+            routeAttachments.push(...route.attachments.map(att => ({
+              ...att,
+              route_id: route.id,
+              from_office: route.from_office,
+              to_office: route.to_office,
+              route_status: route.status
+            })));
+          }
+        });
+      }
+      
+      const allAttachments = [...docAttachments, ...routeAttachments];
+      return allAttachments;
+    },
+
+    getAttachmentName(attachment) {
+      return attachment.filename || attachment.original_name || attachment.name || 'Attachment';
+    },
+
+    getAttachmentIcon(attachment) {
+      const name = this.getAttachmentName(attachment).toLowerCase();
+      if (name.includes('.pdf')) return 'bi bi-file-pdf text-danger';
+      if (name.includes('.doc') || name.includes('.docx')) return 'bi bi-file-word text-primary';
+      if (name.includes('.xls') || name.includes('.xlsx')) return 'bi bi-file-excel text-success';
+      if (name.includes('.jpg') || name.includes('.jpeg') || name.includes('.png') || name.includes('.gif')) return 'bi bi-file-image text-info';
+      if (name.includes('.zip') || name.includes('.rar')) return 'bi bi-file-zip text-warning';
+      return 'bi bi-file-earmark text-secondary';
+    },
+
+    viewActedAttachment(attachment) {
+      let url = '';
+      if (attachment.file_path) {
+        url = `/storage/${attachment.file_path}`;
+      } else if (attachment.url) {
+        url = attachment.url;
+      } else if (attachment.path) {
+        url = `/storage/${attachment.path}`;
+      } else {
+        this.$emit('show-notification', {
+          message: 'Unable to view attachment. File path not found.',
+          type: 'warning'
+        });
+        return;
+      }
+      
+      window.open(url, '_blank');
+    },
+
+    downloadActedAttachment(attachment) {
+      let url = '';
+      let filename = this.getAttachmentName(attachment);
+      
+      if (attachment.file_path) {
+        url = `/storage/${attachment.file_path}`;
+      } else if (attachment.url) {
+        url = attachment.url;
+      } else if (attachment.path) {
+        url = `/storage/${attachment.path}`;
+      } else {
+        this.$emit('show-notification', {
+          message: 'Unable to download attachment. File path not found.',
+          type: 'warning'
+        });
+        return;
+      }
+      
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     },
 
     // ===== DURATION HELPERS =====
@@ -989,6 +1643,8 @@ export default {
       this.officeSearchQuery = "";
       this.selectedDuration = "";
       this.remarks = "";
+      this.uploadedFiles = [];
+      this.uploadedFileData = [];
       this.fetchOffices();
     },
 
@@ -1000,6 +1656,8 @@ export default {
       this.officeSearchQuery = "";
       this.selectedDuration = "";
       this.remarks = "";
+      this.uploadedFiles = [];
+      this.uploadedFileData = [];
     },
 
     clearForwardForm() {
@@ -1008,6 +1666,8 @@ export default {
       this.officeSearchQuery = "";
       this.selectedDuration = "";
       this.remarks = "";
+      this.uploadedFiles = [];
+      this.uploadedFileData = [];
     },
 
     clearOfficeSearch() {
@@ -1060,12 +1720,21 @@ export default {
       this.forwardError = "";
 
       try {
-        const response = await axios.post("/dts_denr/api/add-forward-document", {
-          document_id: this.forwardDocument.id,
-          tracking_number: this.forwardDocument.document.tracking_number,
-          offices: this.selectedOffices.map((office) => office.id),
-          duration: this.hasExistingDuration() ? this.getDurationValue() : this.selectedDuration,
-          remarks: this.remarks || null,
+        const formData = new FormData();
+        formData.append('document_id', this.forwardDocument.id);
+        formData.append('tracking_number', this.forwardDocument.document.tracking_number);
+        formData.append('offices', JSON.stringify(this.selectedOffices.map((office) => office.id)));
+        formData.append('duration', this.hasExistingDuration() ? this.getDurationValue() : this.selectedDuration);
+        formData.append('remarks', this.remarks || '');
+
+        this.uploadedFiles.forEach((file, index) => {
+          formData.append(`attachments[${index}]`, file);
+        });
+
+        const response = await axios.post("/dts_denr/api/add-forward-document", formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         });
 
         await Swal.fire({
@@ -1087,6 +1756,116 @@ export default {
         this.$emit("show-notification", { message: this.forwardError, type: "error" });
       } finally {
         this.forwarding = false;
+      }
+    },
+
+    // ===== RELEASE MODAL =====
+    openReleaseModal(doc) {
+      this.releaseDocument = doc;
+      this.showReleaseModal = true;
+      this.releaseError = "";
+      this.releaseRemarks = "";
+    },
+
+    closeReleaseModal() {
+      this.showReleaseModal = false;
+      this.releaseDocument = null;
+      this.releaseError = "";
+      this.releaseRemarks = "";
+    },
+
+    async submitReleaseDocument() {
+      this.releasing = true;
+      this.releaseError = "";
+
+      try {
+        const response = await axios.post("/dts_denr/api/release-document", {
+          document_route_id: this.releaseDocument.id,
+          tracking_number: this.releaseDocument.document.tracking_number,
+          remarks: this.releaseRemarks || "",
+          released_at: new Date().toISOString(),
+        });
+
+        await Swal.fire({
+          title: "Released!",
+          text: response.data.message || "Document has been released successfully.",
+          icon: "success",
+          confirmButtonColor: "#1a4731",
+          confirmButtonText: "OK",
+        });
+
+        this.closeReleaseModal();
+        this.$emit("show-notification", {
+          message: "Document released successfully!",
+          type: "success",
+        });
+        this.getDataReceived(this.documents.current_page);
+      } catch (error) {
+        console.error("Release document error:", error);
+        const message = error.response?.data?.message || "Failed to release document. Please try again.";
+        this.releaseError = message;
+        this.$emit("show-notification", { message, type: "error" });
+      } finally {
+        this.releasing = false;
+      }
+    },
+
+    // ===== ARCHIVE MODAL =====
+    openArchiveModal(doc) {
+      this.archiveDocument = doc;
+      this.showArchiveModal = true;
+      this.archiveError = "";
+      this.archiveReason = "";
+      this.archiveRemarks = "";
+    },
+
+    closeArchiveModal() {
+      this.showArchiveModal = false;
+      this.archiveDocument = null;
+      this.archiveError = "";
+      this.archiveReason = "";
+      this.archiveRemarks = "";
+    },
+
+    async submitArchiveDocument() {
+      if (!this.archiveReason) {
+        this.archiveError = "Please select a reason for archiving.";
+        return;
+      }
+
+      this.archiving = true;
+      this.archiveError = "";
+
+      try {
+        const response = await axios.post("/dts_denr/api/archive-document", {
+          document_route_id: this.archiveDocument.id,
+          tracking_number: this.archiveDocument.document.tracking_number,
+          reason: this.archiveReason,
+          remarks: this.archiveRemarks || "",
+          archived_at: new Date().toISOString(),
+        });
+
+        await Swal.fire({
+          title: "Archived!",
+          text: response.data.message || "Document has been archived successfully.",
+          icon: "success",
+          confirmButtonColor: "#1a4731",
+          confirmButtonText: "OK",
+        });
+
+        this.closeArchiveModal();
+        this.$emit("show-notification", {
+          message: "Document archived successfully!",
+          type: "success",
+        });
+        this.getDataReceived(this.documents.current_page);
+      } catch (error) {
+        console.error("Archive document error:", error);
+        const message = error.response?.data?.message || "Failed to archive document. Please try again.";
+        this.archiveError = message;
+        this.$emit("show-notification", { message, type: "error" });
+      } finally {
+        this.archiving = false;
       }
     },
 
@@ -1276,6 +2055,18 @@ export default {
 .date-received { color: #64748b; font-size: 12px; display: flex; align-items: center; gap: 6px; }
 .date-icon { color: #94a3b8; font-size: 13px; }
 
+/* ===== ACTION BUTTONS ===== */
+.action-buttons { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.btn-action { background: none; border: 1px solid transparent; border-radius: 6px; padding: 6px 10px; cursor: pointer; font-size: 0.95rem; transition: all 0.2s; }
+.btn-view { color: #6366f1; border-color: #c7d2fe; background: #eef2ff; }
+.btn-view:hover { background: #ddd6fe; transform: scale(1.05); }
+.btn-forward { color: #0891b2; border-color: #67e8f9; background: #cffafe; }
+.btn-forward:hover { background: #67e8f9; transform: scale(1.05); }
+.btn-release { color: #059669; border-color: #6ee7b7; background: #d1fae5; }
+.btn-release:hover { background: #6ee7b7; transform: scale(1.05); }
+.btn-archive { color: #6b7280; border-color: #d1d5db; background: #f3f4f6; }
+.btn-archive:hover { background: #e5e7eb; transform: scale(1.05); }
+
 /* ===== CONFIDENTIAL ===== */
 .confidential-blur-static { filter: blur(8px); user-select: none; pointer-events: none; position: relative; }
 .confidential-blur-static .confidential-label { display: inline-block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.7rem; font-weight: 800; color: #dc2626; background: rgba(255,255,255,0.95); padding: 2px 10px; border-radius: 4px; border: 2px solid #dc2626; letter-spacing: 1px; text-transform: uppercase; pointer-events: none; white-space: nowrap; filter: none; }
@@ -1315,13 +2106,72 @@ export default {
 .existing-duration-info { display: flex; align-items: center; gap: 6px; padding: 4px 10px; background: #f0fdf4; border: 1px solid #86efac; border-radius: 4px; font-size: 0.7rem; color: #166534; }
 .existing-duration-info i { color: #16a34a; }
 
-/* ===== ACTION BUTTONS ===== */
-.action-buttons { display: flex; gap: 6px; align-items: center; }
-.btn-action { background: none; border: 1px solid transparent; border-radius: 6px; padding: 6px 10px; cursor: pointer; font-size: 0.95rem; transition: all 0.2s; }
-.btn-view { color: #6366f1; border-color: #c7d2fe; background: #eef2ff; }
-.btn-view:hover { background: #ddd6fe; transform: scale(1.05); }
-.btn-forward { color: #0891b2; border-color: #67e8f9; background: #cffafe; }
-.btn-forward:hover { background: #67e8f9; transform: scale(1.05); }
+/* ===== FILE UPLOAD ===== */
+.file-upload-container { margin-top: 4px; }
+.file-drop-zone { border: 2px dashed #e5e7eb; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; background: #fafafa; position: relative; }
+.file-drop-zone:hover { border-color: #2d6a4f; background: #f0fdf4; }
+.file-drop-content { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.file-upload-icon { font-size: 2rem; color: #94a3b8; transition: all 0.3s ease; }
+.file-drop-zone:hover .file-upload-icon { color: #2d6a4f; transform: translateY(-2px); }
+.file-drop-text { margin: 0; font-size: 0.85rem; color: #1e293b; font-weight: 500; }
+.file-drop-hint { font-size: 0.7rem; color: #94a3b8; }
+
+.uploaded-files-list { margin-top: 8px; border: 1px solid #e5e7eb; border-radius: 6px; overflow: hidden; }
+.uploaded-files-header { display: flex; align-items: center; gap: 8px; padding: 6px 12px; background: #f8fafc; border-bottom: 1px solid #e5e7eb; font-size: 0.75rem; font-weight: 600; color: #1e293b; }
+.uploaded-files-header i { color: #2d6a4f; }
+.uploaded-file-item { display: flex; align-items: center; justify-content: space-between; padding: 6px 12px; border-bottom: 1px solid #f3f4f6; }
+.uploaded-file-item:last-child { border-bottom: none; }
+.file-info { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; }
+.file-info i { font-size: 1.2rem; color: #dc2626; }
+.file-details { display: flex; flex-direction: column; min-width: 0; }
+.file-name { font-size: 0.8rem; font-weight: 500; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.file-size { font-size: 0.65rem; color: #94a3b8; }
+.remove-file-btn { background: none; border: none; color: #94a3b8; cursor: pointer; padding: 4px; transition: all 0.2s; }
+.remove-file-btn:hover { color: #dc2626; transform: scale(1.1); }
+.remove-file-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ===== EXISTING ATTACHMENTS ===== */
+.existing-attachments { margin-top: 8px; border: 1px solid #e5e7eb; border-radius: 6px; overflow: hidden; }
+.existing-attachments-header { display: flex; align-items: center; gap: 8px; padding: 6px 12px; background: #f8fafc; border-bottom: 1px solid #e5e7eb; font-size: 0.75rem; font-weight: 600; color: #1e293b; }
+.existing-attachments-header i { color: #2563eb; }
+.existing-attachment-item { display: flex; align-items: center; gap: 8px; padding: 6px 12px; border-bottom: 1px solid #f3f4f6; }
+.existing-attachment-item:last-child { border-bottom: none; }
+.existing-attachment-item i { color: #2563eb; font-size: 0.9rem; }
+.attachment-name { font-size: 0.8rem; color: #1e293b; flex: 1; }
+.view-attachment-btn { background: none; border: none; color: #2563eb; cursor: pointer; padding: 4px; transition: all 0.2s; }
+.view-attachment-btn:hover { color: #1d4ed8; transform: scale(1.1); }
+
+/* ===== ACTED ATTACHMENTS TAB ===== */
+.acted-attachments-panel { display: flex; flex-direction: column; height: calc(90vh - 140px); background: #f9fafb; min-height: 400px; }
+.acted-attachments-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: #fff; border-bottom: 2px solid #e5e7eb; flex-shrink: 0; }
+.acted-attachments-title { display: flex; align-items: center; gap: 10px; font-weight: 700; color: #1e293b; font-size: 1rem; }
+.acted-attachments-title i { color: #2d6a4f; font-size: 1.2rem; }
+.acted-attachments-badge { display: flex; align-items: center; gap: 6px; padding: 6px 14px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 20px; font-size: 0.8rem; font-weight: 600; color: #166534; }
+
+.acted-attachments-content { flex: 1; overflow-y: auto; padding: 24px; }
+.acted-attachments-content::-webkit-scrollbar { width: 8px; }
+.acted-attachments-content::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
+.acted-attachments-content::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
+
+.acted-state-box { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 300px; text-align: center; }
+.acted-state-box .empty-icon-wrapper { width: 80px; height: 80px; border-radius: 50%; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: #94a3b8; margin-bottom: 16px; }
+
+.acted-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+.acted-card { display: flex; gap: 16px; padding: 16px 20px; background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; transition: all 0.3s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.acted-card:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.08); transform: translateY(-2px); border-color: #cbd5e1; }
+.acted-card-icon { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; min-width: 48px; border-radius: 10px; background: #f8fafc; font-size: 1.8rem; }
+.acted-card-content { flex: 1; min-width: 0; }
+.acted-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.acted-file-name { font-size: 0.9rem; font-weight: 600; color: #1e293b; word-break: break-word; }
+.acted-file-size { font-size: 0.7rem; color: #94a3b8; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+.acted-card-meta { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; color: #94a3b8; margin-top: 4px; }
+.acted-card-meta i { font-size: 0.65rem; }
+.acted-card-actions { display: flex; gap: 8px; margin-top: 10px; }
+.acted-view-btn, .acted-download-btn { display: inline-flex; align-items: center; gap: 4px; padding: 4px 12px; border: none; border-radius: 6px; font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.acted-view-btn { background: #dbeafe; color: #1e40af; }
+.acted-view-btn:hover { background: #bfdbfe; transform: scale(1.02); }
+.acted-download-btn { background: #d1fae5; color: #065f46; }
+.acted-download-btn:hover { background: #a7f3d0; transform: scale(1.02); }
 
 /* ===== STATUS BADGE ===== */
 .status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -1341,15 +2191,63 @@ export default {
 .modal-subtitle { font-size: 0.8rem; opacity: 0.85; }
 .square-close { background: rgba(255,255,255,0.15); border: none; color: #fff; width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s; }
 .square-close:hover { background: rgba(255,255,255,0.3); }
-.modal-body { padding: 16px 20px; background: #f9fafb; }
+.modal-body, .modal-body-enhanced { padding: 16px 20px; background: #f9fafb; max-height: calc(90vh - 120px); overflow-y: auto; }
+.modal-body::-webkit-scrollbar, .modal-body-enhanced::-webkit-scrollbar { width: 4px; }
+.modal-body::-webkit-scrollbar-thumb, .modal-body-enhanced::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 2px; }
+
 .error-msg { display: flex; align-items: center; gap: 6px; background: #fef0ef; border: 1px solid #f5c6c3; border-radius: 6px; padding: 8px 12px; font-size: 12px; color: #c0392b; margin-bottom: 12px; font-weight: 500; }
-.form-label { font-weight: 600; font-size: 0.8rem; color: #1e293b; margin-bottom: 4px; display: block; }
+.form-label, .form-label-enhanced { font-weight: 600; font-size: 0.8rem; color: #1e293b; margin-bottom: 4px; display: block; }
 .required-star { color: #dc2626; margin-left: 2px; }
 .modal-actions { margin-top: 16px; padding-top: 12px; border-top: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center; }
 .square-btn { border-radius: 6px !important; font-weight: 600; transition: all 0.2s; padding: 6px 16px !important; font-size: 0.85rem !important; }
 .btn-save { background: linear-gradient(135deg, #1e4d2b, #2d6a4f); color: #fff; border: none; padding: 6px 16px; font-weight: 600; display: inline-flex; align-items: center; box-shadow: 0 2px 12px rgba(26,71,49,0.3); }
 .btn-save:hover { box-shadow: 0 4px 16px rgba(26,71,49,0.4); transform: translateY(-1px); }
 .btn-save:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+.btn-release-doc { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #fff; border: none; padding: 6px 16px; font-weight: 600; display: inline-flex; align-items: center; box-shadow: 0 2px 12px rgba(37,99,235,0.3); }
+.btn-release-doc:hover { box-shadow: 0 4px 16px rgba(37,99,235,0.4); transform: translateY(-1px); }
+.btn-release-doc:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+.btn-archive-doc { background: linear-gradient(135deg, #6b7280, #4b5563); color: #fff; border: none; padding: 6px 16px; font-weight: 600; display: inline-flex; align-items: center; box-shadow: 0 2px 12px rgba(107,114,128,0.3); }
+.btn-archive-doc:hover { box-shadow: 0 4px 16px rgba(107,114,128,0.4); transform: translateY(-1px); }
+.btn-archive-doc:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+/* ===== RELEASE MODAL ===== */
+.release-warning-icon { display: inline-flex; align-items: center; justify-content: center; width: 70px; height: 70px; border-radius: 50%; background: #dbeafe; font-size: 2.5rem; color: #2563eb; border: 3px solid #bfdbfe; }
+.release-doc-info { background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px 16px; display: flex; flex-direction: column; gap: 10px; }
+.release-doc-row { display: flex; align-items: center; gap: 12px; }
+.release-doc-icon-wrapper { width: 36px; height: 36px; min-width: 36px; border-radius: 8px; background: #dbeafe; display: flex; align-items: center; justify-content: center; color: #2563eb; font-size: 1rem; }
+.release-doc-content { flex: 1; min-width: 0; }
+.release-doc-label { display: block; font-size: 0.65rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
+.release-doc-value { display: block; font-size: 0.85rem; font-weight: 600; color: #1e293b; }
+
+/* ===== ARCHIVE MODAL ===== */
+.archive-warning-icon { display: inline-flex; align-items: center; justify-content: center; width: 70px; height: 70px; border-radius: 50%; background: #fef3c7; font-size: 2.5rem; color: #d97706; border: 3px solid #fde68a; }
+.archive-doc-info { background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px 16px; display: flex; flex-direction: column; gap: 10px; }
+.archive-doc-row { display: flex; align-items: center; gap: 12px; }
+.archive-doc-icon-wrapper { width: 36px; height: 36px; min-width: 36px; border-radius: 8px; background: #e5e7eb; display: flex; align-items: center; justify-content: center; color: #6b7280; font-size: 1rem; }
+.archive-doc-content { flex: 1; min-width: 0; }
+.archive-doc-label { display: block; font-size: 0.65rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
+.archive-doc-value { display: block; font-size: 0.85rem; font-weight: 600; color: #1e293b; }
+
+.archive-select { width: 100%; padding: 6px 10px; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 0.8rem; background: #fff; outline: none; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
+.archive-select:focus { border-color: #6b7280; box-shadow: 0 0 0 2px rgba(107,114,128,0.1); }
+.archive-select:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.archive-hint { display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: #fef3c7; border: 1px solid #fcd34d; border-radius: 4px; font-size: 0.7rem; color: #92400e; margin-top: 4px; }
+.archive-hint i { color: #d97706; }
+
+/* ===== SYSTEM DATETIME ===== */
+.system-datetime-box { margin-top: 16px; background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 1px solid #bfdbfe; border-radius: 10px; overflow: hidden; }
+.system-datetime-header { padding: 10px 16px; font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 8px; color: #fff; }
+.system-datetime-header i { color: rgba(255,255,255,0.8); }
+.system-datetime-display { padding: 16px; display: flex; gap: 24px; flex-wrap: wrap; }
+.datetime-item { display: flex; align-items: center; gap: 8px; }
+.datetime-item i { color: #2563eb; font-size: 1.1rem; }
+.datetime-label { font-size: 0.75rem; font-weight: 600; color: #64748b; text-transform: uppercase; }
+.datetime-value { font-size: 0.95rem; font-weight: 700; color: #1e293b; font-family: "Courier New", monospace; }
+.system-datetime-footer { padding: 8px 16px; background: rgba(37, 99, 235, 0.05); border-top: 1px solid #bfdbfe; display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: #64748b; }
+.system-datetime-footer i { color: #2563eb; }
 
 /* ===== FORWARD MODAL ===== */
 .forward-doc-info { display: flex; gap: 16px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 6px; padding: 8px 14px; margin-bottom: 12px; flex-wrap: wrap; }
@@ -1582,6 +2480,10 @@ export default {
   .flow-arrow { transform: rotate(90deg); padding: 0; }
   .arrow-line { width: 24px; }
   .forward-doc-info { flex-direction: column; gap: 4px; }
+  .acted-grid { grid-template-columns: 1fr; }
+  .modal-actions { flex-direction: column; gap: 8px; align-items: stretch; }
+  .modal-actions .d-flex { justify-content: center; }
+  .square-btn { width: 100%; justify-content: center; }
 }
 @media (max-width: 768px) {
   .document-view-modal { max-width: 100vw; width: 100vw; margin: 0; border-radius: 0; max-height: 100vh; }
@@ -1603,6 +2505,10 @@ export default {
   .confidential-title { font-size: 1.2rem; }
   .forward-grid { grid-template-columns: 1fr; gap: 10px; }
   .office-list-container { max-height: 140px; }
+  .acted-grid { grid-template-columns: 1fr; }
+  .acted-card { flex-direction: column; align-items: center; text-align: center; }
+  .acted-card-content { text-align: center; }
+  .acted-card-actions { justify-content: center; }
 }
 @media (max-width: 576px) {
   .document-header { padding: 10px 14px; }
@@ -1614,8 +2520,11 @@ export default {
   .pdf-footer { flex-direction: column; gap: 2px; align-items: flex-start; }
   .route-history-header { padding: 10px 14px; flex-direction: column; gap: 6px; align-items: flex-start; }
   .active-filters { flex-direction: column; align-items: flex-start; }
-  .modal-actions { flex-direction: column; gap: 8px; align-items: stretch; }
-  .modal-actions .d-flex { justify-content: center; }
-  .square-btn { width: 100%; justify-content: center; }
+  .file-drop-zone { padding: 12px; }
+  .file-drop-text { font-size: 0.75rem; }
+  .file-upload-icon { font-size: 1.5rem; }
+  .acted-attachments-header { flex-direction: column; gap: 8px; align-items: flex-start; }
+  .action-buttons { gap: 4px; }
+  .btn-action { padding: 4px 8px; font-size: 0.8rem; }
 }
 </style>

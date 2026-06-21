@@ -9425,6 +9425,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_PaginationComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/PaginationComponent.vue */ "./resources/js/components/PaginationComponent.vue");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
@@ -9471,6 +9483,21 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       officeSearchQuery: "",
       selectedDuration: "",
       remarks: "",
+      uploadedFiles: [],
+      uploadedFileData: [],
+      // Release Modal
+      showReleaseModal: false,
+      releaseDocument: null,
+      releasing: false,
+      releaseError: "",
+      releaseRemarks: "",
+      // Archive Modal
+      showArchiveModal: false,
+      archiveDocument: null,
+      archiving: false,
+      archiveError: "",
+      archiveReason: "",
+      archiveRemarks: "",
       // View Modal
       showViewModal: false,
       selectedDocument: null,
@@ -9479,7 +9506,11 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       pdfLoadError: false,
       pdfZoom: 1,
       pdfViewerHeight: 700,
-      routeHistoryLoading: false
+      routeHistoryLoading: false,
+      // PST Clock
+      currentPstDate: "",
+      currentPstTime: "",
+      pstClockInterval: null
     };
   },
   computed: {
@@ -9498,13 +9529,42 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     }
   },
   mounted: function mounted() {
+    var _this = this;
     this.getDataReceived();
+    this.updatePstDateTime();
+    this.pstClockInterval = setInterval(function () {
+      _this.updatePstDateTime();
+    }, 1000);
+  },
+  beforeUnmount: function beforeUnmount() {
+    if (this.pstClockInterval) {
+      clearInterval(this.pstClockInterval);
+    }
   },
   methods: {
+    // ===== PST CLOCK =====
+    updatePstDateTime: function updatePstDateTime() {
+      var now = new Date();
+      var options = {
+        timeZone: "Asia/Manila",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      };
+      var timeOptions = {
+        timeZone: "Asia/Manila",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true
+      };
+      this.currentPstDate = now.toLocaleDateString("en-PH", options);
+      this.currentPstTime = now.toLocaleTimeString("en-PH", timeOptions);
+    },
     // ===== DATA FETCHING =====
     getDataReceived: function getDataReceived() {
       var _arguments = arguments,
-        _this = this;
+        _this2 = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
         var page, response, _t;
         return _regenerator().w(function (_context) {
@@ -9512,32 +9572,32 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
             case 0:
               page = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 1;
               _context.p = 1;
-              _this.loading = true;
+              _this2.loading = true;
               _context.n = 2;
               return axios.get("/dts_denr/api/document/receive", {
                 params: {
                   page: page,
-                  per_page: _this.perPage,
-                  search: _this.searchQuery,
-                  document_type: _this.docTypeFilter
+                  per_page: _this2.perPage,
+                  search: _this2.searchQuery,
+                  document_type: _this2.docTypeFilter
                 }
               });
             case 2:
               response = _context.v;
-              _this.documents = response.data.data;
+              _this2.documents = response.data.data;
               _context.n = 4;
               break;
             case 3:
               _context.p = 3;
               _t = _context.v;
               console.error("Error fetching received data:", _t);
-              _this.$emit("show-notification", {
+              _this2.$emit("show-notification", {
                 message: "Failed to load received data.",
                 type: "error"
               });
             case 4:
               _context.p = 4;
-              _this.loading = false;
+              _this2.loading = false;
               return _context.f(4);
             case 5:
               return _context.a(2);
@@ -9568,6 +9628,162 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     },
     changePerPage: function changePerPage() {
       this.getDataReceived(1);
+    },
+    // ===== FILE HANDLING =====
+    handleFileSelect: function handleFileSelect(event) {
+      var files = Array.from(event.target.files);
+      this.processFiles(files);
+      event.target.value = '';
+    },
+    handleFileDrop: function handleFileDrop(event) {
+      var files = Array.from(event.dataTransfer.files);
+      this.processFiles(files);
+    },
+    processFiles: function processFiles(files) {
+      var _this3 = this;
+      var validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpeg', 'image/png'];
+      var maxSize = 10 * 1024 * 1024;
+      files.forEach(function (file) {
+        if (!validTypes.includes(file.type)) {
+          _this3.$emit('show-notification', {
+            message: "File \"".concat(file.name, "\" has unsupported format."),
+            type: 'warning'
+          });
+          return;
+        }
+        if (file.size > maxSize) {
+          _this3.$emit('show-notification', {
+            message: "File \"".concat(file.name, "\" exceeds 10MB limit."),
+            type: 'warning'
+          });
+          return;
+        }
+        if (_this3.uploadedFiles.some(function (f) {
+          return f.name === file.name && f.size === file.size;
+        })) {
+          _this3.$emit('show-notification', {
+            message: "File \"".concat(file.name, "\" already added."),
+            type: 'warning'
+          });
+          return;
+        }
+        _this3.uploadedFiles.push(file);
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          _this3.uploadedFileData.push({
+            name: file.name,
+            type: file.type,
+            size: file.size,
+            data: e.target.result,
+            file: file
+          });
+        };
+        reader.readAsDataURL(file);
+      });
+    },
+    removeFile: function removeFile(index) {
+      this.uploadedFiles.splice(index, 1);
+      this.uploadedFileData.splice(index, 1);
+    },
+    getFileIcon: function getFileIcon(fileType) {
+      if (fileType.includes('pdf')) return 'bi bi-file-pdf';
+      if (fileType.includes('word') || fileType.includes('msword')) return 'bi bi-file-word';
+      if (fileType.includes('image')) return 'bi bi-file-image';
+      return 'bi bi-file-earmark';
+    },
+    formatFileSize: function formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      var k = 1024;
+      var sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      var i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    },
+    viewAttachment: function viewAttachment(attachment) {
+      if (attachment.file_path) {
+        window.open("/storage/".concat(attachment.file_path), '_blank');
+      } else if (attachment.url) {
+        window.open(attachment.url, '_blank');
+      } else {
+        this.$emit('show-notification', {
+          message: 'Unable to view attachment.',
+          type: 'warning'
+        });
+      }
+    },
+    // ===== ACTED ATTACHMENTS =====
+    getAllActedAttachments: function getAllActedAttachments() {
+      var _this$selectedDocumen2;
+      if (!((_this$selectedDocumen2 = this.selectedDocument) !== null && _this$selectedDocumen2 !== void 0 && _this$selectedDocumen2.document)) return [];
+      var docAttachments = this.selectedDocument.document.attachments || [];
+      var routeAttachments = [];
+      if (this.selectedDocument.document.document_route) {
+        this.selectedDocument.document.document_route.forEach(function (route) {
+          if (route.attachments && route.attachments.length > 0) {
+            routeAttachments.push.apply(routeAttachments, _toConsumableArray(route.attachments.map(function (att) {
+              return _objectSpread(_objectSpread({}, att), {}, {
+                route_id: route.id,
+                from_office: route.from_office,
+                to_office: route.to_office,
+                route_status: route.status
+              });
+            })));
+          }
+        });
+      }
+      var allAttachments = [].concat(_toConsumableArray(docAttachments), routeAttachments);
+      return allAttachments;
+    },
+    getAttachmentName: function getAttachmentName(attachment) {
+      return attachment.filename || attachment.original_name || attachment.name || 'Attachment';
+    },
+    getAttachmentIcon: function getAttachmentIcon(attachment) {
+      var name = this.getAttachmentName(attachment).toLowerCase();
+      if (name.includes('.pdf')) return 'bi bi-file-pdf text-danger';
+      if (name.includes('.doc') || name.includes('.docx')) return 'bi bi-file-word text-primary';
+      if (name.includes('.xls') || name.includes('.xlsx')) return 'bi bi-file-excel text-success';
+      if (name.includes('.jpg') || name.includes('.jpeg') || name.includes('.png') || name.includes('.gif')) return 'bi bi-file-image text-info';
+      if (name.includes('.zip') || name.includes('.rar')) return 'bi bi-file-zip text-warning';
+      return 'bi bi-file-earmark text-secondary';
+    },
+    viewActedAttachment: function viewActedAttachment(attachment) {
+      var url = '';
+      if (attachment.file_path) {
+        url = "/storage/".concat(attachment.file_path);
+      } else if (attachment.url) {
+        url = attachment.url;
+      } else if (attachment.path) {
+        url = "/storage/".concat(attachment.path);
+      } else {
+        this.$emit('show-notification', {
+          message: 'Unable to view attachment. File path not found.',
+          type: 'warning'
+        });
+        return;
+      }
+      window.open(url, '_blank');
+    },
+    downloadActedAttachment: function downloadActedAttachment(attachment) {
+      var url = '';
+      var filename = this.getAttachmentName(attachment);
+      if (attachment.file_path) {
+        url = "/storage/".concat(attachment.file_path);
+      } else if (attachment.url) {
+        url = attachment.url;
+      } else if (attachment.path) {
+        url = "/storage/".concat(attachment.path);
+      } else {
+        this.$emit('show-notification', {
+          message: 'Unable to download attachment. File path not found.',
+          type: 'warning'
+        });
+        return;
+      }
+      var link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     },
     // ===== DURATION HELPERS =====
     getDurationValue: function getDurationValue() {
@@ -9605,9 +9821,9 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       return this.getDurationValue() !== null;
     },
     getDocumentDuration: function getDocumentDuration() {
-      var _this$selectedDocumen2, _this$selectedDocumen3;
-      if (!((_this$selectedDocumen2 = this.selectedDocument) !== null && _this$selectedDocumen2 !== void 0 && _this$selectedDocumen2.document)) return null;
-      return ((_this$selectedDocumen3 = this.selectedDocument.document.set_user_duration_id) === null || _this$selectedDocumen3 === void 0 ? void 0 : _this$selectedDocumen3.duration) || this.selectedDocument.document.duration || null;
+      var _this$selectedDocumen3, _this$selectedDocumen4;
+      if (!((_this$selectedDocumen3 = this.selectedDocument) !== null && _this$selectedDocumen3 !== void 0 && _this$selectedDocumen3.document)) return null;
+      return ((_this$selectedDocumen4 = this.selectedDocument.document.set_user_duration_id) === null || _this$selectedDocumen4 === void 0 ? void 0 : _this$selectedDocumen4.duration) || this.selectedDocument.document.duration || null;
     },
     getDocumentDurationDisplay: function getDocumentDurationDisplay() {
       var duration = this.getDocumentDuration();
@@ -9640,6 +9856,8 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       this.officeSearchQuery = "";
       this.selectedDuration = "";
       this.remarks = "";
+      this.uploadedFiles = [];
+      this.uploadedFileData = [];
       this.fetchOffices();
     },
     closeForwardModal: function closeForwardModal() {
@@ -9650,6 +9868,8 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       this.officeSearchQuery = "";
       this.selectedDuration = "";
       this.remarks = "";
+      this.uploadedFiles = [];
+      this.uploadedFileData = [];
     },
     clearForwardForm: function clearForwardForm() {
       this.selectedOffices = [];
@@ -9657,34 +9877,36 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       this.officeSearchQuery = "";
       this.selectedDuration = "";
       this.remarks = "";
+      this.uploadedFiles = [];
+      this.uploadedFileData = [];
     },
     clearOfficeSearch: function clearOfficeSearch() {
       this.officeSearchQuery = "";
     },
     fetchOffices: function fetchOffices() {
-      var _this2 = this;
+      var _this4 = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
         var response, _t2;
         return _regenerator().w(function (_context2) {
           while (1) switch (_context2.p = _context2.n) {
             case 0:
-              _this2.officesLoading = true;
+              _this4.officesLoading = true;
               _context2.p = 1;
               _context2.n = 2;
               return axios.get("/dts_denr/api/route-office-secratarirat");
             case 2:
               response = _context2.v;
-              _this2.offices = response.data.data || [];
+              _this4.offices = response.data.data || [];
               _context2.n = 4;
               break;
             case 3:
               _context2.p = 3;
               _t2 = _context2.v;
               console.error("Error fetching offices:", _t2);
-              _this2.forwardError = "Failed to load offices.";
+              _this4.forwardError = "Failed to load offices.";
             case 4:
               _context2.p = 4;
-              _this2.officesLoading = false;
+              _this4.officesLoading = false;
               return _context2.f(4);
             case 5:
               return _context2.a(2);
@@ -9715,38 +9937,45 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       });
     },
     submitForwardDocument: function submitForwardDocument() {
-      var _this3 = this;
+      var _this5 = this;
       return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-        var response, _error$response, _t3;
+        var formData, response, _error$response, _t3;
         return _regenerator().w(function (_context3) {
           while (1) switch (_context3.p = _context3.n) {
             case 0:
-              if (!(_this3.selectedOffices.length === 0)) {
+              if (!(_this5.selectedOffices.length === 0)) {
                 _context3.n = 1;
                 break;
               }
-              _this3.forwardError = "Please select at least one office.";
+              _this5.forwardError = "Please select at least one office.";
               return _context3.a(2);
             case 1:
-              if (!(!_this3.hasExistingDuration() && !_this3.selectedDuration)) {
+              if (!(!_this5.hasExistingDuration() && !_this5.selectedDuration)) {
                 _context3.n = 2;
                 break;
               }
-              _this3.forwardError = "Please select a duration.";
+              _this5.forwardError = "Please select a duration.";
               return _context3.a(2);
             case 2:
-              _this3.forwarding = true;
-              _this3.forwardError = "";
+              _this5.forwarding = true;
+              _this5.forwardError = "";
               _context3.p = 3;
+              formData = new FormData();
+              formData.append('document_id', _this5.forwardDocument.id);
+              formData.append('tracking_number', _this5.forwardDocument.document.tracking_number);
+              formData.append('offices', JSON.stringify(_this5.selectedOffices.map(function (office) {
+                return office.id;
+              })));
+              formData.append('duration', _this5.hasExistingDuration() ? _this5.getDurationValue() : _this5.selectedDuration);
+              formData.append('remarks', _this5.remarks || '');
+              _this5.uploadedFiles.forEach(function (file, index) {
+                formData.append("attachments[".concat(index, "]"), file);
+              });
               _context3.n = 4;
-              return axios.post("/dts_denr/api/add-forward-document", {
-                document_id: _this3.forwardDocument.id,
-                tracking_number: _this3.forwardDocument.document.tracking_number,
-                offices: _this3.selectedOffices.map(function (office) {
-                  return office.id;
-                }),
-                duration: _this3.hasExistingDuration() ? _this3.getDurationValue() : _this3.selectedDuration,
-                remarks: _this3.remarks || null
+              return axios.post("/dts_denr/api/add-forward-document", formData, {
+                headers: {
+                  'Content-Type': 'multipart/form-data'
+                }
               });
             case 4:
               response = _context3.v;
@@ -9758,31 +9987,179 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
                 confirmButtonColor: "#1a4731"
               });
             case 5:
-              _this3.closeForwardModal();
-              _this3.$emit("show-notification", {
+              _this5.closeForwardModal();
+              _this5.$emit("show-notification", {
                 message: "Document forwarded successfully!",
                 type: "success"
               });
-              _this3.getDataReceived(_this3.documents.current_page);
+              _this5.getDataReceived(_this5.documents.current_page);
               _context3.n = 7;
               break;
             case 6:
               _context3.p = 6;
               _t3 = _context3.v;
               console.error("Forward error:", _t3);
-              _this3.forwardError = ((_error$response = _t3.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || "Failed to forward document.";
-              _this3.$emit("show-notification", {
-                message: _this3.forwardError,
+              _this5.forwardError = ((_error$response = _t3.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || "Failed to forward document.";
+              _this5.$emit("show-notification", {
+                message: _this5.forwardError,
                 type: "error"
               });
             case 7:
               _context3.p = 7;
-              _this3.forwarding = false;
+              _this5.forwarding = false;
               return _context3.f(7);
             case 8:
               return _context3.a(2);
           }
         }, _callee3, null, [[3, 6, 7, 8]]);
+      }))();
+    },
+    // ===== RELEASE MODAL =====
+    openReleaseModal: function openReleaseModal(doc) {
+      this.releaseDocument = doc;
+      this.showReleaseModal = true;
+      this.releaseError = "";
+      this.releaseRemarks = "";
+    },
+    closeReleaseModal: function closeReleaseModal() {
+      this.showReleaseModal = false;
+      this.releaseDocument = null;
+      this.releaseError = "";
+      this.releaseRemarks = "";
+    },
+    submitReleaseDocument: function submitReleaseDocument() {
+      var _this6 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+        var response, _error$response2, message, _t4;
+        return _regenerator().w(function (_context4) {
+          while (1) switch (_context4.p = _context4.n) {
+            case 0:
+              _this6.releasing = true;
+              _this6.releaseError = "";
+              _context4.p = 1;
+              _context4.n = 2;
+              return axios.post("/dts_denr/api/release-document", {
+                document_route_id: _this6.releaseDocument.id,
+                tracking_number: _this6.releaseDocument.document.tracking_number,
+                remarks: _this6.releaseRemarks || "",
+                released_at: new Date().toISOString()
+              });
+            case 2:
+              response = _context4.v;
+              _context4.n = 3;
+              return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+                title: "Released!",
+                text: response.data.message || "Document has been released successfully.",
+                icon: "success",
+                confirmButtonColor: "#1a4731",
+                confirmButtonText: "OK"
+              });
+            case 3:
+              _this6.closeReleaseModal();
+              _this6.$emit("show-notification", {
+                message: "Document released successfully!",
+                type: "success"
+              });
+              _this6.getDataReceived(_this6.documents.current_page);
+              _context4.n = 5;
+              break;
+            case 4:
+              _context4.p = 4;
+              _t4 = _context4.v;
+              console.error("Release document error:", _t4);
+              message = ((_error$response2 = _t4.response) === null || _error$response2 === void 0 || (_error$response2 = _error$response2.data) === null || _error$response2 === void 0 ? void 0 : _error$response2.message) || "Failed to release document. Please try again.";
+              _this6.releaseError = message;
+              _this6.$emit("show-notification", {
+                message: message,
+                type: "error"
+              });
+            case 5:
+              _context4.p = 5;
+              _this6.releasing = false;
+              return _context4.f(5);
+            case 6:
+              return _context4.a(2);
+          }
+        }, _callee4, null, [[1, 4, 5, 6]]);
+      }))();
+    },
+    // ===== ARCHIVE MODAL =====
+    openArchiveModal: function openArchiveModal(doc) {
+      this.archiveDocument = doc;
+      this.showArchiveModal = true;
+      this.archiveError = "";
+      this.archiveReason = "";
+      this.archiveRemarks = "";
+    },
+    closeArchiveModal: function closeArchiveModal() {
+      this.showArchiveModal = false;
+      this.archiveDocument = null;
+      this.archiveError = "";
+      this.archiveReason = "";
+      this.archiveRemarks = "";
+    },
+    submitArchiveDocument: function submitArchiveDocument() {
+      var _this7 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+        var response, _error$response3, message, _t5;
+        return _regenerator().w(function (_context5) {
+          while (1) switch (_context5.p = _context5.n) {
+            case 0:
+              if (_this7.archiveReason) {
+                _context5.n = 1;
+                break;
+              }
+              _this7.archiveError = "Please select a reason for archiving.";
+              return _context5.a(2);
+            case 1:
+              _this7.archiving = true;
+              _this7.archiveError = "";
+              _context5.p = 2;
+              _context5.n = 3;
+              return axios.post("/dts_denr/api/archive-document", {
+                document_route_id: _this7.archiveDocument.id,
+                tracking_number: _this7.archiveDocument.document.tracking_number,
+                reason: _this7.archiveReason,
+                remarks: _this7.archiveRemarks || "",
+                archived_at: new Date().toISOString()
+              });
+            case 3:
+              response = _context5.v;
+              _context5.n = 4;
+              return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+                title: "Archived!",
+                text: response.data.message || "Document has been archived successfully.",
+                icon: "success",
+                confirmButtonColor: "#1a4731",
+                confirmButtonText: "OK"
+              });
+            case 4:
+              _this7.closeArchiveModal();
+              _this7.$emit("show-notification", {
+                message: "Document archived successfully!",
+                type: "success"
+              });
+              _this7.getDataReceived(_this7.documents.current_page);
+              _context5.n = 6;
+              break;
+            case 5:
+              _context5.p = 5;
+              _t5 = _context5.v;
+              console.error("Archive document error:", _t5);
+              message = ((_error$response3 = _t5.response) === null || _error$response3 === void 0 || (_error$response3 = _error$response3.data) === null || _error$response3 === void 0 ? void 0 : _error$response3.message) || "Failed to archive document. Please try again.";
+              _this7.archiveError = message;
+              _this7.$emit("show-notification", {
+                message: message,
+                type: "error"
+              });
+            case 6:
+              _context5.p = 6;
+              _this7.archiving = false;
+              return _context5.f(6);
+            case 7:
+              return _context5.a(2);
+          }
+        }, _callee5, null, [[2, 5, 6, 7]]);
       }))();
     },
     // ===== VIEW MODAL =====
@@ -9800,8 +10177,8 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       this.selectedDocument = null;
     },
     getDocumentRoutes: function getDocumentRoutes() {
-      var _this$selectedDocumen4;
-      return ((_this$selectedDocumen4 = this.selectedDocument) === null || _this$selectedDocumen4 === void 0 || (_this$selectedDocumen4 = _this$selectedDocumen4.document) === null || _this$selectedDocumen4 === void 0 ? void 0 : _this$selectedDocumen4.document_route) || [];
+      var _this$selectedDocumen5;
+      return ((_this$selectedDocumen5 = this.selectedDocument) === null || _this$selectedDocumen5 === void 0 || (_this$selectedDocumen5 = _this$selectedDocumen5.document) === null || _this$selectedDocumen5 === void 0 ? void 0 : _this$selectedDocumen5.document_route) || [];
     },
     getRouteOfficeName: function getRouteOfficeName(route) {
       var _route$office;
@@ -20846,7 +21223,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function render() {
-  var _vm$forwardDocument, _vm$forwardDocument2, _vm$forwardDocument3, _vm$selectedDocument, _vm$selectedDocument2, _vm$selectedDocument3, _vm$selectedDocument$, _vm$selectedDocument4, _vm$selectedDocument5;
+  var _vm$forwardDocument, _vm$forwardDocument2, _vm$forwardDocument3, _vm$forwardDocument4, _vm$releaseDocument, _vm$releaseDocument2, _vm$releaseDocument3, _vm$releaseDocument4, _vm$archiveDocument, _vm$archiveDocument2, _vm$archiveDocument3, _vm$archiveDocument4, _vm$selectedDocument, _vm$selectedDocument2, _vm$selectedDocument3, _vm$selectedDocument$, _vm$selectedDocument4, _vm$selectedDocument5;
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", [_c("div", {
@@ -21006,7 +21383,7 @@ var render = function render() {
   }, [_vm._m(0), _vm._v(" "), _c("tbody", [_vm.loading && _vm.documents.data.length === 0 ? _c("tr", [_vm._m(1)]) : !_vm.loading && _vm.documents.data.length === 0 ? _c("tr", [_c("td", {
     staticClass: "text-center",
     attrs: {
-      colspan: "7"
+      colspan: "8"
     }
   }, [_c("div", {
     staticClass: "empty-state"
@@ -21019,7 +21396,7 @@ var render = function render() {
   }), _vm._v(" "), _c("p", {
     staticClass: "mt-2 text-muted"
   }, [_vm._v("\n                " + _vm._s(_vm.searchQuery || _vm.docTypeFilter ? "No documents match your filters" : "No Received Documents") + "\n              ")])])])]) : _vm._e(), _vm._v(" "), _vm._l(_vm.documents.data, function (document, index) {
-    var _document$document$do;
+    var _document$document$do, _document$received_by, _document$received_by2, _document$received_by3;
     return _c("tr", {
       key: document.id
     }, [_c("td", {
@@ -21029,8 +21406,6 @@ var render = function render() {
     }, [_vm._v(_vm._s((_vm.documents.current_page - 1) * _vm.documents.per_page + index + 1))])]), _vm._v(" "), _c("td", [_c("span", {
       staticClass: "tracking-number"
     }, [_vm._v(_vm._s(document.document.tracking_number))])]), _vm._v(" "), _c("td", [_c("span", {
-      "class": _vm.getClassificationBadgeClass(document.document.document_classification)
-    }, [_vm._v("\n              " + _vm._s(document.document.document_classification) + "\n            ")])]), _vm._v(" "), _c("td", [_c("span", {
       staticClass: "doc-type-badge"
     }, [_vm._v(_vm._s(((_document$document$do = document.document.document_type) === null || _document$document$do === void 0 ? void 0 : _document$document$do.document_type_name) || document.document.document_type))])]), _vm._v(" "), _c("td", [_c("div", {
       staticClass: "subject-text",
@@ -21043,7 +21418,7 @@ var render = function render() {
       staticClass: "date-received"
     }, [_c("i", {
       staticClass: "bi bi-person-circle date-icon"
-    }), _vm._v("\n            " + _vm._s(document.received_by.firstname) + "  " + _vm._s(document.received_by.middlename) + ",  " + _vm._s(document.received_by.lastname) + "\n             ")])]), _vm._v(" "), _c("td", [_c("div", {
+    }), _vm._v("\n              " + _vm._s(((_document$received_by = document.received_by) === null || _document$received_by === void 0 ? void 0 : _document$received_by.firstname) || "") + " " + _vm._s(((_document$received_by2 = document.received_by) === null || _document$received_by2 === void 0 ? void 0 : _document$received_by2.middlename) || "") + " " + _vm._s(((_document$received_by3 = document.received_by) === null || _document$received_by3 === void 0 ? void 0 : _document$received_by3.lastname) || "") + "\n             ")])]), _vm._v(" "), _c("td", [_c("div", {
       staticClass: "date-received"
     }, [_c("i", {
       staticClass: "bi bi-calendar3 date-icon"
@@ -21073,6 +21448,30 @@ var render = function render() {
       }
     }, [_c("i", {
       staticClass: "bi bi-arrow-right-circle"
+    })]), _vm._v(" "), _c("button", {
+      staticClass: "btn-action btn-release",
+      attrs: {
+        title: "For Release"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.openReleaseModal(document);
+        }
+      }
+    }, [_c("i", {
+      staticClass: "bi bi-check2-circle"
+    })]), _vm._v(" "), _c("button", {
+      staticClass: "btn-action btn-archive",
+      attrs: {
+        title: "Archive"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.openArchiveModal(document);
+        }
+      }
+    }, [_c("i", {
+      staticClass: "bi bi-archive"
     })])])])]);
   })], 2)])]), _vm._v(" "), _c("PaginationComponent", {
     attrs: {
@@ -21329,7 +21728,7 @@ var render = function render() {
     }],
     staticClass: "remarks-textarea",
     attrs: {
-      rows: "3",
+      rows: "2",
       placeholder: "Add remarks or instructions...",
       disabled: _vm.forwarding,
       maxlength: "500"
@@ -21348,7 +21747,101 @@ var render = function render() {
     "class": {
       "text-danger": _vm.remarks.length > 450
     }
-  }, [_vm._v("\n                " + _vm._s(_vm.remarks.length) + "/500\n              ")])])]), _vm._v(" "), _vm.selectedOffices.length > 0 ? _c("div", {
+  }, [_vm._v("\n                " + _vm._s(_vm.remarks.length) + "/500\n              ")]), _vm._v(" "), _c("label", {
+    staticClass: "form-label",
+    staticStyle: {
+      "margin-top": "10px"
+    }
+  }, [_vm._v("\n                Attachments (Optional)\n              ")]), _vm._v(" "), _c("div", {
+    staticClass: "file-upload-container"
+  }, [_c("div", {
+    staticClass: "file-drop-zone",
+    on: {
+      dragover: function dragover($event) {
+        $event.preventDefault();
+      },
+      drop: function drop($event) {
+        $event.preventDefault();
+        return _vm.handleFileDrop.apply(null, arguments);
+      },
+      click: function click($event) {
+        return _vm.$refs.fileInput.click();
+      }
+    }
+  }, [_vm._m(9), _vm._v(" "), _c("input", {
+    ref: "fileInput",
+    staticStyle: {
+      display: "none"
+    },
+    attrs: {
+      type: "file",
+      accept: ".pdf,.doc,.docx,.jpg,.jpeg,.png",
+      multiple: "",
+      disabled: _vm.forwarding
+    },
+    on: {
+      change: _vm.handleFileSelect
+    }
+  })]), _vm._v(" "), _vm.uploadedFiles.length > 0 ? _c("div", {
+    staticClass: "uploaded-files-list"
+  }, [_c("div", {
+    staticClass: "uploaded-files-header"
+  }, [_c("i", {
+    staticClass: "bi bi-paperclip"
+  }), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.uploadedFiles.length) + " file(s) attached")])]), _vm._v(" "), _vm._l(_vm.uploadedFiles, function (file, index) {
+    return _c("div", {
+      key: index,
+      staticClass: "uploaded-file-item"
+    }, [_c("div", {
+      staticClass: "file-info"
+    }, [_c("i", {
+      "class": _vm.getFileIcon(file.type)
+    }), _vm._v(" "), _c("div", {
+      staticClass: "file-details"
+    }, [_c("span", {
+      staticClass: "file-name"
+    }, [_vm._v(_vm._s(file.name))]), _vm._v(" "), _c("span", {
+      staticClass: "file-size"
+    }, [_vm._v(_vm._s(_vm.formatFileSize(file.size)))])])]), _vm._v(" "), _c("button", {
+      staticClass: "remove-file-btn",
+      attrs: {
+        type: "button",
+        disabled: _vm.forwarding,
+        title: "Remove file"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.removeFile(index);
+        }
+      }
+    }, [_c("i", {
+      staticClass: "bi bi-x-circle"
+    })])]);
+  })], 2) : _vm._e()]), _vm._v(" "), (_vm$forwardDocument4 = _vm.forwardDocument) !== null && _vm$forwardDocument4 !== void 0 && (_vm$forwardDocument4 = _vm$forwardDocument4.document) !== null && _vm$forwardDocument4 !== void 0 && _vm$forwardDocument4.attachments && _vm.forwardDocument.document.attachments.length > 0 ? _c("div", {
+    staticClass: "existing-attachments"
+  }, [_vm._m(10), _vm._v(" "), _vm._l(_vm.forwardDocument.document.attachments, function (attachment, index) {
+    return _c("div", {
+      key: index,
+      staticClass: "existing-attachment-item"
+    }, [_c("i", {
+      staticClass: "bi bi-file-earmark"
+    }), _vm._v(" "), _c("span", {
+      staticClass: "attachment-name"
+    }, [_vm._v(_vm._s(attachment.filename || attachment.original_name || "Attachment"))]), _vm._v(" "), _c("button", {
+      staticClass: "view-attachment-btn",
+      attrs: {
+        type: "button",
+        title: "View attachment"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.viewAttachment(attachment);
+        }
+      }
+    }, [_c("i", {
+      staticClass: "bi bi-eye"
+    })])]);
+  })], 2) : _vm._e()])]), _vm._v(" "), _vm.selectedOffices.length > 0 ? _c("div", {
     staticClass: "selected-offices-summary"
   }, [_c("div", {
     staticClass: "selected-offices-header"
@@ -21413,7 +21906,405 @@ var render = function render() {
     }
   }) : _c("i", {
     staticClass: "bi bi-send-check me-1"
-  }), _vm._v("\n                " + _vm._s(_vm.forwarding ? "Forwarding..." : "Forward") + "\n              ")])])])])])])]) : _vm._e(), _vm._v(" "), _vm.showViewModal ? _c("div", {
+  }), _vm._v("\n                " + _vm._s(_vm.forwarding ? "Forwarding..." : "Forward") + "\n              ")])])])])])])]) : _vm._e(), _vm._v(" "), _vm.showReleaseModal ? _c("div", {
+    staticClass: "modal-overlay",
+    on: {
+      click: function click($event) {
+        if ($event.target !== $event.currentTarget) return null;
+        return _vm.closeReleaseModal.apply(null, arguments);
+      }
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog enhanced-modal",
+    staticStyle: {
+      "max-width": "550px"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content square-modal"
+  }, [_c("div", {
+    staticClass: "modal-header-enhanced square-header",
+    staticStyle: {
+      background: "linear-gradient(135deg, #2563eb, #1d4ed8)"
+    }
+  }, [_vm._m(11), _vm._v(" "), _c("button", {
+    staticClass: "btn-close-custom square-close",
+    attrs: {
+      type: "button",
+      disabled: _vm.releasing
+    },
+    on: {
+      click: _vm.closeReleaseModal
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-x-lg"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body-enhanced"
+  }, [_vm.releaseError ? _c("div", {
+    staticClass: "error-msg",
+    attrs: {
+      role: "alert"
+    }
+  }, [_c("svg", {
+    attrs: {
+      width: "15",
+      height: "15",
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: "currentColor",
+      "stroke-width": "2.2"
+    }
+  }, [_c("circle", {
+    attrs: {
+      cx: "12",
+      cy: "12",
+      r: "10"
+    }
+  }), _vm._v(" "), _c("line", {
+    attrs: {
+      x1: "12",
+      y1: "8",
+      x2: "12",
+      y2: "12"
+    }
+  }), _vm._v(" "), _c("circle", {
+    attrs: {
+      cx: "12",
+      cy: "16.5",
+      r: "0.7",
+      fill: "currentColor",
+      stroke: "none"
+    }
+  })]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.releaseError))])]) : _vm._e(), _vm._v(" "), _vm._m(12), _vm._v(" "), _c("div", {
+    staticClass: "release-doc-info"
+  }, [_c("div", {
+    staticClass: "release-doc-row"
+  }, [_vm._m(13), _vm._v(" "), _c("div", {
+    staticClass: "release-doc-content"
+  }, [_c("span", {
+    staticClass: "release-doc-label"
+  }, [_vm._v("Tracking Number")]), _vm._v(" "), _c("span", {
+    staticClass: "release-doc-value"
+  }, [_vm._v(_vm._s(((_vm$releaseDocument = _vm.releaseDocument) === null || _vm$releaseDocument === void 0 || (_vm$releaseDocument = _vm$releaseDocument.document) === null || _vm$releaseDocument === void 0 ? void 0 : _vm$releaseDocument.tracking_number) || "N/A"))])])]), _vm._v(" "), _c("div", {
+    staticClass: "release-doc-row"
+  }, [_vm._m(14), _vm._v(" "), _c("div", {
+    staticClass: "release-doc-content"
+  }, [_c("span", {
+    staticClass: "release-doc-label"
+  }, [_vm._v("Document Type")]), _vm._v(" "), _c("span", {
+    staticClass: "release-doc-value"
+  }, [_vm._v(_vm._s(((_vm$releaseDocument2 = _vm.releaseDocument) === null || _vm$releaseDocument2 === void 0 || (_vm$releaseDocument2 = _vm$releaseDocument2.document) === null || _vm$releaseDocument2 === void 0 || (_vm$releaseDocument2 = _vm$releaseDocument2.document_type) === null || _vm$releaseDocument2 === void 0 ? void 0 : _vm$releaseDocument2.document_type_name) || ((_vm$releaseDocument3 = _vm.releaseDocument) === null || _vm$releaseDocument3 === void 0 || (_vm$releaseDocument3 = _vm$releaseDocument3.document) === null || _vm$releaseDocument3 === void 0 ? void 0 : _vm$releaseDocument3.document_type) || "N/A"))])])]), _vm._v(" "), _c("div", {
+    staticClass: "release-doc-row"
+  }, [_vm._m(15), _vm._v(" "), _c("div", {
+    staticClass: "release-doc-content"
+  }, [_c("span", {
+    staticClass: "release-doc-label"
+  }, [_vm._v("Subject")]), _vm._v(" "), _c("span", {
+    staticClass: "release-doc-value"
+  }, [_vm._v(_vm._s(((_vm$releaseDocument4 = _vm.releaseDocument) === null || _vm$releaseDocument4 === void 0 || (_vm$releaseDocument4 = _vm$releaseDocument4.document) === null || _vm$releaseDocument4 === void 0 ? void 0 : _vm$releaseDocument4.subject) || "N/A"))])])])]), _vm._v(" "), _c("div", {
+    staticClass: "mt-3"
+  }, [_c("label", {
+    staticClass: "form-label-enhanced"
+  }, [_vm._v("\n              Remarks (Optional)\n            ")]), _vm._v(" "), _c("textarea", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.releaseRemarks,
+      expression: "releaseRemarks"
+    }],
+    staticClass: "remarks-textarea",
+    attrs: {
+      rows: "3",
+      placeholder: "Add remarks for releasing this document...",
+      disabled: _vm.releasing,
+      maxlength: "500"
+    },
+    domProps: {
+      value: _vm.releaseRemarks
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.releaseRemarks = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "remarks-counter",
+    "class": {
+      "text-danger": _vm.releaseRemarks.length > 450
+    }
+  }, [_vm._v("\n              " + _vm._s(_vm.releaseRemarks.length) + "/500\n            ")])]), _vm._v(" "), _c("div", {
+    staticClass: "system-datetime-box mt-3"
+  }, [_vm._m(16), _vm._v(" "), _c("div", {
+    staticClass: "system-datetime-display"
+  }, [_c("div", {
+    staticClass: "datetime-item"
+  }, [_c("i", {
+    staticClass: "bi bi-calendar3"
+  }), _vm._v(" "), _c("span", {
+    staticClass: "datetime-label"
+  }, [_vm._v("Date:")]), _vm._v(" "), _c("span", {
+    staticClass: "datetime-value"
+  }, [_vm._v(_vm._s(_vm.currentPstDate))])]), _vm._v(" "), _c("div", {
+    staticClass: "datetime-item"
+  }, [_c("i", {
+    staticClass: "bi bi-clock"
+  }), _vm._v(" "), _c("span", {
+    staticClass: "datetime-label"
+  }, [_vm._v("Time:")]), _vm._v(" "), _c("span", {
+    staticClass: "datetime-value"
+  }, [_vm._v(_vm._s(_vm.currentPstTime))])])]), _vm._v(" "), _vm._m(17)]), _vm._v(" "), _c("div", {
+    staticClass: "modal-actions"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-secondary square-btn",
+    attrs: {
+      type: "button",
+      disabled: _vm.releasing
+    },
+    on: {
+      click: _vm.closeReleaseModal
+    }
+  }, [_vm._v("\n              Cancel\n            ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-release-doc square-btn",
+    attrs: {
+      type: "button",
+      disabled: _vm.releasing
+    },
+    on: {
+      click: _vm.submitReleaseDocument
+    }
+  }, [_vm.releasing ? _c("span", {
+    staticClass: "spinner-border spinner-border-sm me-1",
+    attrs: {
+      role: "status"
+    }
+  }) : _c("i", {
+    staticClass: "bi bi-check2-circle me-1"
+  }), _vm._v("\n              " + _vm._s(_vm.releasing ? "Processing..." : "Confirm Release") + "\n            ")])])])])])]) : _vm._e(), _vm._v(" "), _vm.showArchiveModal ? _c("div", {
+    staticClass: "modal-overlay",
+    on: {
+      click: function click($event) {
+        if ($event.target !== $event.currentTarget) return null;
+        return _vm.closeArchiveModal.apply(null, arguments);
+      }
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog enhanced-modal",
+    staticStyle: {
+      "max-width": "550px"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content square-modal"
+  }, [_c("div", {
+    staticClass: "modal-header-enhanced square-header",
+    staticStyle: {
+      background: "linear-gradient(135deg, #6b7280, #4b5563)"
+    }
+  }, [_vm._m(18), _vm._v(" "), _c("button", {
+    staticClass: "btn-close-custom square-close",
+    attrs: {
+      type: "button",
+      disabled: _vm.archiving
+    },
+    on: {
+      click: _vm.closeArchiveModal
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-x-lg"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body-enhanced"
+  }, [_vm.archiveError ? _c("div", {
+    staticClass: "error-msg",
+    attrs: {
+      role: "alert"
+    }
+  }, [_c("svg", {
+    attrs: {
+      width: "15",
+      height: "15",
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: "currentColor",
+      "stroke-width": "2.2"
+    }
+  }, [_c("circle", {
+    attrs: {
+      cx: "12",
+      cy: "12",
+      r: "10"
+    }
+  }), _vm._v(" "), _c("line", {
+    attrs: {
+      x1: "12",
+      y1: "8",
+      x2: "12",
+      y2: "12"
+    }
+  }), _vm._v(" "), _c("circle", {
+    attrs: {
+      cx: "12",
+      cy: "16.5",
+      r: "0.7",
+      fill: "currentColor",
+      stroke: "none"
+    }
+  })]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.archiveError))])]) : _vm._e(), _vm._v(" "), _vm._m(19), _vm._v(" "), _c("div", {
+    staticClass: "archive-doc-info"
+  }, [_c("div", {
+    staticClass: "archive-doc-row"
+  }, [_vm._m(20), _vm._v(" "), _c("div", {
+    staticClass: "archive-doc-content"
+  }, [_c("span", {
+    staticClass: "archive-doc-label"
+  }, [_vm._v("Tracking Number")]), _vm._v(" "), _c("span", {
+    staticClass: "archive-doc-value"
+  }, [_vm._v(_vm._s(((_vm$archiveDocument = _vm.archiveDocument) === null || _vm$archiveDocument === void 0 || (_vm$archiveDocument = _vm$archiveDocument.document) === null || _vm$archiveDocument === void 0 ? void 0 : _vm$archiveDocument.tracking_number) || "N/A"))])])]), _vm._v(" "), _c("div", {
+    staticClass: "archive-doc-row"
+  }, [_vm._m(21), _vm._v(" "), _c("div", {
+    staticClass: "archive-doc-content"
+  }, [_c("span", {
+    staticClass: "archive-doc-label"
+  }, [_vm._v("Document Type")]), _vm._v(" "), _c("span", {
+    staticClass: "archive-doc-value"
+  }, [_vm._v(_vm._s(((_vm$archiveDocument2 = _vm.archiveDocument) === null || _vm$archiveDocument2 === void 0 || (_vm$archiveDocument2 = _vm$archiveDocument2.document) === null || _vm$archiveDocument2 === void 0 || (_vm$archiveDocument2 = _vm$archiveDocument2.document_type) === null || _vm$archiveDocument2 === void 0 ? void 0 : _vm$archiveDocument2.document_type_name) || ((_vm$archiveDocument3 = _vm.archiveDocument) === null || _vm$archiveDocument3 === void 0 || (_vm$archiveDocument3 = _vm$archiveDocument3.document) === null || _vm$archiveDocument3 === void 0 ? void 0 : _vm$archiveDocument3.document_type) || "N/A"))])])]), _vm._v(" "), _c("div", {
+    staticClass: "archive-doc-row"
+  }, [_vm._m(22), _vm._v(" "), _c("div", {
+    staticClass: "archive-doc-content"
+  }, [_c("span", {
+    staticClass: "archive-doc-label"
+  }, [_vm._v("Subject")]), _vm._v(" "), _c("span", {
+    staticClass: "archive-doc-value"
+  }, [_vm._v(_vm._s(((_vm$archiveDocument4 = _vm.archiveDocument) === null || _vm$archiveDocument4 === void 0 || (_vm$archiveDocument4 = _vm$archiveDocument4.document) === null || _vm$archiveDocument4 === void 0 ? void 0 : _vm$archiveDocument4.subject) || "N/A"))])])])]), _vm._v(" "), _c("div", {
+    staticClass: "mt-3"
+  }, [_vm._m(23), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.archiveReason,
+      expression: "archiveReason"
+    }],
+    staticClass: "archive-select",
+    attrs: {
+      disabled: _vm.archiving
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.archiveReason = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: ""
+    }
+  }, [_vm._v("Select Reason")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Completed"
+    }
+  }, [_vm._v("Completed")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Inactive"
+    }
+  }, [_vm._v("Inactive")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "No Longer Needed"
+    }
+  }, [_vm._v("No Longer Needed")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Duplicate"
+    }
+  }, [_vm._v("Duplicate")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Other"
+    }
+  }, [_vm._v("Other")])]), _vm._v(" "), !_vm.archiveReason ? _c("div", {
+    staticClass: "archive-hint"
+  }, [_c("i", {
+    staticClass: "bi bi-info-circle"
+  }), _vm._v(" "), _c("span", [_vm._v("Please select a reason for archiving this document.")])]) : _vm._e()]), _vm._v(" "), _c("div", {
+    staticClass: "mt-3"
+  }, [_c("label", {
+    staticClass: "form-label-enhanced"
+  }, [_vm._v("\n              Remarks (Optional)\n            ")]), _vm._v(" "), _c("textarea", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.archiveRemarks,
+      expression: "archiveRemarks"
+    }],
+    staticClass: "remarks-textarea",
+    attrs: {
+      rows: "3",
+      placeholder: "Add remarks for archiving this document...",
+      disabled: _vm.archiving,
+      maxlength: "500"
+    },
+    domProps: {
+      value: _vm.archiveRemarks
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.archiveRemarks = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "remarks-counter",
+    "class": {
+      "text-danger": _vm.archiveRemarks.length > 450
+    }
+  }, [_vm._v("\n              " + _vm._s(_vm.archiveRemarks.length) + "/500\n            ")])]), _vm._v(" "), _c("div", {
+    staticClass: "system-datetime-box mt-3"
+  }, [_vm._m(24), _vm._v(" "), _c("div", {
+    staticClass: "system-datetime-display"
+  }, [_c("div", {
+    staticClass: "datetime-item"
+  }, [_c("i", {
+    staticClass: "bi bi-calendar3"
+  }), _vm._v(" "), _c("span", {
+    staticClass: "datetime-label"
+  }, [_vm._v("Date:")]), _vm._v(" "), _c("span", {
+    staticClass: "datetime-value"
+  }, [_vm._v(_vm._s(_vm.currentPstDate))])]), _vm._v(" "), _c("div", {
+    staticClass: "datetime-item"
+  }, [_c("i", {
+    staticClass: "bi bi-clock"
+  }), _vm._v(" "), _c("span", {
+    staticClass: "datetime-label"
+  }, [_vm._v("Time:")]), _vm._v(" "), _c("span", {
+    staticClass: "datetime-value"
+  }, [_vm._v(_vm._s(_vm.currentPstTime))])])]), _vm._v(" "), _vm._m(25)]), _vm._v(" "), _c("div", {
+    staticClass: "modal-actions"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-secondary square-btn",
+    attrs: {
+      type: "button",
+      disabled: _vm.archiving
+    },
+    on: {
+      click: _vm.closeArchiveModal
+    }
+  }, [_vm._v("\n              Cancel\n            ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-archive-doc square-btn",
+    attrs: {
+      type: "button",
+      disabled: _vm.archiving || !_vm.archiveReason
+    },
+    on: {
+      click: _vm.submitArchiveDocument
+    }
+  }, [_vm.archiving ? _c("span", {
+    staticClass: "spinner-border spinner-border-sm me-1",
+    attrs: {
+      role: "status"
+    }
+  }) : _c("i", {
+    staticClass: "bi bi-archive me-1"
+  }), _vm._v("\n              " + _vm._s(_vm.archiving ? "Processing..." : "Confirm Archive") + "\n            ")])])])])])]) : _vm._e(), _vm._v(" "), _vm.showViewModal ? _c("div", {
     staticClass: "modal-overlay",
     on: {
       click: function click($event) {
@@ -21429,7 +22320,7 @@ var render = function render() {
     staticClass: "square-header document-header"
   }, [_c("div", {
     staticClass: "d-flex align-items-center"
-  }, [_vm._m(9), _vm._v(" "), _c("div", [_c("h5", {
+  }, [_vm._m(26), _vm._v(" "), _c("div", [_c("h5", {
     staticClass: "modal-title"
   }, [_vm._v("Document Viewer")]), _vm._v(" "), _c("small", {
     staticClass: "modal-subtitle"
@@ -21477,7 +22368,19 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "bi bi-clock-history"
-  }), _vm._v(" "), _c("span", [_vm._v("Route History")])])]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _c("span", [_vm._v("Route History")])]), _vm._v(" "), _c("button", {
+    staticClass: "viewer-tab-btn",
+    "class": {
+      active: _vm.viewerActiveTab === "acted_attachments"
+    },
+    on: {
+      click: function click($event) {
+        _vm.viewerActiveTab = "acted_attachments";
+      }
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-file-earmark-check"
+  }), _vm._v(" "), _c("span", [_vm._v("Acted Attachments")])])]), _vm._v(" "), _c("div", {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -21487,29 +22390,29 @@ var render = function render() {
     staticClass: "document-viewer-layout"
   }, [_c("div", {
     staticClass: "details-panel"
-  }, [_vm._m(10), _vm._v(" "), _vm.selectedDocument ? _c("div", {
+  }, [_vm._m(27), _vm._v(" "), _vm.selectedDocument ? _c("div", {
     staticClass: "details-content"
   }, [_c("div", {
     staticClass: "detail-card"
-  }, [_vm._m(11), _vm._v(" "), _c("div", {
+  }, [_vm._m(28), _vm._v(" "), _c("div", {
     staticClass: "detail-info"
   }, [_c("label", [_vm._v("Tracking Number")]), _vm._v(" "), _c("span", {
     staticClass: "tracking-number-large"
   }, [_vm._v(_vm._s(_vm.selectedDocument.document.tracking_number))])])]), _vm._v(" "), _c("div", {
     staticClass: "detail-card"
-  }, [_vm._m(12), _vm._v(" "), _c("div", {
+  }, [_vm._m(29), _vm._v(" "), _c("div", {
     staticClass: "detail-info"
   }, [_c("label", [_vm._v("Classification")]), _vm._v(" "), _c("span", {
     "class": ["classification-badge-large", _vm.getClassificationBadgeClass(_vm.selectedDocument.document.document_classification)]
   }, [_vm._v("\n                      " + _vm._s(_vm.selectedDocument.document.document_classification || "N/A") + "\n                    ")])])]), _vm._v(" "), _c("div", {
     staticClass: "detail-card"
-  }, [_vm._m(13), _vm._v(" "), _c("div", {
+  }, [_vm._m(30), _vm._v(" "), _c("div", {
     staticClass: "detail-info"
   }, [_c("label", [_vm._v("Document Type")]), _vm._v(" "), _c("span", {
     staticClass: "doc-type-badge-large"
   }, [_vm._v(_vm._s(((_vm$selectedDocument$ = _vm.selectedDocument.document.document_type) === null || _vm$selectedDocument$ === void 0 ? void 0 : _vm$selectedDocument$.document_type_name) || _vm.selectedDocument.document.document_type))])])]), _vm._v(" "), _c("div", {
     staticClass: "detail-card"
-  }, [_vm._m(14), _vm._v(" "), _c("div", {
+  }, [_vm._m(31), _vm._v(" "), _c("div", {
     staticClass: "detail-info"
   }, [_c("label", [_vm._v("Subject / Title")]), _vm._v(" "), _c("span", {
     staticClass: "detail-value",
@@ -21520,7 +22423,7 @@ var render = function render() {
     staticClass: "confidential-label"
   }, [_vm._v("CONFIDENTIAL")]) : _vm._e()])])]), _vm._v(" "), _c("div", {
     staticClass: "detail-card"
-  }, [_vm._m(15), _vm._v(" "), _c("div", {
+  }, [_vm._m(32), _vm._v(" "), _c("div", {
     staticClass: "detail-info"
   }, [_c("label", [_vm._v("Sender / Origin")]), _vm._v(" "), _c("span", {
     staticClass: "detail-value",
@@ -21531,7 +22434,7 @@ var render = function render() {
     staticClass: "confidential-label"
   }, [_vm._v("CONFIDENTIAL")]) : _vm._e()])])]), _vm._v(" "), _c("div", {
     staticClass: "detail-card duration-detail-card"
-  }, [_vm._m(16), _vm._v(" "), _c("div", {
+  }, [_vm._m(33), _vm._v(" "), _c("div", {
     staticClass: "detail-info"
   }, [_c("label", [_vm._v("Duration")]), _vm._v(" "), _c("span", {
     staticClass: "duration-badge-large",
@@ -21574,11 +22477,11 @@ var render = function render() {
     staticClass: "pdf-viewer-wrapper"
   }, [_vm.isConfidential ? _c("div", {
     staticClass: "confidential-notice"
-  }, [_vm._m(17), _vm._v(" "), _c("h3", {
+  }, [_vm._m(34), _vm._v(" "), _c("h3", {
     staticClass: "confidential-title"
   }, [_vm._v("CONFIDENTIAL DOCUMENT")]), _vm._v(" "), _c("div", {
     staticClass: "confidential-divider"
-  }), _vm._v(" "), _vm._m(18), _vm._v(" "), _c("p", {
+  }), _vm._v(" "), _vm._m(35), _vm._v(" "), _c("p", {
     staticClass: "confidential-sub-message"
   }, [_vm._v("\n                    PDF preview is restricted for security purposes.\n                  ")]), _vm._v(" "), _c("div", {
     staticClass: "confidential-details"
@@ -21590,9 +22493,9 @@ var render = function render() {
     staticClass: "confidential-detail-item"
   }, [_c("i", {
     staticClass: "bi bi-file-earmark-lock"
-  }), _vm._v(" "), _c("span", [_vm._v("Classification: " + _vm._s((_vm$selectedDocument5 = _vm.selectedDocument) === null || _vm$selectedDocument5 === void 0 || (_vm$selectedDocument5 = _vm$selectedDocument5.document) === null || _vm$selectedDocument5 === void 0 ? void 0 : _vm$selectedDocument5.document_classification))])])]), _vm._v(" "), _vm._m(19)]) : [_vm.pdfLoading && !_vm.pdfLoadError ? _c("div", {
+  }), _vm._v(" "), _c("span", [_vm._v("Classification: " + _vm._s((_vm$selectedDocument5 = _vm.selectedDocument) === null || _vm$selectedDocument5 === void 0 || (_vm$selectedDocument5 = _vm$selectedDocument5.document) === null || _vm$selectedDocument5 === void 0 ? void 0 : _vm$selectedDocument5.document_classification))])])]), _vm._v(" "), _vm._m(36)]) : [_vm.pdfLoading && !_vm.pdfLoadError ? _c("div", {
     staticClass: "pdf-state"
-  }, [_vm._m(20), _vm._v(" "), _c("p", {
+  }, [_vm._m(37), _vm._v(" "), _c("p", {
     staticClass: "pdf-state-text"
   }, [_vm._v("Loading document preview...")])]) : _vm._e(), _vm._v(" "), _c("iframe", {
     directives: [{
@@ -21649,7 +22552,7 @@ var render = function render() {
     staticClass: "route-history-panel"
   }, [_c("div", {
     staticClass: "route-history-header"
-  }, [_vm._m(21), _vm._v(" "), _vm.getDocumentRoutes().length > 0 ? _c("div", {
+  }, [_vm._m(38), _vm._v(" "), _vm.getDocumentRoutes().length > 0 ? _c("div", {
     staticClass: "route-history-badge"
   }, [_c("i", {
     staticClass: "bi bi-arrow-left-right"
@@ -21663,7 +22566,7 @@ var render = function render() {
     staticClass: "mt-3 text-muted"
   }, [_vm._v("Loading route history...")])]) : _vm.getDocumentRoutes().length === 0 ? _c("div", {
     staticClass: "route-state-box"
-  }, [_vm._m(22), _vm._v(" "), _c("h5", {
+  }, [_vm._m(39), _vm._v(" "), _c("h5", {
     staticClass: "mt-3"
   }, [_vm._v("No Route History")]), _vm._v(" "), _c("p", {
     staticClass: "text-muted"
@@ -21711,7 +22614,7 @@ var render = function render() {
       staticClass: "info-card-body"
     }, [_c("div", {
       staticClass: "info-field"
-    }, [_vm._m(23, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(40, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
@@ -21721,7 +22624,7 @@ var render = function render() {
       staticClass: "bi bi-clock me-1"
     }), _vm._v("\n                                  " + _vm._s(_vm.formatDateTime(route.date_receive)) + "\n                                ")])])]), _vm._v(" "), route.received_by || route.received_by_name ? _c("div", {
       staticClass: "info-field"
-    }, [_vm._m(24, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(41, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
@@ -21729,7 +22632,7 @@ var render = function render() {
       staticClass: "field-value"
     }, [route.received_by ? [_vm._v("\n                                    " + _vm._s(route.received_by.firstname || "") + "\n                                    " + _vm._s(route.received_by.middlename ? route.received_by.middlename + " " : "") + "\n                                    " + _vm._s(route.received_by.lastname || "") + "\n                                  ")] : route.received_by_name ? [_vm._v("\n                                    " + _vm._s(route.received_by_name) + "\n                                  ")] : _vm._e()], 2)])]) : _vm._e(), _vm._v(" "), route.remarks ? _c("div", {
       staticClass: "info-field"
-    }, [_vm._m(25, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(42, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
@@ -21739,7 +22642,7 @@ var render = function render() {
       staticClass: "info-card completed-card"
     }, [_c("div", {
       staticClass: "info-card-header"
-    }, [_vm._m(26, true), _vm._v(" "), _c("span", {
+    }, [_vm._m(43, true), _vm._v(" "), _c("span", {
       staticClass: "info-card-title"
     }, [_vm._v("Completion Information")]), _vm._v(" "), route.status === "Completed" ? _c("span", {
       staticClass: "info-card-status completed-status"
@@ -21749,7 +22652,7 @@ var render = function render() {
       staticClass: "info-card-body"
     }, [_c("div", {
       staticClass: "info-field"
-    }, [_vm._m(27, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(44, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
@@ -21759,7 +22662,7 @@ var render = function render() {
       staticClass: "bi bi-check-circle me-1"
     }), _vm._v("\n                                  " + _vm._s(_vm.formatDateTime(route.date_document_out)) + "\n                                ")])])]), _vm._v(" "), route.completed_by || route.completed_by_name ? _c("div", {
       staticClass: "info-field"
-    }, [_vm._m(28, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(45, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
@@ -21767,7 +22670,7 @@ var render = function render() {
       staticClass: "field-value"
     }, [route.completed_by ? [_vm._v("\n                                    " + _vm._s(route.completed_by.firstname || "") + "\n                                    " + _vm._s(route.completed_by.middlename ? route.completed_by.middlename + " " : "") + "\n                                    " + _vm._s(route.completed_by.lastname || "") + "\n                                  ")] : route.completed_by_name ? [_vm._v("\n                                    " + _vm._s(route.completed_by_name) + "\n                                  ")] : _vm._e()], 2)])]) : _vm._e(), _vm._v(" "), route.remarks ? _c("div", {
       staticClass: "info-field"
-    }, [_vm._m(29, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(46, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
@@ -21779,7 +22682,7 @@ var render = function render() {
       staticClass: "flow-container"
     }, [route.from_office ? _c("div", {
       staticClass: "flow-node origin-node"
-    }, [_vm._m(30, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(47, true), _vm._v(" "), _c("div", {
       staticClass: "flow-node-content"
     }, [_c("span", {
       staticClass: "flow-node-label"
@@ -21789,17 +22692,90 @@ var render = function render() {
       staticClass: "flow-arrow"
     }, [_c("div", {
       staticClass: "arrow-line"
-    }), _vm._v(" "), _vm._m(31, true), _vm._v(" "), _c("div", {
+    }), _vm._v(" "), _vm._m(48, true), _vm._v(" "), _c("div", {
       staticClass: "arrow-line"
     })]) : _vm._e(), _vm._v(" "), route.to_office ? _c("div", {
       staticClass: "flow-node destination-node"
-    }, [_vm._m(32, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(49, true), _vm._v(" "), _c("div", {
       staticClass: "flow-node-content"
     }, [_c("span", {
       staticClass: "flow-node-label"
     }, [_vm._v("To")]), _vm._v(" "), _c("span", {
       staticClass: "flow-node-value"
     }, [_vm._v(_vm._s(route.to_office))])])]) : _vm._e()])]) : _vm._e()])])]);
+  }), 0)])]), _vm._v(" "), _c("div", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.viewerActiveTab === "acted_attachments",
+      expression: "viewerActiveTab === 'acted_attachments'"
+    }],
+    staticClass: "acted-attachments-panel"
+  }, [_c("div", {
+    staticClass: "acted-attachments-header"
+  }, [_vm._m(50), _vm._v(" "), _vm.getAllActedAttachments().length > 0 ? _c("div", {
+    staticClass: "acted-attachments-badge"
+  }, [_c("i", {
+    staticClass: "bi bi-paperclip"
+  }), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.getAllActedAttachments().length) + " Attachment" + _vm._s(_vm.getAllActedAttachments().length !== 1 ? "s" : ""))])]) : _vm._e()]), _vm._v(" "), _c("div", {
+    staticClass: "acted-attachments-content"
+  }, [_vm.getAllActedAttachments().length === 0 ? _c("div", {
+    staticClass: "acted-state-box"
+  }, [_vm._m(51), _vm._v(" "), _c("h5", {
+    staticClass: "mt-3"
+  }, [_vm._v("No Acted Attachments")]), _vm._v(" "), _c("p", {
+    staticClass: "text-muted"
+  }, [_vm._v("No attachments have been added to this document yet.")])]) : _c("div", {
+    staticClass: "acted-grid"
+  }, _vm._l(_vm.getAllActedAttachments(), function (attachment, index) {
+    return _c("div", {
+      key: index,
+      staticClass: "acted-card"
+    }, [_c("div", {
+      staticClass: "acted-card-icon"
+    }, [_c("i", {
+      "class": _vm.getAttachmentIcon(attachment)
+    })]), _vm._v(" "), _c("div", {
+      staticClass: "acted-card-content"
+    }, [_c("div", {
+      staticClass: "acted-card-header"
+    }, [_c("span", {
+      staticClass: "acted-file-name"
+    }, [_vm._v(_vm._s(_vm.getAttachmentName(attachment)))]), _vm._v(" "), attachment.size ? _c("span", {
+      staticClass: "acted-file-size"
+    }, [_vm._v(_vm._s(_vm.formatFileSize(attachment.size)))]) : _vm._e()]), _vm._v(" "), attachment.uploaded_at || attachment.created_at ? _c("div", {
+      staticClass: "acted-card-meta"
+    }, [_c("i", {
+      staticClass: "bi bi-clock"
+    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(attachment.uploaded_at ? _vm.formatDateTime(attachment.uploaded_at) : _vm.formatDateTime(attachment.created_at)))])]) : _vm._e(), _vm._v(" "), _c("div", {
+      staticClass: "acted-card-actions"
+    }, [_c("button", {
+      staticClass: "acted-view-btn",
+      attrs: {
+        type: "button",
+        title: "View in new tab"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.viewActedAttachment(attachment);
+        }
+      }
+    }, [_c("i", {
+      staticClass: "bi bi-eye"
+    }), _vm._v(" View\n                      ")]), _vm._v(" "), _c("button", {
+      staticClass: "acted-download-btn",
+      attrs: {
+        type: "button",
+        title: "Download"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.downloadActedAttachment(attachment);
+        }
+      }
+    }, [_c("i", {
+      staticClass: "bi bi-download"
+    }), _vm._v(" Download\n                      ")])])])]);
   }), 0)])])])])])]) : _vm._e()], 1);
 };
 var staticRenderFns = [function () {
@@ -21814,10 +22790,6 @@ var staticRenderFns = [function () {
       width: "15%"
     }
   }, [_vm._v("Tracking No.")]), _vm._v(" "), _c("th", {
-    staticStyle: {
-      width: "13%"
-    }
-  }, [_vm._v("Classification")]), _vm._v(" "), _c("th", {
     staticStyle: {
       width: "15%"
     }
@@ -21844,7 +22816,7 @@ var staticRenderFns = [function () {
   return _c("td", {
     staticClass: "text-center",
     attrs: {
-      colspan: "7"
+      colspan: "8"
     }
   }, [_c("div", {
     staticClass: "loader-spinner"
@@ -21909,6 +22881,192 @@ var staticRenderFns = [function () {
   }, [_c("i", {
     staticClass: "bi bi-info-circle"
   }), _vm._v(" "), _c("span", [_vm._v("No duration set. Please select one.")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "file-drop-content"
+  }, [_c("i", {
+    staticClass: "bi bi-cloud-upload file-upload-icon"
+  }), _vm._v(" "), _c("p", {
+    staticClass: "file-drop-text"
+  }, [_vm._v("Drag & drop files here or click to browse")]), _vm._v(" "), _c("span", {
+    staticClass: "file-drop-hint"
+  }, [_vm._v("Supported: PDF, DOC, DOCX, JPG, PNG (Max 10MB)")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "existing-attachments-header"
+  }, [_c("i", {
+    staticClass: "bi bi-paperclip"
+  }), _vm._v(" "), _c("span", [_vm._v("Existing Attachments")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "d-flex align-items-center"
+  }, [_c("div", {
+    staticClass: "modal-icon-wrapper square-icon",
+    staticStyle: {
+      background: "rgba(255, 255, 255, 0.2)"
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-check2-circle"
+  })]), _vm._v(" "), _c("div", [_c("h5", {
+    staticClass: "modal-title"
+  }, [_vm._v("Release Document")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "text-center mb-4"
+  }, [_c("div", {
+    staticClass: "release-warning-icon"
+  }, [_c("i", {
+    staticClass: "bi bi-question-circle-fill"
+  })]), _vm._v(" "), _c("h5", {
+    staticClass: "mt-3",
+    staticStyle: {
+      color: "#1e293b",
+      "font-weight": "700"
+    }
+  }, [_vm._v("Are you sure you want to release this document?")]), _vm._v(" "), _c("p", {
+    staticClass: "text-muted",
+    staticStyle: {
+      "font-size": "0.85rem"
+    }
+  }, [_vm._v("This action will mark the document as released and ready for the next step.")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "release-doc-icon-wrapper"
+  }, [_c("i", {
+    staticClass: "bi bi-upc-scan"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "release-doc-icon-wrapper"
+  }, [_c("i", {
+    staticClass: "bi bi-file-earmark-text"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "release-doc-icon-wrapper"
+  }, [_c("i", {
+    staticClass: "bi bi-journal-text"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "system-datetime-header",
+    staticStyle: {
+      background: "#2563eb"
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-clock-fill"
+  }), _vm._v(" "), _c("span", [_vm._v("System Date & Time (Philippine Standard Time)")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "system-datetime-footer"
+  }, [_c("i", {
+    staticClass: "bi bi-info-circle"
+  }), _vm._v(" "), _c("small", [_vm._v("This date and time will be recorded as the official release timestamp.")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "d-flex align-items-center"
+  }, [_c("div", {
+    staticClass: "modal-icon-wrapper square-icon",
+    staticStyle: {
+      background: "rgba(255, 255, 255, 0.2)"
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-archive"
+  })]), _vm._v(" "), _c("div", [_c("h5", {
+    staticClass: "modal-title"
+  }, [_vm._v("Archive Document")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "text-center mb-4"
+  }, [_c("div", {
+    staticClass: "archive-warning-icon"
+  }, [_c("i", {
+    staticClass: "bi bi-exclamation-triangle-fill"
+  })]), _vm._v(" "), _c("h5", {
+    staticClass: "mt-3",
+    staticStyle: {
+      color: "#1e293b",
+      "font-weight": "700"
+    }
+  }, [_vm._v("Are you sure you want to archive this document?")]), _vm._v(" "), _c("p", {
+    staticClass: "text-muted",
+    staticStyle: {
+      "font-size": "0.85rem"
+    }
+  }, [_vm._v("This action will move the document to the archive. You can still access it from the archived records.")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "archive-doc-icon-wrapper"
+  }, [_c("i", {
+    staticClass: "bi bi-upc-scan"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "archive-doc-icon-wrapper"
+  }, [_c("i", {
+    staticClass: "bi bi-file-earmark-text"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "archive-doc-icon-wrapper"
+  }, [_c("i", {
+    staticClass: "bi bi-journal-text"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("label", {
+    staticClass: "form-label-enhanced"
+  }, [_vm._v("\n              Archive Reason "), _c("span", {
+    staticClass: "required-star"
+  }, [_vm._v("*")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "system-datetime-header",
+    staticStyle: {
+      background: "#6b7280"
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-clock-fill"
+  }), _vm._v(" "), _c("span", [_vm._v("System Date & Time (Philippine Standard Time)")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "system-datetime-footer"
+  }, [_c("i", {
+    staticClass: "bi bi-info-circle"
+  }), _vm._v(" "), _c("small", [_vm._v("This date and time will be recorded as the official archive timestamp.")])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -22106,6 +23264,22 @@ var staticRenderFns = [function () {
     staticClass: "flow-node-icon"
   }, [_c("i", {
     staticClass: "bi bi-box-arrow-in-left"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "acted-attachments-title"
+  }, [_c("i", {
+    staticClass: "bi bi-file-earmark-check"
+  }), _vm._v(" "), _c("span", [_vm._v("Acted Attachments")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "empty-icon-wrapper"
+  }, [_c("i", {
+    staticClass: "bi bi-file-earmark-x"
   })]);
 }];
 render._withStripped = true;
@@ -28539,7 +29713,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* ===== FILTER CONTROLS ===== */\n.filter-controls[data-v-71b451b1] { margin-bottom: 20px;\n}\n.search-filter-row[data-v-71b451b1] { display: flex; gap: 12px; align-items: center; flex-wrap: wrap;\n}\n.search-box-wrapper[data-v-71b451b1] { flex: 1; min-width: 200px;\n}\n.search-box[data-v-71b451b1] { position: relative;\n}\n.search-icon[data-v-71b451b1] { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #9ca3af;\n}\n.search-input[data-v-71b451b1] { width: 100%; padding: 10px 35px 10px 36px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px; outline: none; background: #fff; transition: all 0.3s ease;\n}\n.search-input[data-v-71b451b1]:focus { border-color: #2d6a4f; box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\n.search-clear-btn[data-v-71b451b1] { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #9ca3af; cursor: pointer; padding: 4px;\n}\n.search-clear-btn[data-v-71b451b1]:hover { color: #ef4444;\n}\n.per-page-wrapper[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; white-space: nowrap;\n}\n.per-page-label[data-v-71b451b1] { font-size: 13px; color: #6b7280; font-weight: 500;\n}\n.per-page-select[data-v-71b451b1] { padding: 8px 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 13px; background: #fff; outline: none; cursor: pointer; transition: all 0.3s ease;\n}\n.per-page-select[data-v-71b451b1]:focus { border-color: #2d6a4f;\n}\n.filter-wrapper[data-v-71b451b1] { min-width: 180px;\n}\n.filter-box[data-v-71b451b1] { position: relative;\n}\n.filter-icon[data-v-71b451b1] { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #9ca3af;\n}\n.filter-select[data-v-71b451b1] { width: 100%; padding: 10px 12px 10px 36px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 13px; background: #fff; outline: none; cursor: pointer; -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E\"); background-repeat: no-repeat; background-position: right 12px center; transition: all 0.3s ease;\n}\n.filter-select[data-v-71b451b1]:focus { border-color: #2d6a4f; box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\n.active-filters[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; margin-top: 12px; padding: 10px 14px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; flex-wrap: wrap;\n}\n.active-filters-label[data-v-71b451b1] { font-size: 12px; font-weight: 600; color: #166534; text-transform: uppercase; letter-spacing: 0.5px;\n}\n.filter-tag[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: #fff; border: 1px solid #86efac; border-radius: 20px; font-size: 12px; color: #166534; font-weight: 500;\n}\n.filter-tag-close[data-v-71b451b1] { background: none; border: none; color: #6b7280; cursor: pointer; padding: 0;\n}\n.filter-tag-close[data-v-71b451b1]:hover { color: #ef4444;\n}\n.clear-all-filters[data-v-71b451b1] { padding: 4px 12px; background: none; border: 1px solid #86efac; border-radius: 6px; font-size: 12px; color: #166534; cursor: pointer; font-weight: 600; transition: all 0.2s;\n}\n.clear-all-filters[data-v-71b451b1]:hover { background: #dcfce7; border-color: #166534;\n}\n.results-summary[data-v-71b451b1] { margin-top: 10px; font-size: 13px; color: #6b7280;\n}\n.results-count[data-v-71b451b1] { font-weight: 700; color: #2d6a4f; font-size: 16px;\n}\r\n\r\n/* ===== TABLE ===== */\n.table-responsive[data-v-71b451b1] { overflow-x: auto; margin-top: 16px;\n}\n.office-table[data-v-71b451b1] { width: 100%; border-collapse: collapse; font-size: 13px; background: #fff;\n}\n.office-table th[data-v-71b451b1], .office-table td[data-v-71b451b1] { border: 1px solid #f3f4f6; padding: 12px 14px; text-align: left; vertical-align: middle;\n}\n.office-table thead th[data-v-71b451b1] { background: #f8fafc; font-weight: 700; color: #374151; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; border-bottom: 2px solid #e5e7eb;\n}\n.office-table tbody tr[data-v-71b451b1]:hover { background: #f0fdf4;\n}\n.office-table tbody tr[data-v-71b451b1]:nth-child(even) { background: #fafafa;\n}\n.office-table tbody tr[data-v-71b451b1]:nth-child(even):hover { background: #f0fdf4;\n}\n.row-number[data-v-71b451b1] { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 6px; background: #f3f4f6; color: #6b7280; font-size: 12px; font-weight: 600;\n}\n.tracking-number[data-v-71b451b1] { font-weight: 700; color: #2d6a4f; font-family: \"Courier New\", monospace; font-size: 13px; padding: 2px 8px; background: #f0fdf4; border-radius: 4px;\n}\n.doc-type-badge[data-v-71b451b1] { display: inline-block; padding: 3px 10px; background: #e0e7ff; color: #3730a3; border-radius: 4px; font-size: 11px; font-weight: 600; border: 1px solid #c7d2fe;\n}\n.subject-text[data-v-71b451b1] { color: #1e293b; font-weight: 500; line-height: 1.4; font-size: 13px; position: relative;\n}\n.date-received[data-v-71b451b1] { color: #64748b; font-size: 12px; display: flex; align-items: center; gap: 6px;\n}\n.date-icon[data-v-71b451b1] { color: #94a3b8; font-size: 13px;\n}\r\n\r\n/* ===== CONFIDENTIAL ===== */\n.confidential-blur-static[data-v-71b451b1] { filter: blur(8px); -webkit-user-select: none; -moz-user-select: none; user-select: none; pointer-events: none; position: relative;\n}\n.confidential-blur-static .confidential-label[data-v-71b451b1] { display: inline-block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.7rem; font-weight: 800; color: #dc2626; background: rgba(255,255,255,0.95); padding: 2px 10px; border-radius: 4px; border: 2px solid #dc2626; letter-spacing: 1px; text-transform: uppercase; pointer-events: none; white-space: nowrap; filter: none;\n}\n.confidential-label[data-v-71b451b1] { display: inline-block; font-size: 0.7rem; font-weight: 800; color: #dc2626; background: rgba(255,255,255,0.95); padding: 2px 10px; border-radius: 4px; border: 2px solid #dc2626; letter-spacing: 1px; text-transform: uppercase; margin-left: 8px; white-space: nowrap;\n}\r\n\r\n/* ===== CLASSIFICATION BADGES ===== */\n.classification-confidential[data-v-71b451b1] { display: inline-block; padding: 3px 10px; background: #fee2e2; color: #991b1b; border-radius: 4px; font-size: 11px; font-weight: 700; border: 1px solid #fecaca; text-transform: uppercase;\n}\n.classification-restricted[data-v-71b451b1] { display: inline-block; padding: 3px 10px; background: #fed7aa; color: #9a3412; border-radius: 4px; font-size: 11px; font-weight: 700; border: 1px solid #fdba74; text-transform: uppercase;\n}\n.classification-top-secret[data-v-71b451b1] { display: inline-block; padding: 3px 10px; background: #fce7f3; color: #9d174d; border-radius: 4px; font-size: 11px; font-weight: 700; border: 1px solid #f9a8d4; text-transform: uppercase;\n}\n.classification-general[data-v-71b451b1] { display: inline-block; padding: 3px 10px; background: #d1fae5; color: #065f46; border-radius: 4px; font-size: 11px; font-weight: 700; border: 1px solid #a7f3d0; text-transform: uppercase;\n}\n.classification-badge-large[data-v-71b451b1] { display: inline-block; padding: 4px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;\n}\r\n\r\n/* ===== DURATION BADGES ===== */\n.duration-badge[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;\n}\n.duration-simple[data-v-71b451b1] { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd;\n}\n.duration-complex[data-v-71b451b1] { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d;\n}\n.duration-highly-technical[data-v-71b451b1] { background: #fce7f3; color: #9d174d; border: 1px solid #f9a8d4;\n}\n.duration-not-set[data-v-71b451b1] { background: #f3f4f6; color: #6b7280; border: 1px solid #d1d5db;\n}\n.duration-badge-large[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 6px; padding: 4px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 700;\n}\n.duration-detail-card[data-v-71b451b1] { background: #f0fdf4; border-color: #86efac;\n}\r\n\r\n/* ===== DURATION DISPLAY ===== */\n.duration-display-container[data-v-71b451b1] { display: flex; flex-direction: column; gap: 8px;\n}\n.duration-display-box[data-v-71b451b1] { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: #f8fafc; border: 2px solid #e5e7eb; border-radius: 8px; transition: all 0.3s ease;\n}\n.duration-display-box[data-v-71b451b1]:hover { border-color: #2d6a4f; background: #f0fdf4;\n}\n.duration-display-icon[data-v-71b451b1] { width: 36px; height: 36px; min-width: 36px; border-radius: 8px; background: #d1fae5; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: #059669;\n}\n.duration-display-content[data-v-71b451b1] { flex: 1; display: flex; flex-direction: column;\n}\n.duration-display-label[data-v-71b451b1] { font-size: 0.6rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;\n}\n.duration-display-value[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 6px; padding: 2px 12px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; margin-top: 2px; width: -moz-fit-content; width: fit-content;\n}\n.duration-display-value.duration-simple[data-v-71b451b1] { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd;\n}\n.duration-display-value.duration-complex[data-v-71b451b1] { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d;\n}\n.duration-display-value.duration-highly-technical[data-v-71b451b1] { background: #fce7f3; color: #9d174d; border: 1px solid #f9a8d4;\n}\n.duration-display-value.duration-not-set[data-v-71b451b1] { background: #f3f4f6; color: #6b7280; border: 1px solid #d1d5db;\n}\n.badge-readonly[data-v-71b451b1] { padding: 2px 10px; background: #e5e7eb; color: #6b7280; border-radius: 12px; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;\n}\n.duration-hint[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: #fef3c7; border: 1px solid #fcd34d; border-radius: 4px; font-size: 0.7rem; color: #92400e; margin-top: 4px;\n}\n.duration-hint i[data-v-71b451b1] { color: #d97706;\n}\n.existing-duration-info[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; padding: 4px 10px; background: #f0fdf4; border: 1px solid #86efac; border-radius: 4px; font-size: 0.7rem; color: #166534;\n}\n.existing-duration-info i[data-v-71b451b1] { color: #16a34a;\n}\r\n\r\n/* ===== ACTION BUTTONS ===== */\n.action-buttons[data-v-71b451b1] { display: flex; gap: 6px; align-items: center;\n}\n.btn-action[data-v-71b451b1] { background: none; border: 1px solid transparent; border-radius: 6px; padding: 6px 10px; cursor: pointer; font-size: 0.95rem; transition: all 0.2s;\n}\n.btn-view[data-v-71b451b1] { color: #6366f1; border-color: #c7d2fe; background: #eef2ff;\n}\n.btn-view[data-v-71b451b1]:hover { background: #ddd6fe; transform: scale(1.05);\n}\n.btn-forward[data-v-71b451b1] { color: #0891b2; border-color: #67e8f9; background: #cffafe;\n}\n.btn-forward[data-v-71b451b1]:hover { background: #67e8f9; transform: scale(1.05);\n}\r\n\r\n/* ===== STATUS BADGE ===== */\n.status-badge[data-v-71b451b1] { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;\n}\n.status-in-progress[data-v-71b451b1] { background: #fef3c7; color: #d97706; border: 1px solid #fde68a;\n}\n.status-for-release[data-v-71b451b1] { background: #dbeafe; color: #2563eb; border: 1px solid #bfdbfe;\n}\n.status-released[data-v-71b451b1] { background: #d1fae5; color: #059669; border: 1px solid #a7f3d0;\n}\r\n\r\n/* ===== MODAL ===== */\n.modal-overlay[data-v-71b451b1] { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.55); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 1050; animation: fadeIn-71b451b1 0.2s ease-out;\n}\n.enhanced-modal[data-v-71b451b1] { width: 100%; max-width: 620px; margin: 0 15px; animation: slideUp-71b451b1 0.3s ease-out;\n}\n@keyframes slideUp-71b451b1 {\nfrom { transform: translateY(30px); opacity: 0;\n}\nto { transform: translateY(0); opacity: 1;\n}\n}\n@keyframes fadeIn-71b451b1 {\nfrom { opacity: 0;\n}\nto { opacity: 1;\n}\n}\n.square-modal[data-v-71b451b1] { border: none; border-radius: 12px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.3); background: #fff;\n}\n.square-header[data-v-71b451b1] { background: linear-gradient(135deg, #1e4d2b, #2d6a4f); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1);\n}\n.square-icon[data-v-71b451b1] { width: 38px; height: 38px; background: rgba(255,255,255,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-right: 12px;\n}\n.modal-title[data-v-71b451b1] { font-weight: 700; font-size: 1.1rem;\n}\n.modal-subtitle[data-v-71b451b1] { font-size: 0.8rem; opacity: 0.85;\n}\n.square-close[data-v-71b451b1] { background: rgba(255,255,255,0.15); border: none; color: #fff; width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s;\n}\n.square-close[data-v-71b451b1]:hover { background: rgba(255,255,255,0.3);\n}\n.modal-body[data-v-71b451b1] { padding: 16px 20px; background: #f9fafb;\n}\n.error-msg[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; background: #fef0ef; border: 1px solid #f5c6c3; border-radius: 6px; padding: 8px 12px; font-size: 12px; color: #c0392b; margin-bottom: 12px; font-weight: 500;\n}\n.form-label[data-v-71b451b1] { font-weight: 600; font-size: 0.8rem; color: #1e293b; margin-bottom: 4px; display: block;\n}\n.required-star[data-v-71b451b1] { color: #dc2626; margin-left: 2px;\n}\n.modal-actions[data-v-71b451b1] { margin-top: 16px; padding-top: 12px; border-top: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;\n}\n.square-btn[data-v-71b451b1] { border-radius: 6px !important; font-weight: 600; transition: all 0.2s; padding: 6px 16px !important; font-size: 0.85rem !important;\n}\n.btn-save[data-v-71b451b1] { background: linear-gradient(135deg, #1e4d2b, #2d6a4f); color: #fff; border: none; padding: 6px 16px; font-weight: 600; display: inline-flex; align-items: center; box-shadow: 0 2px 12px rgba(26,71,49,0.3);\n}\n.btn-save[data-v-71b451b1]:hover { box-shadow: 0 4px 16px rgba(26,71,49,0.4); transform: translateY(-1px);\n}\n.btn-save[data-v-71b451b1]:disabled { opacity: 0.7; cursor: not-allowed; transform: none;\n}\r\n\r\n/* ===== FORWARD MODAL ===== */\n.forward-doc-info[data-v-71b451b1] { display: flex; gap: 16px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 6px; padding: 8px 14px; margin-bottom: 12px; flex-wrap: wrap;\n}\n.forward-doc-row[data-v-71b451b1] { display: flex; align-items: center; gap: 6px;\n}\n.forward-doc-label[data-v-71b451b1] { font-size: 0.7rem; font-weight: 600; color: #64748b; text-transform: uppercase;\n}\n.forward-doc-value[data-v-71b451b1] { font-size: 0.85rem; font-weight: 600; color: #1e293b;\n}\n.forward-grid[data-v-71b451b1] { display: grid; grid-template-columns: 1fr 1fr; gap: 16px;\n}\n.forward-col[data-v-71b451b1] { display: flex; flex-direction: column;\n}\n.office-search-box[data-v-71b451b1] { position: relative; margin-bottom: 8px;\n}\n.office-search-icon[data-v-71b451b1] { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #9ca3af; font-size: 0.85rem;\n}\n.office-search-input[data-v-71b451b1] { width: 100%; padding: 6px 30px 6px 32px; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 0.8rem; outline: none; background: #fff; transition: all 0.3s ease;\n}\n.office-search-input[data-v-71b451b1]:focus { border-color: #2d6a4f; box-shadow: 0 0 0 2px rgba(45,106,79,0.1);\n}\n.office-search-clear[data-v-71b451b1] { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #9ca3af; cursor: pointer; padding: 2px;\n}\n.office-search-clear[data-v-71b451b1]:hover { color: #ef4444;\n}\n.office-list-container[data-v-71b451b1] { max-height: 180px; overflow-y: auto; border: 1px solid #e5e7eb; border-radius: 6px; background: #fff;\n}\n.office-list-container[data-v-71b451b1]::-webkit-scrollbar { width: 4px;\n}\n.office-list-container[data-v-71b451b1]::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 2px;\n}\n.office-select-item[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; padding: 6px 10px; cursor: pointer; transition: all 0.15s ease; border-bottom: 1px solid #f3f4f6; position: relative;\n}\n.office-select-item[data-v-71b451b1]:last-child { border-bottom: none;\n}\n.office-select-item[data-v-71b451b1]:hover { background: #f0fdf4;\n}\n.office-select-item.selected[data-v-71b451b1] { background: #f0fdf4; border-left: 2px solid #059669;\n}\n.office-checkbox[data-v-71b451b1] { font-size: 1rem; color: #059669; min-width: 18px; display: flex; align-items: center; justify-content: center;\n}\n.office-select-item:not(.selected) .office-checkbox[data-v-71b451b1] { color: #d1d5db;\n}\n.office-icon-wrapper[data-v-71b451b1] { width: 28px; height: 28px; min-width: 28px; border-radius: 6px; background: #e0e7ff; display: flex; align-items: center; justify-content: center; color: #3730a3; font-size: 0.8rem;\n}\n.office-select-item.selected .office-icon-wrapper[data-v-71b451b1] { background: #d1fae5; color: #059669;\n}\n.office-details[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.office-name-text[data-v-71b451b1] { display: block; font-size: 0.8rem; font-weight: 600; color: #1e293b; line-height: 1.2;\n}\n.office-code[data-v-71b451b1] { display: block; font-size: 0.6rem; color: #64748b;\n}\n.selected-indicator[data-v-71b451b1] { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); color: #059669; font-size: 0.9rem;\n}\n.selection-counter[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: #f0fdf4; border: 1px solid #86efac; border-radius: 16px; font-size: 0.75rem; font-weight: 600; color: #166534; margin-top: 6px;\n}\n.duration-select[data-v-71b451b1] { width: 100%; padding: 6px 10px; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 0.8rem; background: #fff; outline: none; cursor: pointer; -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E\"); background-repeat: no-repeat; background-position: right 10px center;\n}\n.duration-select[data-v-71b451b1]:focus { border-color: #2d6a4f; box-shadow: 0 0 0 2px rgba(45,106,79,0.1);\n}\n.duration-select[data-v-71b451b1]:disabled { opacity: 0.6; cursor: not-allowed;\n}\n.remarks-textarea[data-v-71b451b1] { width: 100%; padding: 6px 10px; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 0.8rem; outline: none; background: #fff; transition: all 0.3s ease; resize: vertical; font-family: inherit; min-height: 60px;\n}\n.remarks-textarea[data-v-71b451b1]:focus { border-color: #2d6a4f; box-shadow: 0 0 0 2px rgba(45,106,79,0.1);\n}\n.remarks-textarea[data-v-71b451b1]:disabled { opacity: 0.6; cursor: not-allowed;\n}\n.remarks-counter[data-v-71b451b1] { text-align: right; font-size: 0.65rem; color: #94a3b8; margin-top: 2px;\n}\n.remarks-counter.text-danger[data-v-71b451b1] { color: #dc2626;\n}\n.selected-offices-summary[data-v-71b451b1] { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 8px 12px; margin-top: 8px;\n}\n.selected-offices-header[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 0.75rem; color: #166534;\n}\n.selected-offices-list[data-v-71b451b1] { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px;\n}\n.selected-office-tag[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; background: #fff; border: 1px solid #86efac; border-radius: 12px; font-size: 0.7rem; font-weight: 600; color: #166534;\n}\n.remove-office-btn[data-v-71b451b1] { background: none; border: none; color: #6b7280; cursor: pointer; padding: 0; font-size: 0.8rem; transition: color 0.2s;\n}\n.remove-office-btn[data-v-71b451b1]:hover { color: #dc2626;\n}\n.remove-office-btn[data-v-71b451b1]:disabled { opacity: 0.5; cursor: not-allowed;\n}\r\n\r\n/* ===== DOCUMENT VIEWER ===== */\n.document-view-modal[data-v-71b451b1] { max-width: 1400px; width: 95vw; max-height: 90vh;\n}\n.document-viewer-body[data-v-71b451b1] { padding: 0; max-height: calc(90vh - 80px); overflow: hidden; display: flex; flex-direction: column;\n}\n.document-viewer-tabs[data-v-71b451b1] { display: flex; gap: 4px; padding: 10px 16px; background: #f8fafc; border-bottom: 2px solid #e5e7eb; flex-shrink: 0;\n}\n.viewer-tab-btn[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; padding: 8px 16px; background: #fff; border: 1px solid #e5e7eb; border-radius: 6px; color: #64748b; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s ease;\n}\n.viewer-tab-btn[data-v-71b451b1]:hover { background: #f0fdf4; border-color: #86efac; color: #2d6a4f; transform: translateY(-1px);\n}\n.viewer-tab-btn.active[data-v-71b451b1] { background: linear-gradient(135deg, #2d6a4f, #1e4d2b); border-color: #2d6a4f; color: #fff; box-shadow: 0 4px 12px rgba(45,106,79,0.3);\n}\n.document-viewer-layout[data-v-71b451b1] { display: grid; grid-template-columns: 340px 1fr; height: calc(90vh - 140px); min-height: 400px;\n}\n.details-panel[data-v-71b451b1] { background: #fff; border-right: 1px solid #e5e7eb; display: flex; flex-direction: column; overflow: hidden;\n}\n.details-panel-header[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; padding: 12px 16px; background: #f8fafc; border-bottom: 1px solid #e5e7eb; font-weight: 700; color: #1e293b; font-size: 0.85rem; flex-shrink: 0;\n}\n.details-content[data-v-71b451b1] { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px;\n}\n.details-content[data-v-71b451b1]::-webkit-scrollbar { width: 4px;\n}\n.details-content[data-v-71b451b1]::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 2px;\n}\n.detail-card[data-v-71b451b1] { display: flex; gap: 10px; padding: 10px 12px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px;\n}\n.detail-icon-wrapper[data-v-71b451b1] { width: 32px; height: 32px; min-width: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; background: #e0f2fe; color: #0284c7;\n}\n.detail-icon-wrapper.classification-icon[data-v-71b451b1] { background: #fee2e2; color: #991b1b;\n}\n.detail-icon-wrapper.type-icon[data-v-71b451b1] { background: #fef3c7; color: #d97706;\n}\n.detail-icon-wrapper.subject-icon[data-v-71b451b1] { background: #dcfce7; color: #16a34a;\n}\n.detail-icon-wrapper.sender-icon-card[data-v-71b451b1] { background: #ede9fe; color: #7c3aed;\n}\n.detail-icon-wrapper.duration-icon[data-v-71b451b1] { background: #f0fdf4; color: #16a34a;\n}\n.detail-info[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.detail-info label[data-v-71b451b1] { display: block; font-size: 0.6rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 2px;\n}\n.detail-value[data-v-71b451b1] { font-size: 0.8rem; color: #1e293b; font-weight: 500; word-break: break-word; line-height: 1.3; position: relative;\n}\n.tracking-number-large[data-v-71b451b1] { font-size: 0.85rem; font-weight: 700; color: #2d6a4f; font-family: \"Courier New\", monospace; background: #f0fdf4; padding: 2px 8px; border-radius: 4px; display: inline-block;\n}\n.doc-type-badge-large[data-v-71b451b1] { display: inline-block; padding: 2px 10px; background: #e0e7ff; color: #3730a3; border-radius: 4px; font-size: 0.75rem; font-weight: 600; border: 1px solid #c7d2fe;\n}\r\n\r\n/* ===== PDF PANEL ===== */\n.pdf-panel[data-v-71b451b1] { display: flex; flex-direction: column; background: #f8fafc; overflow: hidden;\n}\n.pdf-panel-header[data-v-71b451b1] { display: flex; justify-content: space-between; align-items: center; padding: 8px 16px; background: #fff; border-bottom: 1px solid #e5e7eb; flex-shrink: 0;\n}\n.pdf-panel-title[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; font-weight: 700; color: #1e293b; font-size: 0.85rem;\n}\n.pdf-panel-title i[data-v-71b451b1] { color: #dc2626; font-size: 1rem;\n}\n.text-danger[data-v-71b451b1] { color: #dc2626 !important;\n}\n.pdf-controls[data-v-71b451b1] { display: flex; gap: 4px; align-items: center;\n}\n.btn-pdf-control[data-v-71b451b1] { background: #f1f5f9; border: 1px solid #e5e7eb; color: #475569; width: 28px; height: 28px; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 0.8rem;\n}\n.btn-pdf-control[data-v-71b451b1]:hover:not(:disabled) { background: #e2e8f0; border-color: #94a3b8; color: #1e293b;\n}\n.btn-pdf-control[data-v-71b451b1]:disabled { opacity: 0.5; cursor: not-allowed;\n}\n.pdf-viewer-wrapper[data-v-71b451b1] { flex: 1; overflow: auto; background: #525659; position: relative; min-height: 300px;\n}\n.pdf-viewer-wrapper[data-v-71b451b1]::-webkit-scrollbar { width: 8px; height: 8px;\n}\n.pdf-viewer-wrapper[data-v-71b451b1]::-webkit-scrollbar-track { background: #3a3d40;\n}\n.pdf-viewer-wrapper[data-v-71b451b1]::-webkit-scrollbar-thumb { background: #6b7280; border-radius: 4px;\n}\n.pdf-iframe[data-v-71b451b1] { border: none; display: block; background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.3);\n}\n.pdf-state[data-v-71b451b1] { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 300px; color: #9ca3af; padding: 30px;\n}\n.pdf-loader-animation[data-v-71b451b1] { position: relative; width: 60px; height: 60px; margin-bottom: 12px;\n}\n.pdf-loader-icon[data-v-71b451b1] { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.5rem; color: #dc2626; z-index: 2;\n}\n.pdf-state-text[data-v-71b451b1] { color: #d1d5db; font-size: 0.85rem; margin-top: 6px;\n}\n.pdf-error[data-v-71b451b1] { color: #fca5a5;\n}\n.pdf-error h5[data-v-71b451b1] { color: #fca5a5; font-weight: 600; font-size: 1rem;\n}\n.pdf-footer[data-v-71b451b1] { display: flex; justify-content: space-between; align-items: center; padding: 6px 16px; background: #fff; border-top: 1px solid #e5e7eb; font-size: 0.7rem; color: #64748b; flex-shrink: 0;\n}\n.pdf-zoom-level[data-v-71b451b1] { font-weight: 600; color: #2d6a4f;\n}\n.pdf-page-info[data-v-71b451b1] { font-family: \"Courier New\", monospace;\n}\r\n\r\n/* ===== ROUTE HISTORY ===== */\n.route-history-panel[data-v-71b451b1] { display: flex; flex-direction: column; height: calc(90vh - 140px); background: #fff; min-height: 400px;\n}\n.route-history-header[data-v-71b451b1] { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; background: #f8fafc; border-bottom: 2px solid #e5e7eb; flex-shrink: 0;\n}\n.route-history-title[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; font-weight: 700; color: #1e293b; font-size: 0.9rem;\n}\n.route-history-title i[data-v-71b451b1] { color: #2d6a4f; font-size: 1rem;\n}\n.route-history-badge[data-v-71b451b1] { display: flex; align-items: center; gap: 4px; padding: 4px 12px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; font-size: 0.7rem; font-weight: 600; color: #166534;\n}\n.route-history-content[data-v-71b451b1] { flex: 1; overflow-y: auto; padding: 16px; background: #f9fafb;\n}\n.route-history-content[data-v-71b451b1]::-webkit-scrollbar { width: 6px;\n}\n.route-history-content[data-v-71b451b1]::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 3px;\n}\n.route-state-box[data-v-71b451b1] { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 200px; text-align: center;\n}\n.empty-icon-wrapper[data-v-71b451b1] { width: 60px; height: 60px; border-radius: 50%; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #94a3b8; margin-bottom: 12px;\n}\n.timeline-container[data-v-71b451b1] { position: relative; padding-left: 35px;\n}\n.timeline-container[data-v-71b451b1]::before { content: \"\"; position: absolute; left: 12px; top: 10px; bottom: 10px; width: 2px; background: linear-gradient(180deg, #cbd5e1, #e2e8f0);\n}\n.timeline-item[data-v-71b451b1] { position: relative; margin-bottom: 20px;\n}\n.timeline-item.is-last[data-v-71b451b1] { margin-bottom: 0;\n}\n.timeline-node[data-v-71b451b1] { position: absolute; left: -30px; top: 0; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; z-index: 2; border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.15); font-size: 0.65rem;\n}\n.node-completed[data-v-71b451b1] { background: #059669;\n}\n.node-active[data-v-71b451b1] { background: #2563eb; animation: pulse-71b451b1 2s infinite;\n}\n.node-pending[data-v-71b451b1] { background: #d97706;\n}\n.node-rejected[data-v-71b451b1] { background: #dc2626;\n}\n@keyframes pulse-71b451b1 {\n0%, 100% { box-shadow: 0 0 0 0 rgba(37,99,235,0.4);\n}\n50% { box-shadow: 0 0 0 6px rgba(37,99,235,0.1);\n}\n}\n.timeline-card[data-v-71b451b1] { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; transition: all 0.3s ease; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05);\n}\n.timeline-card[data-v-71b451b1]:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); transform: translateY(-1px);\n}\n.timeline-card.active-card[data-v-71b451b1] { border-left: 3px solid #2563eb; background: linear-gradient(135deg, #eff6ff, #fff);\n}\n.timeline-card-header[data-v-71b451b1] { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #f8fafc; border-bottom: 1px solid #e5e7eb; flex-wrap: wrap; gap: 8px;\n}\n.office-info[data-v-71b451b1] { display: flex; align-items: center; gap: 8px;\n}\n.office-info i[data-v-71b451b1] { font-size: 1rem; color: #2d6a4f;\n}\n.office-name[data-v-71b451b1] { font-size: 0.85rem; font-weight: 700; color: #1e293b; line-height: 1.2;\n}\n.route-status-badge[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 4px; font-size: 0.65rem; font-weight: 700; padding: 3px 10px; border-radius: 16px; text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap;\n}\n.badge-completed[data-v-71b451b1] { background: #d1fae5; color: #059669; border: 1px solid #a7f3d0;\n}\n.badge-active[data-v-71b451b1] { background: #dbeafe; color: #2563eb; border: 1px solid #bfdbfe;\n}\n.badge-pending[data-v-71b451b1] { background: #fef3c7; color: #d97706; border: 1px solid #fde68a;\n}\n.badge-rejected[data-v-71b451b1] { background: #fee2e2; color: #dc2626; border: 1px solid #fecaca;\n}\n.timeline-card-body[data-v-71b451b1] { padding: 12px 14px;\n}\n.info-grid-enhanced[data-v-71b451b1] { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;\n}\n.info-card[data-v-71b451b1] { background: #fff; border-radius: 8px; border: 1px solid #e5e7eb; overflow: hidden;\n}\n.received-card[data-v-71b451b1] { border-left: 3px solid #3b82f6;\n}\n.completed-card[data-v-71b451b1] { border-left: 3px solid #10b981;\n}\n.info-card-header[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #f8fafc; border-bottom: 1px solid #e5e7eb;\n}\n.info-card-icon[data-v-71b451b1] { width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #fff; flex-shrink: 0;\n}\n.completed-icon[data-v-71b451b1] { background: linear-gradient(135deg, #10b981, #059669);\n}\n.info-card-title[data-v-71b451b1] { font-weight: 700; font-size: 0.65rem; color: #1e293b; text-transform: uppercase; letter-spacing: 0.3px; flex: 1;\n}\n.info-card-status[data-v-71b451b1] { font-size: 0.55rem; font-weight: 700; padding: 2px 8px; border-radius: 12px;\n}\n.completed-status[data-v-71b451b1] { background: #d1fae5; color: #059669;\n}\n.info-card-body[data-v-71b451b1] { padding: 8px 12px; display: flex; flex-direction: column; gap: 6px;\n}\n.info-field[data-v-71b451b1] { display: flex; gap: 8px; align-items: flex-start;\n}\n.field-icon[data-v-71b451b1] { width: 20px; height: 20px; min-width: 20px; border-radius: 4px; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #64748b;\n}\n.remarks-icon[data-v-71b451b1] { background: #fffbeb; color: #d97706;\n}\n.notes-icon[data-v-71b451b1] { background: #f0fdf4; color: #059669;\n}\n.field-content[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.field-label[data-v-71b451b1] { display: block; font-size: 0.55rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 1px;\n}\n.field-value[data-v-71b451b1] { display: block; font-size: 0.75rem; color: #1e293b; font-weight: 500; word-break: break-word; line-height: 1.3;\n}\n.received-date[data-v-71b451b1] { color: #2563eb; font-weight: 600;\n}\n.completed-date[data-v-71b451b1] { color: #059669; font-weight: 600;\n}\n.remarks-text[data-v-71b451b1] { font-style: italic; color: #78350f; background: #fffbeb; padding: 2px 8px; border-radius: 4px; border-left: 2px solid #f59e0b; font-size: 0.7rem;\n}\n.notes-text[data-v-71b451b1] { background: #f0fdf4; padding: 2px 8px; border-radius: 4px; border-left: 2px solid #10b981; font-size: 0.7rem;\n}\n.text-muted[data-v-71b451b1] { color: #94a3b8;\n}\r\n\r\n/* ===== FLOW SECTION ===== */\n.flow-section[data-v-71b451b1] { margin-top: 6px; padding: 10px 14px; background: linear-gradient(135deg, #f8fafc, #f1f5f9); border-radius: 8px; border: 1px solid #e5e7eb;\n}\n.flow-container[data-v-71b451b1] { display: flex; align-items: center; gap: 12px; flex-wrap: wrap;\n}\n.flow-node[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 120px; padding: 6px 10px; background: #fff; border-radius: 6px; border: 1px solid #e5e7eb;\n}\n.origin-node[data-v-71b451b1] { border-left: 3px solid #3b82f6;\n}\n.destination-node[data-v-71b451b1] { border-left: 3px solid #10b981;\n}\n.flow-node-icon[data-v-71b451b1] { width: 24px; height: 24px; min-width: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #fff;\n}\n.origin-node .flow-node-icon[data-v-71b451b1] { background: linear-gradient(135deg, #3b82f6, #2563eb);\n}\n.destination-node .flow-node-icon[data-v-71b451b1] { background: linear-gradient(135deg, #10b981, #059669);\n}\n.flow-node-content[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.flow-node-label[data-v-71b451b1] { display: block; font-size: 0.5rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.3px;\n}\n.flow-node-value[data-v-71b451b1] { display: block; font-size: 0.75rem; font-weight: 600; color: #1e293b; word-break: break-word;\n}\n.flow-arrow[data-v-71b451b1] { display: flex; align-items: center; gap: 2px; flex-shrink: 0; padding: 0 2px;\n}\n.arrow-line[data-v-71b451b1] { width: 16px; height: 2px; background: linear-gradient(90deg, #94a3b8, #cbd5e1); border-radius: 1px;\n}\n.arrow-icon[data-v-71b451b1] { font-size: 1rem; color: #94a3b8; display: flex; align-items: center; justify-content: center; animation: arrowPulse-71b451b1 1.5s ease-in-out infinite;\n}\n@keyframes arrowPulse-71b451b1 {\n0%, 100% { transform: translateX(0); opacity: 1;\n}\n50% { transform: translateX(3px); opacity: 0.6;\n}\n}\r\n\r\n/* ===== LOADER ===== */\n.loader-spinner[data-v-71b451b1] { width: 30px; height: 30px; border: 2px solid #e5e7eb; border-top-color: #2d6a4f; border-radius: 50%; animation: spin-71b451b1 0.8s linear infinite; margin: 0 auto 6px;\n}\n@keyframes spin-71b451b1 {\nto { transform: rotate(360deg);\n}\n}\n.empty-state[data-v-71b451b1] { padding: 16px; text-align: center;\n}\r\n\r\n/* ===== DOCUMENT HEADER ===== */\n.document-header[data-v-71b451b1] { padding: 12px 20px;\n}\n.document-icon[data-v-71b451b1] { background: rgba(220,38,38,0.2);\n}\n.header-actions[data-v-71b451b1] { display: flex; align-items: center; gap: 6px;\n}\n.tracking-badge[data-v-71b451b1] { background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 10px; font-family: \"Courier New\", monospace; font-size: 0.7rem; margin-right: 6px;\n}\n.status-pill[data-v-71b451b1] { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3);\n}\r\n\r\n/* ===== CONFIDENTIAL NOTICE ===== */\n.confidential-notice[data-v-71b451b1] { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 300px; padding: 30px; background: linear-gradient(135deg, #1a1a2e, #16213e 50%, #0f3460); text-align: center;\n}\n.confidential-icon-wrapper[data-v-71b451b1] { position: relative; width: 90px; height: 90px; margin-bottom: 16px; display: flex; align-items: center; justify-content: center;\n}\n.confidential-icon[data-v-71b451b1] { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #dc2626, #991b1b); display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff; z-index: 2; box-shadow: 0 0 30px rgba(220,38,38,0.4);\n}\n.confidential-ring[data-v-71b451b1] { position: absolute; width: 90px; height: 90px; border-radius: 50%; border: 2px solid rgba(220,38,38,0.3); animation: ringPulse-71b451b1 2s ease-in-out infinite;\n}\n@keyframes ringPulse-71b451b1 {\n0%, 100% { transform: scale(1); opacity: 0.3;\n}\n50% { transform: scale(1.1); opacity: 0.6;\n}\n}\n.confidential-title[data-v-71b451b1] { font-size: 1.4rem; font-weight: 800; color: #dc2626; letter-spacing: 2px; margin-bottom: 6px; text-shadow: 0 0 20px rgba(220,38,38,0.3);\n}\n.confidential-divider[data-v-71b451b1] { width: 60px; height: 2px; background: linear-gradient(90deg, transparent, #dc2626, transparent); margin-bottom: 12px;\n}\n.confidential-message[data-v-71b451b1] { color: #e2e8f0; font-size: 0.9rem; margin-bottom: 6px;\n}\n.confidential-sub-message[data-v-71b451b1] { color: #94a3b8; font-size: 0.8rem; margin-bottom: 16px; max-width: 350px;\n}\n.confidential-details[data-v-71b451b1] { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; padding: 12px 16px; background: rgba(255,255,255,0.05); border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);\n}\n.confidential-detail-item[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; color: #cbd5e1; font-size: 0.75rem; font-family: \"Courier New\", monospace;\n}\n.confidential-detail-item i[data-v-71b451b1] { color: #dc2626; font-size: 0.85rem;\n}\n.confidential-footer-note[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: rgba(220,38,38,0.1); border: 1px solid rgba(220,38,38,0.2); border-radius: 4px; color: #fca5a5; font-size: 0.65rem; max-width: 400px;\n}\r\n\r\n/* ===== RESPONSIVE ===== */\n@media (max-width: 1200px) {\n.document-viewer-layout[data-v-71b451b1] { grid-template-columns: 300px 1fr;\n}\n}\n@media (max-width: 992px) {\n.document-viewer-layout[data-v-71b451b1] { grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: calc(90vh - 140px);\n}\n.details-panel[data-v-71b451b1] { border-right: none; border-bottom: 1px solid #e5e7eb; max-height: 300px;\n}\n.pdf-viewer-wrapper[data-v-71b451b1] { min-height: 300px;\n}\n.forward-grid[data-v-71b451b1] { grid-template-columns: 1fr;\n}\n.info-grid-enhanced[data-v-71b451b1] { grid-template-columns: 1fr;\n}\n.flow-container[data-v-71b451b1] { flex-direction: column; gap: 6px;\n}\n.flow-node[data-v-71b451b1] { width: 100%; min-width: unset;\n}\n.flow-arrow[data-v-71b451b1] { transform: rotate(90deg); padding: 0;\n}\n.arrow-line[data-v-71b451b1] { width: 24px;\n}\n.forward-doc-info[data-v-71b451b1] { flex-direction: column; gap: 4px;\n}\n}\n@media (max-width: 768px) {\n.document-view-modal[data-v-71b451b1] { max-width: 100vw; width: 100vw; margin: 0; border-radius: 0; max-height: 100vh;\n}\n.document-viewer-tabs[data-v-71b451b1] { padding: 6px 10px; gap: 3px;\n}\n.viewer-tab-btn[data-v-71b451b1] { padding: 6px 12px; font-size: 11px;\n}\n.details-panel[data-v-71b451b1] { max-height: 250px;\n}\n.pdf-viewer-wrapper[data-v-71b451b1] { min-height: 250px;\n}\n.pdf-state[data-v-71b451b1] { min-height: 250px;\n}\n.route-history-content[data-v-71b451b1] { padding: 12px;\n}\n.timeline-container[data-v-71b451b1] { padding-left: 30px;\n}\n.timeline-node[data-v-71b451b1] { left: -26px; width: 20px; height: 20px; font-size: 0.55rem;\n}\n.info-card-body[data-v-71b451b1] { padding: 6px 10px; gap: 4px;\n}\n.info-field[data-v-71b451b1] { flex-direction: column; gap: 2px;\n}\n.field-icon[data-v-71b451b1] { width: 20px; height: 20px; min-width: 20px; font-size: 0.65rem;\n}\n.flow-node[data-v-71b451b1] { padding: 4px 8px;\n}\n.flow-node-value[data-v-71b451b1] { font-size: 0.7rem;\n}\n.flow-section[data-v-71b451b1] { padding: 8px 10px;\n}\n.confidential-notice[data-v-71b451b1] { padding: 20px;\n}\n.confidential-title[data-v-71b451b1] { font-size: 1.2rem;\n}\n.forward-grid[data-v-71b451b1] { grid-template-columns: 1fr; gap: 10px;\n}\n.office-list-container[data-v-71b451b1] { max-height: 140px;\n}\n}\n@media (max-width: 576px) {\n.document-header[data-v-71b451b1] { padding: 10px 14px;\n}\n.viewer-tab-btn span[data-v-71b451b1] { display: none;\n}\n.viewer-tab-btn i[data-v-71b451b1] { font-size: 14px;\n}\n.detail-card[data-v-71b451b1] { padding: 8px;\n}\n.detail-icon-wrapper[data-v-71b451b1] { width: 28px; height: 28px; min-width: 28px; font-size: 0.8rem;\n}\n.btn-pdf-control[data-v-71b451b1] { width: 26px; height: 26px; font-size: 0.7rem;\n}\n.pdf-footer[data-v-71b451b1] { flex-direction: column; gap: 2px; align-items: flex-start;\n}\n.route-history-header[data-v-71b451b1] { padding: 10px 14px; flex-direction: column; gap: 6px; align-items: flex-start;\n}\n.active-filters[data-v-71b451b1] { flex-direction: column; align-items: flex-start;\n}\n.modal-actions[data-v-71b451b1] { flex-direction: column; gap: 8px; align-items: stretch;\n}\n.modal-actions .d-flex[data-v-71b451b1] { justify-content: center;\n}\n.square-btn[data-v-71b451b1] { width: 100%; justify-content: center;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* ===== FILTER CONTROLS ===== */\n.filter-controls[data-v-71b451b1] { margin-bottom: 20px;\n}\n.search-filter-row[data-v-71b451b1] { display: flex; gap: 12px; align-items: center; flex-wrap: wrap;\n}\n.search-box-wrapper[data-v-71b451b1] { flex: 1; min-width: 200px;\n}\n.search-box[data-v-71b451b1] { position: relative;\n}\n.search-icon[data-v-71b451b1] { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #9ca3af;\n}\n.search-input[data-v-71b451b1] { width: 100%; padding: 10px 35px 10px 36px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px; outline: none; background: #fff; transition: all 0.3s ease;\n}\n.search-input[data-v-71b451b1]:focus { border-color: #2d6a4f; box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\n.search-clear-btn[data-v-71b451b1] { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #9ca3af; cursor: pointer; padding: 4px;\n}\n.search-clear-btn[data-v-71b451b1]:hover { color: #ef4444;\n}\n.per-page-wrapper[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; white-space: nowrap;\n}\n.per-page-label[data-v-71b451b1] { font-size: 13px; color: #6b7280; font-weight: 500;\n}\n.per-page-select[data-v-71b451b1] { padding: 8px 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 13px; background: #fff; outline: none; cursor: pointer; transition: all 0.3s ease;\n}\n.per-page-select[data-v-71b451b1]:focus { border-color: #2d6a4f;\n}\n.filter-wrapper[data-v-71b451b1] { min-width: 180px;\n}\n.filter-box[data-v-71b451b1] { position: relative;\n}\n.filter-icon[data-v-71b451b1] { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #9ca3af;\n}\n.filter-select[data-v-71b451b1] { width: 100%; padding: 10px 12px 10px 36px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 13px; background: #fff; outline: none; cursor: pointer; -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E\"); background-repeat: no-repeat; background-position: right 12px center; transition: all 0.3s ease;\n}\n.filter-select[data-v-71b451b1]:focus { border-color: #2d6a4f; box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\n.active-filters[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; margin-top: 12px; padding: 10px 14px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; flex-wrap: wrap;\n}\n.active-filters-label[data-v-71b451b1] { font-size: 12px; font-weight: 600; color: #166534; text-transform: uppercase; letter-spacing: 0.5px;\n}\n.filter-tag[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: #fff; border: 1px solid #86efac; border-radius: 20px; font-size: 12px; color: #166534; font-weight: 500;\n}\n.filter-tag-close[data-v-71b451b1] { background: none; border: none; color: #6b7280; cursor: pointer; padding: 0;\n}\n.filter-tag-close[data-v-71b451b1]:hover { color: #ef4444;\n}\n.clear-all-filters[data-v-71b451b1] { padding: 4px 12px; background: none; border: 1px solid #86efac; border-radius: 6px; font-size: 12px; color: #166534; cursor: pointer; font-weight: 600; transition: all 0.2s;\n}\n.clear-all-filters[data-v-71b451b1]:hover { background: #dcfce7; border-color: #166534;\n}\n.results-summary[data-v-71b451b1] { margin-top: 10px; font-size: 13px; color: #6b7280;\n}\n.results-count[data-v-71b451b1] { font-weight: 700; color: #2d6a4f; font-size: 16px;\n}\r\n\r\n/* ===== TABLE ===== */\n.table-responsive[data-v-71b451b1] { overflow-x: auto; margin-top: 16px;\n}\n.office-table[data-v-71b451b1] { width: 100%; border-collapse: collapse; font-size: 13px; background: #fff;\n}\n.office-table th[data-v-71b451b1], .office-table td[data-v-71b451b1] { border: 1px solid #f3f4f6; padding: 12px 14px; text-align: left; vertical-align: middle;\n}\n.office-table thead th[data-v-71b451b1] { background: #f8fafc; font-weight: 700; color: #374151; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; border-bottom: 2px solid #e5e7eb;\n}\n.office-table tbody tr[data-v-71b451b1]:hover { background: #f0fdf4;\n}\n.office-table tbody tr[data-v-71b451b1]:nth-child(even) { background: #fafafa;\n}\n.office-table tbody tr[data-v-71b451b1]:nth-child(even):hover { background: #f0fdf4;\n}\n.row-number[data-v-71b451b1] { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 6px; background: #f3f4f6; color: #6b7280; font-size: 12px; font-weight: 600;\n}\n.tracking-number[data-v-71b451b1] { font-weight: 700; color: #2d6a4f; font-family: \"Courier New\", monospace; font-size: 13px; padding: 2px 8px; background: #f0fdf4; border-radius: 4px;\n}\n.doc-type-badge[data-v-71b451b1] { display: inline-block; padding: 3px 10px; background: #e0e7ff; color: #3730a3; border-radius: 4px; font-size: 11px; font-weight: 600; border: 1px solid #c7d2fe;\n}\n.subject-text[data-v-71b451b1] { color: #1e293b; font-weight: 500; line-height: 1.4; font-size: 13px; position: relative;\n}\n.date-received[data-v-71b451b1] { color: #64748b; font-size: 12px; display: flex; align-items: center; gap: 6px;\n}\n.date-icon[data-v-71b451b1] { color: #94a3b8; font-size: 13px;\n}\r\n\r\n/* ===== ACTION BUTTONS ===== */\n.action-buttons[data-v-71b451b1] { display: flex; gap: 6px; align-items: center; flex-wrap: wrap;\n}\n.btn-action[data-v-71b451b1] { background: none; border: 1px solid transparent; border-radius: 6px; padding: 6px 10px; cursor: pointer; font-size: 0.95rem; transition: all 0.2s;\n}\n.btn-view[data-v-71b451b1] { color: #6366f1; border-color: #c7d2fe; background: #eef2ff;\n}\n.btn-view[data-v-71b451b1]:hover { background: #ddd6fe; transform: scale(1.05);\n}\n.btn-forward[data-v-71b451b1] { color: #0891b2; border-color: #67e8f9; background: #cffafe;\n}\n.btn-forward[data-v-71b451b1]:hover { background: #67e8f9; transform: scale(1.05);\n}\n.btn-release[data-v-71b451b1] { color: #059669; border-color: #6ee7b7; background: #d1fae5;\n}\n.btn-release[data-v-71b451b1]:hover { background: #6ee7b7; transform: scale(1.05);\n}\n.btn-archive[data-v-71b451b1] { color: #6b7280; border-color: #d1d5db; background: #f3f4f6;\n}\n.btn-archive[data-v-71b451b1]:hover { background: #e5e7eb; transform: scale(1.05);\n}\r\n\r\n/* ===== CONFIDENTIAL ===== */\n.confidential-blur-static[data-v-71b451b1] { filter: blur(8px); -webkit-user-select: none; -moz-user-select: none; user-select: none; pointer-events: none; position: relative;\n}\n.confidential-blur-static .confidential-label[data-v-71b451b1] { display: inline-block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.7rem; font-weight: 800; color: #dc2626; background: rgba(255,255,255,0.95); padding: 2px 10px; border-radius: 4px; border: 2px solid #dc2626; letter-spacing: 1px; text-transform: uppercase; pointer-events: none; white-space: nowrap; filter: none;\n}\n.confidential-label[data-v-71b451b1] { display: inline-block; font-size: 0.7rem; font-weight: 800; color: #dc2626; background: rgba(255,255,255,0.95); padding: 2px 10px; border-radius: 4px; border: 2px solid #dc2626; letter-spacing: 1px; text-transform: uppercase; margin-left: 8px; white-space: nowrap;\n}\r\n\r\n/* ===== CLASSIFICATION BADGES ===== */\n.classification-confidential[data-v-71b451b1] { display: inline-block; padding: 3px 10px; background: #fee2e2; color: #991b1b; border-radius: 4px; font-size: 11px; font-weight: 700; border: 1px solid #fecaca; text-transform: uppercase;\n}\n.classification-restricted[data-v-71b451b1] { display: inline-block; padding: 3px 10px; background: #fed7aa; color: #9a3412; border-radius: 4px; font-size: 11px; font-weight: 700; border: 1px solid #fdba74; text-transform: uppercase;\n}\n.classification-top-secret[data-v-71b451b1] { display: inline-block; padding: 3px 10px; background: #fce7f3; color: #9d174d; border-radius: 4px; font-size: 11px; font-weight: 700; border: 1px solid #f9a8d4; text-transform: uppercase;\n}\n.classification-general[data-v-71b451b1] { display: inline-block; padding: 3px 10px; background: #d1fae5; color: #065f46; border-radius: 4px; font-size: 11px; font-weight: 700; border: 1px solid #a7f3d0; text-transform: uppercase;\n}\n.classification-badge-large[data-v-71b451b1] { display: inline-block; padding: 4px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;\n}\r\n\r\n/* ===== DURATION BADGES ===== */\n.duration-badge[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;\n}\n.duration-simple[data-v-71b451b1] { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd;\n}\n.duration-complex[data-v-71b451b1] { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d;\n}\n.duration-highly-technical[data-v-71b451b1] { background: #fce7f3; color: #9d174d; border: 1px solid #f9a8d4;\n}\n.duration-not-set[data-v-71b451b1] { background: #f3f4f6; color: #6b7280; border: 1px solid #d1d5db;\n}\n.duration-badge-large[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 6px; padding: 4px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 700;\n}\n.duration-detail-card[data-v-71b451b1] { background: #f0fdf4; border-color: #86efac;\n}\r\n\r\n/* ===== DURATION DISPLAY ===== */\n.duration-display-container[data-v-71b451b1] { display: flex; flex-direction: column; gap: 8px;\n}\n.duration-display-box[data-v-71b451b1] { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: #f8fafc; border: 2px solid #e5e7eb; border-radius: 8px; transition: all 0.3s ease;\n}\n.duration-display-box[data-v-71b451b1]:hover { border-color: #2d6a4f; background: #f0fdf4;\n}\n.duration-display-icon[data-v-71b451b1] { width: 36px; height: 36px; min-width: 36px; border-radius: 8px; background: #d1fae5; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: #059669;\n}\n.duration-display-content[data-v-71b451b1] { flex: 1; display: flex; flex-direction: column;\n}\n.duration-display-label[data-v-71b451b1] { font-size: 0.6rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;\n}\n.duration-display-value[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 6px; padding: 2px 12px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; margin-top: 2px; width: -moz-fit-content; width: fit-content;\n}\n.duration-display-value.duration-simple[data-v-71b451b1] { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd;\n}\n.duration-display-value.duration-complex[data-v-71b451b1] { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d;\n}\n.duration-display-value.duration-highly-technical[data-v-71b451b1] { background: #fce7f3; color: #9d174d; border: 1px solid #f9a8d4;\n}\n.duration-display-value.duration-not-set[data-v-71b451b1] { background: #f3f4f6; color: #6b7280; border: 1px solid #d1d5db;\n}\n.badge-readonly[data-v-71b451b1] { padding: 2px 10px; background: #e5e7eb; color: #6b7280; border-radius: 12px; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;\n}\n.duration-hint[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: #fef3c7; border: 1px solid #fcd34d; border-radius: 4px; font-size: 0.7rem; color: #92400e; margin-top: 4px;\n}\n.duration-hint i[data-v-71b451b1] { color: #d97706;\n}\n.existing-duration-info[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; padding: 4px 10px; background: #f0fdf4; border: 1px solid #86efac; border-radius: 4px; font-size: 0.7rem; color: #166534;\n}\n.existing-duration-info i[data-v-71b451b1] { color: #16a34a;\n}\r\n\r\n/* ===== FILE UPLOAD ===== */\n.file-upload-container[data-v-71b451b1] { margin-top: 4px;\n}\n.file-drop-zone[data-v-71b451b1] { border: 2px dashed #e5e7eb; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; background: #fafafa; position: relative;\n}\n.file-drop-zone[data-v-71b451b1]:hover { border-color: #2d6a4f; background: #f0fdf4;\n}\n.file-drop-content[data-v-71b451b1] { display: flex; flex-direction: column; align-items: center; gap: 6px;\n}\n.file-upload-icon[data-v-71b451b1] { font-size: 2rem; color: #94a3b8; transition: all 0.3s ease;\n}\n.file-drop-zone:hover .file-upload-icon[data-v-71b451b1] { color: #2d6a4f; transform: translateY(-2px);\n}\n.file-drop-text[data-v-71b451b1] { margin: 0; font-size: 0.85rem; color: #1e293b; font-weight: 500;\n}\n.file-drop-hint[data-v-71b451b1] { font-size: 0.7rem; color: #94a3b8;\n}\n.uploaded-files-list[data-v-71b451b1] { margin-top: 8px; border: 1px solid #e5e7eb; border-radius: 6px; overflow: hidden;\n}\n.uploaded-files-header[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; padding: 6px 12px; background: #f8fafc; border-bottom: 1px solid #e5e7eb; font-size: 0.75rem; font-weight: 600; color: #1e293b;\n}\n.uploaded-files-header i[data-v-71b451b1] { color: #2d6a4f;\n}\n.uploaded-file-item[data-v-71b451b1] { display: flex; align-items: center; justify-content: space-between; padding: 6px 12px; border-bottom: 1px solid #f3f4f6;\n}\n.uploaded-file-item[data-v-71b451b1]:last-child { border-bottom: none;\n}\n.file-info[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0;\n}\n.file-info i[data-v-71b451b1] { font-size: 1.2rem; color: #dc2626;\n}\n.file-details[data-v-71b451b1] { display: flex; flex-direction: column; min-width: 0;\n}\n.file-name[data-v-71b451b1] { font-size: 0.8rem; font-weight: 500; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;\n}\n.file-size[data-v-71b451b1] { font-size: 0.65rem; color: #94a3b8;\n}\n.remove-file-btn[data-v-71b451b1] { background: none; border: none; color: #94a3b8; cursor: pointer; padding: 4px; transition: all 0.2s;\n}\n.remove-file-btn[data-v-71b451b1]:hover { color: #dc2626; transform: scale(1.1);\n}\n.remove-file-btn[data-v-71b451b1]:disabled { opacity: 0.5; cursor: not-allowed;\n}\r\n\r\n/* ===== EXISTING ATTACHMENTS ===== */\n.existing-attachments[data-v-71b451b1] { margin-top: 8px; border: 1px solid #e5e7eb; border-radius: 6px; overflow: hidden;\n}\n.existing-attachments-header[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; padding: 6px 12px; background: #f8fafc; border-bottom: 1px solid #e5e7eb; font-size: 0.75rem; font-weight: 600; color: #1e293b;\n}\n.existing-attachments-header i[data-v-71b451b1] { color: #2563eb;\n}\n.existing-attachment-item[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; padding: 6px 12px; border-bottom: 1px solid #f3f4f6;\n}\n.existing-attachment-item[data-v-71b451b1]:last-child { border-bottom: none;\n}\n.existing-attachment-item i[data-v-71b451b1] { color: #2563eb; font-size: 0.9rem;\n}\n.attachment-name[data-v-71b451b1] { font-size: 0.8rem; color: #1e293b; flex: 1;\n}\n.view-attachment-btn[data-v-71b451b1] { background: none; border: none; color: #2563eb; cursor: pointer; padding: 4px; transition: all 0.2s;\n}\n.view-attachment-btn[data-v-71b451b1]:hover { color: #1d4ed8; transform: scale(1.1);\n}\r\n\r\n/* ===== ACTED ATTACHMENTS TAB ===== */\n.acted-attachments-panel[data-v-71b451b1] { display: flex; flex-direction: column; height: calc(90vh - 140px); background: #f9fafb; min-height: 400px;\n}\n.acted-attachments-header[data-v-71b451b1] { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: #fff; border-bottom: 2px solid #e5e7eb; flex-shrink: 0;\n}\n.acted-attachments-title[data-v-71b451b1] { display: flex; align-items: center; gap: 10px; font-weight: 700; color: #1e293b; font-size: 1rem;\n}\n.acted-attachments-title i[data-v-71b451b1] { color: #2d6a4f; font-size: 1.2rem;\n}\n.acted-attachments-badge[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; padding: 6px 14px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 20px; font-size: 0.8rem; font-weight: 600; color: #166534;\n}\n.acted-attachments-content[data-v-71b451b1] { flex: 1; overflow-y: auto; padding: 24px;\n}\n.acted-attachments-content[data-v-71b451b1]::-webkit-scrollbar { width: 8px;\n}\n.acted-attachments-content[data-v-71b451b1]::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px;\n}\n.acted-attachments-content[data-v-71b451b1]::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px;\n}\n.acted-state-box[data-v-71b451b1] { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 300px; text-align: center;\n}\n.acted-state-box .empty-icon-wrapper[data-v-71b451b1] { width: 80px; height: 80px; border-radius: 50%; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: #94a3b8; margin-bottom: 16px;\n}\n.acted-grid[data-v-71b451b1] { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px;\n}\n.acted-card[data-v-71b451b1] { display: flex; gap: 16px; padding: 16px 20px; background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; transition: all 0.3s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.05);\n}\n.acted-card[data-v-71b451b1]:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.08); transform: translateY(-2px); border-color: #cbd5e1;\n}\n.acted-card-icon[data-v-71b451b1] { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; min-width: 48px; border-radius: 10px; background: #f8fafc; font-size: 1.8rem;\n}\n.acted-card-content[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.acted-card-header[data-v-71b451b1] { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;\n}\n.acted-file-name[data-v-71b451b1] { font-size: 0.9rem; font-weight: 600; color: #1e293b; word-break: break-word;\n}\n.acted-file-size[data-v-71b451b1] { font-size: 0.7rem; color: #94a3b8; white-space: nowrap; flex-shrink: 0; margin-top: 2px;\n}\n.acted-card-meta[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; color: #94a3b8; margin-top: 4px;\n}\n.acted-card-meta i[data-v-71b451b1] { font-size: 0.65rem;\n}\n.acted-card-actions[data-v-71b451b1] { display: flex; gap: 8px; margin-top: 10px;\n}\n.acted-view-btn[data-v-71b451b1], .acted-download-btn[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 4px; padding: 4px 12px; border: none; border-radius: 6px; font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s;\n}\n.acted-view-btn[data-v-71b451b1] { background: #dbeafe; color: #1e40af;\n}\n.acted-view-btn[data-v-71b451b1]:hover { background: #bfdbfe; transform: scale(1.02);\n}\n.acted-download-btn[data-v-71b451b1] { background: #d1fae5; color: #065f46;\n}\n.acted-download-btn[data-v-71b451b1]:hover { background: #a7f3d0; transform: scale(1.02);\n}\r\n\r\n/* ===== STATUS BADGE ===== */\n.status-badge[data-v-71b451b1] { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;\n}\n.status-in-progress[data-v-71b451b1] { background: #fef3c7; color: #d97706; border: 1px solid #fde68a;\n}\n.status-for-release[data-v-71b451b1] { background: #dbeafe; color: #2563eb; border: 1px solid #bfdbfe;\n}\n.status-released[data-v-71b451b1] { background: #d1fae5; color: #059669; border: 1px solid #a7f3d0;\n}\r\n\r\n/* ===== MODAL ===== */\n.modal-overlay[data-v-71b451b1] { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.55); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 1050; animation: fadeIn-71b451b1 0.2s ease-out;\n}\n.enhanced-modal[data-v-71b451b1] { width: 100%; max-width: 620px; margin: 0 15px; animation: slideUp-71b451b1 0.3s ease-out;\n}\n@keyframes slideUp-71b451b1 {\nfrom { transform: translateY(30px); opacity: 0;\n}\nto { transform: translateY(0); opacity: 1;\n}\n}\n@keyframes fadeIn-71b451b1 {\nfrom { opacity: 0;\n}\nto { opacity: 1;\n}\n}\n.square-modal[data-v-71b451b1] { border: none; border-radius: 12px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.3); background: #fff;\n}\n.square-header[data-v-71b451b1] { background: linear-gradient(135deg, #1e4d2b, #2d6a4f); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1);\n}\n.square-icon[data-v-71b451b1] { width: 38px; height: 38px; background: rgba(255,255,255,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-right: 12px;\n}\n.modal-title[data-v-71b451b1] { font-weight: 700; font-size: 1.1rem;\n}\n.modal-subtitle[data-v-71b451b1] { font-size: 0.8rem; opacity: 0.85;\n}\n.square-close[data-v-71b451b1] { background: rgba(255,255,255,0.15); border: none; color: #fff; width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s;\n}\n.square-close[data-v-71b451b1]:hover { background: rgba(255,255,255,0.3);\n}\n.modal-body[data-v-71b451b1], .modal-body-enhanced[data-v-71b451b1] { padding: 16px 20px; background: #f9fafb; max-height: calc(90vh - 120px); overflow-y: auto;\n}\n.modal-body[data-v-71b451b1]::-webkit-scrollbar, .modal-body-enhanced[data-v-71b451b1]::-webkit-scrollbar { width: 4px;\n}\n.modal-body[data-v-71b451b1]::-webkit-scrollbar-thumb, .modal-body-enhanced[data-v-71b451b1]::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 2px;\n}\n.error-msg[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; background: #fef0ef; border: 1px solid #f5c6c3; border-radius: 6px; padding: 8px 12px; font-size: 12px; color: #c0392b; margin-bottom: 12px; font-weight: 500;\n}\n.form-label[data-v-71b451b1], .form-label-enhanced[data-v-71b451b1] { font-weight: 600; font-size: 0.8rem; color: #1e293b; margin-bottom: 4px; display: block;\n}\n.required-star[data-v-71b451b1] { color: #dc2626; margin-left: 2px;\n}\n.modal-actions[data-v-71b451b1] { margin-top: 16px; padding-top: 12px; border-top: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;\n}\n.square-btn[data-v-71b451b1] { border-radius: 6px !important; font-weight: 600; transition: all 0.2s; padding: 6px 16px !important; font-size: 0.85rem !important;\n}\n.btn-save[data-v-71b451b1] { background: linear-gradient(135deg, #1e4d2b, #2d6a4f); color: #fff; border: none; padding: 6px 16px; font-weight: 600; display: inline-flex; align-items: center; box-shadow: 0 2px 12px rgba(26,71,49,0.3);\n}\n.btn-save[data-v-71b451b1]:hover { box-shadow: 0 4px 16px rgba(26,71,49,0.4); transform: translateY(-1px);\n}\n.btn-save[data-v-71b451b1]:disabled { opacity: 0.7; cursor: not-allowed; transform: none;\n}\n.btn-release-doc[data-v-71b451b1] { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #fff; border: none; padding: 6px 16px; font-weight: 600; display: inline-flex; align-items: center; box-shadow: 0 2px 12px rgba(37,99,235,0.3);\n}\n.btn-release-doc[data-v-71b451b1]:hover { box-shadow: 0 4px 16px rgba(37,99,235,0.4); transform: translateY(-1px);\n}\n.btn-release-doc[data-v-71b451b1]:disabled { opacity: 0.7; cursor: not-allowed; transform: none;\n}\n.btn-archive-doc[data-v-71b451b1] { background: linear-gradient(135deg, #6b7280, #4b5563); color: #fff; border: none; padding: 6px 16px; font-weight: 600; display: inline-flex; align-items: center; box-shadow: 0 2px 12px rgba(107,114,128,0.3);\n}\n.btn-archive-doc[data-v-71b451b1]:hover { box-shadow: 0 4px 16px rgba(107,114,128,0.4); transform: translateY(-1px);\n}\n.btn-archive-doc[data-v-71b451b1]:disabled { opacity: 0.7; cursor: not-allowed; transform: none;\n}\r\n\r\n/* ===== RELEASE MODAL ===== */\n.release-warning-icon[data-v-71b451b1] { display: inline-flex; align-items: center; justify-content: center; width: 70px; height: 70px; border-radius: 50%; background: #dbeafe; font-size: 2.5rem; color: #2563eb; border: 3px solid #bfdbfe;\n}\n.release-doc-info[data-v-71b451b1] { background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px 16px; display: flex; flex-direction: column; gap: 10px;\n}\n.release-doc-row[data-v-71b451b1] { display: flex; align-items: center; gap: 12px;\n}\n.release-doc-icon-wrapper[data-v-71b451b1] { width: 36px; height: 36px; min-width: 36px; border-radius: 8px; background: #dbeafe; display: flex; align-items: center; justify-content: center; color: #2563eb; font-size: 1rem;\n}\n.release-doc-content[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.release-doc-label[data-v-71b451b1] { display: block; font-size: 0.65rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;\n}\n.release-doc-value[data-v-71b451b1] { display: block; font-size: 0.85rem; font-weight: 600; color: #1e293b;\n}\r\n\r\n/* ===== ARCHIVE MODAL ===== */\n.archive-warning-icon[data-v-71b451b1] { display: inline-flex; align-items: center; justify-content: center; width: 70px; height: 70px; border-radius: 50%; background: #fef3c7; font-size: 2.5rem; color: #d97706; border: 3px solid #fde68a;\n}\n.archive-doc-info[data-v-71b451b1] { background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px 16px; display: flex; flex-direction: column; gap: 10px;\n}\n.archive-doc-row[data-v-71b451b1] { display: flex; align-items: center; gap: 12px;\n}\n.archive-doc-icon-wrapper[data-v-71b451b1] { width: 36px; height: 36px; min-width: 36px; border-radius: 8px; background: #e5e7eb; display: flex; align-items: center; justify-content: center; color: #6b7280; font-size: 1rem;\n}\n.archive-doc-content[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.archive-doc-label[data-v-71b451b1] { display: block; font-size: 0.65rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;\n}\n.archive-doc-value[data-v-71b451b1] { display: block; font-size: 0.85rem; font-weight: 600; color: #1e293b;\n}\n.archive-select[data-v-71b451b1] { width: 100%; padding: 6px 10px; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 0.8rem; background: #fff; outline: none; cursor: pointer; -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E\"); background-repeat: no-repeat; background-position: right 10px center;\n}\n.archive-select[data-v-71b451b1]:focus { border-color: #6b7280; box-shadow: 0 0 0 2px rgba(107,114,128,0.1);\n}\n.archive-select[data-v-71b451b1]:disabled { opacity: 0.6; cursor: not-allowed;\n}\n.archive-hint[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: #fef3c7; border: 1px solid #fcd34d; border-radius: 4px; font-size: 0.7rem; color: #92400e; margin-top: 4px;\n}\n.archive-hint i[data-v-71b451b1] { color: #d97706;\n}\r\n\r\n/* ===== SYSTEM DATETIME ===== */\n.system-datetime-box[data-v-71b451b1] { margin-top: 16px; background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 1px solid #bfdbfe; border-radius: 10px; overflow: hidden;\n}\n.system-datetime-header[data-v-71b451b1] { padding: 10px 16px; font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 8px; color: #fff;\n}\n.system-datetime-header i[data-v-71b451b1] { color: rgba(255,255,255,0.8);\n}\n.system-datetime-display[data-v-71b451b1] { padding: 16px; display: flex; gap: 24px; flex-wrap: wrap;\n}\n.datetime-item[data-v-71b451b1] { display: flex; align-items: center; gap: 8px;\n}\n.datetime-item i[data-v-71b451b1] { color: #2563eb; font-size: 1.1rem;\n}\n.datetime-label[data-v-71b451b1] { font-size: 0.75rem; font-weight: 600; color: #64748b; text-transform: uppercase;\n}\n.datetime-value[data-v-71b451b1] { font-size: 0.95rem; font-weight: 700; color: #1e293b; font-family: \"Courier New\", monospace;\n}\n.system-datetime-footer[data-v-71b451b1] { padding: 8px 16px; background: rgba(37, 99, 235, 0.05); border-top: 1px solid #bfdbfe; display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: #64748b;\n}\n.system-datetime-footer i[data-v-71b451b1] { color: #2563eb;\n}\r\n\r\n/* ===== FORWARD MODAL ===== */\n.forward-doc-info[data-v-71b451b1] { display: flex; gap: 16px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 6px; padding: 8px 14px; margin-bottom: 12px; flex-wrap: wrap;\n}\n.forward-doc-row[data-v-71b451b1] { display: flex; align-items: center; gap: 6px;\n}\n.forward-doc-label[data-v-71b451b1] { font-size: 0.7rem; font-weight: 600; color: #64748b; text-transform: uppercase;\n}\n.forward-doc-value[data-v-71b451b1] { font-size: 0.85rem; font-weight: 600; color: #1e293b;\n}\n.forward-grid[data-v-71b451b1] { display: grid; grid-template-columns: 1fr 1fr; gap: 16px;\n}\n.forward-col[data-v-71b451b1] { display: flex; flex-direction: column;\n}\n.office-search-box[data-v-71b451b1] { position: relative; margin-bottom: 8px;\n}\n.office-search-icon[data-v-71b451b1] { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #9ca3af; font-size: 0.85rem;\n}\n.office-search-input[data-v-71b451b1] { width: 100%; padding: 6px 30px 6px 32px; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 0.8rem; outline: none; background: #fff; transition: all 0.3s ease;\n}\n.office-search-input[data-v-71b451b1]:focus { border-color: #2d6a4f; box-shadow: 0 0 0 2px rgba(45,106,79,0.1);\n}\n.office-search-clear[data-v-71b451b1] { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #9ca3af; cursor: pointer; padding: 2px;\n}\n.office-search-clear[data-v-71b451b1]:hover { color: #ef4444;\n}\n.office-list-container[data-v-71b451b1] { max-height: 180px; overflow-y: auto; border: 1px solid #e5e7eb; border-radius: 6px; background: #fff;\n}\n.office-list-container[data-v-71b451b1]::-webkit-scrollbar { width: 4px;\n}\n.office-list-container[data-v-71b451b1]::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 2px;\n}\n.office-select-item[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; padding: 6px 10px; cursor: pointer; transition: all 0.15s ease; border-bottom: 1px solid #f3f4f6; position: relative;\n}\n.office-select-item[data-v-71b451b1]:last-child { border-bottom: none;\n}\n.office-select-item[data-v-71b451b1]:hover { background: #f0fdf4;\n}\n.office-select-item.selected[data-v-71b451b1] { background: #f0fdf4; border-left: 2px solid #059669;\n}\n.office-checkbox[data-v-71b451b1] { font-size: 1rem; color: #059669; min-width: 18px; display: flex; align-items: center; justify-content: center;\n}\n.office-select-item:not(.selected) .office-checkbox[data-v-71b451b1] { color: #d1d5db;\n}\n.office-icon-wrapper[data-v-71b451b1] { width: 28px; height: 28px; min-width: 28px; border-radius: 6px; background: #e0e7ff; display: flex; align-items: center; justify-content: center; color: #3730a3; font-size: 0.8rem;\n}\n.office-select-item.selected .office-icon-wrapper[data-v-71b451b1] { background: #d1fae5; color: #059669;\n}\n.office-details[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.office-name-text[data-v-71b451b1] { display: block; font-size: 0.8rem; font-weight: 600; color: #1e293b; line-height: 1.2;\n}\n.office-code[data-v-71b451b1] { display: block; font-size: 0.6rem; color: #64748b;\n}\n.selected-indicator[data-v-71b451b1] { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); color: #059669; font-size: 0.9rem;\n}\n.selection-counter[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: #f0fdf4; border: 1px solid #86efac; border-radius: 16px; font-size: 0.75rem; font-weight: 600; color: #166534; margin-top: 6px;\n}\n.duration-select[data-v-71b451b1] { width: 100%; padding: 6px 10px; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 0.8rem; background: #fff; outline: none; cursor: pointer; -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E\"); background-repeat: no-repeat; background-position: right 10px center;\n}\n.duration-select[data-v-71b451b1]:focus { border-color: #2d6a4f; box-shadow: 0 0 0 2px rgba(45,106,79,0.1);\n}\n.duration-select[data-v-71b451b1]:disabled { opacity: 0.6; cursor: not-allowed;\n}\n.remarks-textarea[data-v-71b451b1] { width: 100%; padding: 6px 10px; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 0.8rem; outline: none; background: #fff; transition: all 0.3s ease; resize: vertical; font-family: inherit; min-height: 60px;\n}\n.remarks-textarea[data-v-71b451b1]:focus { border-color: #2d6a4f; box-shadow: 0 0 0 2px rgba(45,106,79,0.1);\n}\n.remarks-textarea[data-v-71b451b1]:disabled { opacity: 0.6; cursor: not-allowed;\n}\n.remarks-counter[data-v-71b451b1] { text-align: right; font-size: 0.65rem; color: #94a3b8; margin-top: 2px;\n}\n.remarks-counter.text-danger[data-v-71b451b1] { color: #dc2626;\n}\n.selected-offices-summary[data-v-71b451b1] { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 8px 12px; margin-top: 8px;\n}\n.selected-offices-header[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 0.75rem; color: #166534;\n}\n.selected-offices-list[data-v-71b451b1] { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px;\n}\n.selected-office-tag[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; background: #fff; border: 1px solid #86efac; border-radius: 12px; font-size: 0.7rem; font-weight: 600; color: #166534;\n}\n.remove-office-btn[data-v-71b451b1] { background: none; border: none; color: #6b7280; cursor: pointer; padding: 0; font-size: 0.8rem; transition: color 0.2s;\n}\n.remove-office-btn[data-v-71b451b1]:hover { color: #dc2626;\n}\n.remove-office-btn[data-v-71b451b1]:disabled { opacity: 0.5; cursor: not-allowed;\n}\r\n\r\n/* ===== DOCUMENT VIEWER ===== */\n.document-view-modal[data-v-71b451b1] { max-width: 1400px; width: 95vw; max-height: 90vh;\n}\n.document-viewer-body[data-v-71b451b1] { padding: 0; max-height: calc(90vh - 80px); overflow: hidden; display: flex; flex-direction: column;\n}\n.document-viewer-tabs[data-v-71b451b1] { display: flex; gap: 4px; padding: 10px 16px; background: #f8fafc; border-bottom: 2px solid #e5e7eb; flex-shrink: 0;\n}\n.viewer-tab-btn[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; padding: 8px 16px; background: #fff; border: 1px solid #e5e7eb; border-radius: 6px; color: #64748b; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s ease;\n}\n.viewer-tab-btn[data-v-71b451b1]:hover { background: #f0fdf4; border-color: #86efac; color: #2d6a4f; transform: translateY(-1px);\n}\n.viewer-tab-btn.active[data-v-71b451b1] { background: linear-gradient(135deg, #2d6a4f, #1e4d2b); border-color: #2d6a4f; color: #fff; box-shadow: 0 4px 12px rgba(45,106,79,0.3);\n}\n.document-viewer-layout[data-v-71b451b1] { display: grid; grid-template-columns: 340px 1fr; height: calc(90vh - 140px); min-height: 400px;\n}\n.details-panel[data-v-71b451b1] { background: #fff; border-right: 1px solid #e5e7eb; display: flex; flex-direction: column; overflow: hidden;\n}\n.details-panel-header[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; padding: 12px 16px; background: #f8fafc; border-bottom: 1px solid #e5e7eb; font-weight: 700; color: #1e293b; font-size: 0.85rem; flex-shrink: 0;\n}\n.details-content[data-v-71b451b1] { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px;\n}\n.details-content[data-v-71b451b1]::-webkit-scrollbar { width: 4px;\n}\n.details-content[data-v-71b451b1]::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 2px;\n}\n.detail-card[data-v-71b451b1] { display: flex; gap: 10px; padding: 10px 12px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px;\n}\n.detail-icon-wrapper[data-v-71b451b1] { width: 32px; height: 32px; min-width: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; background: #e0f2fe; color: #0284c7;\n}\n.detail-icon-wrapper.classification-icon[data-v-71b451b1] { background: #fee2e2; color: #991b1b;\n}\n.detail-icon-wrapper.type-icon[data-v-71b451b1] { background: #fef3c7; color: #d97706;\n}\n.detail-icon-wrapper.subject-icon[data-v-71b451b1] { background: #dcfce7; color: #16a34a;\n}\n.detail-icon-wrapper.sender-icon-card[data-v-71b451b1] { background: #ede9fe; color: #7c3aed;\n}\n.detail-icon-wrapper.duration-icon[data-v-71b451b1] { background: #f0fdf4; color: #16a34a;\n}\n.detail-info[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.detail-info label[data-v-71b451b1] { display: block; font-size: 0.6rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 2px;\n}\n.detail-value[data-v-71b451b1] { font-size: 0.8rem; color: #1e293b; font-weight: 500; word-break: break-word; line-height: 1.3; position: relative;\n}\n.tracking-number-large[data-v-71b451b1] { font-size: 0.85rem; font-weight: 700; color: #2d6a4f; font-family: \"Courier New\", monospace; background: #f0fdf4; padding: 2px 8px; border-radius: 4px; display: inline-block;\n}\n.doc-type-badge-large[data-v-71b451b1] { display: inline-block; padding: 2px 10px; background: #e0e7ff; color: #3730a3; border-radius: 4px; font-size: 0.75rem; font-weight: 600; border: 1px solid #c7d2fe;\n}\r\n\r\n/* ===== PDF PANEL ===== */\n.pdf-panel[data-v-71b451b1] { display: flex; flex-direction: column; background: #f8fafc; overflow: hidden;\n}\n.pdf-panel-header[data-v-71b451b1] { display: flex; justify-content: space-between; align-items: center; padding: 8px 16px; background: #fff; border-bottom: 1px solid #e5e7eb; flex-shrink: 0;\n}\n.pdf-panel-title[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; font-weight: 700; color: #1e293b; font-size: 0.85rem;\n}\n.pdf-panel-title i[data-v-71b451b1] { color: #dc2626; font-size: 1rem;\n}\n.text-danger[data-v-71b451b1] { color: #dc2626 !important;\n}\n.pdf-controls[data-v-71b451b1] { display: flex; gap: 4px; align-items: center;\n}\n.btn-pdf-control[data-v-71b451b1] { background: #f1f5f9; border: 1px solid #e5e7eb; color: #475569; width: 28px; height: 28px; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 0.8rem;\n}\n.btn-pdf-control[data-v-71b451b1]:hover:not(:disabled) { background: #e2e8f0; border-color: #94a3b8; color: #1e293b;\n}\n.btn-pdf-control[data-v-71b451b1]:disabled { opacity: 0.5; cursor: not-allowed;\n}\n.pdf-viewer-wrapper[data-v-71b451b1] { flex: 1; overflow: auto; background: #525659; position: relative; min-height: 300px;\n}\n.pdf-viewer-wrapper[data-v-71b451b1]::-webkit-scrollbar { width: 8px; height: 8px;\n}\n.pdf-viewer-wrapper[data-v-71b451b1]::-webkit-scrollbar-track { background: #3a3d40;\n}\n.pdf-viewer-wrapper[data-v-71b451b1]::-webkit-scrollbar-thumb { background: #6b7280; border-radius: 4px;\n}\n.pdf-iframe[data-v-71b451b1] { border: none; display: block; background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.3);\n}\n.pdf-state[data-v-71b451b1] { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 300px; color: #9ca3af; padding: 30px;\n}\n.pdf-loader-animation[data-v-71b451b1] { position: relative; width: 60px; height: 60px; margin-bottom: 12px;\n}\n.pdf-loader-icon[data-v-71b451b1] { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.5rem; color: #dc2626; z-index: 2;\n}\n.pdf-state-text[data-v-71b451b1] { color: #d1d5db; font-size: 0.85rem; margin-top: 6px;\n}\n.pdf-error[data-v-71b451b1] { color: #fca5a5;\n}\n.pdf-error h5[data-v-71b451b1] { color: #fca5a5; font-weight: 600; font-size: 1rem;\n}\n.pdf-footer[data-v-71b451b1] { display: flex; justify-content: space-between; align-items: center; padding: 6px 16px; background: #fff; border-top: 1px solid #e5e7eb; font-size: 0.7rem; color: #64748b; flex-shrink: 0;\n}\n.pdf-zoom-level[data-v-71b451b1] { font-weight: 600; color: #2d6a4f;\n}\n.pdf-page-info[data-v-71b451b1] { font-family: \"Courier New\", monospace;\n}\r\n\r\n/* ===== ROUTE HISTORY ===== */\n.route-history-panel[data-v-71b451b1] { display: flex; flex-direction: column; height: calc(90vh - 140px); background: #fff; min-height: 400px;\n}\n.route-history-header[data-v-71b451b1] { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; background: #f8fafc; border-bottom: 2px solid #e5e7eb; flex-shrink: 0;\n}\n.route-history-title[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; font-weight: 700; color: #1e293b; font-size: 0.9rem;\n}\n.route-history-title i[data-v-71b451b1] { color: #2d6a4f; font-size: 1rem;\n}\n.route-history-badge[data-v-71b451b1] { display: flex; align-items: center; gap: 4px; padding: 4px 12px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; font-size: 0.7rem; font-weight: 600; color: #166534;\n}\n.route-history-content[data-v-71b451b1] { flex: 1; overflow-y: auto; padding: 16px; background: #f9fafb;\n}\n.route-history-content[data-v-71b451b1]::-webkit-scrollbar { width: 6px;\n}\n.route-history-content[data-v-71b451b1]::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 3px;\n}\n.route-state-box[data-v-71b451b1] { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 200px; text-align: center;\n}\n.empty-icon-wrapper[data-v-71b451b1] { width: 60px; height: 60px; border-radius: 50%; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #94a3b8; margin-bottom: 12px;\n}\n.timeline-container[data-v-71b451b1] { position: relative; padding-left: 35px;\n}\n.timeline-container[data-v-71b451b1]::before { content: \"\"; position: absolute; left: 12px; top: 10px; bottom: 10px; width: 2px; background: linear-gradient(180deg, #cbd5e1, #e2e8f0);\n}\n.timeline-item[data-v-71b451b1] { position: relative; margin-bottom: 20px;\n}\n.timeline-item.is-last[data-v-71b451b1] { margin-bottom: 0;\n}\n.timeline-node[data-v-71b451b1] { position: absolute; left: -30px; top: 0; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; z-index: 2; border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.15); font-size: 0.65rem;\n}\n.node-completed[data-v-71b451b1] { background: #059669;\n}\n.node-active[data-v-71b451b1] { background: #2563eb; animation: pulse-71b451b1 2s infinite;\n}\n.node-pending[data-v-71b451b1] { background: #d97706;\n}\n.node-rejected[data-v-71b451b1] { background: #dc2626;\n}\n@keyframes pulse-71b451b1 {\n0%, 100% { box-shadow: 0 0 0 0 rgba(37,99,235,0.4);\n}\n50% { box-shadow: 0 0 0 6px rgba(37,99,235,0.1);\n}\n}\n.timeline-card[data-v-71b451b1] { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; transition: all 0.3s ease; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05);\n}\n.timeline-card[data-v-71b451b1]:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); transform: translateY(-1px);\n}\n.timeline-card.active-card[data-v-71b451b1] { border-left: 3px solid #2563eb; background: linear-gradient(135deg, #eff6ff, #fff);\n}\n.timeline-card-header[data-v-71b451b1] { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #f8fafc; border-bottom: 1px solid #e5e7eb; flex-wrap: wrap; gap: 8px;\n}\n.office-info[data-v-71b451b1] { display: flex; align-items: center; gap: 8px;\n}\n.office-info i[data-v-71b451b1] { font-size: 1rem; color: #2d6a4f;\n}\n.office-name[data-v-71b451b1] { font-size: 0.85rem; font-weight: 700; color: #1e293b; line-height: 1.2;\n}\n.route-status-badge[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 4px; font-size: 0.65rem; font-weight: 700; padding: 3px 10px; border-radius: 16px; text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap;\n}\n.badge-completed[data-v-71b451b1] { background: #d1fae5; color: #059669; border: 1px solid #a7f3d0;\n}\n.badge-active[data-v-71b451b1] { background: #dbeafe; color: #2563eb; border: 1px solid #bfdbfe;\n}\n.badge-pending[data-v-71b451b1] { background: #fef3c7; color: #d97706; border: 1px solid #fde68a;\n}\n.badge-rejected[data-v-71b451b1] { background: #fee2e2; color: #dc2626; border: 1px solid #fecaca;\n}\n.timeline-card-body[data-v-71b451b1] { padding: 12px 14px;\n}\n.info-grid-enhanced[data-v-71b451b1] { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;\n}\n.info-card[data-v-71b451b1] { background: #fff; border-radius: 8px; border: 1px solid #e5e7eb; overflow: hidden;\n}\n.received-card[data-v-71b451b1] { border-left: 3px solid #3b82f6;\n}\n.completed-card[data-v-71b451b1] { border-left: 3px solid #10b981;\n}\n.info-card-header[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #f8fafc; border-bottom: 1px solid #e5e7eb;\n}\n.info-card-icon[data-v-71b451b1] { width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #fff; flex-shrink: 0;\n}\n.completed-icon[data-v-71b451b1] { background: linear-gradient(135deg, #10b981, #059669);\n}\n.info-card-title[data-v-71b451b1] { font-weight: 700; font-size: 0.65rem; color: #1e293b; text-transform: uppercase; letter-spacing: 0.3px; flex: 1;\n}\n.info-card-status[data-v-71b451b1] { font-size: 0.55rem; font-weight: 700; padding: 2px 8px; border-radius: 12px;\n}\n.completed-status[data-v-71b451b1] { background: #d1fae5; color: #059669;\n}\n.info-card-body[data-v-71b451b1] { padding: 8px 12px; display: flex; flex-direction: column; gap: 6px;\n}\n.info-field[data-v-71b451b1] { display: flex; gap: 8px; align-items: flex-start;\n}\n.field-icon[data-v-71b451b1] { width: 20px; height: 20px; min-width: 20px; border-radius: 4px; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #64748b;\n}\n.remarks-icon[data-v-71b451b1] { background: #fffbeb; color: #d97706;\n}\n.notes-icon[data-v-71b451b1] { background: #f0fdf4; color: #059669;\n}\n.field-content[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.field-label[data-v-71b451b1] { display: block; font-size: 0.55rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 1px;\n}\n.field-value[data-v-71b451b1] { display: block; font-size: 0.75rem; color: #1e293b; font-weight: 500; word-break: break-word; line-height: 1.3;\n}\n.received-date[data-v-71b451b1] { color: #2563eb; font-weight: 600;\n}\n.completed-date[data-v-71b451b1] { color: #059669; font-weight: 600;\n}\n.remarks-text[data-v-71b451b1] { font-style: italic; color: #78350f; background: #fffbeb; padding: 2px 8px; border-radius: 4px; border-left: 2px solid #f59e0b; font-size: 0.7rem;\n}\n.notes-text[data-v-71b451b1] { background: #f0fdf4; padding: 2px 8px; border-radius: 4px; border-left: 2px solid #10b981; font-size: 0.7rem;\n}\n.text-muted[data-v-71b451b1] { color: #94a3b8;\n}\r\n\r\n/* ===== FLOW SECTION ===== */\n.flow-section[data-v-71b451b1] { margin-top: 6px; padding: 10px 14px; background: linear-gradient(135deg, #f8fafc, #f1f5f9); border-radius: 8px; border: 1px solid #e5e7eb;\n}\n.flow-container[data-v-71b451b1] { display: flex; align-items: center; gap: 12px; flex-wrap: wrap;\n}\n.flow-node[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 120px; padding: 6px 10px; background: #fff; border-radius: 6px; border: 1px solid #e5e7eb;\n}\n.origin-node[data-v-71b451b1] { border-left: 3px solid #3b82f6;\n}\n.destination-node[data-v-71b451b1] { border-left: 3px solid #10b981;\n}\n.flow-node-icon[data-v-71b451b1] { width: 24px; height: 24px; min-width: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #fff;\n}\n.origin-node .flow-node-icon[data-v-71b451b1] { background: linear-gradient(135deg, #3b82f6, #2563eb);\n}\n.destination-node .flow-node-icon[data-v-71b451b1] { background: linear-gradient(135deg, #10b981, #059669);\n}\n.flow-node-content[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.flow-node-label[data-v-71b451b1] { display: block; font-size: 0.5rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.3px;\n}\n.flow-node-value[data-v-71b451b1] { display: block; font-size: 0.75rem; font-weight: 600; color: #1e293b; word-break: break-word;\n}\n.flow-arrow[data-v-71b451b1] { display: flex; align-items: center; gap: 2px; flex-shrink: 0; padding: 0 2px;\n}\n.arrow-line[data-v-71b451b1] { width: 16px; height: 2px; background: linear-gradient(90deg, #94a3b8, #cbd5e1); border-radius: 1px;\n}\n.arrow-icon[data-v-71b451b1] { font-size: 1rem; color: #94a3b8; display: flex; align-items: center; justify-content: center; animation: arrowPulse-71b451b1 1.5s ease-in-out infinite;\n}\n@keyframes arrowPulse-71b451b1 {\n0%, 100% { transform: translateX(0); opacity: 1;\n}\n50% { transform: translateX(3px); opacity: 0.6;\n}\n}\r\n\r\n/* ===== LOADER ===== */\n.loader-spinner[data-v-71b451b1] { width: 30px; height: 30px; border: 2px solid #e5e7eb; border-top-color: #2d6a4f; border-radius: 50%; animation: spin-71b451b1 0.8s linear infinite; margin: 0 auto 6px;\n}\n@keyframes spin-71b451b1 {\nto { transform: rotate(360deg);\n}\n}\n.empty-state[data-v-71b451b1] { padding: 16px; text-align: center;\n}\r\n\r\n/* ===== DOCUMENT HEADER ===== */\n.document-header[data-v-71b451b1] { padding: 12px 20px;\n}\n.document-icon[data-v-71b451b1] { background: rgba(220,38,38,0.2);\n}\n.header-actions[data-v-71b451b1] { display: flex; align-items: center; gap: 6px;\n}\n.tracking-badge[data-v-71b451b1] { background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 10px; font-family: \"Courier New\", monospace; font-size: 0.7rem; margin-right: 6px;\n}\n.status-pill[data-v-71b451b1] { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3);\n}\r\n\r\n/* ===== CONFIDENTIAL NOTICE ===== */\n.confidential-notice[data-v-71b451b1] { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 300px; padding: 30px; background: linear-gradient(135deg, #1a1a2e, #16213e 50%, #0f3460); text-align: center;\n}\n.confidential-icon-wrapper[data-v-71b451b1] { position: relative; width: 90px; height: 90px; margin-bottom: 16px; display: flex; align-items: center; justify-content: center;\n}\n.confidential-icon[data-v-71b451b1] { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #dc2626, #991b1b); display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff; z-index: 2; box-shadow: 0 0 30px rgba(220,38,38,0.4);\n}\n.confidential-ring[data-v-71b451b1] { position: absolute; width: 90px; height: 90px; border-radius: 50%; border: 2px solid rgba(220,38,38,0.3); animation: ringPulse-71b451b1 2s ease-in-out infinite;\n}\n@keyframes ringPulse-71b451b1 {\n0%, 100% { transform: scale(1); opacity: 0.3;\n}\n50% { transform: scale(1.1); opacity: 0.6;\n}\n}\n.confidential-title[data-v-71b451b1] { font-size: 1.4rem; font-weight: 800; color: #dc2626; letter-spacing: 2px; margin-bottom: 6px; text-shadow: 0 0 20px rgba(220,38,38,0.3);\n}\n.confidential-divider[data-v-71b451b1] { width: 60px; height: 2px; background: linear-gradient(90deg, transparent, #dc2626, transparent); margin-bottom: 12px;\n}\n.confidential-message[data-v-71b451b1] { color: #e2e8f0; font-size: 0.9rem; margin-bottom: 6px;\n}\n.confidential-sub-message[data-v-71b451b1] { color: #94a3b8; font-size: 0.8rem; margin-bottom: 16px; max-width: 350px;\n}\n.confidential-details[data-v-71b451b1] { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; padding: 12px 16px; background: rgba(255,255,255,0.05); border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);\n}\n.confidential-detail-item[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; color: #cbd5e1; font-size: 0.75rem; font-family: \"Courier New\", monospace;\n}\n.confidential-detail-item i[data-v-71b451b1] { color: #dc2626; font-size: 0.85rem;\n}\n.confidential-footer-note[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: rgba(220,38,38,0.1); border: 1px solid rgba(220,38,38,0.2); border-radius: 4px; color: #fca5a5; font-size: 0.65rem; max-width: 400px;\n}\r\n\r\n/* ===== RESPONSIVE ===== */\n@media (max-width: 1200px) {\n.document-viewer-layout[data-v-71b451b1] { grid-template-columns: 300px 1fr;\n}\n}\n@media (max-width: 992px) {\n.document-viewer-layout[data-v-71b451b1] { grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: calc(90vh - 140px);\n}\n.details-panel[data-v-71b451b1] { border-right: none; border-bottom: 1px solid #e5e7eb; max-height: 300px;\n}\n.pdf-viewer-wrapper[data-v-71b451b1] { min-height: 300px;\n}\n.forward-grid[data-v-71b451b1] { grid-template-columns: 1fr;\n}\n.info-grid-enhanced[data-v-71b451b1] { grid-template-columns: 1fr;\n}\n.flow-container[data-v-71b451b1] { flex-direction: column; gap: 6px;\n}\n.flow-node[data-v-71b451b1] { width: 100%; min-width: unset;\n}\n.flow-arrow[data-v-71b451b1] { transform: rotate(90deg); padding: 0;\n}\n.arrow-line[data-v-71b451b1] { width: 24px;\n}\n.forward-doc-info[data-v-71b451b1] { flex-direction: column; gap: 4px;\n}\n.acted-grid[data-v-71b451b1] { grid-template-columns: 1fr;\n}\n.modal-actions[data-v-71b451b1] { flex-direction: column; gap: 8px; align-items: stretch;\n}\n.modal-actions .d-flex[data-v-71b451b1] { justify-content: center;\n}\n.square-btn[data-v-71b451b1] { width: 100%; justify-content: center;\n}\n}\n@media (max-width: 768px) {\n.document-view-modal[data-v-71b451b1] { max-width: 100vw; width: 100vw; margin: 0; border-radius: 0; max-height: 100vh;\n}\n.document-viewer-tabs[data-v-71b451b1] { padding: 6px 10px; gap: 3px;\n}\n.viewer-tab-btn[data-v-71b451b1] { padding: 6px 12px; font-size: 11px;\n}\n.details-panel[data-v-71b451b1] { max-height: 250px;\n}\n.pdf-viewer-wrapper[data-v-71b451b1] { min-height: 250px;\n}\n.pdf-state[data-v-71b451b1] { min-height: 250px;\n}\n.route-history-content[data-v-71b451b1] { padding: 12px;\n}\n.timeline-container[data-v-71b451b1] { padding-left: 30px;\n}\n.timeline-node[data-v-71b451b1] { left: -26px; width: 20px; height: 20px; font-size: 0.55rem;\n}\n.info-card-body[data-v-71b451b1] { padding: 6px 10px; gap: 4px;\n}\n.info-field[data-v-71b451b1] { flex-direction: column; gap: 2px;\n}\n.field-icon[data-v-71b451b1] { width: 20px; height: 20px; min-width: 20px; font-size: 0.65rem;\n}\n.flow-node[data-v-71b451b1] { padding: 4px 8px;\n}\n.flow-node-value[data-v-71b451b1] { font-size: 0.7rem;\n}\n.flow-section[data-v-71b451b1] { padding: 8px 10px;\n}\n.confidential-notice[data-v-71b451b1] { padding: 20px;\n}\n.confidential-title[data-v-71b451b1] { font-size: 1.2rem;\n}\n.forward-grid[data-v-71b451b1] { grid-template-columns: 1fr; gap: 10px;\n}\n.office-list-container[data-v-71b451b1] { max-height: 140px;\n}\n.acted-grid[data-v-71b451b1] { grid-template-columns: 1fr;\n}\n.acted-card[data-v-71b451b1] { flex-direction: column; align-items: center; text-align: center;\n}\n.acted-card-content[data-v-71b451b1] { text-align: center;\n}\n.acted-card-actions[data-v-71b451b1] { justify-content: center;\n}\n}\n@media (max-width: 576px) {\n.document-header[data-v-71b451b1] { padding: 10px 14px;\n}\n.viewer-tab-btn span[data-v-71b451b1] { display: none;\n}\n.viewer-tab-btn i[data-v-71b451b1] { font-size: 14px;\n}\n.detail-card[data-v-71b451b1] { padding: 8px;\n}\n.detail-icon-wrapper[data-v-71b451b1] { width: 28px; height: 28px; min-width: 28px; font-size: 0.8rem;\n}\n.btn-pdf-control[data-v-71b451b1] { width: 26px; height: 26px; font-size: 0.7rem;\n}\n.pdf-footer[data-v-71b451b1] { flex-direction: column; gap: 2px; align-items: flex-start;\n}\n.route-history-header[data-v-71b451b1] { padding: 10px 14px; flex-direction: column; gap: 6px; align-items: flex-start;\n}\n.active-filters[data-v-71b451b1] { flex-direction: column; align-items: flex-start;\n}\n.file-drop-zone[data-v-71b451b1] { padding: 12px;\n}\n.file-drop-text[data-v-71b451b1] { font-size: 0.75rem;\n}\n.file-upload-icon[data-v-71b451b1] { font-size: 1.5rem;\n}\n.acted-attachments-header[data-v-71b451b1] { flex-direction: column; gap: 8px; align-items: flex-start;\n}\n.action-buttons[data-v-71b451b1] { gap: 4px;\n}\n.btn-action[data-v-71b451b1] { padding: 4px 8px; font-size: 0.8rem;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
