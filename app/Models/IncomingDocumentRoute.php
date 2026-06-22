@@ -20,6 +20,9 @@ class IncomingDocumentRoute extends Model
             'date_forwarded',
             'date_receive',
             'date_document_out',
+            'date_acted',
+            'acted_documents',
+            'user_acted_id',
             'remarks',
             'status',
         ];

@@ -68,6 +68,8 @@ Route::get('/incoming-document-secretariat', [App\Http\Controllers\Secretariat\S
 Route::get('/api/document/pending/', [App\Http\Controllers\Secretariat\SecretariatController::class, 'get_data_pending_incoming']);
 Route::post('/api/receive-document/{id}', [App\Http\Controllers\Secretariat\SecretariatController::class, 'receive_secretariat_incoming']);
 Route::get('/api/document/receive/', [App\Http\Controllers\Secretariat\SecretariatController::class, 'get_data_receive_incoming']);
-Route::get('/api/route-office-secratarirat', [App\Http\Controllers\Secretariat\SecretariatController::class, 'route_office_secretariat']);
+Route::get('/api/route-office-secratariat', [App\Http\Controllers\Secretariat\SecretariatController::class, 'route_office_secretariat']);
+Route::post('/api/forward-other-office/{id}', [App\Http\Controllers\Secretariat\SecretariatController::class, 'forward_other_office']);
+
 
 /*END SECRETARIAT ROUTES*/

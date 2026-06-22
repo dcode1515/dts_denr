@@ -73,7 +73,6 @@
           <tr>
             <th style="width: 4%">#</th>
             <th style="width: 15%">Tracking No.</th>
-            <!-- <th style="width: 13%">Classification</th> -->
             <th style="width: 15%">Document Type</th>
             <th style="width: 20%">Subject/Title</th>
             <th style="width: 13%">Receive By</th>
@@ -83,13 +82,13 @@
         </thead>
         <tbody>
           <tr v-if="loading && documents.data.length === 0">
-            <td colspan="8" class="text-center">
+            <td colspan="7" class="text-center">
               <div class="loader-spinner"></div>
               Loading...
             </td>
           </tr>
           <tr v-else-if="!loading && documents.data.length === 0">
-            <td colspan="8" class="text-center">
+            <td colspan="7" class="text-center">
               <div class="empty-state">
                 <i class="bi bi-inbox" style="font-size: 3rem; color: #9ca3af"></i>
                 <p class="mt-2 text-muted">
@@ -105,11 +104,6 @@
             <td>
               <span class="tracking-number">{{ document.document.tracking_number }}</span>
             </td>
-            <!-- <td>
-              <span :class="getClassificationBadgeClass(document.document.document_classification)">
-                {{ document.document.document_classification }}
-              </span>
-            </td> -->
             <td>
               <span class="doc-type-badge">{{ document.document.document_type?.document_type_name || document.document.document_type }}</span>
             </td>
@@ -276,7 +270,7 @@
                 </div>
               </div>
 
-              <!-- Right Column: Duration, Remarks & Attachments -->
+              <!-- Right Column: Duration & Attachment & Remarks -->
               <div class="forward-col">
                 <label class="form-label">
                   Duration <span class="required-star">*</span>
@@ -308,13 +302,88 @@
                 <div v-else>
                   <select v-model="selectedDuration" class="duration-select" :disabled="forwarding">
                     <option value="">Select Duration</option>
-                    <option value="Simple">Simple - 3 Days</option>
-                    <option value="Complex">Complex - 15 Days</option>
-                    <option value="Highly Technical">Highly Technical - 15 Days</option>
+                    <option value="Simple - 3 Days">Simple - 3 Days</option>
+                    <option value="Complex - 15 Days">Complex - 15 Days</option>
+                    <option value="Highly Technical - 45 Days">Highly Technical - 45 Days</option>
                   </select>
                   <div class="duration-hint">
                     <i class="bi bi-info-circle"></i>
                     <span>No duration set. Please select one.</span>
+                  </div>
+                </div>
+
+                <!-- Attachment Section -->
+                <div class="attachment-section">
+                  <label class="form-label" style="margin-top: 12px;">
+                    Attachment
+                  </label>
+
+                  <!-- Dropzone when no file uploaded -->
+                  <div
+                    v-if="!uploadedFile"
+                    class="dropzone"
+                    @click="triggerFileUpload"
+                    @dragover.prevent
+                    @drop.prevent="handleDrop"
+                  >
+                    <input
+                      type="file"
+                      ref="fileInput"
+                      class="d-none"
+                      accept=".pdf,.jpg,.jpeg,.png,.docx"
+                      @change="handleFileUpload"
+                    />
+                    <div class="dropzone-content">
+                      <div class="dropzone-icon">
+                        <i class="bi bi-cloud-arrow-up"></i>
+                      </div>
+                      <h6 class="fw-semibold mb-1">Click to upload or drag file here</h6>
+                      <p class="text-muted small mb-0">PDF, JPG, PNG, DOCX (Max 5MB)</p>
+                    </div>
+                  </div>
+
+                  <!-- File card when file is uploaded -->
+                  <div v-if="uploadedFile" class="single-file-card">
+                    <div class="file-info">
+                      <div class="file-icon-wrap" :class="getFileColorClass(uploadedFile.name)">
+                        <i :class="getForwardFileIcon(uploadedFile.name)"></i>
+                      </div>
+                      <div class="file-details">
+                        <div class="file-name">{{ uploadedFile.name }}</div>
+                        <div class="file-size">{{ formatFileSize(uploadedFile.size) }}</div>
+                      </div>
+                    </div>
+                    <div class="file-actions">
+                      <button
+                        type="button"
+                        class="btn-icon btn-icon-view"
+                        @click="openFilePreview"
+                        title="View"
+                      >
+                        <i class="bi bi-eye"></i>
+                      </button>
+                      <button
+                        type="button"
+                        class="btn-icon btn-icon-replace"
+                        @click="triggerFileUpload"
+                        title="Replace"
+                      >
+                        <i class="bi bi-arrow-repeat"></i>
+                      </button>
+                      <button
+                        type="button"
+                        class="btn-icon btn-icon-remove"
+                        @click="removeForwardFile"
+                        title="Remove"
+                      >
+                        <i class="bi bi-x-lg"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="field-error" v-if="attachmentError">
+                    <i class="bi bi-exclamation-circle"></i>
+                    {{ attachmentError }}
                   </div>
                 </div>
 
@@ -332,75 +401,6 @@
                 ></textarea>
                 <div class="remarks-counter" :class="{ 'text-danger': remarks.length > 450 }">
                   {{ remarks.length }}/500
-                </div>
-
-                <!-- File Attachment -->
-                <label class="form-label" style="margin-top: 10px;">
-                  Attachments (Optional)
-                </label>
-                <div class="file-upload-container">
-                  <div class="file-drop-zone" @dragover.prevent @drop.prevent="handleFileDrop" @click="$refs.fileInput.click()">
-                    <div class="file-drop-content">
-                      <i class="bi bi-cloud-upload file-upload-icon"></i>
-                      <p class="file-drop-text">Drag & drop files here or click to browse</p>
-                      <span class="file-drop-hint">Supported: PDF, DOC, DOCX, JPG, PNG (Max 10MB)</span>
-                    </div>
-                    <input
-                      type="file"
-                      ref="fileInput"
-                      @change="handleFileSelect"
-                      accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
-                      multiple
-                      :disabled="forwarding"
-                      style="display: none;"
-                    />
-                  </div>
-
-                  <!-- Uploaded Files List -->
-                  <div v-if="uploadedFiles.length > 0" class="uploaded-files-list">
-                    <div class="uploaded-files-header">
-                      <i class="bi bi-paperclip"></i>
-                      <span>{{ uploadedFiles.length }} file(s) attached</span>
-                    </div>
-                    <div v-for="(file, index) in uploadedFiles" :key="index" class="uploaded-file-item">
-                      <div class="file-info">
-                        <i :class="getFileIcon(file.type)"></i>
-                        <div class="file-details">
-                          <span class="file-name">{{ file.name }}</span>
-                          <span class="file-size">{{ formatFileSize(file.size) }}</span>
-                        </div>
-                      </div>
-                      <button 
-                        type="button" 
-                        class="remove-file-btn" 
-                        @click="removeFile(index)"
-                        :disabled="forwarding"
-                        title="Remove file"
-                      >
-                        <i class="bi bi-x-circle"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Existing Attachments from Document -->
-                <div v-if="forwardDocument?.document?.attachments && forwardDocument.document.attachments.length > 0" class="existing-attachments">
-                  <div class="existing-attachments-header">
-                    <i class="bi bi-paperclip"></i>
-                    <span>Existing Attachments</span>
-                  </div>
-                  <div v-for="(attachment, index) in forwardDocument.document.attachments" :key="index" class="existing-attachment-item">
-                    <i class="bi bi-file-earmark"></i>
-                    <span class="attachment-name">{{ attachment.filename || attachment.original_name || 'Attachment' }}</span>
-                    <button 
-                      type="button" 
-                      class="view-attachment-btn" 
-                      @click="viewAttachment(attachment)"
-                      title="View attachment"
-                    >
-                      <i class="bi bi-eye"></i>
-                    </button>
-                  </div>
                 </div>
               </div>
             </div>
@@ -447,7 +447,31 @@
       </div>
     </div>
 
-    <!-- ==================== RELEASE DOCUMENT MODAL ==================== -->
+    <!-- File Preview Modal -->
+    <!-- File Preview Modal -->
+<div v-if="showFilePreview" class="modal-overlay" @click.self="closeFilePreview">
+  <div class="modal-dialog" style="max-width: 1200px; width: 95vw; max-height: 95vh;">
+    <div class="modal-content square-modal">
+      <div class="square-header">
+        <h5 class="modal-title">File Preview</h5>
+        <button type="button" class="square-close" @click="closeFilePreview">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+      <div class="modal-body text-center" style="max-height: 85vh; overflow-y: auto; padding: 20px;">
+        <img v-if="isImageFile(uploadedFile)" :src="filePreviewUrl" class="img-fluid" style="max-height: 80vh; max-width: 100%;" alt="Preview" />
+        <iframe v-else-if="isPdfFile(uploadedFile)" :src="filePreviewUrl" width="100%" height="800px" frameborder="0"></iframe>
+        <div v-else class="p-5 text-center">
+          <i :class="getForwardFileIcon(uploadedFile?.name || '')" style="font-size: 4rem; color: #6b7280;"></i>
+          <p class="mt-3">Preview not available for this file type.</p>
+          <p class="text-muted">{{ uploadedFile?.name }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Release Document Modal -->
     <div v-if="showReleaseModal" class="modal-overlay" @click.self="closeReleaseModal">
       <div class="modal-dialog enhanced-modal" style="max-width: 550px">
         <div class="modal-content square-modal">
@@ -583,7 +607,7 @@
       </div>
     </div>
 
-    <!-- ==================== ARCHIVE DOCUMENT MODAL ==================== -->
+    <!-- Archive Document Modal -->
     <div v-if="showArchiveModal" class="modal-overlay" @click.self="closeArchiveModal">
       <div class="modal-dialog enhanced-modal" style="max-width: 550px">
         <div class="modal-content square-modal">
@@ -771,10 +795,6 @@
               <button class="viewer-tab-btn" :class="{ active: viewerActiveTab === 'history' }" @click="viewerActiveTab = 'history'">
                 <i class="bi bi-clock-history"></i>
                 <span>Route History</span>
-              </button>
-              <button class="viewer-tab-btn" :class="{ active: viewerActiveTab === 'acted_attachments' }" @click="viewerActiveTab = 'acted_attachments'">
-                <i class="bi bi-file-earmark-check"></i>
-                <span>Acted Attachments</span>
               </button>
             </div>
 
@@ -1139,66 +1159,6 @@
                 </div>
               </div>
             </div>
-
-            <!-- Acted Attachments Tab -->
-            <div v-show="viewerActiveTab === 'acted_attachments'" class="acted-attachments-panel">
-              <div class="acted-attachments-header">
-                <div class="acted-attachments-title">
-                  <i class="bi bi-file-earmark-check"></i>
-                  <span>Acted Attachments</span>
-                </div>
-                <div class="acted-attachments-badge" v-if="getAllActedAttachments().length > 0">
-                  <i class="bi bi-paperclip"></i>
-                  <span>{{ getAllActedAttachments().length }} Attachment{{ getAllActedAttachments().length !== 1 ? "s" : "" }}</span>
-                </div>
-              </div>
-
-              <div class="acted-attachments-content">
-                <div v-if="getAllActedAttachments().length === 0" class="acted-state-box">
-                  <div class="empty-icon-wrapper">
-                    <i class="bi bi-file-earmark-x"></i>
-                  </div>
-                  <h5 class="mt-3">No Acted Attachments</h5>
-                  <p class="text-muted">No attachments have been added to this document yet.</p>
-                </div>
-
-                <div v-else class="acted-grid">
-                  <div v-for="(attachment, index) in getAllActedAttachments()" :key="index" class="acted-card">
-                    <div class="acted-card-icon">
-                      <i :class="getAttachmentIcon(attachment)"></i>
-                    </div>
-                    <div class="acted-card-content">
-                      <div class="acted-card-header">
-                        <span class="acted-file-name">{{ getAttachmentName(attachment) }}</span>
-                        <span class="acted-file-size" v-if="attachment.size">{{ formatFileSize(attachment.size) }}</span>
-                      </div>
-                      <div class="acted-card-meta" v-if="attachment.uploaded_at || attachment.created_at">
-                        <i class="bi bi-clock"></i>
-                        <span>{{ attachment.uploaded_at ? formatDateTime(attachment.uploaded_at) : formatDateTime(attachment.created_at) }}</span>
-                      </div>
-                      <div class="acted-card-actions">
-                        <button 
-                          type="button" 
-                          class="acted-view-btn" 
-                          @click="viewActedAttachment(attachment)"
-                          title="View in new tab"
-                        >
-                          <i class="bi bi-eye"></i> View
-                        </button>
-                        <button 
-                          type="button" 
-                          class="acted-download-btn" 
-                          @click="downloadActedAttachment(attachment)"
-                          title="Download"
-                        >
-                          <i class="bi bi-download"></i> Download
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -1225,6 +1185,14 @@ export default {
         "Permit",
         "Certificate",
       ],
+    },
+    currentUserId: {
+      type: [Number, String],
+      default: null,
+    },
+    currentUserOfficeId: {
+      type: [Number, String],
+      default: null,
     },
   },
   data() {
@@ -1254,8 +1222,12 @@ export default {
       officeSearchQuery: "",
       selectedDuration: "",
       remarks: "",
-      uploadedFiles: [],
-      uploadedFileData: [],
+      uploadedFile: null,
+      filePreviewUrl: "",
+      attachmentError: "",
+
+      // File Preview Modal
+      showFilePreview: false,
 
       // Release Modal
       showReleaseModal: false,
@@ -1389,73 +1361,116 @@ export default {
       this.getDataReceived(1); 
     },
 
+    getCurrentUserOfficeId() {
+      if (this.currentUserOfficeId) return this.currentUserOfficeId;
+      const officeIdMeta = document.querySelector('meta[name="user-office-id"]');
+      if (officeIdMeta) return officeIdMeta.getAttribute('content');
+      if (window.Laravel && window.Laravel.userOfficeId) return window.Laravel.userOfficeId;
+      return null;
+    },
+
     // ===== FILE HANDLING =====
-    handleFileSelect(event) {
-      const files = Array.from(event.target.files);
-      this.processFiles(files);
+    triggerFileUpload() {
+      if (!this.forwarding && this.$refs.fileInput) {
+        this.$refs.fileInput.click();
+      }
+    },
+
+    handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        this.processSingleFile(file);
+      }
       event.target.value = '';
     },
 
-    handleFileDrop(event) {
-      const files = Array.from(event.dataTransfer.files);
-      this.processFiles(files);
+    handleDrop(event) {
+      const file = event.dataTransfer.files[0];
+      if (file) {
+        this.processSingleFile(file);
+      }
     },
 
-    processFiles(files) {
-      const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpeg', 'image/png'];
-      const maxSize = 10 * 1024 * 1024;
+    processSingleFile(file) {
+      this.attachmentError = "";
+      
+      const validTypes = [
+        'application/pdf', 
+        'image/jpeg', 
+        'image/png', 
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+      ];
+      const maxSize = 5 * 1024 * 1024;
 
-      files.forEach(file => {
-        if (!validTypes.includes(file.type)) {
-          this.$emit('show-notification', {
-            message: `File "${file.name}" has unsupported format.`,
-            type: 'warning'
-          });
-          return;
-        }
+      if (!validTypes.includes(file.type)) {
+        this.attachmentError = "Unsupported file format. Please use PDF, JPG, PNG, or DOCX.";
+        return;
+      }
 
-        if (file.size > maxSize) {
-          this.$emit('show-notification', {
-            message: `File "${file.name}" exceeds 10MB limit.`,
-            type: 'warning'
-          });
-          return;
-        }
+      if (file.size > maxSize) {
+        this.attachmentError = "File size exceeds 5MB limit.";
+        return;
+      }
 
-        if (this.uploadedFiles.some(f => f.name === file.name && f.size === file.size)) {
-          this.$emit('show-notification', {
-            message: `File "${file.name}" already added.`,
-            type: 'warning'
-          });
-          return;
-        }
-
-        this.uploadedFiles.push(file);
-        
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.uploadedFileData.push({
-            name: file.name,
-            type: file.type,
-            size: file.size,
-            data: e.target.result,
-            file: file
-          });
-        };
-        reader.readAsDataURL(file);
-      });
+      this.uploadedFile = file;
+      
+      // Create preview URL
+      if (file.type.startsWith('image/') || file.type === 'application/pdf') {
+        this.filePreviewUrl = URL.createObjectURL(file);
+      }
     },
 
-    removeFile(index) {
-      this.uploadedFiles.splice(index, 1);
-      this.uploadedFileData.splice(index, 1);
+    removeForwardFile() {
+      if (this.filePreviewUrl) {
+        URL.revokeObjectURL(this.filePreviewUrl);
+      }
+      this.uploadedFile = null;
+      this.filePreviewUrl = "";
+      this.attachmentError = "";
     },
 
-    getFileIcon(fileType) {
-      if (fileType.includes('pdf')) return 'bi bi-file-pdf';
-      if (fileType.includes('word') || fileType.includes('msword')) return 'bi bi-file-word';
-      if (fileType.includes('image')) return 'bi bi-file-image';
+    openFilePreview() {
+      if (!this.uploadedFile) return;
+      
+      if (this.filePreviewUrl) {
+        this.showFilePreview = true;
+      } else {
+        // For DOCX files, we can't preview
+        this.$emit("show-notification", {
+          message: "Preview not available for this file type. You can view it after downloading.",
+          type: "info",
+        });
+      }
+    },
+
+    closeFilePreview() {
+      this.showFilePreview = false;
+    },
+
+    isImageFile(file) {
+      return file?.type?.startsWith('image/');
+    },
+
+    isPdfFile(file) {
+      return file?.type === 'application/pdf';
+    },
+
+    getForwardFileIcon(fileName) {
+      if (!fileName) return 'bi bi-file-earmark';
+      const name = fileName.toLowerCase();
+      if (name.endsWith('.pdf')) return 'bi bi-file-pdf';
+      if (name.endsWith('.docx') || name.endsWith('.doc')) return 'bi bi-file-word';
+      if (name.endsWith('.jpg') || name.endsWith('.jpeg') || name.endsWith('.png')) return 'bi bi-file-image';
       return 'bi bi-file-earmark';
+    },
+
+    getFileColorClass(fileName) {
+      if (!fileName) return '';
+      const name = fileName.toLowerCase();
+      if (name.endsWith('.pdf')) return 'file-pdf';
+      if (name.endsWith('.docx') || name.endsWith('.doc')) return 'file-word';
+      if (name.endsWith('.jpg') || name.endsWith('.jpeg') || name.endsWith('.png')) return 'file-image';
+      return '';
     },
 
     formatFileSize(bytes) {
@@ -1464,103 +1479,6 @@ export default {
       const sizes = ['Bytes', 'KB', 'MB', 'GB'];
       const i = Math.floor(Math.log(bytes) / Math.log(k));
       return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-    },
-
-    viewAttachment(attachment) {
-      if (attachment.file_path) {
-        window.open(`/storage/${attachment.file_path}`, '_blank');
-      } else if (attachment.url) {
-        window.open(attachment.url, '_blank');
-      } else {
-        this.$emit('show-notification', {
-          message: 'Unable to view attachment.',
-          type: 'warning'
-        });
-      }
-    },
-
-    // ===== ACTED ATTACHMENTS =====
-    getAllActedAttachments() {
-      if (!this.selectedDocument?.document) return [];
-      
-      const docAttachments = this.selectedDocument.document.attachments || [];
-      
-      const routeAttachments = [];
-      if (this.selectedDocument.document.document_route) {
-        this.selectedDocument.document.document_route.forEach(route => {
-          if (route.attachments && route.attachments.length > 0) {
-            routeAttachments.push(...route.attachments.map(att => ({
-              ...att,
-              route_id: route.id,
-              from_office: route.from_office,
-              to_office: route.to_office,
-              route_status: route.status
-            })));
-          }
-        });
-      }
-      
-      const allAttachments = [...docAttachments, ...routeAttachments];
-      return allAttachments;
-    },
-
-    getAttachmentName(attachment) {
-      return attachment.filename || attachment.original_name || attachment.name || 'Attachment';
-    },
-
-    getAttachmentIcon(attachment) {
-      const name = this.getAttachmentName(attachment).toLowerCase();
-      if (name.includes('.pdf')) return 'bi bi-file-pdf text-danger';
-      if (name.includes('.doc') || name.includes('.docx')) return 'bi bi-file-word text-primary';
-      if (name.includes('.xls') || name.includes('.xlsx')) return 'bi bi-file-excel text-success';
-      if (name.includes('.jpg') || name.includes('.jpeg') || name.includes('.png') || name.includes('.gif')) return 'bi bi-file-image text-info';
-      if (name.includes('.zip') || name.includes('.rar')) return 'bi bi-file-zip text-warning';
-      return 'bi bi-file-earmark text-secondary';
-    },
-
-    viewActedAttachment(attachment) {
-      let url = '';
-      if (attachment.file_path) {
-        url = `/storage/${attachment.file_path}`;
-      } else if (attachment.url) {
-        url = attachment.url;
-      } else if (attachment.path) {
-        url = `/storage/${attachment.path}`;
-      } else {
-        this.$emit('show-notification', {
-          message: 'Unable to view attachment. File path not found.',
-          type: 'warning'
-        });
-        return;
-      }
-      
-      window.open(url, '_blank');
-    },
-
-    downloadActedAttachment(attachment) {
-      let url = '';
-      let filename = this.getAttachmentName(attachment);
-      
-      if (attachment.file_path) {
-        url = `/storage/${attachment.file_path}`;
-      } else if (attachment.url) {
-        url = attachment.url;
-      } else if (attachment.path) {
-        url = `/storage/${attachment.path}`;
-      } else {
-        this.$emit('show-notification', {
-          message: 'Unable to download attachment. File path not found.',
-          type: 'warning'
-        });
-        return;
-      }
-      
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = filename;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
     },
 
     // ===== DURATION HELPERS =====
@@ -1576,7 +1494,7 @@ export default {
       const map = { 
         'Simple': 'Simple - 3 Days', 
         'Complex': 'Complex - 15 Days', 
-        'Highly Technical': 'Highly Technical - 15 Days' 
+        'Highly Technical': 'Highly Technical - 45 Days' 
       };
       return map[duration] || duration;
     },
@@ -1615,7 +1533,7 @@ export default {
       const map = { 
         'Simple': 'Simple - 3 Days', 
         'Complex': 'Complex - 15 Days', 
-        'Highly Technical': 'Highly Technical - 15 Days' 
+        'Highly Technical': 'Highly Technical - 45 Days' 
       };
       return map[duration] || duration;
     },
@@ -1643,12 +1561,14 @@ export default {
       this.officeSearchQuery = "";
       this.selectedDuration = "";
       this.remarks = "";
-      this.uploadedFiles = [];
-      this.uploadedFileData = [];
+      this.uploadedFile = null;
+      this.filePreviewUrl = "";
+      this.attachmentError = "";
       this.fetchOffices();
     },
 
     closeForwardModal() {
+      this.removeForwardFile();
       this.showForwardModal = false;
       this.forwardDocument = null;
       this.selectedOffices = [];
@@ -1656,8 +1576,6 @@ export default {
       this.officeSearchQuery = "";
       this.selectedDuration = "";
       this.remarks = "";
-      this.uploadedFiles = [];
-      this.uploadedFileData = [];
     },
 
     clearForwardForm() {
@@ -1666,8 +1584,7 @@ export default {
       this.officeSearchQuery = "";
       this.selectedDuration = "";
       this.remarks = "";
-      this.uploadedFiles = [];
-      this.uploadedFileData = [];
+      this.removeForwardFile();
     },
 
     clearOfficeSearch() {
@@ -1677,7 +1594,7 @@ export default {
     async fetchOffices() {
       this.officesLoading = true;
       try {
-        const response = await axios.get("/dts_denr/api/route-office-secratarirat");
+        const response = await axios.get("/dts_denr/api/route-office-secratariat");
         this.offices = response.data.data || [];
       } catch (error) {
         console.error("Error fetching offices:", error);
@@ -1721,25 +1638,37 @@ export default {
 
       try {
         const formData = new FormData();
-        formData.append('document_id', this.forwardDocument.id);
-        formData.append('tracking_number', this.forwardDocument.document.tracking_number);
-        formData.append('offices', JSON.stringify(this.selectedOffices.map((office) => office.id)));
-        formData.append('duration', this.hasExistingDuration() ? this.getDurationValue() : this.selectedDuration);
+        const durationValue = this.hasExistingDuration() ? this.getDurationValue() : this.selectedDuration;
+        const currentOfficeId = this.getCurrentUserOfficeId();
+
+        formData.append('incoming_document_id', this.forwardDocument.id);
+        formData.append('selectedDuration', durationValue);
+        formData.append('offices', JSON.stringify(this.selectedOffices.map((office) => ({
+          id: office.id,
+          sub_office_name: office.sub_office_name,
+          office_code: office.office_code || null
+        }))));
+        formData.append('from_office_id', currentOfficeId);
         formData.append('remarks', this.remarks || '');
+        
+        // Append file if exists
+        if (this.uploadedFile) {
+          formData.append('attachment', this.uploadedFile);
+        }
 
-        this.uploadedFiles.forEach((file, index) => {
-          formData.append(`attachments[${index}]`, file);
-        });
-
-        const response = await axios.post("/dts_denr/api/add-forward-document", formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
+        const response = await axios.post(
+          `/dts_denr/api/forward-other-office/${this.forwardDocument.id}`, 
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          }
+        );
 
         await Swal.fire({
           title: "Forwarded!",
-          text: response.data.message || "Document forwarded successfully.",
+          text: response.data.message || `Document forwarded to ${this.selectedOffices.length} office(s) successfully.`,
           icon: "success",
           confirmButtonColor: "#1a4731",
         });
@@ -1752,8 +1681,12 @@ export default {
         this.getDataReceived(this.documents.current_page);
       } catch (error) {
         console.error("Forward error:", error);
-        this.forwardError = error.response?.data?.message || "Failed to forward document.";
-        this.$emit("show-notification", { message: this.forwardError, type: "error" });
+        const errorMessage = error.response?.data?.message || "Failed to forward document.";
+        this.forwardError = errorMessage;
+        this.$emit("show-notification", { 
+          message: errorMessage, 
+          type: "error" 
+        });
       } finally {
         this.forwarding = false;
       }
@@ -2096,88 +2029,41 @@ export default {
 .duration-display-content { flex: 1; display: flex; flex-direction: column; }
 .duration-display-label { font-size: 0.6rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
 .duration-display-value { display: inline-flex; align-items: center; gap: 6px; padding: 2px 12px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; margin-top: 2px; width: fit-content; }
-.duration-display-value.duration-simple { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
-.duration-display-value.duration-complex { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
-.duration-display-value.duration-highly-technical { background: #fce7f3; color: #9d174d; border: 1px solid #f9a8d4; }
-.duration-display-value.duration-not-set { background: #f3f4f6; color: #6b7280; border: 1px solid #d1d5db; }
 .badge-readonly { padding: 2px 10px; background: #e5e7eb; color: #6b7280; border-radius: 12px; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 .duration-hint { display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: #fef3c7; border: 1px solid #fcd34d; border-radius: 4px; font-size: 0.7rem; color: #92400e; margin-top: 4px; }
 .duration-hint i { color: #d97706; }
 .existing-duration-info { display: flex; align-items: center; gap: 6px; padding: 4px 10px; background: #f0fdf4; border: 1px solid #86efac; border-radius: 4px; font-size: 0.7rem; color: #166534; }
 .existing-duration-info i { color: #16a34a; }
 
-/* ===== FILE UPLOAD ===== */
-.file-upload-container { margin-top: 4px; }
-.file-drop-zone { border: 2px dashed #e5e7eb; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; background: #fafafa; position: relative; }
-.file-drop-zone:hover { border-color: #2d6a4f; background: #f0fdf4; }
-.file-drop-content { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-.file-upload-icon { font-size: 2rem; color: #94a3b8; transition: all 0.3s ease; }
-.file-drop-zone:hover .file-upload-icon { color: #2d6a4f; transform: translateY(-2px); }
-.file-drop-text { margin: 0; font-size: 0.85rem; color: #1e293b; font-weight: 500; }
-.file-drop-hint { font-size: 0.7rem; color: #94a3b8; }
+/* ===== ATTACHMENT SECTION ===== */
+.attachment-section { margin-top: 4px; }
+.dropzone { border: 2px dashed #d1d5db; border-radius: 8px; padding: 20px 16px; text-align: center; cursor: pointer; transition: all 0.3s ease; background: #fafafa; }
+.dropzone:hover { border-color: #2d6a4f; background: #f0fdf4; }
+.dropzone-content { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.dropzone-icon { font-size: 2rem; color: #9ca3af; margin-bottom: 4px; transition: all 0.3s ease; }
+.dropzone:hover .dropzone-icon { color: #2d6a4f; transform: translateY(-2px); }
+.dropzone h6 { font-size: 0.85rem; color: #1e293b; margin-bottom: 2px; }
+.dropzone .text-muted { font-size: 0.7rem; color: #94a3b8; }
 
-.uploaded-files-list { margin-top: 8px; border: 1px solid #e5e7eb; border-radius: 6px; overflow: hidden; }
-.uploaded-files-header { display: flex; align-items: center; gap: 8px; padding: 6px 12px; background: #f8fafc; border-bottom: 1px solid #e5e7eb; font-size: 0.75rem; font-weight: 600; color: #1e293b; }
-.uploaded-files-header i { color: #2d6a4f; }
-.uploaded-file-item { display: flex; align-items: center; justify-content: space-between; padding: 6px 12px; border-bottom: 1px solid #f3f4f6; }
-.uploaded-file-item:last-child { border-bottom: none; }
-.file-info { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; }
-.file-info i { font-size: 1.2rem; color: #dc2626; }
-.file-details { display: flex; flex-direction: column; min-width: 0; }
-.file-name { font-size: 0.8rem; font-weight: 500; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.single-file-card { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: #f8fafc; border: 2px solid #e5e7eb; border-radius: 8px; gap: 12px; transition: all 0.3s ease; }
+.single-file-card:hover { border-color: #2d6a4f; background: #f0fdf4; }
+.file-info { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+.file-icon-wrap { width: 40px; height: 40px; min-width: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+.file-icon-wrap.file-pdf { background: #fee2e2; color: #dc2626; }
+.file-icon-wrap.file-word { background: #dbeafe; color: #2563eb; }
+.file-icon-wrap.file-image { background: #d1fae5; color: #059669; }
+.file-details { flex: 1; min-width: 0; }
+.file-name { font-size: 0.8rem; font-weight: 600; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .file-size { font-size: 0.65rem; color: #94a3b8; }
-.remove-file-btn { background: none; border: none; color: #94a3b8; cursor: pointer; padding: 4px; transition: all 0.2s; }
-.remove-file-btn:hover { color: #dc2626; transform: scale(1.1); }
-.remove-file-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-/* ===== EXISTING ATTACHMENTS ===== */
-.existing-attachments { margin-top: 8px; border: 1px solid #e5e7eb; border-radius: 6px; overflow: hidden; }
-.existing-attachments-header { display: flex; align-items: center; gap: 8px; padding: 6px 12px; background: #f8fafc; border-bottom: 1px solid #e5e7eb; font-size: 0.75rem; font-weight: 600; color: #1e293b; }
-.existing-attachments-header i { color: #2563eb; }
-.existing-attachment-item { display: flex; align-items: center; gap: 8px; padding: 6px 12px; border-bottom: 1px solid #f3f4f6; }
-.existing-attachment-item:last-child { border-bottom: none; }
-.existing-attachment-item i { color: #2563eb; font-size: 0.9rem; }
-.attachment-name { font-size: 0.8rem; color: #1e293b; flex: 1; }
-.view-attachment-btn { background: none; border: none; color: #2563eb; cursor: pointer; padding: 4px; transition: all 0.2s; }
-.view-attachment-btn:hover { color: #1d4ed8; transform: scale(1.1); }
-
-/* ===== ACTED ATTACHMENTS TAB ===== */
-.acted-attachments-panel { display: flex; flex-direction: column; height: calc(90vh - 140px); background: #f9fafb; min-height: 400px; }
-.acted-attachments-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: #fff; border-bottom: 2px solid #e5e7eb; flex-shrink: 0; }
-.acted-attachments-title { display: flex; align-items: center; gap: 10px; font-weight: 700; color: #1e293b; font-size: 1rem; }
-.acted-attachments-title i { color: #2d6a4f; font-size: 1.2rem; }
-.acted-attachments-badge { display: flex; align-items: center; gap: 6px; padding: 6px 14px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 20px; font-size: 0.8rem; font-weight: 600; color: #166534; }
-
-.acted-attachments-content { flex: 1; overflow-y: auto; padding: 24px; }
-.acted-attachments-content::-webkit-scrollbar { width: 8px; }
-.acted-attachments-content::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
-.acted-attachments-content::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
-
-.acted-state-box { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 300px; text-align: center; }
-.acted-state-box .empty-icon-wrapper { width: 80px; height: 80px; border-radius: 50%; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: #94a3b8; margin-bottom: 16px; }
-
-.acted-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
-.acted-card { display: flex; gap: 16px; padding: 16px 20px; background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; transition: all 0.3s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-.acted-card:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.08); transform: translateY(-2px); border-color: #cbd5e1; }
-.acted-card-icon { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; min-width: 48px; border-radius: 10px; background: #f8fafc; font-size: 1.8rem; }
-.acted-card-content { flex: 1; min-width: 0; }
-.acted-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
-.acted-file-name { font-size: 0.9rem; font-weight: 600; color: #1e293b; word-break: break-word; }
-.acted-file-size { font-size: 0.7rem; color: #94a3b8; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
-.acted-card-meta { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; color: #94a3b8; margin-top: 4px; }
-.acted-card-meta i { font-size: 0.65rem; }
-.acted-card-actions { display: flex; gap: 8px; margin-top: 10px; }
-.acted-view-btn, .acted-download-btn { display: inline-flex; align-items: center; gap: 4px; padding: 4px 12px; border: none; border-radius: 6px; font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-.acted-view-btn { background: #dbeafe; color: #1e40af; }
-.acted-view-btn:hover { background: #bfdbfe; transform: scale(1.02); }
-.acted-download-btn { background: #d1fae5; color: #065f46; }
-.acted-download-btn:hover { background: #a7f3d0; transform: scale(1.02); }
-
-/* ===== STATUS BADGE ===== */
-.status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-.status-in-progress { background: #fef3c7; color: #d97706; border: 1px solid #fde68a; }
-.status-for-release { background: #dbeafe; color: #2563eb; border: 1px solid #bfdbfe; }
-.status-released { background: #d1fae5; color: #059669; border: 1px solid #a7f3d0; }
+.file-actions { display: flex; gap: 4px; }
+.btn-icon { width: 30px; height: 30px; border: none; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 0.8rem; }
+.btn-icon-view { background: #dbeafe; color: #2563eb; }
+.btn-icon-view:hover { background: #bfdbfe; transform: scale(1.05); }
+.btn-icon-replace { background: #fef3c7; color: #d97706; }
+.btn-icon-replace:hover { background: #fde68a; transform: scale(1.05); }
+.btn-icon-remove { background: #fee2e2; color: #dc2626; }
+.btn-icon-remove:hover { background: #fecaca; transform: scale(1.05); }
+.field-error { display: flex; align-items: center; gap: 6px; margin-top: 4px; padding: 6px 10px; background: #fef0ef; border: 1px solid #f5c6c3; border-radius: 4px; font-size: 0.7rem; color: #c0392b; }
 
 /* ===== MODAL ===== */
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.55); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 1050; animation: fadeIn 0.2s ease-out; }
@@ -2302,14 +2188,14 @@ export default {
 .remove-office-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
 /* ===== DOCUMENT VIEWER ===== */
-.document-view-modal { max-width: 1400px; width: 95vw; max-height: 90vh; }
-.document-viewer-body { padding: 0; max-height: calc(90vh - 80px); overflow: hidden; display: flex; flex-direction: column; }
+.document-view-modal { max-width: 1600px; width: 98vw; max-height: 95vh; }
+.document-viewer-body { padding: 0; max-height: calc(95vh - 80px); overflow: hidden; display: flex; flex-direction: column; }
 .document-viewer-tabs { display: flex; gap: 4px; padding: 10px 16px; background: #f8fafc; border-bottom: 2px solid #e5e7eb; flex-shrink: 0; }
 .viewer-tab-btn { display: flex; align-items: center; gap: 6px; padding: 8px 16px; background: #fff; border: 1px solid #e5e7eb; border-radius: 6px; color: #64748b; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s ease; }
 .viewer-tab-btn:hover { background: #f0fdf4; border-color: #86efac; color: #2d6a4f; transform: translateY(-1px); }
 .viewer-tab-btn.active { background: linear-gradient(135deg, #2d6a4f, #1e4d2b); border-color: #2d6a4f; color: #fff; box-shadow: 0 4px 12px rgba(45,106,79,0.3); }
 
-.document-viewer-layout { display: grid; grid-template-columns: 340px 1fr; height: calc(90vh - 140px); min-height: 400px; }
+.document-viewer-layout { display: grid; grid-template-columns: 280px 1fr; height: calc(95vh - 140px); min-height: 500px; }
 .details-panel { background: #fff; border-right: 1px solid #e5e7eb; display: flex; flex-direction: column; overflow: hidden; }
 .details-panel-header { display: flex; align-items: center; gap: 8px; padding: 12px 16px; background: #f8fafc; border-bottom: 1px solid #e5e7eb; font-weight: 700; color: #1e293b; font-size: 0.85rem; flex-shrink: 0; }
 .details-content { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
@@ -2340,13 +2226,13 @@ export default {
 .btn-pdf-control:hover:not(:disabled) { background: #e2e8f0; border-color: #94a3b8; color: #1e293b; }
 .btn-pdf-control:disabled { opacity: 0.5; cursor: not-allowed; }
 
-.pdf-viewer-wrapper { flex: 1; overflow: auto; background: #525659; position: relative; min-height: 300px; }
+.pdf-viewer-wrapper { flex: 1; overflow: auto; background: #525659; position: relative; min-height: 500px; }
 .pdf-viewer-wrapper::-webkit-scrollbar { width: 8px; height: 8px; }
 .pdf-viewer-wrapper::-webkit-scrollbar-track { background: #3a3d40; }
 .pdf-viewer-wrapper::-webkit-scrollbar-thumb { background: #6b7280; border-radius: 4px; }
 .pdf-iframe { border: none; display: block; background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
 
-.pdf-state { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 300px; color: #9ca3af; padding: 30px; }
+.pdf-state { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 500px; color: #9ca3af; padding: 30px; }
 .pdf-loader-animation { position: relative; width: 60px; height: 60px; margin-bottom: 12px; }
 .pdf-loader-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.5rem; color: #dc2626; z-index: 2; }
 .pdf-state-text { color: #d1d5db; font-size: 0.85rem; margin-top: 6px; }
@@ -2358,7 +2244,7 @@ export default {
 .pdf-page-info { font-family: "Courier New", monospace; }
 
 /* ===== ROUTE HISTORY ===== */
-.route-history-panel { display: flex; flex-direction: column; height: calc(90vh - 140px); background: #fff; min-height: 400px; }
+.route-history-panel { display: flex; flex-direction: column; height: calc(95vh - 140px); background: #fff; min-height: 500px; }
 .route-history-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; background: #f8fafc; border-bottom: 2px solid #e5e7eb; flex-shrink: 0; }
 .route-history-title { display: flex; align-items: center; gap: 8px; font-weight: 700; color: #1e293b; font-size: 0.9rem; }
 .route-history-title i { color: #2d6a4f; font-size: 1rem; }
@@ -2453,7 +2339,7 @@ export default {
 .status-pill { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); }
 
 /* ===== CONFIDENTIAL NOTICE ===== */
-.confidential-notice { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 300px; padding: 30px; background: linear-gradient(135deg, #1a1a2e, #16213e 50%, #0f3460); text-align: center; }
+.confidential-notice { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 500px; padding: 30px; background: linear-gradient(135deg, #1a1a2e, #16213e 50%, #0f3460); text-align: center; }
 .confidential-icon-wrapper { position: relative; width: 90px; height: 90px; margin-bottom: 16px; display: flex; align-items: center; justify-content: center; }
 .confidential-icon { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #dc2626, #991b1b); display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff; z-index: 2; box-shadow: 0 0 30px rgba(220,38,38,0.4); }
 .confidential-ring { position: absolute; width: 90px; height: 90px; border-radius: 50%; border: 2px solid rgba(220,38,38,0.3); animation: ringPulse 2s ease-in-out infinite; }
@@ -2467,12 +2353,21 @@ export default {
 .confidential-detail-item i { color: #dc2626; font-size: 0.85rem; }
 .confidential-footer-note { display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: rgba(220,38,38,0.1); border: 1px solid rgba(220,38,38,0.2); border-radius: 4px; color: #fca5a5; font-size: 0.65rem; max-width: 400px; }
 
+/* ===== STATUS BADGE ===== */
+.status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.status-in-progress { background: #fef3c7; color: #d97706; border: 1px solid #fde68a; }
+.status-for-release { background: #dbeafe; color: #2563eb; border: 1px solid #bfdbfe; }
+.status-released { background: #d1fae5; color: #059669; border: 1px solid #a7f3d0; }
+
 /* ===== RESPONSIVE ===== */
-@media (max-width: 1200px) { .document-viewer-layout { grid-template-columns: 300px 1fr; } }
+@media (max-width: 1200px) { 
+  .document-view-modal { max-width: 100vw; width: 100vw; }
+  .document-viewer-layout { grid-template-columns: 260px 1fr; } 
+}
 @media (max-width: 992px) {
-  .document-viewer-layout { grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: calc(90vh - 140px); }
+  .document-viewer-layout { grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: calc(95vh - 140px); }
   .details-panel { border-right: none; border-bottom: 1px solid #e5e7eb; max-height: 300px; }
-  .pdf-viewer-wrapper { min-height: 300px; }
+  .pdf-viewer-wrapper { min-height: 500px; }
   .forward-grid { grid-template-columns: 1fr; }
   .info-grid-enhanced { grid-template-columns: 1fr; }
   .flow-container { flex-direction: column; gap: 6px; }
@@ -2480,7 +2375,6 @@ export default {
   .flow-arrow { transform: rotate(90deg); padding: 0; }
   .arrow-line { width: 24px; }
   .forward-doc-info { flex-direction: column; gap: 4px; }
-  .acted-grid { grid-template-columns: 1fr; }
   .modal-actions { flex-direction: column; gap: 8px; align-items: stretch; }
   .modal-actions .d-flex { justify-content: center; }
   .square-btn { width: 100%; justify-content: center; }
@@ -2490,8 +2384,9 @@ export default {
   .document-viewer-tabs { padding: 6px 10px; gap: 3px; }
   .viewer-tab-btn { padding: 6px 12px; font-size: 11px; }
   .details-panel { max-height: 250px; }
-  .pdf-viewer-wrapper { min-height: 250px; }
-  .pdf-state { min-height: 250px; }
+  .pdf-viewer-wrapper { min-height: 400px; }
+  .pdf-state { min-height: 400px; }
+  .confidential-notice { min-height: 400px; }
   .route-history-content { padding: 12px; }
   .timeline-container { padding-left: 30px; }
   .timeline-node { left: -26px; width: 20px; height: 20px; font-size: 0.55rem; }
@@ -2505,10 +2400,6 @@ export default {
   .confidential-title { font-size: 1.2rem; }
   .forward-grid { grid-template-columns: 1fr; gap: 10px; }
   .office-list-container { max-height: 140px; }
-  .acted-grid { grid-template-columns: 1fr; }
-  .acted-card { flex-direction: column; align-items: center; text-align: center; }
-  .acted-card-content { text-align: center; }
-  .acted-card-actions { justify-content: center; }
 }
 @media (max-width: 576px) {
   .document-header { padding: 10px 14px; }
@@ -2520,11 +2411,8 @@ export default {
   .pdf-footer { flex-direction: column; gap: 2px; align-items: flex-start; }
   .route-history-header { padding: 10px 14px; flex-direction: column; gap: 6px; align-items: flex-start; }
   .active-filters { flex-direction: column; align-items: flex-start; }
-  .file-drop-zone { padding: 12px; }
-  .file-drop-text { font-size: 0.75rem; }
-  .file-upload-icon { font-size: 1.5rem; }
-  .acted-attachments-header { flex-direction: column; gap: 8px; align-items: flex-start; }
   .action-buttons { gap: 4px; }
   .btn-action { padding: 4px 8px; font-size: 0.8rem; }
 }
+.d-none { display: none !important; }
 </style>
