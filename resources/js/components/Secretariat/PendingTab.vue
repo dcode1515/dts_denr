@@ -126,7 +126,6 @@
               <span class="doc-type-badge">{{ document.document.document_type?.document_type_name || document.document.document_type }}</span>
             </td>
             <td>
-              <!-- BLUR SUBJECT IN TABLE FOR CONFIDENTIAL -->
               <div 
                 class="subject-text" 
                 :class="{ 'confidential-blur-static': isDocumentConfidential(document.document.document_classification) }"
@@ -230,7 +229,6 @@
                 </div>
                 <div class="receive-doc-content">
                   <span class="receive-doc-label">Subject</span>
-                  <!-- BLUR SUBJECT IN RECEIVE MODAL FOR CONFIDENTIAL -->
                   <span 
                     class="receive-doc-value"
                     :class="{ 'confidential-blur-static': isDocumentConfidential(receiveDocument?.document?.document_classification) }"
@@ -432,7 +430,6 @@
               </div>
             </div>
             <div class="header-actions">
-             
               <button type="button" class="btn-close-custom square-close" @click="closeViewModal">
                 <i class="bi bi-x-lg"></i>
               </button>
@@ -448,6 +445,10 @@
               <button class="viewer-tab-btn" :class="{ active: viewerActiveTab === 'history' }" @click="viewerActiveTab = 'history'">
                 <i class="bi bi-clock-history"></i>
                 <span>Route History</span>
+              </button>
+              <button class="viewer-tab-btn" :class="{ active: viewerActiveTab === 'acted' }" @click="viewerActiveTab = 'acted'">
+                <i class="bi bi-file-earmark-pdf"></i>
+                <span>Acted Documents</span>
               </button>
             </div>
 
@@ -498,7 +499,6 @@
                     </div>
                     <div class="detail-info">
                       <label>Subject / Title</label>
-                      <!-- BLUR SUBJECT FOR CONFIDENTIAL - NOT CLICKABLE -->
                       <span 
                         class="detail-value" 
                         :class="{ 'confidential-blur-static': isConfidential }"
@@ -515,7 +515,6 @@
                     </div>
                     <div class="detail-info">
                       <label>Sender / Origin</label>
-                      <!-- BLUR SENDER NAME FOR CONFIDENTIAL - NOT CLICKABLE -->
                       <span 
                         class="detail-value" 
                         :class="{ 'confidential-blur-static': isConfidential }"
@@ -812,6 +811,109 @@
                 </div>
               </div>
             </div>
+
+            <!-- ==================== ACTED DOCUMENTS TAB ==================== -->
+            <div v-show="viewerActiveTab === 'acted'" class="acted-documents-panel">
+              <div class="acted-documents-header">
+                <div class="acted-documents-title">
+                  <i class="bi bi-file-earmark-pdf-fill"></i>
+                  <span>Acted Documents</span>
+                </div>
+                <div class="acted-documents-badge" v-if="getActedDocuments().length > 0">
+                  <i class="bi bi-files"></i>
+                  <span>{{ getActedDocuments().length }} File{{ getActedDocuments().length !== 1 ? "s" : "" }}</span>
+                </div>
+              </div>
+
+              <div class="acted-documents-content">
+                <div v-if="actedDocumentsLoading" class="acted-state-box">
+                  <div class="loader-spinner"></div>
+                  <p class="mt-3 text-muted">Loading acted documents...</p>
+                </div>
+
+                <div v-else-if="getActedDocuments().length === 0" class="acted-state-box">
+                  <div class="empty-icon-wrapper">
+                    <i class="bi bi-file-earmark-x"></i>
+                  </div>
+                  <h5 class="mt-3">No Acted Documents</h5>
+                  <p class="text-muted">No documents have been acted upon for this route.</p>
+                </div>
+
+                <div v-else class="acted-files-container">
+                  <div v-for="(file, index) in getActedDocuments()" :key="index" class="acted-file-card">
+                    <div class="acted-file-icon">
+                      <i class="bi bi-file-pdf-fill"></i>
+                    </div>
+                    <div class="acted-file-info">
+                      <div class="acted-file-name">{{ getFileNameFromPath(file) }}</div>
+                      <div class="acted-file-path">{{ file }}</div>
+                      <div class="acted-file-meta">
+                        <span class="acted-file-size">{{ getFileSize(file) }}</span>
+                        <span class="acted-file-date">{{ getFileDate(file) }}</span>
+                      </div>
+                    </div>
+                    <div class="acted-file-actions">
+                      <button class="btn-acted-view" @click="previewActedDocument(file)" title="Preview">
+                        <i class="bi bi-eye"></i>
+                      </button>
+                      <button class="btn-acted-download" @click="downloadActedDocument(file)" title="Download">
+                        <i class="bi bi-download"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== ACTED DOCUMENT PREVIEW MODAL ==================== -->
+    <div v-if="showActedPreview" class="modal-overlay" @click.self="closeActedPreview">
+      <div class="modal-dialog" style="max-width: 1200px; width: 95vw; max-height: 95vh;">
+        <div class="modal-content square-modal">
+          <div class="square-header" style="background: linear-gradient(135deg, #dc2626, #991b1b)">
+            <div class="d-flex align-items-center">
+              <div class="square-icon" style="background: rgba(255,255,255,0.2)">
+                <i class="bi bi-file-pdf"></i>
+              </div>
+              <div>
+                <h5 class="modal-title">Acted Document Preview</h5>
+                <small class="modal-subtitle">{{ previewFileName }}</small>
+              </div>
+            </div>
+            <button type="button" class="square-close" @click="closeActedPreview">
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+          <div class="modal-body text-center" style="max-height: 85vh; overflow-y: auto; padding: 20px; background: #525659;">
+            <div v-if="actedPdfLoading" class="pdf-state">
+              <div class="pdf-loader-animation">
+                <div class="pdf-loader-icon">
+                  <i class="bi bi-file-pdf"></i>
+                </div>
+                <div class="loader-spinner"></div>
+              </div>
+              <p class="pdf-state-text">Loading document preview...</p>
+            </div>
+            <iframe 
+              v-show="!actedPdfLoading && !actedPdfError"
+              :src="actedPreviewUrl" 
+              width="100%" 
+              height="800px" 
+              frameborder="0"
+              @load="onActedPdfLoaded"
+              @error="onActedPdfError"
+            ></iframe>
+            <div v-if="actedPdfError" class="pdf-state pdf-error">
+              <i class="bi bi-file-earmark-x" style="font-size: 4rem; color: #ef4444"></i>
+              <h5 class="mt-3">PDF Not Available</h5>
+              <p class="text-muted">The document could not be loaded.</p>
+              <button class="btn btn-outline-secondary btn-sm mt-3" @click="retryActedPdfLoad">
+                <i class="bi bi-arrow-repeat me-1"></i> Retry
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -882,6 +984,15 @@ export default {
       pdfZoom: 1,
       pdfViewerHeight: 700,
       routeHistoryLoading: false,
+
+      // Acted Documents
+      actedDocumentsLoading: false,
+      showActedPreview: false,
+      previewFile: null,
+      previewFileName: "",
+      actedPreviewUrl: "",
+      actedPdfLoading: true,
+      actedPdfError: false,
     };
   },
   computed: {
@@ -1140,6 +1251,7 @@ export default {
       this.pdfLoadError = false;
       this.pdfZoom = 1;
       this.pdfViewerHeight = 700;
+      this.actedDocumentsLoading = false;
       this.$emit("view-document", doc);
     },
 
@@ -1151,6 +1263,7 @@ export default {
       this.pdfLoadError = false;
       this.pdfZoom = 1;
       this.pdfViewerHeight = 700;
+      this.closeActedPreview();
     },
 
     getDocumentRoutes() {
@@ -1271,6 +1384,107 @@ export default {
 
     refreshData() {
       this.getDataPending(1);
+    },
+
+    // ==================== ACTED DOCUMENTS METHODS ====================
+    getActedDocuments() {
+      if (!this.selectedDocument) return [];
+      
+      // Check if acted_documents exists in the document route
+      const route = this.selectedDocument;
+      
+      // If acted_documents is a string (comma-separated or JSON)
+      if (route.acted_documents) {
+        try {
+          // Try to parse as JSON first
+          const parsed = JSON.parse(route.acted_documents);
+          if (Array.isArray(parsed)) {
+            return parsed;
+          }
+        } catch {
+          // If not JSON, treat as comma-separated string
+          if (typeof route.acted_documents === 'string') {
+            const files = route.acted_documents.split(',').filter(path => path.trim() !== '');
+            return files;
+          }
+        }
+      }
+      
+      return [];
+    },
+
+    getFileNameFromPath(filePath) {
+      if (!filePath) return "Unknown file";
+      const parts = filePath.split('/');
+      return parts[parts.length - 1] || "Unknown file";
+    },
+
+    getFileSize(filePath) {
+      // This would need to be fetched from the server
+      // For now, return a placeholder
+      return "File size unknown";
+    },
+
+    getFileDate(filePath) {
+      // This would need to be fetched from the server
+      return new Date().toLocaleDateString("en-PH", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+    },
+
+    previewActedDocument(filePath) {
+      if (!filePath) return;
+      
+      this.previewFile = filePath;
+      this.previewFileName = this.getFileNameFromPath(filePath);
+      this.showActedPreview = true;
+      this.actedPdfLoading = true;
+      this.actedPdfError = false;
+      
+      // Construct the URL for the document
+      this.actedPreviewUrl = `/dts_denr/storage/app/public/${filePath}`;
+    },
+
+    closeActedPreview() {
+      this.showActedPreview = false;
+      this.previewFile = null;
+      this.previewFileName = "";
+      this.actedPreviewUrl = "";
+      this.actedPdfLoading = true;
+      this.actedPdfError = false;
+    },
+
+    onActedPdfLoaded() {
+      this.actedPdfLoading = false;
+      this.actedPdfError = false;
+    },
+
+    onActedPdfError() {
+      this.actedPdfLoading = false;
+      this.actedPdfError = true;
+    },
+
+    retryActedPdfLoad() {
+      this.actedPdfLoading = true;
+      this.actedPdfError = false;
+      this.$nextTick(() => {
+        const iframe = document.querySelector(".acted-preview-iframe");
+        if (iframe) iframe.src = iframe.src;
+      });
+    },
+
+    downloadActedDocument(filePath) {
+      if (!filePath) return;
+      
+      const url = `/dts_denr/storage/app/public/${filePath}`;
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = this.getFileNameFromPath(filePath);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     },
   },
 };
@@ -1625,16 +1839,11 @@ export default {
 .detail-icon-wrapper.type-icon { background: #fef3c7; color: #d97706; }
 .detail-icon-wrapper.subject-icon { background: #dcfce7; color: #16a34a; }
 .detail-icon-wrapper.sender-icon-card { background: #ede9fe; color: #7c3aed; }
-.detail-icon-wrapper.date-icon-card { background: #fce7f3; color: #db2777; }
-.detail-icon-wrapper.desc-icon { background: #fff7ed; color: #ea580c; }
-.detail-icon-wrapper.meta-icon { background: #f1f5f9; color: #64748b; }
 .detail-info { flex: 1; min-width: 0; }
 .detail-info label { display: block; font-size: 0.7rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
 .detail-value { font-size: 0.85rem; color: #1e293b; font-weight: 500; word-break: break-word; line-height: 1.4; position: relative; }
 .tracking-number-large { font-size: 0.9rem; font-weight: 700; color: #2d6a4f; font-family: "Courier New", monospace; background: #f0fdf4; padding: 2px 8px; border-radius: 4px; display: inline-block; }
 .doc-type-badge-large { display: inline-block; padding: 3px 12px; background: #e0e7ff; color: #3730a3; border-radius: 6px; font-size: 0.8rem; font-weight: 600; border: 1px solid #c7d2fe; }
-.description-card { background: #fffbeb; border-color: #fde68a; }
-.description-text { color: #78350f; font-style: italic; line-height: 1.6; }
 
 /* ===== PDF PANEL ===== */
 .pdf-panel { display: flex; flex-direction: column; background: #f8fafc; overflow: hidden; }
@@ -1783,9 +1992,211 @@ export default {
 .tracking-badge { background: rgba(255, 255, 255, 0.2); padding: 2px 10px; border-radius: 12px; font-family: "Courier New", monospace; font-size: 0.75rem; margin-right: 8px; }
 .status-pill { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.3); }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 1200px) { .document-viewer-layout { grid-template-columns: 340px 1fr; } }
-@media (max-width: 1024px) { .search-filter-row { flex-direction: column; } .filter-wrapper { min-width: 100%; } }
+/* ===== ACTED DOCUMENTS ===== */
+.acted-documents-panel {
+  display: flex;
+  flex-direction: column;
+  height: calc(90vh - 140px);
+  background: #ffffff;
+  min-height: 500px;
+}
+
+.acted-documents-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background: #f8fafc;
+  border-bottom: 2px solid #e5e7eb;
+  flex-shrink: 0;
+}
+
+.acted-documents-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 1rem;
+}
+
+.acted-documents-title i {
+  color: #dc2626;
+  font-size: 1.2rem;
+}
+
+.acted-documents-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #991b1b;
+}
+
+.acted-documents-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  background: #f9fafb;
+}
+
+.acted-documents-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.acted-documents-content::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.acted-documents-content::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 4px;
+}
+
+.acted-state-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 300px;
+  text-align: center;
+}
+
+.acted-files-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.acted-file-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.acted-file-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.acted-file-icon {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: 10px;
+  background: #fee2e2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #dc2626;
+}
+
+.acted-file-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.acted-file-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1e293b;
+  word-break: break-word;
+  margin-bottom: 4px;
+}
+
+.acted-file-path {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-family: "Courier New", monospace;
+  word-break: break-all;
+  margin-bottom: 4px;
+}
+
+.acted-file-meta {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.acted-file-size {
+  font-size: 0.7rem;
+  color: #6b7280;
+  padding: 2px 8px;
+  background: #f3f4f6;
+  border-radius: 4px;
+}
+
+.acted-file-date {
+  font-size: 0.7rem;
+  color: #6b7280;
+}
+
+.acted-file-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.btn-acted-view,
+.btn-acted-download {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+}
+
+.btn-acted-view {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.btn-acted-view:hover {
+  background: #bfdbfe;
+  transform: scale(1.05);
+}
+
+.btn-acted-download {
+  background: #d1fae5;
+  color: #059669;
+}
+
+.btn-acted-download:hover {
+  background: #a7f3d0;
+  transform: scale(1.05);
+}
+
+/* ===== RESPONSIVE UPDATES ===== */
+@media (max-width: 1200px) { 
+  .document-viewer-layout { grid-template-columns: 340px 1fr; } 
+}
+
+@media (max-width: 1024px) { 
+  .search-filter-row { flex-direction: column; } 
+  .filter-wrapper { min-width: 100%; } 
+}
+
 @media (max-width: 992px) {
   .document-viewer-layout { grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: calc(90vh - 140px); }
   .details-panel { border-right: none; border-bottom: 1px solid #e5e7eb; max-height: 350px; }
@@ -1796,6 +2207,7 @@ export default {
   .flow-arrow-enhanced { transform: rotate(90deg); padding: 0; }
   .arrow-line { width: 30px; }
 }
+
 @media (max-width: 768px) {
   .document-view-modal { max-width: 100vw; width: 100vw; margin: 0; border-radius: 0; max-height: 100vh; }
   .document-viewer-tabs { padding: 8px 12px; gap: 4px; }
@@ -1815,7 +2227,11 @@ export default {
   .system-datetime-display { flex-direction: column; gap: 12px; }
   .confidential-notice { padding: 24px; }
   .confidential-title { font-size: 1.4rem; }
+  .acted-file-card { flex-wrap: wrap; padding: 12px 16px; }
+  .acted-file-actions { width: 100%; justify-content: flex-end; margin-top: 4px; }
+  .acted-file-meta { flex-direction: column; align-items: flex-start; gap: 4px; }
 }
+
 @media (max-width: 576px) {
   .document-header { padding: 12px 16px; }
   .viewer-tab-btn span { display: none; }
@@ -1826,5 +2242,8 @@ export default {
   .pdf-footer { flex-direction: column; gap: 4px; align-items: flex-start; }
   .route-history-header { padding: 12px 16px; flex-direction: column; gap: 8px; align-items: flex-start; }
   .active-filters { flex-direction: column; align-items: flex-start; }
+  .acted-documents-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .acted-file-card { padding: 10px 14px; }
+  .acted-file-icon { width: 40px; height: 40px; min-width: 40px; font-size: 1.2rem; }
 }
 </style>

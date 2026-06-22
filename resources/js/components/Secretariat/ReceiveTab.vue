@@ -315,7 +315,7 @@
                 <!-- Attachment Section -->
                 <div class="attachment-section">
                   <label class="form-label" style="margin-top: 12px;">
-                    Attachment
+                    Attachment (PDF only)
                   </label>
 
                   <!-- Dropzone when no file uploaded -->
@@ -330,23 +330,23 @@
                       type="file"
                       ref="fileInput"
                       class="d-none"
-                      accept=".pdf,.jpg,.jpeg,.png,.docx"
+                      accept=".pdf"
                       @change="handleFileUpload"
                     />
                     <div class="dropzone-content">
                       <div class="dropzone-icon">
                         <i class="bi bi-cloud-arrow-up"></i>
                       </div>
-                      <h6 class="fw-semibold mb-1">Click to upload or drag file here</h6>
-                      <p class="text-muted small mb-0">PDF, JPG, PNG, DOCX (Max 5MB)</p>
+                      <h6 class="fw-semibold mb-1">Click to upload or drag PDF here</h6>
+                      <p class="text-muted small mb-0">PDF only (Max 20MB)</p>
                     </div>
                   </div>
 
                   <!-- File card when file is uploaded -->
                   <div v-if="uploadedFile" class="single-file-card">
                     <div class="file-info">
-                      <div class="file-icon-wrap" :class="getFileColorClass(uploadedFile.name)">
-                        <i :class="getForwardFileIcon(uploadedFile.name)"></i>
+                      <div class="file-icon-wrap file-pdf">
+                        <i class="bi bi-file-pdf"></i>
                       </div>
                       <div class="file-details">
                         <div class="file-name">{{ uploadedFile.name }}</div>
@@ -448,28 +448,32 @@
     </div>
 
     <!-- File Preview Modal -->
-    <!-- File Preview Modal -->
-<div v-if="showFilePreview" class="modal-overlay" @click.self="closeFilePreview">
-  <div class="modal-dialog" style="max-width: 1200px; width: 95vw; max-height: 95vh;">
-    <div class="modal-content square-modal">
-      <div class="square-header">
-        <h5 class="modal-title">File Preview</h5>
-        <button type="button" class="square-close" @click="closeFilePreview">
-          <i class="bi bi-x-lg"></i>
-        </button>
-      </div>
-      <div class="modal-body text-center" style="max-height: 85vh; overflow-y: auto; padding: 20px;">
-        <img v-if="isImageFile(uploadedFile)" :src="filePreviewUrl" class="img-fluid" style="max-height: 80vh; max-width: 100%;" alt="Preview" />
-        <iframe v-else-if="isPdfFile(uploadedFile)" :src="filePreviewUrl" width="100%" height="800px" frameborder="0"></iframe>
-        <div v-else class="p-5 text-center">
-          <i :class="getForwardFileIcon(uploadedFile?.name || '')" style="font-size: 4rem; color: #6b7280;"></i>
-          <p class="mt-3">Preview not available for this file type.</p>
-          <p class="text-muted">{{ uploadedFile?.name }}</p>
+    <div v-if="showFilePreview" class="modal-overlay" @click.self="closeFilePreview">
+      <div class="modal-dialog" style="max-width: 1200px; width: 95vw; max-height: 95vh;">
+        <div class="modal-content square-modal">
+          <div class="square-header">
+            <h5 class="modal-title">File Preview</h5>
+            <button type="button" class="square-close" @click="closeFilePreview">
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+          <div class="modal-body text-center" style="max-height: 85vh; overflow-y: auto; padding: 20px;">
+            <iframe 
+              v-if="uploadedFile && uploadedFile.type === 'application/pdf'" 
+              :src="filePreviewUrl" 
+              width="100%" 
+              height="800px" 
+              frameborder="0"
+            ></iframe>
+            <div v-else class="p-5 text-center">
+              <i class="bi bi-file-pdf" style="font-size: 4rem; color: #6b7280;"></i>
+              <p class="mt-3">Preview not available for this file type.</p>
+              <p class="text-muted">{{ uploadedFile?.name }}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
     <!-- Release Document Modal -->
     <div v-if="showReleaseModal" class="modal-overlay" @click.self="closeReleaseModal">
@@ -1394,28 +1398,22 @@ export default {
     processSingleFile(file) {
       this.attachmentError = "";
       
-      const validTypes = [
-        'application/pdf', 
-        'image/jpeg', 
-        'image/png', 
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-      ];
-      const maxSize = 5 * 1024 * 1024;
-
-      if (!validTypes.includes(file.type)) {
-        this.attachmentError = "Unsupported file format. Please use PDF, JPG, PNG, or DOCX.";
+      // Only accept PDF files (matching backend validation)
+      if (file.type !== 'application/pdf') {
+        this.attachmentError = "Only PDF files are allowed. Please upload a PDF document.";
         return;
       }
 
+      const maxSize = 20 * 1024 * 1024; // 20MB (matching backend)
       if (file.size > maxSize) {
-        this.attachmentError = "File size exceeds 5MB limit.";
+        this.attachmentError = "File size exceeds 20MB limit.";
         return;
       }
 
       this.uploadedFile = file;
       
-      // Create preview URL
-      if (file.type.startsWith('image/') || file.type === 'application/pdf') {
+      // Create preview URL for PDF
+      if (file.type === 'application/pdf') {
         this.filePreviewUrl = URL.createObjectURL(file);
       }
     },
@@ -1432,12 +1430,11 @@ export default {
     openFilePreview() {
       if (!this.uploadedFile) return;
       
-      if (this.filePreviewUrl) {
+      if (this.uploadedFile.type === 'application/pdf') {
         this.showFilePreview = true;
       } else {
-        // For DOCX files, we can't preview
         this.$emit("show-notification", {
-          message: "Preview not available for this file type. You can view it after downloading.",
+          message: "Preview only available for PDF files.",
           type: "info",
         });
       }
@@ -1445,14 +1442,6 @@ export default {
 
     closeFilePreview() {
       this.showFilePreview = false;
-    },
-
-    isImageFile(file) {
-      return file?.type?.startsWith('image/');
-    },
-
-    isPdfFile(file) {
-      return file?.type === 'application/pdf';
     },
 
     getForwardFileIcon(fileName) {
@@ -1651,9 +1640,9 @@ export default {
         formData.append('from_office_id', currentOfficeId);
         formData.append('remarks', this.remarks || '');
         
-        // Append file if exists
+        // FIX: Append file with the correct field name 'attachments[]'
         if (this.uploadedFile) {
-          formData.append('attachment', this.uploadedFile);
+          formData.append('attachments[]', this.uploadedFile);
         }
 
         const response = await axios.post(

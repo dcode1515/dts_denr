@@ -27,6 +27,7 @@ class IncomingDocumentRoute extends Model
             'status',
         ];
           protected $casts = [
+           
             'date_forwarded' => 'datetime',
             'date_receive' => 'datetime',
             'date_document_out' => 'datetime',

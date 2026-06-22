@@ -154,18 +154,17 @@ public function receive_secretariat_incoming(Request $request, $id){
                 ], 200);
         }
 
-   public function forward_other_office(Request $request, $id)
+  public function forward_other_office(Request $request, $id)
 {
     $request->validate([
         'incoming_document_id' => 'required|exists:incoming_documents_tbl,id',
         'offices' => 'required|json',
         'selectedDuration' => 'required|string|max:255',
         'remarks' => 'nullable|string|max:500',
-          'attachments.*' => 'nullable|file|mimes:pdf|max:20480', // 20MB max per file
+        'attachments.*' => 'nullable|file|mimes:pdf|max:20480', // 20MB max per file
     ]);
 
     try {
-       
         $offices = json_decode($request->offices, true);
         
         if (empty($offices)) {
@@ -175,14 +174,56 @@ public function receive_secretariat_incoming(Request $request, $id){
             ], 422);
         }
 
-      
         $incomingDocument = IncomingDocument::findOrFail($id);
+
+        // Get the authenticated user's office
+        $user = Auth::user();
+        $userOfficeId = $user->sub_office_id;
+        $userOfficeName = '';
+
+        // Get user office name from sub_office_tbl
+        if ($userOfficeId) {
+            $userOffice = \DB::table('sub_office_tbl')->where('id', $userOfficeId)->first();
+            if ($userOffice) {
+                $userOfficeName = $userOffice->sub_office_name ?? 'unknown';
+            }
+        }
+
+        // Generate unique identifier for this forward action
+        $forwardIdentifier = date('Ymd_His') . '_' . uniqid();
+        
+        // Create a unique folder name with office info to avoid redundancy
+        $officeFolder = $userOfficeName . '_' . $userOfficeId . '_' . $forwardIdentifier;
+        
+        $attachmentPaths = [];
+        if ($request->hasFile('attachments')) {
+            // Use tracking number directly for the folder path
+            $trackingNumber = $incomingDocument->tracking_number ?? 'unknown';
+            
+            foreach ($request->file('attachments') as $file) {
+                // Generate unique filename with timestamp and random string
+                $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                
+                // Store in: storage/app/public/attachments/tracking_number/ACTED DOCUMENTS/office_name_id_timestamp/
+                $attachmentPath = $file->storeAs(
+                    'attachments/' . $trackingNumber . '/ACTED DOCUMENTS/' . $officeFolder,
+                    $fileName,
+                    'public'
+                );
+                $attachmentPaths[] = $attachmentPath;
+            }
+        }
+        
+        $attachmentString = !empty($attachmentPaths) ? implode(',', $attachmentPaths) : null;
+
+        // Update the existing document route (current ID)
         $documentRoute = IncomingDocumentRoute::findOrFail($id);
         $documentRoute->status = "FORWARDED";
         $documentRoute->date_document_out = now();
+        $documentRoute->acted_documents = $attachmentString; // Store attachments in current route
         $documentRoute->save();
 
-      
+        // Update the incoming document
         $incomingDocument->update([
             'set_user_duration_id' => Auth::user()->id,
             'duration' => $request->selectedDuration,
@@ -190,8 +231,8 @@ public function receive_secretariat_incoming(Request $request, $id){
 
         $routes = [];
         $now = now();
-      
-       
+
+        // Create routes for each office with the same attachments
         foreach ($offices as $office) {
             $route = IncomingDocumentRoute::create([
                 'document_id' => $incomingDocument->id,
@@ -201,16 +242,19 @@ public function receive_secretariat_incoming(Request $request, $id){
                 'date_forwarded' => $now,
                 'status' => 'PENDING',
                 'remarks' => $request->remarks,
+                
             ]);
 
             $routes[] = $route;
-
         }
-    return response()->json([
+
+        return response()->json([
             'success' => true,
+            'message' => 'Document forwarded successfully to ' . count($offices) . ' office(s).',
             'data' => [
                 'date_forwarded' => $now->toDateTimeString(),
                 'duration' => $request->selectedDuration,
+                'acted_documents' => $attachmentPaths,
             ]
         ], 200);
 
@@ -240,6 +284,5 @@ public function receive_secretariat_incoming(Request $request, $id){
         ], 500);
     }
 }
-
 } 
    
