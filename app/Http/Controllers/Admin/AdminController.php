@@ -428,7 +428,7 @@ class AdminController extends Controller
                 $routesData[] = [
                     'document_id' => $document->id,
                     'office_id' => $officeId,
-                     'from_office_id' => Auth::user()->id,
+                     'from_office_id' => Auth::user()->sub_office_id,
                     'date_forwarded' => $currentDateTime,
                     'status' => "PENDING",
                     'created_at' => $currentDateTime,
@@ -558,6 +558,41 @@ public function get_data_in_progress(Request $request){
             'success' => true,
             'data' => $inprogress
         ]);
+    }
+    public function get_data_for_release(Request $request){
+         $search = $request->query('search');
+        $perPage = $request->query('per_page', 10); // Default to 10 if not provided
+    
+        // Query promotions with optional search and sorting by 'date_original_appointment'
+        $inprogress = IncomingDocument::with('documentType')->with('documentRoute.office','documentRoute.receivedBy')->where('status', 'FOR RELEASE')
+            ->when($search, function ($query, $search) {
+                return $query
+                    ->where('tracking_number', 'like', '%' . $search . '%')
+                     ->OrWhere('sender_name', 'like', '%' . $search . '%')
+                      ->OrWhere('subject', 'like', '%' . $search . '%')
+                         ->OrWhere('document_classification', 'like', '%' . $search . '%')
+                       ->OrWhereHas('documentType', function ($q) use ($search) {
+                            $q->where('document_type_name', 'like', '%' . $search . '%');
+                        });
+            })
+        
+            ->orderBy('tracking_number', 'desc') // Order by date_original_appointment first
+            ->paginate($perPage); // Use the per_page value for pagination
+    
+        return response()->json([
+            'success' => true,
+            'data' => $inprogress
+        ]);
+    }
+
+    public function route_office_other(){
+    $office = SubOffice::where('status', 'Active')
+                 ->get();
+
+                return response()->json([
+                    'status' => true,
+                    'data' => $office
+                ], 200);
     }
 
 

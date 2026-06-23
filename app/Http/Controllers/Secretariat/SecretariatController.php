@@ -154,10 +154,9 @@ public function receive_secretariat_incoming(Request $request, $id){
                 ], 200);
         }
 
-  public function forward_other_office(Request $request, $id)
+public function forward_other_office(Request $request, $id)
 {
-    $request->validate([
-        'incoming_document_id' => 'required|exists:incoming_documents_tbl,id',
+   $request->validate([
         'offices' => 'required|json',
         'selectedDuration' => 'required|string|max:255',
         'remarks' => 'nullable|string|max:500',
@@ -165,6 +164,7 @@ public function receive_secretariat_incoming(Request $request, $id){
     ]);
 
     try {
+        // Decode offices from JSON
         $offices = json_decode($request->offices, true);
         
         if (empty($offices)) {
@@ -174,14 +174,19 @@ public function receive_secretariat_incoming(Request $request, $id){
             ], 422);
         }
 
-        $incomingDocument = IncomingDocument::findOrFail($id);
+        // Find the current document route using the $id parameter
+        // $id here is the route ID (IncomingDocumentRoute ID)
+        $currentRoute = IncomingDocumentRoute::findOrFail($id);
+        
+        // Get the IncomingDocument using the document_id from the route
+        $incomingDocument = IncomingDocument::findOrFail($currentRoute->document_id);
 
-        // Get the authenticated user's office
+        // Get the authenticated user
         $user = Auth::user();
         $userOfficeId = $user->sub_office_id;
-        $userOfficeName = '';
 
-        // Get user office name from sub_office_tbl
+        // Get user office name for folder structure
+        $userOfficeName = '';
         if ($userOfficeId) {
             $userOffice = \DB::table('sub_office_tbl')->where('id', $userOfficeId)->first();
             if ($userOffice) {
@@ -192,9 +197,10 @@ public function receive_secretariat_incoming(Request $request, $id){
         // Generate unique identifier for this forward action
         $forwardIdentifier = date('Ymd_His') . '_' . uniqid();
         
-        // Create a unique folder name with office info to avoid redundancy
+        // Create a unique folder name with office info
         $officeFolder = $userOfficeName . '_' . $userOfficeId . '_' . $forwardIdentifier;
         
+        // Handle file attachments
         $attachmentPaths = [];
         if ($request->hasFile('attachments')) {
             // Use tracking number directly for the folder path
@@ -216,57 +222,63 @@ public function receive_secretariat_incoming(Request $request, $id){
         
         $attachmentString = !empty($attachmentPaths) ? implode(',', $attachmentPaths) : null;
 
-        // Update the existing document route (current ID)
-        $documentRoute = IncomingDocumentRoute::findOrFail($id);
-        $documentRoute->status = "FORWARDED";
-        $documentRoute->date_document_out = now();
-        $documentRoute->acted_documents = $attachmentString; // Store attachments in current route
-        $documentRoute->save();
+        // UPDATE: Update the IncomingDocument with duration and user
+        $incomingDocument->set_user_duration_id = $user->id;
+        $incomingDocument->duration = $request->selectedDuration;
+        $incomingDocument->save();
 
-        // Update the incoming document
-        $incomingDocument->update([
-            'set_user_duration_id' => Auth::user()->id,
-            'duration' => $request->selectedDuration,
-        ]);
+        // UPDATE: Update the current route status to "FORWARDED"
+        $currentRoute->status = "FORWARDED";
+        $currentRoute->date_document_out = now();
+        $currentRoute->acted_documents = $attachmentString;
+        $currentRoute->save();
 
+        // CREATE: Create new routes for each selected office
         $routes = [];
         $now = now();
 
-        // Create routes for each office with the same attachments
         foreach ($offices as $office) {
+            // Make sure office has an ID
+            if (!isset($office['id'])) {
+                continue;
+            }
+
             $route = IncomingDocumentRoute::create([
-                'document_id' => $incomingDocument->id,
-                'incoming_document_id' => $request->incoming_document_id,
-                'office_id' => $office['id'],
-                'from_office_id' => Auth::user()->id,
+                'document_id' => $incomingDocument->id, // Reference to the IncomingDocument
+                'office_id' => $office['id'], // Target office ID from the selected offices
+                'from_office_id' => $userOfficeId, // Source office ID (current user's office)
                 'date_forwarded' => $now,
                 'status' => 'PENDING',
                 'remarks' => $request->remarks,
-                
+             
             ]);
 
             $routes[] = $route;
         }
 
+        // Return success response
         return response()->json([
             'success' => true,
-            'message' => 'Document forwarded successfully to ' . count($offices) . ' office(s).',
+            'message' => 'Document forwarded successfully to ' . count($routes) . ' office(s).',
             'data' => [
-                'date_forwarded' => $now->toDateTimeString(),
+                'document_id' => $incomingDocument->id,
+                'tracking_number' => $incomingDocument->tracking_number,
                 'duration' => $request->selectedDuration,
-                'acted_documents' => $attachmentPaths,
+                'date_forwarded' => $now->toDateTimeString(),
+                'routes' => $routes,
+               
             ]
         ], 200);
 
     } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-        Log::error('Document not found for forwarding', [
-            'document_id' => $id,
+        Log::error('Document route not found for forwarding', [
+            'route_id' => $id,
             'error' => $e->getMessage()
         ]);
         
         return response()->json([
             'success' => false,
-            'message' => 'Document not found. Please check the document ID and try again.',
+            'message' => 'Document route not found. Please check the document and try again.',
         ], 404);
 
     } catch (\Exception $e) {
@@ -280,6 +292,116 @@ public function receive_secretariat_incoming(Request $request, $id){
         return response()->json([
             'success' => false,
             'message' => 'Failed to forward document. Please try again.',
+            'error' => config('app.debug') ? $e->getMessage() : null,
+        ], 500);
+    }
+        
+}
+public function for_release_document(Request $request)
+{
+    $request->validate([
+        'document_route_id' => 'required|exists:incoming_document_route,id',
+        'tracking_number' => 'required|string|max:255',
+        'remarks' => 'nullable|string|max:500',
+        'attachments.*' => 'nullable|file|mimes:pdf|max:20480', // 20MB max per file
+    ]);
+
+    try {
+        // Find the current document route
+        $currentRoute = IncomingDocumentRoute::findOrFail($request->document_route_id);
+        
+        // Get the IncomingDocument using the document_id from the route
+        $incomingDocument = IncomingDocument::findOrFail($currentRoute->document_id);
+
+        // Get the authenticated user
+        $user = Auth::user();
+        $userOfficeId = $user->sub_office_id;
+
+        // Get user office name for folder structure
+        $userOfficeName = '';
+        if ($userOfficeId) {
+            $userOffice = \DB::table('sub_office_tbl')->where('id', $userOfficeId)->first();
+            if ($userOffice) {
+                $userOfficeName = $userOffice->sub_office_name ?? 'unknown';
+            }
+        }
+
+        // Generate unique identifier for this release action
+        $releaseIdentifier = date('Ymd_His') . '_' . uniqid();
+        
+        // Create a unique folder name with office info
+        $officeFolder = $userOfficeName . '_' . $userOfficeId . '_' . $releaseIdentifier;
+        
+        // Handle file attachments
+        $attachmentPaths = [];
+        if ($request->hasFile('attachments')) {
+            // Use tracking number directly for the folder path
+            $trackingNumber = $incomingDocument->tracking_number ?? 'unknown';
+            
+            foreach ($request->file('attachments') as $file) {
+                // Generate unique filename with timestamp and random string
+                $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                
+                // Store in: storage/app/public/attachments/tracking_number/RELEASE DOCUMENTS/office_name_id_timestamp/
+                $attachmentPath = $file->storeAs(
+                    'attachments/' . $trackingNumber . '/ACTED DOCUMENTS/' . $officeFolder,
+                    $fileName,
+                    'public'
+                );
+                $attachmentPaths[] = $attachmentPath;
+            }
+        }
+        
+        $attachmentString = !empty($attachmentPaths) ? implode(',', $attachmentPaths) : null;
+
+        // UPDATE: Update the IncomingDocument status to "FOR RELEASE"
+        $incomingDocument->status = "FOR RELEASE";
+        $incomingDocument->for_release_remarks = $request->remarks;
+        $incomingDocument->save();
+
+        // UPDATE: Update the current route status to "FOR RELEASE"
+        $currentRoute->status = "FOR RELEASE TO RECORDS";
+        $currentRoute->date_document_out = now();
+        $currentRoute->acted_documents = $attachmentString;
+        $currentRoute->remarks = $request->remarks;
+        $currentRoute->save();
+
+        // Return success response
+        return response()->json([
+            'success' => true,
+            'message' => 'Document has been marked for release successfully.',
+            'data' => [
+                'document_id' => $incomingDocument->id,
+                'tracking_number' => $incomingDocument->tracking_number,
+                'status' => 'FOR RELEASE',
+                'date_released' => now()->toDateTimeString(),
+                'remarks' => $request->remarks,
+                'attachments' => $attachmentString,
+            ]
+        ], 200);
+
+    } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+        Log::error('Document route not found for release', [
+            'route_id' => $request->document_route_id,
+            'error' => $e->getMessage()
+        ]);
+        
+        return response()->json([
+            'success' => false,
+            'message' => 'Document route not found. Please check the document and try again.',
+        ], 404);
+
+    } catch (\Exception $e) {
+        Log::error('Release document error: ' . $e->getMessage(), [
+            'file' => $e->getFile(),
+            'line' => $e->getLine(),
+            'trace' => $e->getTraceAsString(),
+            'request_data' => $request->except(['attachments']),
+        ]);
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Failed to release document. Please try again.',
             'error' => config('app.debug') ? $e->getMessage() : null,
         ], 500);
     }

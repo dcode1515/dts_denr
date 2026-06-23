@@ -155,7 +155,7 @@
           <!-- ==================== FOR RELEASE TAB ==================== -->
           <div v-show="activeTab === 'for-release'">
             <ForReleaseTab
-              ref="forReleaseTab"
+              ref="ForReleaseTab"
               :document-types="documentTypes"
               @view-document="viewDocument"
               @download-document="downloadDocument"

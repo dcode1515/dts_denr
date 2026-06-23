@@ -447,11 +447,11 @@
       </div>
     </div>
 
-    <!-- File Preview Modal -->
+    <!-- Forward File Preview Modal -->
     <div v-if="showFilePreview" class="modal-overlay" @click.self="closeFilePreview">
       <div class="modal-dialog" style="max-width: 1200px; width: 95vw; max-height: 95vh;">
         <div class="modal-content square-modal">
-          <div class="square-header">
+          <div class="square-header" style="background: linear-gradient(135deg, #1e4d2b, #2d6a4f)">
             <h5 class="modal-title">File Preview</h5>
             <button type="button" class="square-close" @click="closeFilePreview">
               <i class="bi bi-x-lg"></i>
@@ -477,23 +477,24 @@
 
     <!-- Release Document Modal -->
     <div v-if="showReleaseModal" class="modal-overlay" @click.self="closeReleaseModal">
-      <div class="modal-dialog enhanced-modal" style="max-width: 550px">
+      <div class="modal-dialog enhanced-modal" style="max-width: 600px">
         <div class="modal-content square-modal">
-          <div class="modal-header-enhanced square-header" style="background: linear-gradient(135deg, #2563eb, #1d4ed8)">
+          <div class="square-header" style="background: linear-gradient(135deg, #1e4d2b, #2d6a4f)">
             <div class="d-flex align-items-center">
-              <div class="modal-icon-wrapper square-icon" style="background: rgba(255, 255, 255, 0.2)">
+              <div class="square-icon" style="background: rgba(255, 255, 255, 0.2)">
                 <i class="bi bi-check2-circle"></i>
               </div>
               <div>
                 <h5 class="modal-title">Release Document</h5>
+                <small class="modal-subtitle">Confirm document release</small>
               </div>
             </div>
-            <button type="button" class="btn-close-custom square-close" @click="closeReleaseModal" :disabled="releasing">
+            <button type="button" class="square-close" @click="closeReleaseModal" :disabled="releasing">
               <i class="bi bi-x-lg"></i>
             </button>
           </div>
 
-          <div class="modal-body-enhanced">
+          <div class="modal-body">
             <div v-if="releaseError" class="error-msg" role="alert">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                 <circle cx="12" cy="12" r="10" />
@@ -543,9 +544,84 @@
               </div>
             </div>
 
+            <!-- Attachment Section -->
+            <div class="attachment-section mt-3">
+              <label class="form-label">
+                Attachment (PDF only)
+              </label>
+
+              <!-- Dropzone when no file uploaded -->
+              <div
+                v-if="!releaseUploadedFile"
+                class="dropzone"
+                @click="triggerReleaseFileUpload"
+                @dragover.prevent
+                @drop.prevent="handleReleaseDrop"
+              >
+                <input
+                  type="file"
+                  ref="releaseFileInput"
+                  class="d-none"
+                  accept=".pdf"
+                  @change="handleReleaseFileUpload"
+                />
+                <div class="dropzone-content">
+                  <div class="dropzone-icon">
+                    <i class="bi bi-cloud-arrow-up"></i>
+                  </div>
+                  <h6 class="fw-semibold mb-1">Click to upload or drag PDF here</h6>
+                  <p class="text-muted small mb-0">PDF only (Max 20MB)</p>
+                </div>
+              </div>
+
+              <!-- File card when file is uploaded -->
+              <div v-if="releaseUploadedFile" class="single-file-card">
+                <div class="file-info">
+                  <div class="file-icon-wrap file-pdf">
+                    <i class="bi bi-file-pdf"></i>
+                  </div>
+                  <div class="file-details">
+                    <div class="file-name">{{ releaseUploadedFile.name }}</div>
+                    <div class="file-size">{{ formatFileSize(releaseUploadedFile.size) }}</div>
+                  </div>
+                </div>
+                <div class="file-actions">
+                  <button
+                    type="button"
+                    class="btn-icon btn-icon-view"
+                    @click="openReleaseFilePreview"
+                    title="View"
+                  >
+                    <i class="bi bi-eye"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn-icon btn-icon-replace"
+                    @click="triggerReleaseFileUpload"
+                    title="Replace"
+                  >
+                    <i class="bi bi-arrow-repeat"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn-icon btn-icon-remove"
+                    @click="removeReleaseFile"
+                    title="Remove"
+                  >
+                    <i class="bi bi-x-lg"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="field-error" v-if="releaseAttachmentError">
+                <i class="bi bi-exclamation-circle"></i>
+                {{ releaseAttachmentError }}
+              </div>
+            </div>
+
             <!-- Remarks -->
             <div class="mt-3">
-              <label class="form-label-enhanced">
+              <label class="form-label">
                 Remarks (Optional)
               </label>
               <textarea
@@ -563,7 +639,7 @@
 
             <!-- System Date and Time Display -->
             <div class="system-datetime-box mt-3">
-              <div class="system-datetime-header" style="background: #2563eb;">
+              <div class="system-datetime-header" style="background: #2d6a4f;">
                 <i class="bi bi-clock-fill"></i>
                 <span>System Date & Time (Philippine Standard Time)</span>
               </div>
@@ -597,14 +673,43 @@
               </button>
               <button
                 type="button"
-                class="btn btn-release-doc square-btn"
+                class="btn-save square-btn"
                 @click="submitReleaseDocument"
                 :disabled="releasing"
+                style="background: linear-gradient(135deg, #1e4d2b, #2d6a4f);"
               >
                 <span v-if="releasing" class="spinner-border spinner-border-sm me-1" role="status"></span>
                 <i v-else class="bi bi-check2-circle me-1"></i>
-                {{ releasing ? "Processing..." : "Confirm Release" }}
+                {{ releasing ? "Processing..." : "Confirm For Release" }}
               </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Release File Preview Modal -->
+    <div v-if="showReleaseFilePreview" class="modal-overlay" @click.self="closeReleaseFilePreview">
+      <div class="modal-dialog" style="max-width: 1200px; width: 95vw; max-height: 95vh;">
+        <div class="modal-content square-modal">
+          <div class="square-header" style="background: linear-gradient(135deg, #1e4d2b, #2d6a4f)">
+            <h5 class="modal-title">File Preview</h5>
+            <button type="button" class="square-close" @click="closeReleaseFilePreview">
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+          <div class="modal-body text-center" style="max-height: 85vh; overflow-y: auto; padding: 20px;">
+            <iframe 
+              v-if="releaseUploadedFile && releaseUploadedFile.type === 'application/pdf'" 
+              :src="releaseFilePreviewUrl" 
+              width="100%" 
+              height="800px" 
+              frameborder="0"
+            ></iframe>
+            <div v-else class="p-5 text-center">
+              <i class="bi bi-file-pdf" style="font-size: 4rem; color: #6b7280;"></i>
+              <p class="mt-3">Preview not available for this file type.</p>
+              <p class="text-muted">{{ releaseUploadedFile?.name }}</p>
             </div>
           </div>
         </div>
@@ -1230,7 +1335,7 @@ export default {
       filePreviewUrl: "",
       attachmentError: "",
 
-      // File Preview Modal
+      // Forward File Preview Modal
       showFilePreview: false,
 
       // Release Modal
@@ -1239,6 +1344,12 @@ export default {
       releasing: false,
       releaseError: "",
       releaseRemarks: "",
+      
+      // Release File Upload
+      releaseUploadedFile: null,
+      releaseFilePreviewUrl: "",
+      releaseAttachmentError: "",
+      showReleaseFilePreview: false,
 
       // Archive Modal
       showArchiveModal: false,
@@ -1285,7 +1396,7 @@ export default {
       this.updatePstDateTime();
     }, 1000);
   },
-  beforeUnmount() {
+  beforeDestroy() {
     if (this.pstClockInterval) {
       clearInterval(this.pstClockInterval);
     }
@@ -1373,7 +1484,7 @@ export default {
       return null;
     },
 
-    // ===== FILE HANDLING =====
+    // ===== FORWARD FILE HANDLING =====
     triggerFileUpload() {
       if (!this.forwarding && this.$refs.fileInput) {
         this.$refs.fileInput.click();
@@ -1398,13 +1509,12 @@ export default {
     processSingleFile(file) {
       this.attachmentError = "";
       
-      // Only accept PDF files (matching backend validation)
       if (file.type !== 'application/pdf') {
         this.attachmentError = "Only PDF files are allowed. Please upload a PDF document.";
         return;
       }
 
-      const maxSize = 20 * 1024 * 1024; // 20MB (matching backend)
+      const maxSize = 20 * 1024 * 1024;
       if (file.size > maxSize) {
         this.attachmentError = "File size exceeds 20MB limit.";
         return;
@@ -1412,7 +1522,6 @@ export default {
 
       this.uploadedFile = file;
       
-      // Create preview URL for PDF
       if (file.type === 'application/pdf') {
         this.filePreviewUrl = URL.createObjectURL(file);
       }
@@ -1444,22 +1553,73 @@ export default {
       this.showFilePreview = false;
     },
 
-    getForwardFileIcon(fileName) {
-      if (!fileName) return 'bi bi-file-earmark';
-      const name = fileName.toLowerCase();
-      if (name.endsWith('.pdf')) return 'bi bi-file-pdf';
-      if (name.endsWith('.docx') || name.endsWith('.doc')) return 'bi bi-file-word';
-      if (name.endsWith('.jpg') || name.endsWith('.jpeg') || name.endsWith('.png')) return 'bi bi-file-image';
-      return 'bi bi-file-earmark';
+    // ===== RELEASE FILE HANDLING =====
+    triggerReleaseFileUpload() {
+      if (!this.releasing && this.$refs.releaseFileInput) {
+        this.$refs.releaseFileInput.click();
+      }
     },
 
-    getFileColorClass(fileName) {
-      if (!fileName) return '';
-      const name = fileName.toLowerCase();
-      if (name.endsWith('.pdf')) return 'file-pdf';
-      if (name.endsWith('.docx') || name.endsWith('.doc')) return 'file-word';
-      if (name.endsWith('.jpg') || name.endsWith('.jpeg') || name.endsWith('.png')) return 'file-image';
-      return '';
+    handleReleaseFileUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        this.processReleaseFile(file);
+      }
+      event.target.value = '';
+    },
+
+    handleReleaseDrop(event) {
+      const file = event.dataTransfer.files[0];
+      if (file) {
+        this.processReleaseFile(file);
+      }
+    },
+
+    processReleaseFile(file) {
+      this.releaseAttachmentError = "";
+      
+      if (file.type !== 'application/pdf') {
+        this.releaseAttachmentError = "Only PDF files are allowed. Please upload a PDF document.";
+        return;
+      }
+
+      const maxSize = 20 * 1024 * 1024;
+      if (file.size > maxSize) {
+        this.releaseAttachmentError = "File size exceeds 20MB limit.";
+        return;
+      }
+
+      this.releaseUploadedFile = file;
+      
+      if (file.type === 'application/pdf') {
+        this.releaseFilePreviewUrl = URL.createObjectURL(file);
+      }
+    },
+
+    removeReleaseFile() {
+      if (this.releaseFilePreviewUrl) {
+        URL.revokeObjectURL(this.releaseFilePreviewUrl);
+      }
+      this.releaseUploadedFile = null;
+      this.releaseFilePreviewUrl = "";
+      this.releaseAttachmentError = "";
+    },
+
+    openReleaseFilePreview() {
+      if (!this.releaseUploadedFile) return;
+      
+      if (this.releaseUploadedFile.type === 'application/pdf') {
+        this.showReleaseFilePreview = true;
+      } else {
+        this.$emit("show-notification", {
+          message: "Preview only available for PDF files.",
+          type: "info",
+        });
+      }
+    },
+
+    closeReleaseFilePreview() {
+      this.showReleaseFilePreview = false;
     },
 
     formatFileSize(bytes) {
@@ -1612,11 +1772,13 @@ export default {
       this.selectedOffices = this.selectedOffices.filter((office) => office.id !== officeId);
     },
 
+    // ===== SUBMIT FORWARD DOCUMENT =====
     async submitForwardDocument() {
       if (this.selectedOffices.length === 0) {
         this.forwardError = "Please select at least one office.";
         return;
       }
+
       if (!this.hasExistingDuration() && !this.selectedDuration) {
         this.forwardError = "Please select a duration.";
         return;
@@ -1627,26 +1789,25 @@ export default {
 
       try {
         const formData = new FormData();
-        const durationValue = this.hasExistingDuration() ? this.getDurationValue() : this.selectedDuration;
-        const currentOfficeId = this.getCurrentUserOfficeId();
-
-        formData.append('incoming_document_id', this.forwardDocument.id);
-        formData.append('selectedDuration', durationValue);
-        formData.append('offices', JSON.stringify(this.selectedOffices.map((office) => ({
-          id: office.id,
-          sub_office_name: office.sub_office_name,
-          office_code: office.office_code || null
-        }))));
-        formData.append('from_office_id', currentOfficeId);
-        formData.append('remarks', this.remarks || '');
         
-        // FIX: Append file with the correct field name 'attachments[]'
+        const durationValue = this.hasExistingDuration() 
+          ? this.getDurationValue() 
+          : this.selectedDuration;
+
+        const currentOfficeId = this.getCurrentUserOfficeId();
+        const routeId = this.forwardDocument.id;
+
+        formData.append('offices', JSON.stringify(this.selectedOffices));
+        formData.append('selectedDuration', durationValue);
+        formData.append('remarks', this.remarks || '');
+        formData.append('from_office_id', currentOfficeId || '');
+
         if (this.uploadedFile) {
           formData.append('attachments[]', this.uploadedFile);
         }
 
         const response = await axios.post(
-          `/dts_denr/api/forward-other-office/${this.forwardDocument.id}`, 
+          `/dts_denr/api/forward-other-office/${routeId}`,
           formData,
           {
             headers: {
@@ -1668,13 +1829,27 @@ export default {
           type: "success",
         });
         this.getDataReceived(this.documents.current_page);
+
       } catch (error) {
-        console.error("Forward error:", error);
-        const errorMessage = error.response?.data?.message || "Failed to forward document.";
+        console.error("Forward error details:", error);
+
+        let errorMessage = "Failed to forward document. Please try again.";
+
+        if (error.response) {
+          errorMessage = error.response.data?.message || errorMessage;
+          if (error.response.data?.errors) {
+            const errors = error.response.data.errors;
+            const errorMessages = Object.values(errors).flat();
+            errorMessage = errorMessages.join(', ');
+          }
+        } else if (error.request) {
+          errorMessage = "No response from server. Please check your connection.";
+        }
+
         this.forwardError = errorMessage;
-        this.$emit("show-notification", { 
-          message: errorMessage, 
-          type: "error" 
+        this.$emit("show-notification", {
+          message: errorMessage,
+          type: "error"
         });
       } finally {
         this.forwarding = false;
@@ -1687,9 +1862,13 @@ export default {
       this.showReleaseModal = true;
       this.releaseError = "";
       this.releaseRemarks = "";
+      this.releaseUploadedFile = null;
+      this.releaseFilePreviewUrl = "";
+      this.releaseAttachmentError = "";
     },
 
     closeReleaseModal() {
+      this.removeReleaseFile();
       this.showReleaseModal = false;
       this.releaseDocument = null;
       this.releaseError = "";
@@ -1701,15 +1880,24 @@ export default {
       this.releaseError = "";
 
       try {
-        const response = await axios.post("/dts_denr/api/release-document", {
-          document_route_id: this.releaseDocument.id,
-          tracking_number: this.releaseDocument.document.tracking_number,
-          remarks: this.releaseRemarks || "",
-          released_at: new Date().toISOString(),
+        const formData = new FormData();
+        formData.append('document_route_id', this.releaseDocument.id);
+        formData.append('tracking_number', this.releaseDocument.document.tracking_number);
+        formData.append('remarks', this.releaseRemarks || '');
+        formData.append('released_at', new Date().toISOString());
+
+        if (this.releaseUploadedFile) {
+          formData.append('attachments[]', this.releaseUploadedFile);
+        }
+
+        const response = await axios.post("/dts_denr/api/for-release-document", formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         });
 
         await Swal.fire({
-          title: "Released!",
+          title: "For Released to Records!",
           text: response.data.message || "Document has been released successfully.",
           icon: "success",
           confirmButtonColor: "#1a4731",
@@ -2078,14 +2266,6 @@ export default {
 .btn-save { background: linear-gradient(135deg, #1e4d2b, #2d6a4f); color: #fff; border: none; padding: 6px 16px; font-weight: 600; display: inline-flex; align-items: center; box-shadow: 0 2px 12px rgba(26,71,49,0.3); }
 .btn-save:hover { box-shadow: 0 4px 16px rgba(26,71,49,0.4); transform: translateY(-1px); }
 .btn-save:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
-
-.btn-release-doc { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #fff; border: none; padding: 6px 16px; font-weight: 600; display: inline-flex; align-items: center; box-shadow: 0 2px 12px rgba(37,99,235,0.3); }
-.btn-release-doc:hover { box-shadow: 0 4px 16px rgba(37,99,235,0.4); transform: translateY(-1px); }
-.btn-release-doc:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
-
-.btn-archive-doc { background: linear-gradient(135deg, #6b7280, #4b5563); color: #fff; border: none; padding: 6px 16px; font-weight: 600; display: inline-flex; align-items: center; box-shadow: 0 2px 12px rgba(107,114,128,0.3); }
-.btn-archive-doc:hover { box-shadow: 0 4px 16px rgba(107,114,128,0.4); transform: translateY(-1px); }
-.btn-archive-doc:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
 
 /* ===== RELEASE MODAL ===== */
 .release-warning-icon { display: inline-flex; align-items: center; justify-content: center; width: 70px; height: 70px; border-radius: 50%; background: #dbeafe; font-size: 2.5rem; color: #2563eb; border: 3px solid #bfdbfe; }

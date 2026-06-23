@@ -53,10 +53,12 @@ Route::get('/api/reserve-tracking', [App\Http\Controllers\Admin\AdminController:
 Route::get('/create-incoming/{id}', [App\Http\Controllers\Admin\AdminController::class, 'create_incoming']);
 Route::get('/api/get/document-type', [App\Http\Controllers\Admin\AdminController::class, 'documentType']);
 Route::get('/api/route-office', [App\Http\Controllers\Admin\AdminController::class, 'route_office']);
+Route::get('/api/route-office-other', [App\Http\Controllers\Admin\AdminController::class, 'route_office_other']);
 Route::put('/api/create-update-document/{id}', [App\Http\Controllers\Admin\AdminController::class, 'create_update_document']);
 Route::put('/api/update-document/{id}', [App\Http\Controllers\Admin\AdminController::class, 'update_document']);
 
 Route::get('/api/in-progress', [App\Http\Controllers\Admin\AdminController::class, 'get_data_in_progress']);
+Route::get('/api/for-release', [App\Http\Controllers\Admin\AdminController::class, 'get_data_for_release']);
 Route::get('/view-document/{token}', [App\Http\Controllers\Admin\AdminController::class, 'view_document']);
 Route::post('/api/add-forward-document', [App\Http\Controllers\Admin\AdminController::class, 'forward_document']);
 /*END ADMIN RECORDS*/
@@ -70,6 +72,7 @@ Route::post('/api/receive-document/{id}', [App\Http\Controllers\Secretariat\Secr
 Route::get('/api/document/receive/', [App\Http\Controllers\Secretariat\SecretariatController::class, 'get_data_receive_incoming']);
 Route::get('/api/route-office-secratariat', [App\Http\Controllers\Secretariat\SecretariatController::class, 'route_office_secretariat']);
 Route::post('/api/forward-other-office/{id}', [App\Http\Controllers\Secretariat\SecretariatController::class, 'forward_other_office']);
+Route::post('/api/for-release-document', [App\Http\Controllers\Secretariat\SecretariatController::class, 'for_release_document']);
 
 
 /*END SECRETARIAT ROUTES*/

@@ -28,6 +28,7 @@ class IncomingDocument extends Model
         'time_release',
         'draft_attachment',
         'release_attachment',
+        'for_release_remarks',
         'remarks',
         'status',
         'receive_user_id',
@@ -78,5 +79,17 @@ public function documentRoute()
 
         return $prefix . $newSequence;
     }
+
+    public function routes()
+{
+    return $this->hasMany(IncomingDocumentRoute::class, 'document_id');
+}
+
+public function currentRoute()
+{
+    return $this->hasOne(IncomingDocumentRoute::class, 'document_id')
+                ->where('status', 'RECEIVED')
+                ->latest();
+}
 
 }
