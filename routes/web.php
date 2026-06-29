@@ -59,8 +59,11 @@ Route::put('/api/update-document/{id}', [App\Http\Controllers\Admin\AdminControl
 
 Route::get('/api/in-progress', [App\Http\Controllers\Admin\AdminController::class, 'get_data_in_progress']);
 Route::get('/api/for-release', [App\Http\Controllers\Admin\AdminController::class, 'get_data_for_release']);
+Route::get('/api/released', [App\Http\Controllers\Admin\AdminController::class, 'get_data_released']);
 Route::get('/view-document/{token}', [App\Http\Controllers\Admin\AdminController::class, 'view_document']);
 Route::post('/api/add-forward-document', [App\Http\Controllers\Admin\AdminController::class, 'forward_document']);
+Route::post('/api/release-document/{id}', [App\Http\Controllers\Admin\AdminController::class, 'releaseDocument']);
+
 /*END ADMIN RECORDS*/
 
 

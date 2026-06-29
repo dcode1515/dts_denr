@@ -167,7 +167,7 @@
           <!-- ==================== RELEASED TAB ==================== -->
           <div v-show="activeTab === 'released'">
             <ReleasedTab
-              ref="releasedTab"
+              ref="ReleasedTab"
               :document-types="documentTypes"
               @view-document="viewDocument"
               @download-document="downloadDocument"

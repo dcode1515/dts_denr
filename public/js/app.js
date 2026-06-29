@@ -6181,14 +6181,16 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       // Release modal
       showReleaseModal: false,
       releaseDocument: null,
-      releaseRemarks: "",
-      releaseDate: "",
-      releaseTime: "",
+      releaseForm: {
+        date: "",
+        time: "",
+        remarks: "",
+        attachment: null
+      },
       releasing: false,
       releaseError: "",
-      releaseAttachment: null,
-      releaseAttachmentError: "",
-      isDragOver: false,
+      isDragging: false,
+      uploadProgress: 0,
       // View modal
       showViewModal: false,
       selectedDocument: null,
@@ -6205,12 +6207,19 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       attachmentLoading: true,
       attachmentLoadError: false,
       attachmentZoom: 1,
-      attachmentViewerHeight: 700
+      attachmentViewerHeight: 700,
+      // Acted Document Viewer
+      showActedViewer: false,
+      selectedActedDocument: null,
+      actedLoading: true,
+      actedLoadError: false,
+      actedZoom: 1,
+      actedViewerHeight: 700
     };
   },
   mounted: function mounted() {
     this.getDataForRelease();
-    this.setCurrentDateTime();
+    this.setDefaultDateTime();
   },
   methods: {
     // Data fetching
@@ -6257,17 +6266,6 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
         }, _callee, null, [[1, 3, 4, 5]]);
       }))();
     },
-    // Set current date and time
-    setCurrentDateTime: function setCurrentDateTime() {
-      var now = new Date();
-      var year = now.getFullYear();
-      var month = String(now.getMonth() + 1).padStart(2, '0');
-      var day = String(now.getDate()).padStart(2, '0');
-      this.releaseDate = "".concat(year, "-").concat(month, "-").concat(day);
-      var hours = String(now.getHours()).padStart(2, '0');
-      var minutes = String(now.getMinutes()).padStart(2, '0');
-      this.releaseTime = "".concat(hours, ":").concat(minutes);
-    },
     // Filters
     applyFilters: function applyFilters() {
       this.getDataForRelease(1);
@@ -6293,6 +6291,163 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     changePerPage: function changePerPage() {
       this.getDataForRelease(1);
     },
+    // Set default date/time
+    setDefaultDateTime: function setDefaultDateTime() {
+      var now = new Date();
+      this.releaseForm.date = now.toISOString().split("T")[0];
+      this.releaseForm.time = now.toTimeString().slice(0, 5);
+    },
+    // File handling
+    triggerFileInput: function triggerFileInput() {
+      if (!this.releasing) {
+        this.$refs.fileInput.click();
+      }
+    },
+    handleFileChange: function handleFileChange(event) {
+      var file = event.target.files[0];
+      if (file) {
+        this.validateAndSetFile(file);
+      }
+    },
+    handleDrop: function handleDrop(event) {
+      this.isDragging = false;
+      var files = event.dataTransfer.files;
+      if (files.length > 0) {
+        this.validateAndSetFile(files[0]);
+      }
+    },
+    validateAndSetFile: function validateAndSetFile(file) {
+      // Validate file type
+      if (file.type !== "application/pdf") {
+        this.releaseError = "Please upload a PDF file only.";
+        return;
+      }
+
+      // Validate file size (max 100MB)
+      if (file.size > 100 * 1024 * 1024) {
+        this.releaseError = "File size exceeds 100MB limit.";
+        return;
+      }
+      this.releaseError = "";
+      this.releaseForm.attachment = file;
+      this.uploadProgress = 100;
+    },
+    removeAttachment: function removeAttachment() {
+      this.releaseForm.attachment = null;
+      this.uploadProgress = 0;
+      this.$refs.fileInput.value = "";
+    },
+    formatFileSize: function formatFileSize(bytes) {
+      if (bytes === 0) return "0 Bytes";
+      var k = 1024;
+      var sizes = ["Bytes", "KB", "MB", "GB"];
+      var i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
+    },
+    // Release modal
+    openReleaseModal: function openReleaseModal(doc) {
+      this.releaseDocument = doc;
+      this.showReleaseModal = true;
+      this.releaseError = "";
+      this.setDefaultDateTime();
+      this.releaseForm.remarks = "";
+      this.releaseForm.attachment = null;
+      this.uploadProgress = 0;
+      if (this.$refs.fileInput) {
+        this.$refs.fileInput.value = "";
+      }
+    },
+    closeReleaseModal: function closeReleaseModal() {
+      this.showReleaseModal = false;
+      this.releaseDocument = null;
+      this.releaseError = "";
+      this.releasing = false;
+      this.releaseForm.attachment = null;
+      this.uploadProgress = 0;
+    },
+    submitReleaseDocument: function submitReleaseDocument() {
+      var _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        var formData, response, _error$response, message, _t2;
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.p = _context2.n) {
+            case 0:
+              if (!(!_this2.releaseForm.date || !_this2.releaseForm.time)) {
+                _context2.n = 1;
+                break;
+              }
+              _this2.releaseError = "Please select both release date and time.";
+              return _context2.a(2);
+            case 1:
+              if (_this2.releaseForm.attachment) {
+                _context2.n = 2;
+                break;
+              }
+              _this2.releaseError = "Please upload a released document attachment.";
+              return _context2.a(2);
+            case 2:
+              _this2.releasing = true;
+              _this2.releaseError = "";
+              _this2.uploadProgress = 0;
+              _context2.p = 3;
+              formData = new FormData();
+              formData.append("document_id", _this2.releaseDocument.id);
+              formData.append("tracking_number", _this2.releaseDocument.tracking_number);
+              formData.append("date_released", _this2.releaseForm.date);
+              formData.append("time_released", _this2.releaseForm.time);
+              formData.append("remarks", _this2.releaseForm.remarks || "");
+              formData.append("attachment", _this2.releaseForm.attachment);
+              _context2.n = 4;
+              return axios.post("/dts_denr/api/release-document/" + _this2.releaseDocument.id, formData, {
+                headers: {
+                  "Content-Type": "multipart/form-data"
+                },
+                onUploadProgress: function onUploadProgress(progressEvent) {
+                  if (progressEvent.total) {
+                    _this2.uploadProgress = Math.round(progressEvent.loaded / progressEvent.total * 100);
+                  }
+                }
+              });
+            case 4:
+              response = _context2.v;
+              _context2.n = 5;
+              return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+                title: "Released!",
+                text: response.data.message || "Document has been released successfully.",
+                icon: "success",
+                confirmButtonColor: "#059669",
+                confirmButtonText: "OK"
+              });
+            case 5:
+              _this2.closeReleaseModal();
+              _this2.$emit("show-notification", {
+                message: "Document released successfully!",
+                type: "success"
+              });
+              _this2.getDataForRelease(_this2.for_release.current_page);
+              _context2.n = 7;
+              break;
+            case 6:
+              _context2.p = 6;
+              _t2 = _context2.v;
+              console.error("Release document error:", _t2);
+              message = ((_error$response = _t2.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || "Failed to release document. Please try again.";
+              _this2.releaseError = message;
+              _this2.$emit("show-notification", {
+                message: message,
+                type: "error"
+              });
+            case 7:
+              _context2.p = 7;
+              _this2.releasing = false;
+              _this2.uploadProgress = 0;
+              return _context2.f(7);
+            case 8:
+              return _context2.a(2);
+          }
+        }, _callee2, null, [[3, 6, 7, 8]]);
+      }))();
+    },
     // Forward modal
     openForwardModal: function openForwardModal(doc) {
       this.forwardDocument = doc;
@@ -6315,34 +6470,34 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       this.forwardError = "";
     },
     fetchOffices: function fetchOffices() {
-      var _this2 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        var response, _t2;
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.p = _context2.n) {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        var response, _t3;
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.p = _context3.n) {
             case 0:
-              _this2.officesLoading = true;
-              _context2.p = 1;
-              _context2.n = 2;
+              _this3.officesLoading = true;
+              _context3.p = 1;
+              _context3.n = 2;
               return axios.get("/dts_denr/api/route-office-other");
             case 2:
-              response = _context2.v;
-              _this2.offices = response.data.data || [];
-              _context2.n = 4;
+              response = _context3.v;
+              _this3.offices = response.data.data || [];
+              _context3.n = 4;
               break;
             case 3:
-              _context2.p = 3;
-              _t2 = _context2.v;
-              console.error("Error fetching offices:", _t2);
-              _this2.forwardError = "Failed to load offices. Please try again.";
+              _context3.p = 3;
+              _t3 = _context3.v;
+              console.error("Error fetching offices:", _t3);
+              _this3.forwardError = "Failed to load offices. Please try again.";
             case 4:
-              _context2.p = 4;
-              _this2.officesLoading = false;
-              return _context2.f(4);
+              _context3.p = 4;
+              _this3.officesLoading = false;
+              return _context3.f(4);
             case 5:
-              return _context2.a(2);
+              return _context3.a(2);
           }
-        }, _callee2, null, [[1, 3, 4, 5]]);
+        }, _callee3, null, [[1, 3, 4, 5]]);
       }))();
     },
     isOfficeSelected: function isOfficeSelected(officeId) {
@@ -6361,34 +6516,34 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       });
     },
     submitForwardDocument: function submitForwardDocument() {
-      var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-        var response, _error$response, message, _t3;
-        return _regenerator().w(function (_context3) {
-          while (1) switch (_context3.p = _context3.n) {
+      var _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+        var response, _error$response2, message, _t4;
+        return _regenerator().w(function (_context4) {
+          while (1) switch (_context4.p = _context4.n) {
             case 0:
-              if (!(_this3.selectedOffices.length === 0)) {
-                _context3.n = 1;
+              if (!(_this4.selectedOffices.length === 0)) {
+                _context4.n = 1;
                 break;
               }
-              _this3.forwardError = "Please select at least one office.";
-              return _context3.a(2);
+              _this4.forwardError = "Please select at least one office.";
+              return _context4.a(2);
             case 1:
-              _this3.forwarding = true;
-              _this3.forwardError = "";
-              _context3.p = 2;
-              _context3.n = 3;
+              _this4.forwarding = true;
+              _this4.forwardError = "";
+              _context4.p = 2;
+              _context4.n = 3;
               return axios.post("/dts_denr/api/add-forward-document", {
-                document_id: _this3.forwardDocument.id,
-                tracking_number: _this3.forwardDocument.tracking_number,
-                offices: _this3.selectedOffices.map(function (o) {
+                document_id: _this4.forwardDocument.id,
+                tracking_number: _this4.forwardDocument.tracking_number,
+                offices: _this4.selectedOffices.map(function (o) {
                   return o.id;
                 }),
-                remarks: _this3.forwardRemarks
+                remarks: _this4.forwardRemarks
               });
             case 3:
-              response = _context3.v;
-              _context3.n = 4;
+              response = _context4.v;
+              _context4.n = 4;
               return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
                 title: "Forwarded!",
                 text: response.data.message || "Document has been forwarded successfully.",
@@ -6397,186 +6552,32 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
                 confirmButtonText: "OK"
               });
             case 4:
-              _this3.closeForwardModal();
-              _this3.$emit("show-notification", {
+              _this4.closeForwardModal();
+              _this4.$emit("show-notification", {
                 message: "Document forwarded successfully!",
                 type: "success"
               });
-              _this3.getDataForRelease(_this3.for_release.current_page);
-              _context3.n = 6;
+              _this4.getDataForRelease(_this4.for_release.current_page);
+              _context4.n = 6;
               break;
             case 5:
-              _context3.p = 5;
-              _t3 = _context3.v;
-              console.error("Forward document error:", _t3);
-              message = ((_error$response = _t3.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || "Failed to forward document. Please try again.";
-              _this3.forwardError = message;
-              _this3.$emit("show-notification", {
+              _context4.p = 5;
+              _t4 = _context4.v;
+              console.error("Forward document error:", _t4);
+              message = ((_error$response2 = _t4.response) === null || _error$response2 === void 0 || (_error$response2 = _error$response2.data) === null || _error$response2 === void 0 ? void 0 : _error$response2.message) || "Failed to forward document. Please try again.";
+              _this4.forwardError = message;
+              _this4.$emit("show-notification", {
                 message: message,
                 type: "error"
               });
-            case 6:
-              _context3.p = 6;
-              _this3.forwarding = false;
-              return _context3.f(6);
-            case 7:
-              return _context3.a(2);
-          }
-        }, _callee3, null, [[2, 5, 6, 7]]);
-      }))();
-    },
-    // Release modal
-    openReleaseModal: function openReleaseModal(doc) {
-      this.releaseDocument = doc;
-      this.showReleaseModal = true;
-      this.releaseRemarks = "";
-      this.releaseError = "";
-      this.releaseAttachment = null;
-      this.releaseAttachmentError = "";
-      this.isDragOver = false;
-      this.setCurrentDateTime();
-      if (this.$refs.releaseFileInput) {
-        this.$refs.releaseFileInput.value = "";
-      }
-    },
-    closeReleaseModal: function closeReleaseModal() {
-      this.showReleaseModal = false;
-      this.releaseDocument = null;
-      this.releaseRemarks = "";
-      this.releaseError = "";
-      this.releaseAttachment = null;
-      this.releaseDate = "";
-      this.releaseTime = "";
-    },
-    clearReleaseForm: function clearReleaseForm() {
-      this.releaseRemarks = "";
-      this.releaseError = "";
-      this.releaseAttachment = null;
-      this.releaseAttachmentError = "";
-      this.isDragOver = false;
-      this.setCurrentDateTime();
-      if (this.$refs.releaseFileInput) {
-        this.$refs.releaseFileInput.value = "";
-      }
-    },
-    triggerFileInput: function triggerFileInput() {
-      if (this.releasing) return;
-      this.$refs.releaseFileInput.click();
-    },
-    handleFileSelect: function handleFileSelect(event) {
-      var file = event.target.files[0];
-      if (file) {
-        this.validateAndSetFile(file);
-      }
-    },
-    handleDrop: function handleDrop(event) {
-      this.isDragOver = false;
-      var file = event.dataTransfer.files[0];
-      if (file) {
-        this.validateAndSetFile(file);
-      }
-    },
-    validateAndSetFile: function validateAndSetFile(file) {
-      // Validate file type
-      if (file.type !== "application/pdf") {
-        this.releaseAttachmentError = "Please upload a PDF file.";
-        return;
-      }
-
-      // Validate file size (max 10MB)
-      if (file.size > 10 * 1024 * 1024) {
-        this.releaseAttachmentError = "File size exceeds 10MB limit.";
-        return;
-      }
-      this.releaseAttachmentError = "";
-      this.releaseAttachment = file;
-    },
-    removeReleaseAttachment: function removeReleaseAttachment() {
-      this.releaseAttachment = null;
-      if (this.$refs.releaseFileInput) {
-        this.$refs.releaseFileInput.value = "";
-      }
-      this.releaseAttachmentError = "";
-    },
-    formatFileSize: function formatFileSize(bytes) {
-      if (bytes < 1024) return bytes + " B";
-      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
-      return (bytes / (1024 * 1024)).toFixed(1) + " MB";
-    },
-    submitReleaseDocument: function submitReleaseDocument() {
-      var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-        var formData, response, _error$response2, message, _t4;
-        return _regenerator().w(function (_context4) {
-          while (1) switch (_context4.p = _context4.n) {
-            case 0:
-              if (_this4.releaseAttachment) {
-                _context4.n = 1;
-                break;
-              }
-              _this4.releaseError = "Please upload a release attachment.";
-              return _context4.a(2);
-            case 1:
-              if (!(!_this4.releaseDate || !_this4.releaseTime)) {
-                _context4.n = 2;
-                break;
-              }
-              _this4.releaseError = "Please enter release date and time.";
-              return _context4.a(2);
-            case 2:
-              _this4.releasing = true;
-              _this4.releaseError = "";
-              _context4.p = 3;
-              formData = new FormData();
-              formData.append("document_id", _this4.releaseDocument.id);
-              formData.append("tracking_number", _this4.releaseDocument.tracking_number);
-              formData.append("remarks", _this4.releaseRemarks || "");
-              formData.append("released_attachment", _this4.releaseAttachment);
-              formData.append("release_date", _this4.releaseDate);
-              formData.append("release_time", _this4.releaseTime);
-              _context4.n = 4;
-              return axios.post("/dts_denr/api/release-document", formData, {
-                headers: {
-                  "Content-Type": "multipart/form-data"
-                }
-              });
-            case 4:
-              response = _context4.v;
-              _context4.n = 5;
-              return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
-                title: "Released!",
-                text: response.data.message || "Document has been released successfully.",
-                icon: "success",
-                confirmButtonColor: "#1a4731",
-                confirmButtonText: "OK"
-              });
-            case 5:
-              _this4.closeReleaseModal();
-              _this4.$emit("show-notification", {
-                message: "Document released successfully!",
-                type: "success"
-              });
-              _this4.getDataForRelease(_this4.for_release.current_page);
-              _context4.n = 7;
-              break;
             case 6:
               _context4.p = 6;
-              _t4 = _context4.v;
-              console.error("Release document error:", _t4);
-              message = ((_error$response2 = _t4.response) === null || _error$response2 === void 0 || (_error$response2 = _error$response2.data) === null || _error$response2 === void 0 ? void 0 : _error$response2.message) || "Failed to release document. Please try again.";
-              _this4.releaseError = message;
-              _this4.$emit("show-notification", {
-                message: message,
-                type: "error"
-              });
+              _this4.forwarding = false;
+              return _context4.f(6);
             case 7:
-              _context4.p = 7;
-              _this4.releasing = false;
-              return _context4.f(7);
-            case 8:
               return _context4.a(2);
           }
-        }, _callee4, null, [[3, 6, 7, 8]]);
+        }, _callee4, null, [[2, 5, 6, 7]]);
       }))();
     },
     // View modal
@@ -6651,6 +6652,114 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     adjustViewerHeight: function adjustViewerHeight() {
       this.pdfViewerHeight = Math.round(700 / this.pdfZoom);
     },
+    // Acted Documents Methods
+    getActedDocuments: function getActedDocuments() {
+      if (!this.selectedDocument) return [];
+
+      // Check if document has acted_documents array
+      if (this.selectedDocument.acted_documents && Array.isArray(this.selectedDocument.acted_documents)) {
+        return this.selectedDocument.acted_documents;
+      }
+
+      // If there's a single acted_document field
+      if (this.selectedDocument.acted_document) {
+        return [this.selectedDocument.acted_document];
+      }
+      return [];
+    },
+    getActedFileName: function getActedFileName(actedDoc) {
+      var _this$selectedDocumen;
+      if (!actedDoc) return "acted_document.pdf";
+
+      // Check if there's a file name field
+      if (actedDoc.file_name) return actedDoc.file_name;
+      if (actedDoc.filename) return actedDoc.filename;
+      if (actedDoc.name) return actedDoc.name;
+
+      // Generate from tracking number
+      var tracking = ((_this$selectedDocumen = this.selectedDocument) === null || _this$selectedDocumen === void 0 ? void 0 : _this$selectedDocumen.tracking_number) || "document";
+      return "".concat(tracking, "_acted_").concat(actedDoc.id || "1", ".pdf");
+    },
+    getActedDocumentUrl: function getActedDocumentUrl(actedDoc) {
+      var _this$selectedDocumen3;
+      if (!actedDoc) return "#";
+
+      // If there's a direct path
+      if (actedDoc.file_path) {
+        if (actedDoc.file_path.startsWith("http")) return actedDoc.file_path;
+        return "/dts_denr/storage/app/public/".concat(actedDoc.file_path);
+      }
+      if (actedDoc.path) {
+        if (actedDoc.path.startsWith("http")) return actedDoc.path;
+        return "/dts_denr/storage/app/public/".concat(actedDoc.path);
+      }
+
+      // If there's a file name, construct path
+      if (actedDoc.file_name || actedDoc.filename) {
+        var _this$selectedDocumen2;
+        var _fileName = actedDoc.file_name || actedDoc.filename;
+        var _tracking = ((_this$selectedDocumen2 = this.selectedDocument) === null || _this$selectedDocumen2 === void 0 ? void 0 : _this$selectedDocumen2.tracking_number) || "unknown";
+        return "/dts_denr/storage/app/public/attachments/".concat(_tracking, "/ACTED_DOCUMENTS/").concat(_fileName);
+      }
+
+      // Try to use the acted_document column value
+      if (actedDoc.acted_document) {
+        return "/dts_denr/storage/app/public/".concat(actedDoc.acted_document);
+      }
+
+      // Fallback: construct from tracking number
+      var tracking = ((_this$selectedDocumen3 = this.selectedDocument) === null || _this$selectedDocumen3 === void 0 ? void 0 : _this$selectedDocumen3.tracking_number) || "unknown";
+      var fileName = "".concat(tracking, "_acted_").concat(actedDoc.id || "1", ".pdf");
+      return "/dts_denr/storage/app/public/attachments/".concat(tracking, "/ACTED_DOCUMENTS/").concat(fileName);
+    },
+    openActedDocumentViewer: function openActedDocumentViewer(actedDoc) {
+      this.selectedActedDocument = actedDoc;
+      this.showActedViewer = true;
+      this.actedLoading = true;
+      this.actedLoadError = false;
+      this.actedZoom = 1;
+      this.actedViewerHeight = 700;
+    },
+    closeActedViewer: function closeActedViewer() {
+      this.showActedViewer = false;
+      this.selectedActedDocument = null;
+      this.actedLoading = true;
+      this.actedLoadError = false;
+      this.actedZoom = 1;
+      this.actedViewerHeight = 700;
+    },
+    onActedLoaded: function onActedLoaded() {
+      this.actedLoading = false;
+      this.actedLoadError = false;
+    },
+    handleActedError: function handleActedError() {
+      this.actedLoading = false;
+      this.actedLoadError = true;
+    },
+    retryActedLoad: function retryActedLoad() {
+      this.actedLoading = true;
+      this.actedLoadError = false;
+      this.$nextTick(function () {
+        var iframe = document.querySelector(".attachment-viewer-iframe");
+        if (iframe) iframe.src = iframe.src;
+      });
+    },
+    actedZoomIn: function actedZoomIn() {
+      if (this.actedZoom < 2) {
+        this.actedZoom += 0.25;
+        this.actedViewerHeight = Math.round(700 / this.actedZoom);
+      }
+    },
+    actedZoomOut: function actedZoomOut() {
+      if (this.actedZoom > 0.5) {
+        this.actedZoom -= 0.25;
+        this.actedViewerHeight = Math.round(700 / this.actedZoom);
+      }
+    },
+    actedZoomReset: function actedZoomReset() {
+      this.actedZoom = 1;
+      this.actedViewerHeight = 700;
+    },
     // Attachment Viewer methods
     openAttachmentViewer: function openAttachmentViewer(type) {
       this.selectedAttachment = this.selectedDocument;
@@ -6715,14 +6824,18 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     },
     // Attachments methods
     hasAttachments: function hasAttachments() {
-      var _this$selectedDocumen, _this$selectedDocumen2;
-      return !!((_this$selectedDocumen = this.selectedDocument) !== null && _this$selectedDocumen !== void 0 && _this$selectedDocumen.draft_attachment || (_this$selectedDocumen2 = this.selectedDocument) !== null && _this$selectedDocumen2 !== void 0 && _this$selectedDocumen2.released_attachment);
+      var _this$selectedDocumen4, _this$selectedDocumen5;
+      return !!((_this$selectedDocumen4 = this.selectedDocument) !== null && _this$selectedDocumen4 !== void 0 && _this$selectedDocumen4.draft_attachment || (_this$selectedDocumen5 = this.selectedDocument) !== null && _this$selectedDocumen5 !== void 0 && _this$selectedDocumen5.released_attachment);
     },
     getAttachmentsCount: function getAttachmentsCount() {
-      var _this$selectedDocumen3, _this$selectedDocumen4;
+      var _this$selectedDocumen6, _this$selectedDocumen7;
       var count = 0;
-      if ((_this$selectedDocumen3 = this.selectedDocument) !== null && _this$selectedDocumen3 !== void 0 && _this$selectedDocumen3.draft_attachment) count++;
-      if ((_this$selectedDocumen4 = this.selectedDocument) !== null && _this$selectedDocumen4 !== void 0 && _this$selectedDocumen4.released_attachment) count++;
+      if ((_this$selectedDocumen6 = this.selectedDocument) !== null && _this$selectedDocumen6 !== void 0 && _this$selectedDocumen6.draft_attachment) count++;
+      if ((_this$selectedDocumen7 = this.selectedDocument) !== null && _this$selectedDocumen7 !== void 0 && _this$selectedDocumen7.released_attachment) count++;
+
+      // Count acted documents
+      var actedDocs = this.getActedDocuments();
+      count += actedDocs.length;
       return count;
     },
     // Route history helpers
@@ -6784,7 +6897,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       var map = {
         "In-Progress": "status-in-progress",
         "For-Release": "status-for-release",
-        "Released": "status-released"
+        Released: "status-released"
       };
       return map[status] || "";
     }
@@ -7641,14 +7754,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_PaginationComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/PaginationComponent.vue */ "./resources/js/components/PaginationComponent.vue");
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
-function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
-function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -7667,177 +7780,592 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
   },
   data: function data() {
     return {
-      // DOCUMENTS DATA
-      documents: [],
+      released: {
+        data: [],
+        current_page: 1,
+        from: 1,
+        to: 1,
+        last_page: 1,
+        per_page: 10,
+        total: 0
+      },
       searchQuery: "",
       docTypeFilter: "",
       perPage: 10,
       currentPage: 1,
       loading: false,
-      // VIEW MODAL
+      // Release
+      showReleaseModal: false,
+      releaseDocument: null,
+      releaseForm: {
+        date: "",
+        time: "",
+        remarks: "",
+        attachment: null
+      },
+      releasing: false,
+      releaseError: "",
+      isDragging: false,
+      uploadProgress: 0,
+      // Forward
+      showForwardModal: false,
+      forwardDocument: null,
+      offices: [],
+      officesLoading: false,
+      selectedOffices: [],
+      forwarding: false,
+      forwardError: "",
+      // Viewer
       showViewModal: false,
       selectedDocument: null,
-      viewerActiveTab: "details",
-      pdfLoading: true,
-      pdfLoadError: false,
-      pdfZoom: 1,
-      pdfViewerHeight: 700,
-      routeHistoryLoading: false
+      viewerActiveTab: "summary",
+      routeHistoryLoading: false,
+      // PDF viewers
+      incomingPdfLoading: true,
+      incomingPdfLoadError: false,
+      incomingPdfZoom: 1,
+      incomingPdfViewerHeight: 700,
+      releasedPdfLoading: true,
+      releasedPdfLoadError: false,
+      releasedPdfZoom: 1,
+      releasedPdfViewerHeight: 700
     };
   },
-  computed: {
-    filteredDocuments: function filteredDocuments() {
-      var _this = this;
-      var filtered = _toConsumableArray(this.documents);
-      if (this.docTypeFilter) {
-        filtered = filtered.filter(function (doc) {
-          return doc.document_type === _this.docTypeFilter;
-        });
-      }
-      if (this.searchQuery) {
-        var query = this.searchQuery.toLowerCase();
-        filtered = filtered.filter(function (doc) {
-          var _doc$tracking_number, _doc$document_type, _doc$subject, _doc$sender_name;
-          return ((_doc$tracking_number = doc.tracking_number) === null || _doc$tracking_number === void 0 ? void 0 : _doc$tracking_number.toLowerCase().includes(query)) || ((_doc$document_type = doc.document_type) === null || _doc$document_type === void 0 ? void 0 : _doc$document_type.toLowerCase().includes(query)) || ((_doc$subject = doc.subject) === null || _doc$subject === void 0 ? void 0 : _doc$subject.toLowerCase().includes(query)) || ((_doc$sender_name = doc.sender_name) === null || _doc$sender_name === void 0 ? void 0 : _doc$sender_name.toLowerCase().includes(query));
-        });
-      }
-      return filtered;
-    },
-    paginatedDocuments: function paginatedDocuments() {
-      var start = (this.currentPage - 1) * this.perPage;
-      return this.filteredDocuments.slice(start, start + this.perPage);
-    },
-    totalPages: function totalPages() {
-      return Math.ceil(this.filteredDocuments.length / this.perPage) || 1;
-    },
-    startItem: function startItem() {
-      return this.filteredDocuments.length === 0 ? 0 : (this.currentPage - 1) * this.perPage + 1;
-    },
-    endItem: function endItem() {
-      return Math.min(this.currentPage * this.perPage, this.filteredDocuments.length);
-    }
-  },
   mounted: function mounted() {
-    //this.getDocuments();
+    this.getDataRelease();
   },
   methods: {
-    // ===== DATA FETCHING =====
-    // async getDocuments() {
-    //   try {
-    //     this.loading = true;
-    //     const response = await axios.get("/dts_denr/api/released");
-    //     this.documents = response.data.data || [];
-    //   } catch (error) {
-    //     console.error("Error fetching released data:", error);
-    //     this.$emit("show-notification", {
-    //       message: "Failed to load released data.",
-    //       type: "error",
-    //     });
-    //   } finally {
-    //     this.loading = false;
-    //   }
-    // },
-    refreshData: function refreshData() {
-      this.getDocuments();
+    // ===== UTILITY METHODS =====
+    getFullName: function getFullName(person) {
+      if (!person) return "N/A";
+      var firstname = person.firstname || "";
+      var middlename = person.middlename || "";
+      var lastname = person.lastname || "";
+      var fullName = [firstname, middlename, lastname].filter(Boolean).join(" ");
+      return fullName || "N/A";
     },
-    // ===== FILTER METHODS =====
+    // ===== DATA FETCHING =====
+    getDataRelease: function getDataRelease() {
+      var _arguments = arguments,
+        _this = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var page, response, _t;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.p = _context.n) {
+            case 0:
+              page = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 1;
+              _this.loading = true;
+              _context.p = 1;
+              _context.n = 2;
+              return axios.get("/dts_denr/api/released", {
+                params: {
+                  page: page,
+                  per_page: _this.perPage,
+                  search: _this.searchQuery,
+                  document_type: _this.docTypeFilter
+                }
+              });
+            case 2:
+              response = _context.v;
+              _this.released = response.data.data;
+              _context.n = 4;
+              break;
+            case 3:
+              _context.p = 3;
+              _t = _context.v;
+              console.error("Error fetching data:", _t);
+              _this.$emit("show-notification", {
+                message: "Failed to load data.",
+                type: "error"
+              });
+            case 4:
+              _context.p = 4;
+              _this.loading = false;
+              return _context.f(4);
+            case 5:
+              return _context.a(2);
+          }
+        }, _callee, null, [[1, 3, 4, 5]]);
+      }))();
+    },
+    // ===== FILTERS =====
     applyFilters: function applyFilters() {
       this.currentPage = 1;
+      this.getDataRelease(1);
     },
     clearSearch: function clearSearch() {
       this.searchQuery = "";
-      this.currentPage = 1;
+      this.applyFilters();
     },
     clearDocTypeFilter: function clearDocTypeFilter() {
       this.docTypeFilter = "";
-      this.currentPage = 1;
+      this.applyFilters();
     },
     clearAllFilters: function clearAllFilters() {
       this.searchQuery = "";
       this.docTypeFilter = "";
-      this.currentPage = 1;
+      this.applyFilters();
     },
     changePage: function changePage(page) {
-      if (page >= 1 && page <= this.totalPages && page !== this.currentPage) {
+      if (page >= 1 && page <= this.released.last_page && page !== this.currentPage) {
         this.currentPage = page;
+        this.getDataRelease(page);
       }
     },
     changePerPage: function changePerPage() {
       this.currentPage = 1;
+      this.getDataRelease(1);
     },
-    // ===== DOCUMENT ACTIONS =====
+    // ===== FORWARD =====
+    openForwardModal: function openForwardModal(doc) {
+      this.forwardDocument = doc;
+      this.showForwardModal = true;
+      this.selectedOffices = [];
+      this.forwardError = "";
+      this.fetchOffices();
+    },
+    closeForwardModal: function closeForwardModal() {
+      this.showForwardModal = false;
+      this.forwardDocument = null;
+      this.selectedOffices = [];
+      this.forwardError = "";
+    },
+    clearForwardForm: function clearForwardForm() {
+      this.selectedOffices = [];
+      this.forwardError = "";
+    },
+    isOfficeSelected: function isOfficeSelected(id) {
+      return this.selectedOffices.some(function (o) {
+        return o.id === id;
+      });
+    },
+    toggleOfficeSelection: function toggleOfficeSelection(office) {
+      if (this.forwarding) return;
+      this.isOfficeSelected(office.id) ? this.removeOffice(office.id) : this.selectedOffices.push(office);
+    },
+    removeOffice: function removeOffice(id) {
+      this.selectedOffices = this.selectedOffices.filter(function (o) {
+        return o.id !== id;
+      });
+    },
+    fetchOffices: function fetchOffices() {
+      var _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        var response, _t2;
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.p = _context2.n) {
+            case 0:
+              _this2.officesLoading = true;
+              _context2.p = 1;
+              _context2.n = 2;
+              return axios.get("/dts_denr/api/route-office-other");
+            case 2:
+              response = _context2.v;
+              _this2.offices = response.data.data || [];
+              _context2.n = 4;
+              break;
+            case 3:
+              _context2.p = 3;
+              _t2 = _context2.v;
+              _this2.forwardError = "Failed to load offices.";
+            case 4:
+              _context2.p = 4;
+              _this2.officesLoading = false;
+              return _context2.f(4);
+            case 5:
+              return _context2.a(2);
+          }
+        }, _callee2, null, [[1, 3, 4, 5]]);
+      }))();
+    },
+    submitForwardDocument: function submitForwardDocument() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        var _error$response, _t3;
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.p = _context3.n) {
+            case 0:
+              if (_this3.selectedOffices.length) {
+                _context3.n = 1;
+                break;
+              }
+              _this3.forwardError = "Please select at least one office.";
+              return _context3.a(2);
+            case 1:
+              _this3.forwarding = true;
+              _this3.forwardError = "";
+              _context3.p = 2;
+              _context3.n = 3;
+              return axios.post("/dts_denr/api/add-forward-document", {
+                document_id: _this3.forwardDocument.id,
+                tracking_number: _this3.forwardDocument.tracking_number,
+                offices: _this3.selectedOffices.map(function (o) {
+                  return o.id;
+                })
+              });
+            case 3:
+              _context3.n = 4;
+              return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+                title: "Forwarded!",
+                icon: "success",
+                confirmButtonColor: "#1a4731",
+                confirmButtonText: "OK"
+              });
+            case 4:
+              _this3.closeForwardModal();
+              _this3.$emit("show-notification", {
+                message: "Document forwarded successfully!",
+                type: "success"
+              });
+              _this3.getDataRelease(_this3.released.current_page);
+              _context3.n = 6;
+              break;
+            case 5:
+              _context3.p = 5;
+              _t3 = _context3.v;
+              _this3.forwardError = ((_error$response = _t3.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || "Failed to forward document.";
+              _this3.$emit("show-notification", {
+                message: _this3.forwardError,
+                type: "error"
+              });
+            case 6:
+              _context3.p = 6;
+              _this3.forwarding = false;
+              return _context3.f(6);
+            case 7:
+              return _context3.a(2);
+          }
+        }, _callee3, null, [[2, 5, 6, 7]]);
+      }))();
+    },
+    // ===== RELEASE =====
+    openReleaseModal: function openReleaseModal(doc) {
+      this.releaseDocument = doc;
+      this.showReleaseModal = true;
+      this.releaseError = "";
+      var now = new Date();
+      this.releaseForm = {
+        date: now.toISOString().split("T")[0],
+        time: now.toTimeString().slice(0, 5),
+        remarks: "",
+        attachment: null
+      };
+      this.uploadProgress = 0;
+    },
+    closeReleaseModal: function closeReleaseModal() {
+      this.showReleaseModal = false;
+      this.releaseDocument = null;
+      this.releaseError = "";
+      this.releasing = false;
+      this.releaseForm.attachment = null;
+      this.uploadProgress = 0;
+    },
+    triggerFileInput: function triggerFileInput() {
+      var _this$$refs$fileInput;
+      if (!this.releasing) (_this$$refs$fileInput = this.$refs.fileInput) === null || _this$$refs$fileInput === void 0 || _this$$refs$fileInput.click();
+    },
+    handleFileChange: function handleFileChange(e) {
+      if (e.target.files[0]) this.validateAndSetFile(e.target.files[0]);
+    },
+    handleDrop: function handleDrop(e) {
+      this.isDragging = false;
+      if (e.dataTransfer.files[0]) this.validateAndSetFile(e.dataTransfer.files[0]);
+    },
+    validateAndSetFile: function validateAndSetFile(file) {
+      if (file.type !== "application/pdf") {
+        this.releaseError = "Please upload a PDF file only.";
+        return;
+      }
+      if (file.size > 100 * 1024 * 1024) {
+        this.releaseError = "File size exceeds 100MB limit.";
+        return;
+      }
+      this.releaseError = "";
+      this.releaseForm.attachment = file;
+      this.uploadProgress = 100;
+    },
+    removeAttachment: function removeAttachment() {
+      this.releaseForm.attachment = null;
+      this.uploadProgress = 0;
+      this.$refs.fileInput.value = "";
+    },
+    formatFileSize: function formatFileSize(bytes) {
+      if (!bytes) return "0 Bytes";
+      var k = 1024,
+        sizes = ["Bytes", "KB", "MB", "GB"];
+      var i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
+    },
+    submitReleaseDocument: function submitReleaseDocument() {
+      var _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+        var formData, _error$response2, _t4;
+        return _regenerator().w(function (_context4) {
+          while (1) switch (_context4.p = _context4.n) {
+            case 0:
+              if (!(!_this4.releaseForm.date || !_this4.releaseForm.time)) {
+                _context4.n = 1;
+                break;
+              }
+              _this4.releaseError = "Please select date and time.";
+              return _context4.a(2);
+            case 1:
+              if (_this4.releaseForm.attachment) {
+                _context4.n = 2;
+                break;
+              }
+              _this4.releaseError = "Please upload an attachment.";
+              return _context4.a(2);
+            case 2:
+              _this4.releasing = true;
+              _this4.releaseError = "";
+              _this4.uploadProgress = 0;
+              _context4.p = 3;
+              formData = new FormData();
+              formData.append("document_id", _this4.releaseDocument.id);
+              formData.append("tracking_number", _this4.releaseDocument.tracking_number);
+              formData.append("date_released", _this4.releaseForm.date);
+              formData.append("time_released", _this4.releaseForm.time);
+              formData.append("remarks", _this4.releaseForm.remarks || "");
+              formData.append("attachment", _this4.releaseForm.attachment);
+              _context4.n = 4;
+              return axios.post("/dts_denr/api/release-document/" + _this4.releaseDocument.id, formData, {
+                headers: {
+                  "Content-Type": "multipart/form-data"
+                },
+                onUploadProgress: function onUploadProgress(e) {
+                  if (e.total) _this4.uploadProgress = Math.round(e.loaded / e.total * 100);
+                }
+              });
+            case 4:
+              _context4.n = 5;
+              return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+                title: "Document released successfully!",
+                icon: "success",
+                confirmButtonColor: "#059669",
+                confirmButtonText: "OK"
+              });
+            case 5:
+              _this4.closeReleaseModal();
+              _this4.$emit("show-notification", {
+                message: "Document released successfully!",
+                type: "success"
+              });
+              _this4.getDataRelease(_this4.released.current_page);
+              _context4.n = 7;
+              break;
+            case 6:
+              _context4.p = 6;
+              _t4 = _context4.v;
+              _this4.releaseError = ((_error$response2 = _t4.response) === null || _error$response2 === void 0 || (_error$response2 = _error$response2.data) === null || _error$response2 === void 0 ? void 0 : _error$response2.message) || "Failed to release document.";
+              _this4.$emit("show-notification", {
+                message: _this4.releaseError,
+                type: "error"
+              });
+            case 7:
+              _context4.p = 7;
+              _this4.releasing = false;
+              _this4.uploadProgress = 0;
+              return _context4.f(7);
+            case 8:
+              return _context4.a(2);
+          }
+        }, _callee4, null, [[3, 6, 7, 8]]);
+      }))();
+    },
+    // ===== VIEWER =====
     viewDocument: function viewDocument(doc) {
       this.selectedDocument = doc;
       this.showViewModal = true;
-      this.viewerActiveTab = "details";
-      this.pdfLoading = true;
-      this.pdfLoadError = false;
-      this.pdfZoom = 1;
-      this.pdfViewerHeight = 700;
+      this.viewerActiveTab = "summary";
+      this.incomingPdfLoading = true;
+      this.incomingPdfLoadError = false;
+      this.incomingPdfZoom = 1;
+      this.incomingPdfViewerHeight = 700;
+      this.releasedPdfLoading = true;
+      this.releasedPdfLoadError = false;
+      this.releasedPdfZoom = 1;
+      this.releasedPdfViewerHeight = 700;
+      this.routeHistoryLoading = false;
       this.$emit("view-document", doc);
     },
     closeViewModal: function closeViewModal() {
       this.showViewModal = false;
       this.selectedDocument = null;
-      this.viewerActiveTab = "details";
-      this.pdfLoading = true;
-      this.pdfLoadError = false;
-      this.pdfZoom = 1;
-      this.pdfViewerHeight = 700;
+      this.viewerActiveTab = "summary";
     },
-    downloadDocument: function downloadDocument(doc) {
-      this.$emit("download-document", doc);
+    // ===== PDF HELPERS =====
+    getIncomingPdfUrl: function getIncomingPdfUrl() {
+      if (!this.selectedDocument) return "";
+      if (this.selectedDocument.draft_attachment) return "/dts_denr/storage/app/public/".concat(this.selectedDocument.draft_attachment);
+      return "/dts_denr/storage/app/public/attachments/".concat(this.selectedDocument.tracking_number, "/draft_attachment.pdf");
     },
-    // ===== PDF METHODS =====
-    getPdfUrl: function getPdfUrl(document) {
-      if (!document || !document.tracking_number) return "";
-      if (document.draft_attachment) {
-        return "/dts_denr/storage/app/public/".concat(document.draft_attachment);
-      }
-      var trackingNumber = document.tracking_number;
-      return "/dts_denr/storage/app/public/attachments/".concat(trackingNumber, "/draft_attachment.pdf");
+    getReleasedPdfUrl: function getReleasedPdfUrl() {
+      if (!this.selectedDocument) return "";
+      if (this.selectedDocument.released_attachment) return "/dts_denr/storage/app/public/".concat(this.selectedDocument.released_attachment);
+      if (this.selectedDocument.release_attachment) return "/dts_denr/storage/app/public/".concat(this.selectedDocument.release_attachment);
+      return "/dts_denr/storage/app/public/attachments/".concat(this.selectedDocument.tracking_number, "/release_attachment.pdf");
     },
-    onPdfLoaded: function onPdfLoaded() {
-      this.pdfLoading = false;
-      this.pdfLoadError = false;
+    onIncomingPdfLoaded: function onIncomingPdfLoaded() {
+      this.incomingPdfLoading = false;
+      this.incomingPdfLoadError = false;
     },
-    handlePdfError: function handlePdfError() {
-      this.pdfLoading = false;
-      this.pdfLoadError = true;
+    handleIncomingPdfError: function handleIncomingPdfError() {
+      this.incomingPdfLoading = false;
+      this.incomingPdfLoadError = true;
     },
-    retryPdfLoad: function retryPdfLoad() {
-      this.pdfLoading = true;
-      this.pdfLoadError = false;
+    retryIncomingPdfLoad: function retryIncomingPdfLoad() {
+      this.incomingPdfLoading = true;
+      this.incomingPdfLoadError = false;
       this.$nextTick(function () {
-        var iframe = document.querySelector(".pdf-iframe");
+        var iframe = document.querySelector(".incoming-pdf-wrapper iframe");
         if (iframe) iframe.src = iframe.src;
       });
     },
-    zoomIn: function zoomIn() {
-      if (this.pdfZoom < 2) {
-        this.pdfZoom += 0.25;
-        this.adjustViewerHeight();
+    onReleasedPdfLoaded: function onReleasedPdfLoaded() {
+      this.releasedPdfLoading = false;
+      this.releasedPdfLoadError = false;
+    },
+    handleReleasedPdfError: function handleReleasedPdfError() {
+      this.releasedPdfLoading = false;
+      this.releasedPdfLoadError = true;
+    },
+    retryReleasedPdfLoad: function retryReleasedPdfLoad() {
+      this.releasedPdfLoading = true;
+      this.releasedPdfLoadError = false;
+      this.$nextTick(function () {
+        var iframe = document.querySelector(".released-pdf-wrapper iframe");
+        if (iframe) iframe.src = iframe.src;
+      });
+    },
+    zoomInIncoming: function zoomInIncoming() {
+      if (this.incomingPdfZoom < 2) {
+        this.incomingPdfZoom += 0.25;
+        this.incomingPdfViewerHeight = Math.round(700 / this.incomingPdfZoom);
       }
     },
-    zoomOut: function zoomOut() {
-      if (this.pdfZoom > 0.5) {
-        this.pdfZoom -= 0.25;
-        this.adjustViewerHeight();
+    zoomOutIncoming: function zoomOutIncoming() {
+      if (this.incomingPdfZoom > 0.5) {
+        this.incomingPdfZoom -= 0.25;
+        this.incomingPdfViewerHeight = Math.round(700 / this.incomingPdfZoom);
       }
     },
-    adjustViewerHeight: function adjustViewerHeight() {
-      this.pdfViewerHeight = Math.round(700 / this.pdfZoom);
+    zoomInReleased: function zoomInReleased() {
+      if (this.releasedPdfZoom < 2) {
+        this.releasedPdfZoom += 0.25;
+        this.releasedPdfViewerHeight = Math.round(700 / this.releasedPdfZoom);
+      }
     },
-    // ===== ROUTE HISTORY =====
-    switchToHistoryTab: function switchToHistoryTab() {
-      this.viewerActiveTab = "history";
+    zoomOutReleased: function zoomOutReleased() {
+      if (this.releasedPdfZoom > 0.5) {
+        this.releasedPdfZoom -= 0.25;
+        this.releasedPdfViewerHeight = Math.round(700 / this.releasedPdfZoom);
+      }
     },
+    // ===== DATE HELPERS =====
+    formatDate: function formatDate(date) {
+      return date ? new Date(date).toLocaleDateString("en-PH", {
+        year: "numeric",
+        month: "short",
+        day: "numeric"
+      }) : "N/A";
+    },
+    formatTime: function formatTime(t) {
+      if (!t) return "";
+      if (typeof t === "string" && (t.includes("AM") || t.includes("PM"))) return t;
+      var _t$split$map = t.split(":").map(Number),
+        _t$split$map2 = _slicedToArray(_t$split$map, 2),
+        h = _t$split$map2[0],
+        m = _t$split$map2[1];
+      return "".concat(h % 12 || 12, ":").concat(m.toString().padStart(2, "0"), " ").concat(h >= 12 ? "PM" : "AM");
+    },
+    formatDateTime: function formatDateTime(date) {
+      return date ? new Date(date).toLocaleString("en-PH", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true
+      }) : "N/A";
+    },
+    getPersonName: function getPersonName(person, name) {
+      if (person) return "".concat(person.firstname || "", " ").concat(person.middlename || "", " ").concat(person.lastname || "").trim();
+      return name || "N/A";
+    },
+    // ===== WORKING DAYS CALCULATION =====
+    isWeekend: function isWeekend(date) {
+      return date.getDay() === 6 || date.getDay() === 0;
+    },
+    isWorkingDay: function isWorkingDay(date) {
+      return !this.isWeekend(date);
+    },
+    getWorkingDays: function getWorkingDays(start, end) {
+      if (!start || !end) return 0;
+      var s = new Date(start),
+        e = new Date(end);
+      s.setHours(0, 0, 0, 0);
+      e.setHours(0, 0, 0, 0);
+      if (s > e) return 0;
+      var days = 0;
+      for (var d = new Date(s); d <= e; d.setDate(d.getDate() + 1)) if (this.isWorkingDay(d)) days++;
+      return days;
+    },
+    getTotalDays: function getTotalDays(start, end) {
+      if (!start || !end) return 0;
+      var s = new Date(start),
+        e = new Date(end);
+      s.setHours(0, 0, 0, 0);
+      e.setHours(0, 0, 0, 0);
+      return s > e ? 0 : Math.ceil((e - s) / (1000 * 60 * 60 * 24)) + 1;
+    },
+    getNonWorkingDays: function getNonWorkingDays(start, end) {
+      return Math.max(0, this.getTotalDays(start, end) - this.getWorkingDays(start, end));
+    },
+    // ===== DOCUMENT AGE =====
+    getDocumentAgeDisplay: function getDocumentAgeDisplay(date) {
+      if (!date) return "N/A";
+      var now = new Date();
+      var d = new Date(date);
+      d.setHours(0, 0, 0, 0);
+      now.setHours(0, 0, 0, 0);
+      if (d > now) return "0 days";
+      var diffTime = Math.abs(now - d);
+      var diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      if (diffDays < 30) {
+        return "".concat(diffDays, " ").concat(diffDays === 1 ? "day" : "days");
+      } else if (diffDays < 365) {
+        var months = Math.floor(diffDays / 30);
+        var remainingDays = diffDays % 30;
+        var result = "".concat(months, " ").concat(months === 1 ? "month" : "months");
+        if (remainingDays > 0) {
+          result += " ".concat(remainingDays, " ").concat(remainingDays === 1 ? "day" : "days");
+        }
+        return result;
+      } else {
+        var years = Math.floor(diffDays / 365);
+        var remainingMonths = Math.floor(diffDays % 365 / 30);
+        var _remainingDays = diffDays % 365 % 30;
+        var _result = "".concat(years, " ").concat(years === 1 ? "year" : "years");
+        if (remainingMonths > 0) {
+          _result += " ".concat(remainingMonths, " ").concat(remainingMonths === 1 ? "month" : "months");
+        }
+        if (_remainingDays > 0 && remainingMonths === 0) {
+          _result += " ".concat(_remainingDays, " ").concat(_remainingDays === 1 ? "day" : "days");
+        }
+        return _result;
+      }
+    },
+    getOfficeRoutesCount: function getOfficeRoutesCount(doc) {
+      var _doc$document_route;
+      return (doc === null || doc === void 0 || (_doc$document_route = doc.document_route) === null || _doc$document_route === void 0 ? void 0 : _doc$document_route.length) || 0;
+    },
+    // ===== ROUTE HELPERS =====
     isRouteActive: function isRouteActive(route) {
-      return route.status === "In Progress" || route.status === "Active" || route.status === "Current" || route.is_current === true;
+      return ["In Progress", "Active", "Current"].includes(route.status) || route.is_current === true;
     },
     getRouteStatusType: function getRouteStatusType(status) {
-      if (!status) return "pending";
-      var s = status.toLowerCase();
+      var s = (status || "").toLowerCase();
       if (["completed", "approved"].includes(s)) return "completed";
       if (["in progress", "active", "current"].includes(s)) return "active";
       if (["rejected", "returned", "cancelled"].includes(s)) return "rejected";
@@ -7855,38 +8383,6 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       if (t === "active") return "bi bi-arrow-repeat";
       if (t === "rejected") return "bi bi-x-circle-fill";
       return "bi bi-clock-fill";
-    },
-    // ===== UTILITY METHODS =====
-    formatDate: function formatDate(dateString) {
-      if (!dateString) return "N/A";
-      return new Date(dateString).toLocaleDateString("en-PH", {
-        year: "numeric",
-        month: "short",
-        day: "numeric"
-      });
-    },
-    formatTime: function formatTime(t) {
-      if (!t) return "";
-      if (typeof t === "string" && (t.toUpperCase().includes("AM") || t.toUpperCase().includes("PM"))) return t;
-      var _t$split$map = t.split(":").map(Number),
-        _t$split$map2 = _slicedToArray(_t$split$map, 2),
-        h = _t$split$map2[0],
-        m = _t$split$map2[1],
-        period = h >= 12 ? "PM" : "AM",
-        displayHour = h % 12 || 12;
-      return "".concat(displayHour, ":").concat(m.toString().padStart(2, "0"), " ").concat(period);
-    },
-    formatDateTime: function formatDateTime(dateString) {
-      if (!dateString) return "N/A";
-      var date = new Date(dateString);
-      return date.toLocaleString("en-PH", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true
-      });
     },
     getStatusClass: function getStatusClass(status) {
       var map = {
@@ -13488,7 +13984,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function render() {
-  var _vm$forwardDocument, _vm$forwardDocument2, _vm$forwardDocument3, _vm$releaseDocument, _vm$releaseDocument2, _vm$releaseDocument3, _vm$releaseDocument4, _vm$selectedDocument, _vm$selectedDocument2, _vm$selectedDocument3, _vm$selectedDocument4, _vm$selectedDocument$, _vm$selectedDocument5, _vm$selectedDocument6, _vm$selectedDocument7, _vm$selectedDocument8, _vm$selectedDocument9, _vm$selectedDocument0, _vm$selectedDocument1, _vm$selectedAttachmen, _vm$selectedDocument10, _vm$selectedAttachmen2, _vm$selectedDocument11;
+  var _vm$forwardDocument, _vm$forwardDocument2, _vm$forwardDocument3, _vm$releaseDocument, _vm$releaseDocument2, _vm$releaseDocument3, _vm$releaseDocument4, _vm$releaseDocument5, _vm$releaseDocument6, _vm$selectedDocument, _vm$selectedDocument2, _vm$selectedDocument3, _vm$selectedDocument$, _vm$selectedDocument4, _vm$selectedDocument5, _vm$selectedDocument6, _vm$selectedDocument7, _vm$selectedDocument8, _vm$selectedDocument9, _vm$selectedAttachmen, _vm$selectedDocument0, _vm$selectedAttachmen2, _vm$selectedDocument1, _vm$selectedDocument10;
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", [_c("div", {
@@ -13605,7 +14101,7 @@ var render = function render() {
       domProps: {
         value: type
       }
-    }, [_vm._v(_vm._s(type))]);
+    }, [_vm._v("\n              " + _vm._s(type) + "\n            ")]);
   })], 2)])])]), _vm._v(" "), _vm.searchQuery || _vm.docTypeFilter ? _c("div", {
     staticClass: "active-filters"
   }, [_c("span", {
@@ -13637,7 +14133,7 @@ var render = function render() {
     on: {
       click: _vm.clearAllFilters
     }
-  }, [_vm._v("Clear All")])]) : _vm._e(), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n        Clear All\n      ")])]) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "results-summary"
   }, [_c("span", {
     staticClass: "results-count"
@@ -13682,7 +14178,7 @@ var render = function render() {
       staticClass: "date-received"
     }, [_c("i", {
       staticClass: "bi bi-calendar3 date-icon"
-    }), _vm._v("\n              " + _vm._s(_vm.formatDate(doc.date_receive)) + " At " + _vm._s(_vm.formatTime(doc.time_receive)) + "\n            ")])]), _vm._v(" "), _c("td", [_c("div", {
+    }), _vm._v("\n              " + _vm._s(_vm.formatDate(doc.date_receive)) + " At\n              " + _vm._s(_vm.formatTime(doc.time_receive)) + "\n            ")])]), _vm._v(" "), _c("td", [_c("div", {
       staticClass: "action-buttons"
     }, [_c("button", {
       staticClass: "btn-action btn-view",
@@ -13699,6 +14195,18 @@ var render = function render() {
     })]), _vm._v(" "), _c("button", {
       staticClass: "btn-action btn-forward",
       attrs: {
+        title: "Release Document"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.openReleaseModal(doc);
+        }
+      }
+    }, [_c("i", {
+      staticClass: "bi bi-check-circle"
+    })]), _vm._v(" "), _c("button", {
+      staticClass: "btn-action btn-forward",
+      attrs: {
         title: "Forward Office"
       },
       on: {
@@ -13708,18 +14216,6 @@ var render = function render() {
       }
     }, [_c("i", {
       staticClass: "bi bi-arrow-right-circle"
-    })]), _vm._v(" "), _c("button", {
-      staticClass: "btn-action btn-release",
-      attrs: {
-        title: "Release Document"
-      },
-      on: {
-        click: function click($event) {
-          return _vm.openReleaseModal(doc);
-        }
-      }
-    }, [_c("i", {
-      staticClass: "bi bi-check2-circle"
     })])])])]);
   })], 2)])]), _vm._v(" "), _c("PaginationComponent", {
     attrs: {
@@ -13941,16 +14437,13 @@ var render = function render() {
       }
     }
   }, [_c("div", {
-    staticClass: "modal-dialog enhanced-modal",
-    staticStyle: {
-      "max-width": "700px"
-    }
+    staticClass: "modal-dialog enhanced-modal release-modal"
   }, [_c("div", {
     staticClass: "modal-content square-modal"
   }, [_c("div", {
     staticClass: "modal-header-enhanced square-header",
     staticStyle: {
-      background: "linear-gradient(135deg, #1e4d2b, #2d6a4f)"
+      background: "linear-gradient(135deg, #059669, #047857)"
     }
   }, [_vm._m(5), _vm._v(" "), _c("button", {
     staticClass: "btn-close-custom square-close",
@@ -13964,7 +14457,7 @@ var render = function render() {
   }, [_c("i", {
     staticClass: "bi bi-x-lg"
   })])]), _vm._v(" "), _c("div", {
-    staticClass: "modal-body-enhanced"
+    staticClass: "modal-body-enhanced release-modal-body"
   }, [_vm.releaseError ? _c("div", {
     staticClass: "error-msg",
     attrs: {
@@ -14001,103 +14494,97 @@ var render = function render() {
       stroke: "none"
     }
   })]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.releaseError))])]) : _vm._e(), _vm._v(" "), _c("div", {
-    staticClass: "release-doc-cards"
+    staticClass: "release-doc-info-grid"
   }, [_c("div", {
-    staticClass: "release-doc-card"
+    staticClass: "release-info-card"
   }, [_vm._m(6), _vm._v(" "), _c("div", {
-    staticClass: "release-doc-card-content"
-  }, [_c("span", {
-    staticClass: "release-doc-card-label"
-  }, [_vm._v("Tracking Number")]), _vm._v(" "), _c("span", {
-    staticClass: "release-doc-card-value tracking-number-value"
-  }, [_vm._v(_vm._s(((_vm$releaseDocument = _vm.releaseDocument) === null || _vm$releaseDocument === void 0 ? void 0 : _vm$releaseDocument.tracking_number) || "N/A"))])])]), _vm._v(" "), _c("div", {
-    staticClass: "release-doc-card"
+    staticClass: "release-info-value tracking-value"
+  }, [_vm._v("\n                " + _vm._s(((_vm$releaseDocument = _vm.releaseDocument) === null || _vm$releaseDocument === void 0 ? void 0 : _vm$releaseDocument.tracking_number) || "N/A") + "\n              ")])]), _vm._v(" "), _c("div", {
+    staticClass: "release-info-card"
   }, [_vm._m(7), _vm._v(" "), _c("div", {
-    staticClass: "release-doc-card-content"
-  }, [_c("span", {
-    staticClass: "release-doc-card-label"
-  }, [_vm._v("Document Type")]), _vm._v(" "), _c("span", {
-    staticClass: "release-doc-card-value"
+    staticClass: "release-info-value"
   }, [_c("span", {
     staticClass: "doc-type-badge"
-  }, [_vm._v("\n                    " + _vm._s(((_vm$releaseDocument2 = _vm.releaseDocument) === null || _vm$releaseDocument2 === void 0 || (_vm$releaseDocument2 = _vm$releaseDocument2.document_type) === null || _vm$releaseDocument2 === void 0 ? void 0 : _vm$releaseDocument2.document_type_name) || ((_vm$releaseDocument3 = _vm.releaseDocument) === null || _vm$releaseDocument3 === void 0 ? void 0 : _vm$releaseDocument3.document_type) || "N/A") + "\n                  ")])])])]), _vm._v(" "), _c("div", {
-    staticClass: "release-doc-card"
+  }, [_vm._v("\n                  " + _vm._s(((_vm$releaseDocument2 = _vm.releaseDocument) === null || _vm$releaseDocument2 === void 0 || (_vm$releaseDocument2 = _vm$releaseDocument2.document_type) === null || _vm$releaseDocument2 === void 0 ? void 0 : _vm$releaseDocument2.document_type_name) || ((_vm$releaseDocument3 = _vm.releaseDocument) === null || _vm$releaseDocument3 === void 0 ? void 0 : _vm$releaseDocument3.document_type) || "N/A") + "\n                ")])])]), _vm._v(" "), _c("div", {
+    staticClass: "release-info-card"
   }, [_vm._m(8), _vm._v(" "), _c("div", {
-    staticClass: "release-doc-card-content"
-  }, [_c("span", {
-    staticClass: "release-doc-card-label"
-  }, [_vm._v("Document Classification")]), _vm._v(" "), _c("span", {
-    staticClass: "release-doc-card-value"
-  }, [_vm._v(_vm._s(((_vm$releaseDocument4 = _vm.releaseDocument) === null || _vm$releaseDocument4 === void 0 ? void 0 : _vm$releaseDocument4.document_classification) || "N/A"))])])])]), _vm._v(" "), _c("div", {
-    staticClass: "release-datetime-section"
+    staticClass: "release-info-value"
+  }, [_vm._v("\n                " + _vm._s(((_vm$releaseDocument4 = _vm.releaseDocument) === null || _vm$releaseDocument4 === void 0 ? void 0 : _vm$releaseDocument4.document_classification) || "N/A") + "\n              ")])]), _vm._v(" "), _c("div", {
+    staticClass: "release-info-card"
   }, [_vm._m(9), _vm._v(" "), _c("div", {
-    staticClass: "datetime-display"
+    staticClass: "release-info-value subject-value"
+  }, [_vm._v("\n                " + _vm._s(((_vm$releaseDocument5 = _vm.releaseDocument) === null || _vm$releaseDocument5 === void 0 ? void 0 : _vm$releaseDocument5.subject) || ((_vm$releaseDocument6 = _vm.releaseDocument) === null || _vm$releaseDocument6 === void 0 ? void 0 : _vm$releaseDocument6.title) || "N/A") + "\n              ")])])]), _vm._v(" "), _c("div", {
+    staticClass: "release-datetime-section"
+  }, [_vm._m(10), _vm._v(" "), _c("div", {
+    staticClass: "release-datetime-grid"
   }, [_c("div", {
-    staticClass: "datetime-item"
-  }, [_c("i", {
-    staticClass: "bi bi-calendar3"
-  }), _vm._v(" "), _c("input", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    staticClass: "form-label-sm"
+  }, [_vm._v("Date")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.releaseDate,
-      expression: "releaseDate"
+      value: _vm.releaseForm.date,
+      expression: "releaseForm.date"
     }],
-    staticClass: "form-input datetime-input",
+    staticClass: "form-input",
     attrs: {
       type: "date",
-      disabled: _vm.releasing
+      disabled: _vm.releasing,
+      required: ""
     },
     domProps: {
-      value: _vm.releaseDate
+      value: _vm.releaseForm.date
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
-        _vm.releaseDate = $event.target.value;
+        _vm.$set(_vm.releaseForm, "date", $event.target.value);
       }
     }
   })]), _vm._v(" "), _c("div", {
-    staticClass: "datetime-item"
-  }, [_c("i", {
-    staticClass: "bi bi-clock"
-  }), _vm._v(" "), _c("input", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    staticClass: "form-label-sm"
+  }, [_vm._v("Time")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.releaseTime,
-      expression: "releaseTime"
+      value: _vm.releaseForm.time,
+      expression: "releaseForm.time"
     }],
-    staticClass: "form-input datetime-input",
+    staticClass: "form-input",
     attrs: {
       type: "time",
-      disabled: _vm.releasing
+      disabled: _vm.releasing,
+      required: ""
     },
     domProps: {
-      value: _vm.releaseTime
+      value: _vm.releaseForm.time
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
-        _vm.releaseTime = $event.target.value;
+        _vm.$set(_vm.releaseForm, "time", $event.target.value);
       }
     }
   })])])]), _vm._v(" "), _c("div", {
-    staticClass: "release-attachment-section"
-  }, [_vm._m(10), _vm._v(" "), _c("div", {
-    staticClass: "upload-area",
+    staticClass: "release-upload-section"
+  }, [_vm._m(11), _vm._v(" "), _c("div", {
+    staticClass: "release-upload-area",
     "class": {
-      "drag-over": _vm.isDragOver,
-      "has-file": _vm.releaseAttachment
+      "drag-over": _vm.isDragging,
+      "has-file": _vm.releaseForm.attachment
     },
     on: {
       dragover: function dragover($event) {
         $event.preventDefault();
-        _vm.isDragOver = true;
+        _vm.isDragging = true;
       },
       dragleave: function dragleave($event) {
         $event.preventDefault();
-        _vm.isDragOver = false;
+        _vm.isDragging = false;
       },
       drop: function drop($event) {
         $event.preventDefault();
@@ -14105,66 +14592,78 @@ var render = function render() {
       },
       click: _vm.triggerFileInput
     }
-  }, [!_vm.releaseAttachment ? _c("div", {
-    staticClass: "upload-content"
-  }, [_vm._m(11), _vm._v(" "), _vm._m(12)]) : _c("div", {
-    staticClass: "file-preview-card"
   }, [_c("div", {
-    staticClass: "file-preview-header"
-  }, [_c("div", {
-    staticClass: "file-info-group"
+    staticClass: "release-upload-content"
+  }, [!_vm.releaseForm.attachment ? _c("div", {
+    staticClass: "upload-placeholder"
+  }, [_vm._m(12), _vm._v(" "), _c("h6", {
+    staticClass: "upload-title"
+  }, [_vm._v("\n                    Drop your file here or click to browse\n                  ")]), _vm._v(" "), _c("p", {
+    staticClass: "upload-subtitle"
+  }, [_vm._v("\n                    Supports PDF files only (Max 10MB)\n                  ")])]) : _c("div", {
+    staticClass: "upload-file-preview"
   }, [_vm._m(13), _vm._v(" "), _c("div", {
-    staticClass: "file-details"
+    staticClass: "upload-file-info"
   }, [_c("span", {
-    staticClass: "file-name"
-  }, [_vm._v(_vm._s(_vm.releaseAttachment.name))]), _vm._v(" "), _c("span", {
-    staticClass: "file-size"
-  }, [_vm._v(_vm._s(_vm.formatFileSize(_vm.releaseAttachment.size)))])])]), _vm._v(" "), _c("button", {
-    staticClass: "btn-remove-file",
+    staticClass: "upload-file-name"
+  }, [_vm._v(_vm._s(_vm.releaseForm.attachment.name))]), _vm._v(" "), _c("span", {
+    staticClass: "upload-file-size"
+  }, [_vm._v(_vm._s(_vm.formatFileSize(_vm.releaseForm.attachment.size)))])]), _vm._v(" "), _c("button", {
+    staticClass: "upload-remove-btn",
+    attrs: {
+      type: "button",
+      disabled: _vm.releasing
+    },
     on: {
       click: function click($event) {
         $event.stopPropagation();
-        return _vm.removeReleaseAttachment.apply(null, arguments);
+        return _vm.removeAttachment.apply(null, arguments);
       }
     }
   }, [_c("i", {
-    staticClass: "bi bi-x-circle"
+    staticClass: "bi bi-x"
   })])])]), _vm._v(" "), _c("input", {
-    ref: "releaseFileInput",
-    staticClass: "upload-input",
+    ref: "fileInput",
+    staticClass: "release-file-input",
     attrs: {
       type: "file",
-      accept: ".pdf,application/pdf"
+      accept: ".pdf,application/pdf",
+      disabled: _vm.releasing
     },
     on: {
-      change: _vm.handleFileSelect
+      change: _vm.handleFileChange
     }
-  })]), _vm._v(" "), _vm.releaseAttachmentError ? _c("div", {
-    staticClass: "invalid-feedback"
-  }, [_vm._v("\n              " + _vm._s(_vm.releaseAttachmentError) + "\n            ")]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "mt-3"
-  }, [_c("label", {
-    staticClass: "form-label-enhanced"
-  }, [_vm._v("Remarks (Optional)")]), _vm._v(" "), _c("textarea", {
+  })]), _vm._v(" "), _vm.uploadProgress > 0 && _vm.uploadProgress < 100 ? _c("div", {
+    staticClass: "upload-progress"
+  }, [_c("div", {
+    staticClass: "progress-bar",
+    style: {
+      width: _vm.uploadProgress + "%"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "progress-text"
+  }, [_vm._v(_vm._s(_vm.uploadProgress) + "%")])]) : _vm._e()]), _vm._v(" "), _c("div", {
+    staticClass: "release-remarks-section"
+  }, [_vm._m(14), _vm._v(" "), _c("textarea", {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.releaseRemarks,
-      expression: "releaseRemarks"
+      value: _vm.releaseForm.remarks,
+      expression: "releaseForm.remarks"
     }],
     staticClass: "form-input form-textarea",
     attrs: {
-      placeholder: "Add any remarks about the release...",
+      disabled: _vm.releasing,
       rows: "3",
-      disabled: _vm.releasing
+      placeholder: "Enter any additional remarks for this release..."
     },
     domProps: {
-      value: _vm.releaseRemarks
+      value: _vm.releaseForm.remarks
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
-        _vm.releaseRemarks = $event.target.value;
+        _vm.$set(_vm.releaseForm, "remarks", $event.target.value);
       }
     }
   })]), _vm._v(" "), _c("div", {
@@ -14176,29 +14675,18 @@ var render = function render() {
       disabled: _vm.releasing
     },
     on: {
-      click: _vm.clearReleaseForm
-    }
-  }, [_c("i", {
-    staticClass: "bi bi-arrow-counterclockwise me-1"
-  }), _vm._v(" Reset\n            ")]), _vm._v(" "), _c("div", {
-    staticClass: "d-flex gap-3"
-  }, [_c("button", {
-    staticClass: "btn btn-light square-btn",
-    attrs: {
-      type: "button",
-      disabled: _vm.releasing
-    },
-    on: {
       click: _vm.closeReleaseModal
     }
-  }, [_vm._v("\n                Cancel\n              ")]), _vm._v(" "), _c("button", {
+  }, [_c("i", {
+    staticClass: "bi bi-x-lg me-1"
+  }), _vm._v(" Cancel\n            ")]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-save square-btn",
     staticStyle: {
-      background: "linear-gradient(135deg, #1e4d2b, #2d6a4f)"
+      background: "linear-gradient(135deg, #059669, #047857)"
     },
     attrs: {
       type: "button",
-      disabled: _vm.releasing || !_vm.releaseAttachment || !_vm.releaseDate || !_vm.releaseTime
+      disabled: _vm.releasing || !_vm.releaseForm.date || !_vm.releaseForm.time || !_vm.releaseForm.attachment
     },
     on: {
       click: _vm.submitReleaseDocument
@@ -14209,8 +14697,8 @@ var render = function render() {
       role: "status"
     }
   }) : _c("i", {
-    staticClass: "bi bi-check2-circle me-1"
-  }), _vm._v("\n                " + _vm._s(_vm.releasing ? "Releasing..." : "Confirm Release") + "\n              ")])])])])])])]) : _vm._e(), _vm._v(" "), _vm.showViewModal ? _c("div", {
+    staticClass: "bi bi-check-circle me-1"
+  }), _vm._v("\n              " + _vm._s(_vm.releasing ? "Releasing..." : "Confirm Release") + "\n            ")])])])])])]) : _vm._e(), _vm._v(" "), _vm.showViewModal ? _c("div", {
     staticClass: "modal-overlay",
     on: {
       click: function click($event) {
@@ -14226,7 +14714,7 @@ var render = function render() {
     staticClass: "modal-header-enhanced square-header document-header"
   }, [_c("div", {
     staticClass: "d-flex align-items-center"
-  }, [_vm._m(14), _vm._v(" "), _c("div", [_c("h5", {
+  }, [_vm._m(15), _vm._v(" "), _c("div", [_c("h5", {
     staticClass: "modal-title"
   }, [_vm._v("Document Viewer")]), _vm._v(" "), _c("small", {
     staticClass: "modal-subtitle"
@@ -14236,15 +14724,7 @@ var render = function render() {
     "class": ["status-pill", _vm.getStatusClass((_vm$selectedDocument2 = _vm.selectedDocument) === null || _vm$selectedDocument2 === void 0 ? void 0 : _vm$selectedDocument2.status)]
   }, [_vm._v("\n                  " + _vm._s((_vm$selectedDocument3 = _vm.selectedDocument) === null || _vm$selectedDocument3 === void 0 ? void 0 : _vm$selectedDocument3.status) + "\n                ")])])])]), _vm._v(" "), _c("div", {
     staticClass: "header-actions"
-  }, [_c("a", {
-    staticClass: "btn-header-action btn-header-update",
-    attrs: {
-      href: "/dts_denr/view-document/".concat((_vm$selectedDocument4 = _vm.selectedDocument) === null || _vm$selectedDocument4 === void 0 ? void 0 : _vm$selectedDocument4.token),
-      title: "Update Document"
-    }
-  }, [_c("i", {
-    staticClass: "bi bi-pencil-square"
-  })]), _vm._v(" "), _c("button", {
+  }, [_c("button", {
     staticClass: "btn-close-custom square-close",
     attrs: {
       type: "button"
@@ -14304,35 +14784,35 @@ var render = function render() {
     staticClass: "document-viewer-layout"
   }, [_c("div", {
     staticClass: "details-panel"
-  }, [_vm._m(15), _vm._v(" "), _vm.selectedDocument ? _c("div", {
+  }, [_vm._m(16), _vm._v(" "), _vm.selectedDocument ? _c("div", {
     staticClass: "details-content"
   }, [_c("div", {
     staticClass: "detail-card"
-  }, [_vm._m(16), _vm._v(" "), _c("div", {
+  }, [_vm._m(17), _vm._v(" "), _c("div", {
     staticClass: "detail-info"
   }, [_c("label", [_vm._v("Tracking Number")]), _vm._v(" "), _c("span", {
     staticClass: "tracking-number-large"
   }, [_vm._v(_vm._s(_vm.selectedDocument.tracking_number))])])]), _vm._v(" "), _c("div", {
     staticClass: "detail-card"
-  }, [_vm._m(17), _vm._v(" "), _c("div", {
+  }, [_vm._m(18), _vm._v(" "), _c("div", {
     staticClass: "detail-info"
   }, [_c("label", [_vm._v("Document Type")]), _vm._v(" "), _c("span", {
     staticClass: "doc-type-badge-large"
   }, [_vm._v("\n                      " + _vm._s(((_vm$selectedDocument$ = _vm.selectedDocument.document_type) === null || _vm$selectedDocument$ === void 0 ? void 0 : _vm$selectedDocument$.document_type_name) || _vm.selectedDocument.document_type) + "\n                    ")])])]), _vm._v(" "), _c("div", {
     staticClass: "detail-card"
-  }, [_vm._m(18), _vm._v(" "), _c("div", {
+  }, [_vm._m(19), _vm._v(" "), _c("div", {
     staticClass: "detail-info"
   }, [_c("label", [_vm._v("Subject / Title")]), _vm._v(" "), _c("span", {
     staticClass: "detail-value"
   }, [_vm._v(_vm._s(_vm.selectedDocument.subject || _vm.selectedDocument.title))])])]), _vm._v(" "), _c("div", {
     staticClass: "detail-card"
-  }, [_vm._m(19), _vm._v(" "), _c("div", {
+  }, [_vm._m(20), _vm._v(" "), _c("div", {
     staticClass: "detail-info"
   }, [_c("label", [_vm._v("Sender / Origin")]), _vm._v(" "), _c("span", {
     staticClass: "detail-value"
   }, [_vm._v(_vm._s(_vm.selectedDocument.sender_name || _vm.selectedDocument.origin))])])]), _vm._v(" "), _c("div", {
     staticClass: "detail-card"
-  }, [_vm._m(20), _vm._v(" "), _c("div", {
+  }, [_vm._m(21), _vm._v(" "), _c("div", {
     staticClass: "detail-info"
   }, [_c("label", [_vm._v("Date Received")]), _vm._v(" "), _c("span", {
     staticClass: "detail-value"
@@ -14340,19 +14820,19 @@ var render = function render() {
     staticClass: "time-text"
   }, [_vm._v("\n                        at " + _vm._s(_vm.formatTime(_vm.selectedDocument.time_receive)) + "\n                      ")]) : _vm._e()])])]), _vm._v(" "), _vm.selectedDocument.description ? _c("div", {
     staticClass: "detail-card description-card"
-  }, [_vm._m(21), _vm._v(" "), _c("div", {
+  }, [_vm._m(22), _vm._v(" "), _c("div", {
     staticClass: "detail-info"
   }, [_c("label", [_vm._v("Description")]), _vm._v(" "), _c("p", {
     staticClass: "detail-value description-text"
-  }, [_vm._v(_vm._s(_vm.selectedDocument.description))])])]) : _vm._e(), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                      " + _vm._s(_vm.selectedDocument.description) + "\n                    ")])])]) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "detail-card meta-card"
-  }, [_vm._m(22), _vm._v(" "), _c("div", {
+  }, [_vm._m(23), _vm._v(" "), _c("div", {
     staticClass: "detail-info"
   }, [_c("label", [_vm._v("Status")]), _vm._v(" "), _c("span", {
-    "class": ["status-badge", _vm.getStatusClass((_vm$selectedDocument5 = _vm.selectedDocument) === null || _vm$selectedDocument5 === void 0 ? void 0 : _vm$selectedDocument5.status)]
-  }, [_vm._v("\n                      " + _vm._s(((_vm$selectedDocument6 = _vm.selectedDocument) === null || _vm$selectedDocument6 === void 0 ? void 0 : _vm$selectedDocument6.status) || "Unknown") + "\n                    ")])])]), _vm._v(" "), (_vm$selectedDocument7 = _vm.selectedDocument) !== null && _vm$selectedDocument7 !== void 0 && _vm$selectedDocument7.date_released ? _c("div", {
+    "class": ["status-badge", _vm.getStatusClass((_vm$selectedDocument4 = _vm.selectedDocument) === null || _vm$selectedDocument4 === void 0 ? void 0 : _vm$selectedDocument4.status)]
+  }, [_vm._v("\n                      " + _vm._s(((_vm$selectedDocument5 = _vm.selectedDocument) === null || _vm$selectedDocument5 === void 0 ? void 0 : _vm$selectedDocument5.status) || "Unknown") + "\n                    ")])])]), _vm._v(" "), (_vm$selectedDocument6 = _vm.selectedDocument) !== null && _vm$selectedDocument6 !== void 0 && _vm$selectedDocument6.date_released ? _c("div", {
     staticClass: "detail-card release-date-card"
-  }, [_vm._m(23), _vm._v(" "), _c("div", {
+  }, [_vm._m(24), _vm._v(" "), _c("div", {
     staticClass: "detail-info"
   }, [_c("label", [_vm._v("Date Released")]), _vm._v(" "), _c("span", {
     staticClass: "detail-value"
@@ -14362,7 +14842,7 @@ var render = function render() {
     staticClass: "pdf-panel"
   }, [_c("div", {
     staticClass: "pdf-panel-header"
-  }, [_vm._m(24), _vm._v(" "), _c("div", {
+  }, [_vm._m(25), _vm._v(" "), _c("div", {
     staticClass: "pdf-controls"
   }, [_c("button", {
     staticClass: "btn-pdf-control",
@@ -14390,7 +14870,7 @@ var render = function render() {
     staticClass: "pdf-viewer-wrapper"
   }, [_vm.pdfLoading && !_vm.pdfLoadError ? _c("div", {
     staticClass: "pdf-state"
-  }, [_vm._m(25), _vm._v(" "), _c("p", {
+  }, [_vm._m(26), _vm._v(" "), _c("p", {
     staticClass: "pdf-state-text"
   }, [_vm._v("Loading document preview...")])]) : _vm._e(), _vm._v(" "), _c("iframe", {
     directives: [{
@@ -14424,7 +14904,7 @@ var render = function render() {
     staticClass: "mt-3"
   }, [_vm._v("PDF Not Available")]), _vm._v(" "), _c("p", {
     staticClass: "text-muted"
-  }, [_vm._v("The attachment could not be loaded or doesn't exist.")]), _vm._v(" "), _c("button", {
+  }, [_vm._v("\n                    The attachment could not be loaded or doesn't exist.\n                  ")]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-outline-secondary btn-sm mt-3",
     on: {
       click: _vm.retryPdfLoad
@@ -14447,7 +14927,7 @@ var render = function render() {
     staticClass: "route-history-panel"
   }, [_c("div", {
     staticClass: "route-history-header"
-  }, [_vm._m(26), _vm._v(" "), ((_vm$selectedDocument8 = _vm.selectedDocument) === null || _vm$selectedDocument8 === void 0 || (_vm$selectedDocument8 = _vm$selectedDocument8.document_route) === null || _vm$selectedDocument8 === void 0 ? void 0 : _vm$selectedDocument8.length) > 0 ? _c("div", {
+  }, [_vm._m(27), _vm._v(" "), ((_vm$selectedDocument7 = _vm.selectedDocument) === null || _vm$selectedDocument7 === void 0 || (_vm$selectedDocument7 = _vm$selectedDocument7.document_route) === null || _vm$selectedDocument7 === void 0 ? void 0 : _vm$selectedDocument7.length) > 0 ? _c("div", {
     staticClass: "route-history-badge"
   }, [_c("i", {
     staticClass: "bi bi-arrow-left-right"
@@ -14459,13 +14939,13 @@ var render = function render() {
     staticClass: "loader-spinner"
   }), _vm._v(" "), _c("p", {
     staticClass: "mt-3 text-muted"
-  }, [_vm._v("Loading route history...")])]) : !((_vm$selectedDocument9 = _vm.selectedDocument) !== null && _vm$selectedDocument9 !== void 0 && _vm$selectedDocument9.document_route) || _vm.selectedDocument.document_route.length === 0 ? _c("div", {
+  }, [_vm._v("Loading route history...")])]) : !((_vm$selectedDocument8 = _vm.selectedDocument) !== null && _vm$selectedDocument8 !== void 0 && _vm$selectedDocument8.document_route) || _vm.selectedDocument.document_route.length === 0 ? _c("div", {
     staticClass: "route-state-box"
-  }, [_vm._m(27), _vm._v(" "), _c("h5", {
+  }, [_vm._m(28), _vm._v(" "), _c("h5", {
     staticClass: "mt-3"
   }, [_vm._v("No Route History")]), _vm._v(" "), _c("p", {
     staticClass: "text-muted"
-  }, [_vm._v("This document hasn't been routed yet.")])]) : _c("div", {
+  }, [_vm._v("\n                  This document hasn't been routed yet.\n                ")])]) : _c("div", {
     staticClass: "timeline-container"
   }, _vm._l(_vm.selectedDocument.document_route, function (route, rIndex) {
     var _route$office;
@@ -14510,7 +14990,7 @@ var render = function render() {
       staticClass: "info-card-body"
     }, [_c("div", {
       staticClass: "info-field"
-    }, [_vm._m(28, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(29, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
@@ -14520,7 +15000,7 @@ var render = function render() {
       staticClass: "bi bi-clock me-1"
     }), _vm._v("\n                                  " + _vm._s(_vm.formatDateTime(route.date_receive)) + "\n                                ")])])]), _vm._v(" "), route.received_by || route.received_by_name ? _c("div", {
       staticClass: "info-field"
-    }, [_vm._m(29, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(30, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
@@ -14528,7 +15008,7 @@ var render = function render() {
       staticClass: "field-value received-by"
     }, [route.received_by ? [_vm._v("\n                                    " + _vm._s(route.received_by.firstname || "") + "\n                                    " + _vm._s(route.received_by.middlename ? route.received_by.middlename + " " : "") + "\n                                    " + _vm._s(route.received_by.lastname || "") + "\n                                  ")] : route.received_by_name ? [_vm._v("\n                                    " + _vm._s(route.received_by_name) + "\n                                  ")] : _vm._e()], 2)])]) : _vm._e(), _vm._v(" "), route.remarks ? _c("div", {
       staticClass: "info-field remarks-field"
-    }, [_vm._m(30, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(31, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
@@ -14538,7 +15018,7 @@ var render = function render() {
       staticClass: "info-card completed-card"
     }, [_c("div", {
       staticClass: "info-card-header"
-    }, [_vm._m(31, true), _vm._v(" "), _c("span", {
+    }, [_vm._m(32, true), _vm._v(" "), _c("span", {
       staticClass: "info-card-title"
     }, [_vm._v("Completion Information")]), _vm._v(" "), route.status === "Completed" ? _c("span", {
       staticClass: "info-card-status completed-status"
@@ -14548,7 +15028,7 @@ var render = function render() {
       staticClass: "info-card-body"
     }, [_c("div", {
       staticClass: "info-field"
-    }, [_vm._m(32, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(33, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
@@ -14558,7 +15038,7 @@ var render = function render() {
       staticClass: "bi bi-check-circle me-1"
     }), _vm._v("\n                                  " + _vm._s(_vm.formatDateTime(route.date_document_out)) + "\n                                ")])])]), _vm._v(" "), route.completed_by || route.completed_by_name ? _c("div", {
       staticClass: "info-field"
-    }, [_vm._m(33, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(34, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
@@ -14566,7 +15046,7 @@ var render = function render() {
       staticClass: "field-value"
     }, [route.completed_by ? [_vm._v("\n                                    " + _vm._s(route.completed_by.firstname || "") + "\n                                    " + _vm._s(route.completed_by.middlename ? route.completed_by.middlename + " " : "") + "\n                                    " + _vm._s(route.completed_by.lastname || "") + "\n                                  ")] : route.completed_by_name ? [_vm._v("\n                                    " + _vm._s(route.completed_by_name) + "\n                                  ")] : _vm._e()], 2)])]) : _vm._e(), _vm._v(" "), route.remarks ? _c("div", {
       staticClass: "info-field"
-    }, [_vm._m(34, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(35, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
@@ -14578,7 +15058,7 @@ var render = function render() {
       staticClass: "flow-container"
     }, [route.from_office ? _c("div", {
       staticClass: "flow-node origin-node"
-    }, [_vm._m(35, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(36, true), _vm._v(" "), _c("div", {
       staticClass: "flow-node-content"
     }, [_c("span", {
       staticClass: "flow-node-label"
@@ -14588,11 +15068,11 @@ var render = function render() {
       staticClass: "flow-arrow-enhanced"
     }, [_c("div", {
       staticClass: "arrow-line"
-    }), _vm._v(" "), _vm._m(36, true), _vm._v(" "), _c("div", {
+    }), _vm._v(" "), _vm._m(37, true), _vm._v(" "), _c("div", {
       staticClass: "arrow-line"
     })]) : _vm._e(), _vm._v(" "), route.to_office ? _c("div", {
       staticClass: "flow-node destination-node"
-    }, [_vm._m(37, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(38, true), _vm._v(" "), _c("div", {
       staticClass: "flow-node-content"
     }, [_c("span", {
       staticClass: "flow-node-label"
@@ -14610,7 +15090,7 @@ var render = function render() {
       staticStyle: {
         "font-size": "0.85rem"
       }
-    }, [_vm._v("Awaiting action")])]) : _vm._e()])])]);
+    }, [_vm._v("\n                          Awaiting action\n                        ")])]) : _vm._e()])])]);
   }), 0)])]), _vm._v(" "), _c("div", {
     directives: [{
       name: "show",
@@ -14621,18 +15101,18 @@ var render = function render() {
     staticClass: "attachments-panel"
   }, [_c("div", {
     staticClass: "attachments-header"
-  }, [_vm._m(38), _vm._v(" "), _c("span", {
+  }, [_vm._m(39), _vm._v(" "), _c("span", {
     staticClass: "attachments-count"
   }, [_vm._v("\n                " + _vm._s(_vm.getAttachmentsCount()) + " file(s)\n              ")])]), _vm._v(" "), _c("div", {
     staticClass: "attachments-content"
-  }, [(_vm$selectedDocument0 = _vm.selectedDocument) !== null && _vm$selectedDocument0 !== void 0 && _vm$selectedDocument0.draft_attachment ? _c("div", {
+  }, [(_vm$selectedDocument9 = _vm.selectedDocument) !== null && _vm$selectedDocument9 !== void 0 && _vm$selectedDocument9.draft_attachment ? _c("div", {
     staticClass: "attachment-item",
     on: {
       click: function click($event) {
         return _vm.openAttachmentViewer("draft");
       }
     }
-  }, [_vm._m(39), _vm._v(" "), _c("div", {
+  }, [_vm._m(40), _vm._v(" "), _c("div", {
     staticClass: "attachment-details"
   }, [_c("div", {
     staticClass: "attachment-name"
@@ -14646,7 +15126,7 @@ var render = function render() {
     staticClass: "attachment-separator"
   }, [_vm._v("•")]), _vm._v(" "), _c("span", {
     staticClass: "attachment-date"
-  }, [_vm._v("Uploaded: " + _vm._s(_vm.formatDate(_vm.selectedDocument.created_at)))])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Uploaded:\n                      " + _vm._s(_vm.formatDate(_vm.selectedDocument.created_at)))])])]), _vm._v(" "), _c("div", {
     staticClass: "attachment-actions",
     on: {
       click: function click($event) {
@@ -14674,56 +15154,63 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "bi bi-download"
-  })])])]) : _vm._e(), _vm._v(" "), (_vm$selectedDocument1 = _vm.selectedDocument) !== null && _vm$selectedDocument1 !== void 0 && _vm$selectedDocument1.released_attachment ? _c("div", {
-    staticClass: "attachment-item",
-    on: {
-      click: function click($event) {
-        return _vm.openAttachmentViewer("released");
+  })])])]) : _vm._e(), _vm._v(" "), _vm._l(_vm.getActedDocuments(), function (actedDoc, index) {
+    return _c("div", {
+      key: "acted-" + index,
+      staticClass: "attachment-item",
+      on: {
+        click: function click($event) {
+          return _vm.openActedDocumentViewer(actedDoc);
+        }
       }
-    }
-  }, [_vm._m(40), _vm._v(" "), _c("div", {
-    staticClass: "attachment-details"
-  }, [_c("div", {
-    staticClass: "attachment-name"
-  }, [_vm._v("\n                    " + _vm._s(_vm.selectedDocument.tracking_number) + "_released.pdf\n                    "), _c("span", {
-    staticClass: "attachment-badge released-badge"
-  }, [_vm._v("Released")])]), _vm._v(" "), _c("div", {
-    staticClass: "attachment-meta"
-  }, [_c("span", {
-    staticClass: "attachment-size"
-  }, [_vm._v("PDF Document")]), _vm._v(" "), _c("span", {
-    staticClass: "attachment-separator"
-  }, [_vm._v("•")]), _vm._v(" "), _c("span", {
-    staticClass: "attachment-date"
-  }, [_vm._v("Released: " + _vm._s(_vm.formatDate(_vm.selectedDocument.date_released || _vm.selectedDocument.created_at)))])])]), _vm._v(" "), _c("div", {
-    staticClass: "attachment-actions",
-    on: {
-      click: function click($event) {
-        $event.stopPropagation();
+    }, [_vm._m(41, true), _vm._v(" "), _c("div", {
+      staticClass: "attachment-details"
+    }, [_c("div", {
+      staticClass: "attachment-name"
+    }, [_vm._v("\n                    " + _vm._s(_vm.getActedFileName(actedDoc)) + "\n                    "), _c("span", {
+      staticClass: "attachment-badge acted-badge"
+    }, [_vm._v("Acted")])]), _vm._v(" "), _c("div", {
+      staticClass: "attachment-meta"
+    }, [_c("span", {
+      staticClass: "attachment-size"
+    }, [_vm._v("PDF Document")]), _vm._v(" "), _c("span", {
+      staticClass: "attachment-separator"
+    }, [_vm._v("•")]), _vm._v(" "), _c("span", {
+      staticClass: "attachment-date"
+    }, [_vm._v("\n                      " + _vm._s(_vm.formatDate(actedDoc.created_at || actedDoc.date_created)) + "\n                    ")]), _vm._v(" "), actedDoc.remarks ? _c("span", {
+      staticClass: "attachment-separator"
+    }, [_vm._v("•")]) : _vm._e(), _vm._v(" "), actedDoc.remarks ? _c("span", {
+      staticClass: "attachment-remarks"
+    }, [_vm._v(_vm._s(actedDoc.remarks))]) : _vm._e()])]), _vm._v(" "), _c("div", {
+      staticClass: "attachment-actions",
+      on: {
+        click: function click($event) {
+          $event.stopPropagation();
+        }
       }
-    }
-  }, [_c("button", {
-    staticClass: "btn-attachment-view",
-    attrs: {
-      title: "View"
-    },
-    on: {
-      click: function click($event) {
-        return _vm.openAttachmentViewer("released");
+    }, [_c("button", {
+      staticClass: "btn-attachment-view",
+      attrs: {
+        title: "View"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.openActedDocumentViewer(actedDoc);
+        }
       }
-    }
-  }, [_c("i", {
-    staticClass: "bi bi-eye"
-  })]), _vm._v(" "), _c("a", {
-    staticClass: "btn-attachment-download",
-    attrs: {
-      href: _vm.getReleasedAttachmentUrl(_vm.selectedDocument.released_attachment),
-      download: "",
-      title: "Download"
-    }
-  }, [_c("i", {
-    staticClass: "bi bi-download"
-  })])])]) : _vm._e(), _vm._v(" "), !_vm.hasAttachments() ? _c("div", {
+    }, [_c("i", {
+      staticClass: "bi bi-eye"
+    })]), _vm._v(" "), _c("a", {
+      staticClass: "btn-attachment-download",
+      attrs: {
+        href: _vm.getActedDocumentUrl(actedDoc),
+        download: "",
+        title: "Download"
+      }
+    }, [_c("i", {
+      staticClass: "bi bi-download"
+    })])])]);
+  }), _vm._v(" "), !_vm.hasAttachments() && _vm.getActedDocuments().length === 0 ? _c("div", {
     staticClass: "no-attachments"
   }, [_c("i", {
     staticClass: "bi bi-file-earmark-x",
@@ -14735,7 +15222,7 @@ var render = function render() {
     staticClass: "mt-3"
   }, [_vm._v("No Attachments")]), _vm._v(" "), _c("p", {
     staticClass: "text-muted"
-  }, [_vm._v("This document doesn't have any attachments yet.")])]) : _vm._e()])])])])])]) : _vm._e(), _vm._v(" "), _vm.showAttachmentViewer ? _c("div", {
+  }, [_vm._v("\n                  This document doesn't have any attachments yet.\n                ")])]) : _vm._e()], 2)])])])])]) : _vm._e(), _vm._v(" "), _vm.showAttachmentViewer ? _c("div", {
     staticClass: "modal-overlay",
     on: {
       click: function click($event) {
@@ -14754,13 +15241,13 @@ var render = function render() {
     }
   }, [_c("div", {
     staticClass: "d-flex align-items-center"
-  }, [_vm._m(41), _vm._v(" "), _c("div", [_c("h5", {
+  }, [_vm._m(42), _vm._v(" "), _c("div", [_c("h5", {
     staticClass: "modal-title"
   }, [_vm._v("Attachment Viewer")]), _vm._v(" "), _c("small", {
     staticClass: "modal-subtitle"
   }, [_c("span", {
     staticClass: "tracking-badge"
-  }, [_vm._v(_vm._s(((_vm$selectedAttachmen = _vm.selectedAttachment) === null || _vm$selectedAttachmen === void 0 ? void 0 : _vm$selectedAttachmen.tracking_number) || ((_vm$selectedDocument10 = _vm.selectedDocument) === null || _vm$selectedDocument10 === void 0 ? void 0 : _vm$selectedDocument10.tracking_number)))]), _vm._v(" "), _c("span", {
+  }, [_vm._v(_vm._s(((_vm$selectedAttachmen = _vm.selectedAttachment) === null || _vm$selectedAttachmen === void 0 ? void 0 : _vm$selectedAttachmen.tracking_number) || ((_vm$selectedDocument0 = _vm.selectedDocument) === null || _vm$selectedDocument0 === void 0 ? void 0 : _vm$selectedDocument0.tracking_number)))]), _vm._v(" "), _c("span", {
     staticClass: "attachment-type-badge"
   }, [_vm._v(_vm._s(_vm.selectedAttachmentType === "draft" ? "Draft" : "Released"))])])])]), _vm._v(" "), _c("button", {
     staticClass: "btn-close-custom square-close",
@@ -14782,7 +15269,7 @@ var render = function render() {
     staticClass: "toolbar-file-name"
   }, [_c("i", {
     staticClass: "bi bi-file-pdf text-danger me-2"
-  }), _vm._v("\n                " + _vm._s(((_vm$selectedAttachmen2 = _vm.selectedAttachment) === null || _vm$selectedAttachmen2 === void 0 ? void 0 : _vm$selectedAttachmen2.tracking_number) || ((_vm$selectedDocument11 = _vm.selectedDocument) === null || _vm$selectedDocument11 === void 0 ? void 0 : _vm$selectedDocument11.tracking_number)) + "_" + _vm._s(_vm.selectedAttachmentType) + ".pdf\n              ")])]), _vm._v(" "), _c("div", {
+  }), _vm._v("\n                " + _vm._s(((_vm$selectedAttachmen2 = _vm.selectedAttachment) === null || _vm$selectedAttachmen2 === void 0 ? void 0 : _vm$selectedAttachmen2.tracking_number) || ((_vm$selectedDocument1 = _vm.selectedDocument) === null || _vm$selectedDocument1 === void 0 ? void 0 : _vm$selectedDocument1.tracking_number)) + "_" + _vm._s(_vm.selectedAttachmentType) + ".pdf\n              ")])]), _vm._v(" "), _c("div", {
     staticClass: "toolbar-right"
   }, [_c("button", {
     staticClass: "btn-toolbar",
@@ -14863,7 +15350,7 @@ var render = function render() {
     staticClass: "mt-3"
   }, [_vm._v("Unable to Load Attachment")]), _vm._v(" "), _c("p", {
     staticClass: "text-muted"
-  }, [_vm._v("The attachment could not be loaded or doesn't exist.")]), _vm._v(" "), _c("button", {
+  }, [_vm._v("\n                The attachment could not be loaded or doesn't exist.\n              ")]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-outline-secondary btn-sm mt-3",
     on: {
       click: _vm.retryAttachmentLoad
@@ -14878,7 +15365,146 @@ var render = function render() {
     staticClass: "attachment-info"
   }, [_c("i", {
     staticClass: "bi bi-file-pdf me-1"
-  }), _vm._v("\n              " + _vm._s(_vm.selectedAttachmentType === "draft" ? "Draft Document" : "Released Document") + "\n            ")])])])])])]) : _vm._e()], 1);
+  }), _vm._v("\n              " + _vm._s(_vm.selectedAttachmentType === "draft" ? "Draft Document" : "Released Document") + "\n            ")])])])])])]) : _vm._e(), _vm._v(" "), _vm.showActedViewer ? _c("div", {
+    staticClass: "modal-overlay",
+    on: {
+      click: function click($event) {
+        if ($event.target !== $event.currentTarget) return null;
+        return _vm.closeActedViewer.apply(null, arguments);
+      }
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog enhanced-modal attachment-viewer-modal"
+  }, [_c("div", {
+    staticClass: "modal-content square-modal"
+  }, [_c("div", {
+    staticClass: "modal-header-enhanced square-header",
+    staticStyle: {
+      background: "linear-gradient(135deg, #7c3aed, #6d28d9)"
+    }
+  }, [_c("div", {
+    staticClass: "d-flex align-items-center"
+  }, [_vm._m(43), _vm._v(" "), _c("div", [_c("h5", {
+    staticClass: "modal-title"
+  }, [_vm._v("Acted Document Viewer")]), _vm._v(" "), _c("small", {
+    staticClass: "modal-subtitle"
+  }, [_c("span", {
+    staticClass: "tracking-badge"
+  }, [_vm._v(_vm._s((_vm$selectedDocument10 = _vm.selectedDocument) === null || _vm$selectedDocument10 === void 0 ? void 0 : _vm$selectedDocument10.tracking_number))]), _vm._v(" "), _c("span", {
+    staticClass: "attachment-type-badge acted-badge-sm"
+  }, [_vm._v("Acted")])])])]), _vm._v(" "), _c("button", {
+    staticClass: "btn-close-custom square-close",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: _vm.closeActedViewer
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-x-lg"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body-enhanced attachment-viewer-body"
+  }, [_c("div", {
+    staticClass: "attachment-viewer-toolbar"
+  }, [_c("div", {
+    staticClass: "toolbar-left"
+  }, [_c("span", {
+    staticClass: "toolbar-file-name"
+  }, [_c("i", {
+    staticClass: "bi bi-file-pdf text-danger me-2"
+  }), _vm._v("\n                " + _vm._s(_vm.getActedFileName(_vm.selectedActedDocument)) + "\n              ")])]), _vm._v(" "), _c("div", {
+    staticClass: "toolbar-right"
+  }, [_c("button", {
+    staticClass: "btn-toolbar",
+    attrs: {
+      title: "Zoom In"
+    },
+    on: {
+      click: _vm.actedZoomIn
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-zoom-in"
+  })]), _vm._v(" "), _c("button", {
+    staticClass: "btn-toolbar",
+    attrs: {
+      title: "Zoom Out"
+    },
+    on: {
+      click: _vm.actedZoomOut
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-zoom-out"
+  })]), _vm._v(" "), _c("button", {
+    staticClass: "btn-toolbar",
+    attrs: {
+      title: "Reset Zoom"
+    },
+    on: {
+      click: _vm.actedZoomReset
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-arrow-counterclockwise"
+  })]), _vm._v(" "), _c("a", {
+    staticClass: "btn-toolbar btn-toolbar-download",
+    attrs: {
+      href: _vm.getActedDocumentUrl(_vm.selectedActedDocument),
+      download: "",
+      title: "Download"
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-download"
+  })])])]), _vm._v(" "), _c("div", {
+    staticClass: "attachment-viewer-content"
+  }, [_vm.actedLoading ? _c("div", {
+    staticClass: "attachment-loading"
+  }, [_c("div", {
+    staticClass: "loader-spinner"
+  }), _vm._v(" "), _c("p", {
+    staticClass: "mt-3 text-muted"
+  }, [_vm._v("Loading acted document...")])]) : _vm._e(), _vm._v(" "), _c("iframe", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: !_vm.actedLoading && !_vm.actedLoadError,
+      expression: "!actedLoading && !actedLoadError"
+    }],
+    staticClass: "attachment-viewer-iframe",
+    style: {
+      width: "".concat(100 / _vm.actedZoom, "%"),
+      height: "".concat(_vm.actedViewerHeight, "px")
+    },
+    attrs: {
+      src: _vm.getActedDocumentUrl(_vm.selectedActedDocument),
+      frameborder: "0"
+    },
+    on: {
+      load: _vm.onActedLoaded,
+      error: _vm.handleActedError
+    }
+  }), _vm._v(" "), _vm.actedLoadError ? _c("div", {
+    staticClass: "attachment-error"
+  }, [_c("i", {
+    staticClass: "bi bi-file-earmark-x",
+    staticStyle: {
+      "font-size": "4rem",
+      color: "#ef4444"
+    }
+  }), _vm._v(" "), _c("h5", {
+    staticClass: "mt-3"
+  }, [_vm._v("Unable to Load Document")]), _vm._v(" "), _c("p", {
+    staticClass: "text-muted"
+  }, [_vm._v("\n                The acted document could not be loaded or doesn't exist.\n              ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-outline-secondary btn-sm mt-3",
+    on: {
+      click: _vm.retryActedLoad
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-arrow-repeat me-1"
+  }), _vm._v(" Retry\n              ")])]) : _vm._e()]), _vm._v(" "), _c("div", {
+    staticClass: "attachment-viewer-footer"
+  }, [_c("span", {
+    staticClass: "attachment-zoom-level"
+  }, [_vm._v("Zoom: " + _vm._s(Math.round(_vm.actedZoom * 100)) + "%")]), _vm._v(" "), _vm._m(44)])])])])]) : _vm._e()], 1);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -14935,7 +15561,7 @@ var staticRenderFns = [function () {
   }, [_c("div", {
     staticClass: "modal-icon-wrapper square-icon",
     staticStyle: {
-      background: "rgba(255,255,255,0.2)"
+      background: "rgba(255, 255, 255, 0.2)"
     }
   }, [_c("i", {
     staticClass: "bi bi-arrow-right-circle"
@@ -14947,7 +15573,7 @@ var staticRenderFns = [function () {
     _c = _vm._self._c;
   return _c("label", {
     staticClass: "form-label-enhanced"
-  }, [_vm._v("\n              Select Destination Office(s) "), _c("span", {
+  }, [_vm._v("\n              Select Destination Office(s)\n              "), _c("span", {
     staticClass: "required-star"
   }, [_vm._v("*")])]);
 }, function () {
@@ -14966,45 +15592,55 @@ var staticRenderFns = [function () {
   }, [_c("div", {
     staticClass: "modal-icon-wrapper square-icon",
     staticStyle: {
-      background: "rgba(255,255,255,0.2)"
+      background: "rgba(255, 255, 255, 0.2)"
     }
   }, [_c("i", {
-    staticClass: "bi bi-check2-circle"
+    staticClass: "bi bi-check-circle"
   })]), _vm._v(" "), _c("div", [_c("h5", {
     staticClass: "modal-title"
   }, [_vm._v("Release Document")]), _vm._v(" "), _c("small", {
     staticClass: "modal-subtitle"
-  }, [_vm._v("Confirm release of document")])])]);
+  }, [_vm._v("Confirm document release")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "release-doc-card-icon"
+    staticClass: "release-info-label"
   }, [_c("i", {
     staticClass: "bi bi-upc-scan"
-  })]);
+  }), _vm._v("\n                Tracking Number\n              ")]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "release-doc-card-icon type-icon"
+    staticClass: "release-info-label"
   }, [_c("i", {
     staticClass: "bi bi-file-earmark-text"
-  })]);
+  }), _vm._v("\n                Document Type\n              ")]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "release-doc-card-icon classification-icon"
+    staticClass: "release-info-label"
   }, [_c("i", {
     staticClass: "bi bi-tags"
-  })]);
+  }), _vm._v("\n                Document Classification\n              ")]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "release-info-label"
+  }, [_c("i", {
+    staticClass: "bi bi-journal-text"
+  }), _vm._v("\n                Subject / Title\n              ")]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("label", {
     staticClass: "form-label-enhanced"
-  }, [_vm._v("\n              Release Date & Time "), _c("span", {
+  }, [_c("i", {
+    staticClass: "bi bi-calendar-check me-2"
+  }), _vm._v("\n              Release Date & Time "), _c("span", {
     staticClass: "required-star"
   }, [_vm._v("*")])]);
 }, function () {
@@ -15012,7 +15648,9 @@ var staticRenderFns = [function () {
     _c = _vm._self._c;
   return _c("label", {
     staticClass: "form-label-enhanced"
-  }, [_vm._v("\n              Release Attachment "), _c("span", {
+  }, [_c("i", {
+    staticClass: "bi bi-cloud-upload me-2"
+  }), _vm._v("\n              Upload Released Attachment "), _c("span", {
     staticClass: "required-star"
   }, [_vm._v("*")])]);
 }, function () {
@@ -15027,20 +15665,18 @@ var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "upload-text"
-  }, [_c("span", {
-    staticClass: "upload-title"
-  }, [_vm._v("Drop PDF file here or click to browse")]), _vm._v(" "), _c("span", {
-    staticClass: "upload-subtitle"
-  }, [_vm._v("Maximum file size: 10MB")])]);
+    staticClass: "upload-file-icon"
+  }, [_c("i", {
+    staticClass: "bi bi-file-earmark-pdf"
+  })]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "file-icon-wrapper"
+  return _c("label", {
+    staticClass: "form-label-enhanced"
   }, [_c("i", {
-    staticClass: "bi bi-file-pdf"
-  })]);
+    staticClass: "bi bi-chat-left-text me-2"
+  }), _vm._v("\n              Remarks (Optional)\n            ")]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -15267,11 +15903,30 @@ var staticRenderFns = [function () {
   return _c("div", {
     staticClass: "modal-icon-wrapper square-icon",
     staticStyle: {
-      background: "rgba(255,255,255,0.2)"
+      background: "rgba(255, 255, 255, 0.2)"
     }
   }, [_c("i", {
     staticClass: "bi bi-file-earmark-pdf"
   })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "modal-icon-wrapper square-icon",
+    staticStyle: {
+      background: "rgba(255, 255, 255, 0.2)"
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-file-earmark-pdf"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("span", {
+    staticClass: "attachment-info"
+  }, [_c("i", {
+    staticClass: "bi bi-file-pdf me-1"
+  }), _vm._v("\n              Acted Document\n            ")]);
 }];
 render._withStripped = true;
 
@@ -17432,7 +18087,7 @@ var render = function render() {
       expression: "activeTab === 'released'"
     }]
   }, [_c("ReleasedTab", {
-    ref: "releasedTab",
+    ref: "ReleasedTab",
     attrs: {
       "document-types": _vm.documentTypes
     },
@@ -17486,7 +18141,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function render() {
-  var _vm$selectedDocument, _vm$selectedDocument2, _vm$selectedDocument3, _vm$selectedDocument4, _vm$selectedDocument$, _vm$selectedDocument5, _vm$selectedDocument6, _vm$selectedDocument7, _vm$selectedDocument8;
+  var _vm$forwardDocument, _vm$forwardDocument2, _vm$forwardDocument3, _vm$releaseDocument, _vm$releaseDocument2, _vm$releaseDocument3, _vm$releaseDocument4, _vm$releaseDocument5, _vm$releaseDocument6, _vm$selectedDocument, _vm$selectedDocument$, _vm$selectedDocument2, _vm$selectedDocument3, _vm$selectedDocument4, _vm$selectedDocument5;
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", [_c("div", {
@@ -17603,7 +18258,7 @@ var render = function render() {
       domProps: {
         value: type
       }
-    }, [_vm._v("\n              " + _vm._s(type) + "\n            ")]);
+    }, [_vm._v(_vm._s(type))]);
   })], 2)])])]), _vm._v(" "), _vm.searchQuery || _vm.docTypeFilter ? _c("div", {
     staticClass: "active-filters"
   }, [_c("span", {
@@ -17635,51 +18290,50 @@ var render = function render() {
     on: {
       click: _vm.clearAllFilters
     }
-  }, [_vm._v("\n        Clear All\n      ")])]) : _vm._e(), _vm._v(" "), _c("div", {
+  }, [_vm._v("Clear All")])]) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "results-summary"
-  }, [_c("span", {
-    staticClass: "results-count"
-  }, [_vm._v(_vm._s(_vm.filteredDocuments.length))]), _vm._v("\n      document(s) found in "), _c("strong", [_vm._v("Released")])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n      " + _vm._s(_vm.released.total) + " document(s) found in "), _c("strong", [_vm._v("Released")])])]), _vm._v(" "), _c("div", {
     staticClass: "table-responsive"
   }, [_c("table", {
     staticClass: "office-table"
-  }, [_vm._m(0), _vm._v(" "), _c("tbody", [_vm.loading && _vm.documents.length === 0 ? _c("tr", [_vm._m(1)]) : !_vm.loading && _vm.filteredDocuments.length === 0 ? _c("tr", [_c("td", {
-    staticClass: "text-center py-5",
+  }, [_vm._m(0), _vm._v(" "), _c("tbody", [_vm.loading && _vm.released.data.length === 0 ? _c("tr", [_vm._m(1)]) : !_vm.loading && _vm.released.data.length === 0 ? _c("tr", [_c("td", {
+    staticClass: "text-center",
     attrs: {
-      colspan: "7"
+      colspan: "8"
     }
   }, [_c("div", {
     staticClass: "empty-state"
   }, [_c("i", {
-    staticClass: "bi bi-file-earmark-x",
+    staticClass: "bi bi-inbox",
     staticStyle: {
       "font-size": "3rem",
       color: "#9ca3af"
     }
   }), _vm._v(" "), _c("p", {
     staticClass: "mt-2 text-muted"
-  }, [_vm._v("\n                " + _vm._s(_vm.searchQuery || _vm.docTypeFilter ? "No documents match your filters" : "No Released Documents") + "\n              ")])])])]) : _vm._e(), _vm._v(" "), _vm._l(_vm.paginatedDocuments, function (doc, index) {
+  }, [_vm._v("\n                " + _vm._s(_vm.searchQuery || _vm.docTypeFilter ? "No documents match your filters" : "No Released Data Found") + "\n              ")])])])]) : _vm._e(), _vm._v(" "), _vm._l(_vm.released.data, function (doc, index) {
+    var _doc$document_type;
     return _c("tr", {
       key: doc.id
     }, [_c("td", {
       staticClass: "text-center"
     }, [_c("span", {
       staticClass: "row-number"
-    }, [_vm._v(_vm._s((_vm.currentPage - 1) * _vm.perPage + index + 1))])]), _vm._v(" "), _c("td", [_c("span", {
+    }, [_vm._v(_vm._s((_vm.released.current_page - 1) * _vm.released.per_page + index + 1))])]), _vm._v(" "), _c("td", [_c("span", {
       staticClass: "tracking-number"
     }, [_vm._v(_vm._s(doc.tracking_number))])]), _vm._v(" "), _c("td", [_c("span", {
       staticClass: "doc-type-badge"
-    }, [_vm._v(_vm._s(doc.document_type))])]), _vm._v(" "), _c("td", [_c("div", {
+    }, [_vm._v(_vm._s(((_doc$document_type = doc.document_type) === null || _doc$document_type === void 0 ? void 0 : _doc$document_type.document_type_name) || doc.document_type))])]), _vm._v(" "), _c("td", [_c("div", {
       staticClass: "subject-text"
-    }, [_vm._v(_vm._s(doc.subject || doc.title))])]), _vm._v(" "), _c("td", [_c("div", {
-      staticClass: "sender-text"
-    }, [_c("i", {
-      staticClass: "bi bi-person-circle sender-icon"
-    }), _vm._v("\n              " + _vm._s(doc.sender_name || doc.origin) + "\n            ")])]), _vm._v(" "), _c("td", [_c("div", {
+    }, [_vm._v(_vm._s(doc.subject))])]), _vm._v(" "), _c("td", [_c("div", {
       staticClass: "date-received"
     }, [_c("i", {
       staticClass: "bi bi-calendar3 date-icon"
-    }), _vm._v("\n              " + _vm._s(_vm.formatDate(doc.date_received || doc.created_at)) + "\n            ")])]), _vm._v(" "), _c("td", [_c("div", {
+    }), _vm._v("\n              " + _vm._s(_vm.formatDate(doc.date_receive)) + " At " + _vm._s(_vm.formatTime(doc.time_receive)) + "\n            ")])]), _vm._v(" "), _c("td", [_c("div", {
+      staticClass: "date-received"
+    }, [_c("i", {
+      staticClass: "bi bi-calendar3 date-icon"
+    }), _vm._v("\n              " + _vm._s(_vm.formatDate(doc.date_release)) + " At " + _vm._s(_vm.formatTime(doc.time_release)) + "\n            ")])]), _vm._v(" "), _c("td", [_c("div", {
       staticClass: "action-buttons"
     }, [_c("button", {
       staticClass: "btn-action btn-view",
@@ -17694,31 +18348,506 @@ var render = function render() {
     }, [_c("i", {
       staticClass: "bi bi-eye"
     })]), _vm._v(" "), _c("button", {
-      staticClass: "btn-action btn-download",
+      staticClass: "btn-action btn-forward",
       attrs: {
-        title: "Download"
+        title: "Release Document"
       },
       on: {
         click: function click($event) {
-          return _vm.downloadDocument(doc);
+          return _vm.openReleaseModal(doc);
         }
       }
     }, [_c("i", {
-      staticClass: "bi bi-download"
+      staticClass: "bi bi-check-circle"
+    })]), _vm._v(" "), _c("button", {
+      staticClass: "btn-action btn-forward",
+      attrs: {
+        title: "Forward Office"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.openForwardModal(doc);
+        }
+      }
+    }, [_c("i", {
+      staticClass: "bi bi-arrow-right-circle"
     })])])])]);
   })], 2)])]), _vm._v(" "), _c("PaginationComponent", {
     attrs: {
-      "current-page": _vm.currentPage,
-      "total-pages": _vm.totalPages,
-      total: _vm.filteredDocuments.length,
-      "per-page": _vm.perPage,
-      from: _vm.startItem,
-      to: _vm.endItem
+      "current-page": Number(_vm.released.current_page),
+      "total-pages": Number(_vm.released.last_page),
+      total: Number(_vm.released.total),
+      "per-page": Number(_vm.released.per_page),
+      from: Number(_vm.released.from),
+      to: Number(_vm.released.to)
     },
     on: {
       "page-change": _vm.changePage
     }
-  }), _vm._v(" "), _vm.showViewModal ? _c("div", {
+  }), _vm._v(" "), _vm.showForwardModal ? _c("div", {
+    staticClass: "modal-overlay",
+    on: {
+      click: function click($event) {
+        if ($event.target !== $event.currentTarget) return null;
+        return _vm.closeForwardModal.apply(null, arguments);
+      }
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog enhanced-modal",
+    staticStyle: {
+      "max-width": "700px"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content square-modal"
+  }, [_c("div", {
+    staticClass: "modal-header-enhanced square-header document-header"
+  }, [_vm._m(2), _vm._v(" "), _c("button", {
+    staticClass: "btn-close-custom square-close",
+    attrs: {
+      type: "button",
+      disabled: _vm.forwarding
+    },
+    on: {
+      click: _vm.closeForwardModal
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-x-lg"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body-enhanced"
+  }, [_vm.forwardError ? _c("div", {
+    staticClass: "error-msg",
+    attrs: {
+      role: "alert"
+    }
+  }, [_c("svg", {
+    attrs: {
+      width: "15",
+      height: "15",
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: "currentColor",
+      "stroke-width": "2.2"
+    }
+  }, [_c("circle", {
+    attrs: {
+      cx: "12",
+      cy: "12",
+      r: "10"
+    }
+  }), _c("line", {
+    attrs: {
+      x1: "12",
+      y1: "8",
+      x2: "12",
+      y2: "12"
+    }
+  }), _vm._v(" "), _c("circle", {
+    attrs: {
+      cx: "12",
+      cy: "16.5",
+      r: "0.7",
+      fill: "currentColor",
+      stroke: "none"
+    }
+  })]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.forwardError))])]) : _vm._e(), _vm._v(" "), _c("div", {
+    staticClass: "forward-doc-info"
+  }, [_c("div", {
+    staticClass: "forward-doc-row"
+  }, [_c("span", {
+    staticClass: "forward-doc-label"
+  }, [_vm._v("Tracking Number:")]), _vm._v(" "), _c("span", {
+    staticClass: "forward-doc-value"
+  }, [_vm._v(_vm._s(((_vm$forwardDocument = _vm.forwardDocument) === null || _vm$forwardDocument === void 0 ? void 0 : _vm$forwardDocument.tracking_number) || "N/A"))])]), _vm._v(" "), _c("div", {
+    staticClass: "forward-doc-row"
+  }, [_c("span", {
+    staticClass: "forward-doc-label"
+  }, [_vm._v("Document Type:")]), _vm._v(" "), _c("span", {
+    staticClass: "doc-type-badge"
+  }, [_vm._v(_vm._s(((_vm$forwardDocument2 = _vm.forwardDocument) === null || _vm$forwardDocument2 === void 0 || (_vm$forwardDocument2 = _vm$forwardDocument2.document_type) === null || _vm$forwardDocument2 === void 0 ? void 0 : _vm$forwardDocument2.document_type_name) || ((_vm$forwardDocument3 = _vm.forwardDocument) === null || _vm$forwardDocument3 === void 0 ? void 0 : _vm$forwardDocument3.document_type) || "N/A"))])])]), _vm._v(" "), _c("div", {
+    staticClass: "mt-3"
+  }, [_vm._m(3), _vm._v(" "), _vm.officesLoading ? _c("div", {
+    staticClass: "text-center py-4"
+  }, [_c("div", {
+    staticClass: "loader-spinner"
+  }), _vm._v(" "), _c("p", {
+    staticClass: "mt-2 text-muted"
+  }, [_vm._v("Loading offices...")])]) : _vm.offices.length === 0 ? _c("div", {
+    staticClass: "text-center py-4"
+  }, [_c("i", {
+    staticClass: "bi bi-building",
+    staticStyle: {
+      "font-size": "2rem",
+      color: "#9ca3af"
+    }
+  }), _vm._v(" "), _c("p", {
+    staticClass: "mt-2 text-muted"
+  }, [_vm._v("No offices available")])]) : _c("div", {
+    staticClass: "office-list-container"
+  }, _vm._l(_vm.offices, function (office) {
+    return _c("div", {
+      key: office.id,
+      staticClass: "office-select-item",
+      "class": {
+        selected: _vm.isOfficeSelected(office.id)
+      },
+      on: {
+        click: function click($event) {
+          return _vm.toggleOfficeSelection(office);
+        }
+      }
+    }, [_c("div", {
+      staticClass: "office-checkbox"
+    }, [_c("i", {
+      "class": _vm.isOfficeSelected(office.id) ? "bi bi-check-square-fill" : "bi bi-square"
+    })]), _vm._v(" "), _vm._m(4, true), _vm._v(" "), _c("div", {
+      staticClass: "office-details"
+    }, [_c("span", {
+      staticClass: "office-name-text"
+    }, [_vm._v(_vm._s(office.sub_office_name))]), _vm._v(" "), office.office_code ? _c("span", {
+      staticClass: "office-code"
+    }, [_vm._v(_vm._s(office.office_code))]) : _vm._e()]), _vm._v(" "), _vm.isOfficeSelected(office.id) ? _c("div", {
+      staticClass: "selected-indicator"
+    }, [_c("i", {
+      staticClass: "bi bi-check-circle-fill"
+    })]) : _vm._e()]);
+  }), 0)]), _vm._v(" "), _vm.selectedOffices.length > 0 ? _c("div", {
+    staticClass: "selected-offices-summary mt-3"
+  }, [_c("div", {
+    staticClass: "selected-offices-header"
+  }, [_c("i", {
+    staticClass: "bi bi-check2-all"
+  }), _vm._v(" "), _c("span", [_vm._v("Selected Offices (" + _vm._s(_vm.selectedOffices.length) + ")")])]), _vm._v(" "), _c("div", {
+    staticClass: "selected-offices-list"
+  }, _vm._l(_vm.selectedOffices, function (office) {
+    return _c("span", {
+      key: office.id,
+      staticClass: "selected-office-tag"
+    }, [_c("i", {
+      staticClass: "bi bi-building"
+    }), _vm._v(" " + _vm._s(office.sub_office_name) + "\n                "), _c("button", {
+      staticClass: "remove-office-btn",
+      attrs: {
+        disabled: _vm.forwarding
+      },
+      on: {
+        click: function click($event) {
+          return _vm.removeOffice(office.id);
+        }
+      }
+    }, [_c("i", {
+      staticClass: "bi bi-x"
+    })])]);
+  }), 0)]) : _vm._e(), _vm._v(" "), _c("div", {
+    staticClass: "modal-actions"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-secondary square-btn",
+    attrs: {
+      type: "button",
+      disabled: _vm.forwarding
+    },
+    on: {
+      click: _vm.clearForwardForm
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-arrow-counterclockwise me-1"
+  }), _vm._v(" Reset\n            ")]), _vm._v(" "), _c("div", {
+    staticClass: "d-flex gap-3"
+  }, [_c("button", {
+    staticClass: "btn btn-light square-btn",
+    attrs: {
+      type: "button",
+      disabled: _vm.forwarding
+    },
+    on: {
+      click: _vm.closeForwardModal
+    }
+  }, [_vm._v("Cancel")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-save square-btn",
+    staticStyle: {
+      background: "linear-gradient(135deg, #2563eb, #1d4ed8)"
+    },
+    attrs: {
+      type: "button",
+      disabled: _vm.forwarding || _vm.selectedOffices.length === 0
+    },
+    on: {
+      click: _vm.submitForwardDocument
+    }
+  }, [_vm.forwarding ? _c("span", {
+    staticClass: "spinner-border spinner-border-sm me-1",
+    attrs: {
+      role: "status"
+    }
+  }) : _c("i", {
+    staticClass: "bi bi-send-check me-1"
+  }), _vm._v("\n                " + _vm._s(_vm.forwarding ? "Forwarding..." : "Forward Document") + "\n              ")])])])])])])]) : _vm._e(), _vm._v(" "), _vm.showReleaseModal ? _c("div", {
+    staticClass: "modal-overlay",
+    on: {
+      click: function click($event) {
+        if ($event.target !== $event.currentTarget) return null;
+        return _vm.closeReleaseModal.apply(null, arguments);
+      }
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog enhanced-modal release-modal"
+  }, [_c("div", {
+    staticClass: "modal-content square-modal"
+  }, [_c("div", {
+    staticClass: "modal-header-enhanced square-header document-header"
+  }, [_vm._m(5), _vm._v(" "), _c("button", {
+    staticClass: "btn-close-custom square-close",
+    attrs: {
+      type: "button",
+      disabled: _vm.releasing
+    },
+    on: {
+      click: _vm.closeReleaseModal
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-x-lg"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body-enhanced release-modal-body"
+  }, [_vm.releaseError ? _c("div", {
+    staticClass: "error-msg",
+    attrs: {
+      role: "alert"
+    }
+  }, [_c("svg", {
+    attrs: {
+      width: "15",
+      height: "15",
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: "currentColor",
+      "stroke-width": "2.2"
+    }
+  }, [_c("circle", {
+    attrs: {
+      cx: "12",
+      cy: "12",
+      r: "10"
+    }
+  }), _c("line", {
+    attrs: {
+      x1: "12",
+      y1: "8",
+      x2: "12",
+      y2: "12"
+    }
+  }), _vm._v(" "), _c("circle", {
+    attrs: {
+      cx: "12",
+      cy: "16.5",
+      r: "0.7",
+      fill: "currentColor",
+      stroke: "none"
+    }
+  })]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.releaseError))])]) : _vm._e(), _vm._v(" "), _c("div", {
+    staticClass: "release-doc-info-grid"
+  }, [_c("div", {
+    staticClass: "release-info-card"
+  }, [_vm._m(6), _vm._v(" "), _c("div", {
+    staticClass: "release-info-value tracking-value"
+  }, [_vm._v(_vm._s(((_vm$releaseDocument = _vm.releaseDocument) === null || _vm$releaseDocument === void 0 ? void 0 : _vm$releaseDocument.tracking_number) || "N/A"))])]), _vm._v(" "), _c("div", {
+    staticClass: "release-info-card"
+  }, [_vm._m(7), _vm._v(" "), _c("div", {
+    staticClass: "release-info-value"
+  }, [_c("span", {
+    staticClass: "doc-type-badge"
+  }, [_vm._v(_vm._s(((_vm$releaseDocument2 = _vm.releaseDocument) === null || _vm$releaseDocument2 === void 0 || (_vm$releaseDocument2 = _vm$releaseDocument2.document_type) === null || _vm$releaseDocument2 === void 0 ? void 0 : _vm$releaseDocument2.document_type_name) || ((_vm$releaseDocument3 = _vm.releaseDocument) === null || _vm$releaseDocument3 === void 0 ? void 0 : _vm$releaseDocument3.document_type) || "N/A"))])])]), _vm._v(" "), _c("div", {
+    staticClass: "release-info-card"
+  }, [_vm._m(8), _vm._v(" "), _c("div", {
+    staticClass: "release-info-value"
+  }, [_vm._v(_vm._s(((_vm$releaseDocument4 = _vm.releaseDocument) === null || _vm$releaseDocument4 === void 0 ? void 0 : _vm$releaseDocument4.document_classification) || "N/A"))])]), _vm._v(" "), _c("div", {
+    staticClass: "release-info-card"
+  }, [_vm._m(9), _vm._v(" "), _c("div", {
+    staticClass: "release-info-value subject-value"
+  }, [_vm._v(_vm._s(((_vm$releaseDocument5 = _vm.releaseDocument) === null || _vm$releaseDocument5 === void 0 ? void 0 : _vm$releaseDocument5.subject) || ((_vm$releaseDocument6 = _vm.releaseDocument) === null || _vm$releaseDocument6 === void 0 ? void 0 : _vm$releaseDocument6.title) || "N/A"))])])]), _vm._v(" "), _c("div", {
+    staticClass: "release-datetime-section"
+  }, [_vm._m(10), _vm._v(" "), _c("div", {
+    staticClass: "release-datetime-grid"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    staticClass: "form-label-sm"
+  }, [_vm._v("Date")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.releaseForm.date,
+      expression: "releaseForm.date"
+    }],
+    staticClass: "form-input",
+    attrs: {
+      type: "date",
+      disabled: _vm.releasing,
+      required: ""
+    },
+    domProps: {
+      value: _vm.releaseForm.date
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.releaseForm, "date", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    staticClass: "form-label-sm"
+  }, [_vm._v("Time")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.releaseForm.time,
+      expression: "releaseForm.time"
+    }],
+    staticClass: "form-input",
+    attrs: {
+      type: "time",
+      disabled: _vm.releasing,
+      required: ""
+    },
+    domProps: {
+      value: _vm.releaseForm.time
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.releaseForm, "time", $event.target.value);
+      }
+    }
+  })])])]), _vm._v(" "), _c("div", {
+    staticClass: "release-upload-section"
+  }, [_vm._m(11), _vm._v(" "), _c("div", {
+    staticClass: "release-upload-area",
+    "class": {
+      "drag-over": _vm.isDragging,
+      "has-file": _vm.releaseForm.attachment
+    },
+    on: {
+      dragover: function dragover($event) {
+        $event.preventDefault();
+        _vm.isDragging = true;
+      },
+      dragleave: function dragleave($event) {
+        $event.preventDefault();
+        _vm.isDragging = false;
+      },
+      drop: function drop($event) {
+        $event.preventDefault();
+        return _vm.handleDrop.apply(null, arguments);
+      },
+      click: _vm.triggerFileInput
+    }
+  }, [_c("div", {
+    staticClass: "release-upload-content"
+  }, [!_vm.releaseForm.attachment ? _c("div", {
+    staticClass: "upload-placeholder"
+  }, [_vm._m(12), _vm._v(" "), _c("h6", {
+    staticClass: "upload-title"
+  }, [_vm._v("Drop your file here or click to browse")]), _vm._v(" "), _c("p", {
+    staticClass: "upload-subtitle"
+  }, [_vm._v("Supports PDF files only (Max 10MB)")])]) : _c("div", {
+    staticClass: "upload-file-preview"
+  }, [_vm._m(13), _vm._v(" "), _c("div", {
+    staticClass: "upload-file-info"
+  }, [_c("span", {
+    staticClass: "upload-file-name"
+  }, [_vm._v(_vm._s(_vm.releaseForm.attachment.name))]), _vm._v(" "), _c("span", {
+    staticClass: "upload-file-size"
+  }, [_vm._v(_vm._s(_vm.formatFileSize(_vm.releaseForm.attachment.size)))])]), _vm._v(" "), _c("button", {
+    staticClass: "upload-remove-btn",
+    attrs: {
+      type: "button",
+      disabled: _vm.releasing
+    },
+    on: {
+      click: function click($event) {
+        $event.stopPropagation();
+        return _vm.removeAttachment.apply(null, arguments);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-x"
+  })])])]), _vm._v(" "), _c("input", {
+    ref: "fileInput",
+    staticClass: "release-file-input",
+    attrs: {
+      type: "file",
+      accept: ".pdf,application/pdf",
+      disabled: _vm.releasing
+    },
+    on: {
+      change: _vm.handleFileChange
+    }
+  })]), _vm._v(" "), _c("br"), _vm._v(" "), _vm.uploadProgress > 0 && _vm.uploadProgress < 100 ? _c("div", {
+    staticClass: "upload-progress"
+  }, [_c("div", {
+    staticClass: "progress-bar",
+    style: {
+      width: _vm.uploadProgress + "%"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "progress-text"
+  }, [_vm._v(_vm._s(_vm.uploadProgress) + "%")])]) : _vm._e()]), _vm._v(" "), _c("div", {
+    staticClass: "release-remarks-section"
+  }, [_vm._m(14), _vm._v(" "), _c("textarea", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.releaseForm.remarks,
+      expression: "releaseForm.remarks"
+    }],
+    staticClass: "form-input form-textarea",
+    attrs: {
+      disabled: _vm.releasing,
+      rows: "3",
+      placeholder: "Enter any additional remarks for this release..."
+    },
+    domProps: {
+      value: _vm.releaseForm.remarks
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.releaseForm, "remarks", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "modal-actions"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-secondary square-btn",
+    attrs: {
+      type: "button",
+      disabled: _vm.releasing
+    },
+    on: {
+      click: _vm.closeReleaseModal
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-x-lg me-1"
+  }), _vm._v(" Cancel\n            ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-save square-btn",
+    staticStyle: {
+      background: "linear-gradient(135deg, #059669, #047857)"
+    },
+    attrs: {
+      type: "button",
+      disabled: _vm.releasing || !_vm.releaseForm.date || !_vm.releaseForm.time || !_vm.releaseForm.attachment
+    },
+    on: {
+      click: _vm.submitReleaseDocument
+    }
+  }, [_vm.releasing ? _c("span", {
+    staticClass: "spinner-border spinner-border-sm me-1",
+    attrs: {
+      role: "status"
+    }
+  }) : _c("i", {
+    staticClass: "bi bi-check-circle me-1"
+  }), _vm._v("\n              " + _vm._s(_vm.releasing ? "Releasing..." : "Confirm Release") + "\n            ")])])])])])]) : _vm._e(), _vm._v(" "), _vm.showViewModal ? _c("div", {
     staticClass: "modal-overlay",
     on: {
       click: function click($event) {
@@ -17734,25 +18863,13 @@ var render = function render() {
     staticClass: "modal-header-enhanced square-header document-header"
   }, [_c("div", {
     staticClass: "d-flex align-items-center"
-  }, [_vm._m(2), _vm._v(" "), _c("div", [_c("h5", {
+  }, [_vm._m(15), _vm._v(" "), _c("div", [_c("h5", {
     staticClass: "modal-title"
   }, [_vm._v("Document Viewer")]), _vm._v(" "), _c("small", {
     staticClass: "modal-subtitle"
   }, [_c("span", {
     staticClass: "tracking-badge"
-  }, [_vm._v(_vm._s((_vm$selectedDocument = _vm.selectedDocument) === null || _vm$selectedDocument === void 0 ? void 0 : _vm$selectedDocument.tracking_number))]), _vm._v(" "), _c("span", {
-    "class": ["status-pill", _vm.getStatusClass((_vm$selectedDocument2 = _vm.selectedDocument) === null || _vm$selectedDocument2 === void 0 ? void 0 : _vm$selectedDocument2.status)]
-  }, [_vm._v(_vm._s((_vm$selectedDocument3 = _vm.selectedDocument) === null || _vm$selectedDocument3 === void 0 ? void 0 : _vm$selectedDocument3.status))])])])]), _vm._v(" "), _c("div", {
-    staticClass: "header-actions"
-  }, [_c("a", {
-    staticClass: "btn-header-action btn-header-update",
-    attrs: {
-      href: "/dts_denr/view-document/".concat((_vm$selectedDocument4 = _vm.selectedDocument) === null || _vm$selectedDocument4 === void 0 ? void 0 : _vm$selectedDocument4.token),
-      title: "Update Document"
-    }
-  }, [_c("i", {
-    staticClass: "bi bi-pencil-square"
-  })]), _vm._v(" "), _c("button", {
+  }, [_vm._v(_vm._s((_vm$selectedDocument = _vm.selectedDocument) === null || _vm$selectedDocument === void 0 ? void 0 : _vm$selectedDocument.tracking_number))])])])]), _vm._v(" "), _c("button", {
     staticClass: "btn-close-custom square-close",
     attrs: {
       type: "button"
@@ -17762,102 +18879,224 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "bi bi-x-lg"
-  })])])]), _vm._v(" "), _c("div", {
+  })])]), _vm._v(" "), _c("div", {
     staticClass: "modal-body-enhanced document-viewer-body"
   }, [_c("div", {
     staticClass: "document-viewer-tabs"
   }, [_c("button", {
     staticClass: "viewer-tab-btn",
     "class": {
-      active: _vm.viewerActiveTab === "details"
+      active: _vm.viewerActiveTab === "summary"
     },
     on: {
       click: function click($event) {
-        _vm.viewerActiveTab = "details";
+        _vm.viewerActiveTab = "summary";
       }
     }
   }, [_c("i", {
     staticClass: "bi bi-info-circle-fill"
-  }), _vm._v(" "), _c("span", [_vm._v("Document Information")])]), _vm._v(" "), _c("button", {
+  }), _c("span", [_vm._v("Document Summary")])]), _vm._v(" "), _c("button", {
+    staticClass: "viewer-tab-btn",
+    "class": {
+      active: _vm.viewerActiveTab === "incoming"
+    },
+    on: {
+      click: function click($event) {
+        _vm.viewerActiveTab = "incoming";
+      }
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-file-earmark-pdf"
+  }), _c("span", [_vm._v("Incoming Document")])]), _vm._v(" "), _c("button", {
+    staticClass: "viewer-tab-btn",
+    "class": {
+      active: _vm.viewerActiveTab === "released"
+    },
+    on: {
+      click: function click($event) {
+        _vm.viewerActiveTab = "released";
+      }
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-check-circle-fill"
+  }), _c("span", [_vm._v("Released Document")])]), _vm._v(" "), _c("button", {
     staticClass: "viewer-tab-btn",
     "class": {
       active: _vm.viewerActiveTab === "history"
     },
     on: {
-      click: _vm.switchToHistoryTab
+      click: function click($event) {
+        _vm.viewerActiveTab = "history";
+      }
     }
   }, [_c("i", {
     staticClass: "bi bi-clock-history"
-  }), _vm._v(" "), _c("span", [_vm._v("Route History")])])]), _vm._v(" "), _c("div", {
+  }), _c("span", [_vm._v("Office History")])])]), _vm._v(" "), _c("div", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.viewerActiveTab === "details",
-      expression: "viewerActiveTab === 'details'"
+      value: _vm.viewerActiveTab === "summary",
+      expression: "viewerActiveTab === 'summary'"
     }],
-    staticClass: "document-viewer-layout"
+    staticClass: "document-summary-layout"
   }, [_c("div", {
-    staticClass: "details-panel"
-  }, [_vm._m(3), _vm._v(" "), _vm.selectedDocument ? _c("div", {
-    staticClass: "details-content"
+    staticClass: "summary-panel"
+  }, [_vm._m(16), _vm._v(" "), _vm.selectedDocument ? _c("div", {
+    staticClass: "summary-content"
+  }, [_vm._m(17), _vm._v(" "), _c("div", {
+    staticClass: "summary-grid"
   }, [_c("div", {
-    staticClass: "detail-card"
-  }, [_vm._m(4), _vm._v(" "), _c("div", {
-    staticClass: "detail-info"
+    staticClass: "summary-card"
+  }, [_vm._m(18), _vm._v(" "), _c("div", {
+    staticClass: "summary-info"
   }, [_c("label", [_vm._v("Tracking Number")]), _vm._v(" "), _c("span", {
     staticClass: "tracking-number-large"
   }, [_vm._v(_vm._s(_vm.selectedDocument.tracking_number))])])]), _vm._v(" "), _c("div", {
-    staticClass: "detail-card"
-  }, [_vm._m(5), _vm._v(" "), _c("div", {
-    staticClass: "detail-info"
+    staticClass: "summary-card"
+  }, [_vm._m(19), _vm._v(" "), _c("div", {
+    staticClass: "summary-info"
   }, [_c("label", [_vm._v("Document Type")]), _vm._v(" "), _c("span", {
     staticClass: "doc-type-badge-large"
   }, [_vm._v(_vm._s(((_vm$selectedDocument$ = _vm.selectedDocument.document_type) === null || _vm$selectedDocument$ === void 0 ? void 0 : _vm$selectedDocument$.document_type_name) || _vm.selectedDocument.document_type))])])]), _vm._v(" "), _c("div", {
-    staticClass: "detail-card"
-  }, [_vm._m(6), _vm._v(" "), _c("div", {
-    staticClass: "detail-info"
+    staticClass: "summary-card full-width"
+  }, [_vm._m(20), _vm._v(" "), _c("div", {
+    staticClass: "summary-info"
   }, [_c("label", [_vm._v("Subject / Title")]), _vm._v(" "), _c("span", {
-    staticClass: "detail-value"
+    staticClass: "summary-value"
   }, [_vm._v(_vm._s(_vm.selectedDocument.subject || _vm.selectedDocument.title))])])]), _vm._v(" "), _c("div", {
-    staticClass: "detail-card"
-  }, [_vm._m(7), _vm._v(" "), _c("div", {
-    staticClass: "detail-info"
+    staticClass: "summary-card"
+  }, [_vm._m(21), _vm._v(" "), _c("div", {
+    staticClass: "summary-info"
   }, [_c("label", [_vm._v("Sender / Origin")]), _vm._v(" "), _c("span", {
-    staticClass: "detail-value"
+    staticClass: "summary-value"
   }, [_vm._v(_vm._s(_vm.selectedDocument.sender_name || _vm.selectedDocument.origin))])])]), _vm._v(" "), _c("div", {
-    staticClass: "detail-card"
-  }, [_vm._m(8), _vm._v(" "), _c("div", {
-    staticClass: "detail-info"
+    staticClass: "summary-card"
+  }, [_vm._m(22), _vm._v(" "), _c("div", {
+    staticClass: "summary-info"
+  }, [_c("label", [_vm._v("Document Classification")]), _vm._v(" "), _c("span", {
+    staticClass: "summary-value classification-value"
+  }, [_vm._v(_vm._s(_vm.selectedDocument.document_classification || "N/A"))])])]), _vm._v(" "), _c("div", {
+    staticClass: "summary-card"
+  }, [_vm._m(23), _vm._v(" "), _c("div", {
+    staticClass: "summary-info"
   }, [_c("label", [_vm._v("Date Received")]), _vm._v(" "), _c("span", {
-    staticClass: "detail-value"
-  }, [_vm._v("\n                      " + _vm._s(_vm.formatDate(_vm.selectedDocument.date_receive || _vm.selectedDocument.date_received || _vm.selectedDocument.created_at)) + "\n                      "), _vm.selectedDocument.time_receive ? _c("small", {
+    staticClass: "summary-value"
+  }, [_vm._v("\n                        " + _vm._s(_vm.formatDate(_vm.selectedDocument.date_receive || _vm.selectedDocument.date_received || _vm.selectedDocument.created_at)) + "\n                        "), _vm.selectedDocument.time_receive ? _c("small", {
     staticClass: "time-text"
-  }, [_vm._v("at\n                        " + _vm._s(_vm.formatTime(_vm.selectedDocument.time_receive)))]) : _vm._e()])])]), _vm._v(" "), _vm.selectedDocument.description ? _c("div", {
-    staticClass: "detail-card description-card"
-  }, [_vm._m(9), _vm._v(" "), _c("div", {
-    staticClass: "detail-info"
+  }, [_vm._v("at " + _vm._s(_vm.formatTime(_vm.selectedDocument.time_receive)))]) : _vm._e()])])]), _vm._v(" "), _c("div", {
+    staticClass: "summary-card"
+  }, [_vm._m(24), _vm._v(" "), _c("div", {
+    staticClass: "summary-info"
+  }, [_c("label", [_vm._v("Date Released")]), _vm._v(" "), _c("span", {
+    staticClass: "summary-value"
+  }, [_vm._v("\n                        " + _vm._s(_vm.formatDate(_vm.selectedDocument.date_release)) + "\n                        "), _vm.selectedDocument.time_release ? _c("small", {
+    staticClass: "time-text"
+  }, [_vm._v("at " + _vm._s(_vm.formatTime(_vm.selectedDocument.time_release)))]) : _vm._e()])])]), _vm._v(" "), _vm.selectedDocument.description ? _c("div", {
+    staticClass: "summary-card full-width"
+  }, [_vm._m(25), _vm._v(" "), _c("div", {
+    staticClass: "summary-info"
   }, [_c("label", [_vm._v("Description")]), _vm._v(" "), _c("p", {
-    staticClass: "detail-value description-text"
-  }, [_vm._v("\n                      " + _vm._s(_vm.selectedDocument.description) + "\n                    ")])])]) : _vm._e(), _vm._v(" "), _c("div", {
-    staticClass: "detail-card meta-card"
-  }, [_vm._m(10), _vm._v(" "), _c("div", {
-    staticClass: "detail-info"
-  }, [_c("label", [_vm._v("Status")]), _vm._v(" "), _c("span", {
-    "class": ["status-badge", _vm.getStatusClass((_vm$selectedDocument5 = _vm.selectedDocument) === null || _vm$selectedDocument5 === void 0 ? void 0 : _vm$selectedDocument5.status)]
-  }, [_vm._v(_vm._s(((_vm$selectedDocument6 = _vm.selectedDocument) === null || _vm$selectedDocument6 === void 0 ? void 0 : _vm$selectedDocument6.status) || "Unknown"))])])])]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "pdf-panel"
+    staticClass: "summary-value description-text"
+  }, [_vm._v(_vm._s(_vm.selectedDocument.description))])])]) : _vm._e()]), _vm._v(" "), _vm._m(26), _vm._v(" "), _c("div", {
+    staticClass: "summary-stats-grid"
   }, [_c("div", {
-    staticClass: "pdf-panel-header"
-  }, [_vm._m(11), _vm._v(" "), _c("div", {
-    staticClass: "pdf-controls"
+    staticClass: "summary-stat-card"
+  }, [_vm._m(27), _vm._v(" "), _c("div", {
+    staticClass: "stat-info"
+  }, [_c("span", {
+    staticClass: "stat-label"
+  }, [_vm._v("Processing Time")]), _vm._v(" "), _c("span", {
+    staticClass: "stat-value"
+  }, [_vm._v(_vm._s(_vm.getWorkingDays(_vm.selectedDocument.date_receive, _vm.selectedDocument.date_release)) + " "), _c("span", {
+    staticClass: "stat-unit"
+  }, [_vm._v("days")])])])]), _vm._v(" "), _c("div", {
+    staticClass: "summary-stat-card"
+  }, [_vm._m(28), _vm._v(" "), _c("div", {
+    staticClass: "stat-info"
+  }, [_c("span", {
+    staticClass: "stat-label"
+  }, [_vm._v("Office Routes")]), _vm._v(" "), _c("span", {
+    staticClass: "stat-value"
+  }, [_vm._v(_vm._s(_vm.getOfficeRoutesCount(_vm.selectedDocument)) + " "), _c("span", {
+    staticClass: "stat-unit"
+  }, [_vm._v("route(s)")])])])]), _vm._v(" "), _c("div", {
+    staticClass: "summary-stat-card"
+  }, [_vm._m(29), _vm._v(" "), _c("div", {
+    staticClass: "stat-info"
+  }, [_c("span", {
+    staticClass: "stat-label"
+  }, [_vm._v("Total Days")]), _vm._v(" "), _c("span", {
+    staticClass: "stat-value"
+  }, [_vm._v(_vm._s(_vm.getTotalDays(_vm.selectedDocument.date_receive, _vm.selectedDocument.date_release)) + " "), _c("span", {
+    staticClass: "stat-unit"
+  }, [_vm._v("days")])])])]), _vm._v(" "), _c("div", {
+    staticClass: "summary-stat-card"
+  }, [_vm._m(30), _vm._v(" "), _c("div", {
+    staticClass: "stat-info"
+  }, [_c("span", {
+    staticClass: "stat-label"
+  }, [_vm._v("Non-Working Days")]), _vm._v(" "), _c("span", {
+    staticClass: "stat-value"
+  }, [_vm._v(_vm._s(_vm.getNonWorkingDays(_vm.selectedDocument.date_receive, _vm.selectedDocument.date_release)) + " "), _c("span", {
+    staticClass: "stat-unit"
+  }, [_vm._v("skipped")])])])]), _vm._v(" "), _c("div", {
+    staticClass: "summary-stat-card"
+  }, [_vm._m(31), _vm._v(" "), _c("div", {
+    staticClass: "stat-info"
+  }, [_c("span", {
+    staticClass: "stat-label"
+  }, [_vm._v("Document Age")]), _vm._v(" "), _c("span", {
+    staticClass: "stat-value"
+  }, [_vm._v(_vm._s(_vm.getDocumentAgeDisplay(_vm.selectedDocument.date_receive)))])])])]), _vm._v(" "), _vm._m(32), _vm._v(" "), _c("div", {
+    staticClass: "summary-card full-width"
+  }, [_vm._m(33), _vm._v(" "), _c("div", {
+    staticClass: "summary-info"
+  }, [_c("label", [_vm._v("Current Status")]), _vm._v(" "), _c("span", {
+    "class": ["status-badge", _vm.getStatusClass((_vm$selectedDocument2 = _vm.selectedDocument) === null || _vm$selectedDocument2 === void 0 ? void 0 : _vm$selectedDocument2.status)]
+  }, [_vm._v(_vm._s(((_vm$selectedDocument3 = _vm.selectedDocument) === null || _vm$selectedDocument3 === void 0 ? void 0 : _vm$selectedDocument3.status) || "Unknown"))])])])]) : _vm._e()])]), _vm._v(" "), _c("div", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.viewerActiveTab === "incoming",
+      expression: "viewerActiveTab === 'incoming'"
+    }],
+    staticClass: "incoming-document-panel"
+  }, [_vm.selectedDocument ? _c("div", {
+    staticClass: "incoming-info-summary"
+  }, [_c("div", {
+    staticClass: "incoming-info-grid"
+  }, [_c("div", {
+    staticClass: "incoming-info-item"
+  }, [_c("span", {
+    staticClass: "incoming-info-label"
+  }, [_vm._v("Date Received")]), _vm._v(" "), _c("span", {
+    staticClass: "incoming-info-value"
+  }, [_c("i", {
+    staticClass: "bi bi-calendar-check"
+  }), _vm._v("\n                    " + _vm._s(_vm.formatDate(_vm.selectedDocument.date_receive || _vm.selectedDocument.date_received || _vm.selectedDocument.created_at)) + "\n                    "), _vm.selectedDocument.time_receive ? _c("small", [_vm._v("at " + _vm._s(_vm.formatTime(_vm.selectedDocument.time_receive)))]) : _vm._e()])]), _vm._v(" "), _c("div", {
+    staticClass: "incoming-info-item"
+  }, [_c("span", {
+    staticClass: "incoming-info-label"
+  }, [_vm._v("Received By")]), _vm._v(" "), _c("span", {
+    staticClass: "incoming-info-value"
+  }, [_c("i", {
+    staticClass: "bi bi-person-check"
+  }), _vm._v("\n                    " + _vm._s(_vm.getFullName(_vm.selectedDocument.received_by)) + "\n                  ")])])])]) : _vm._e(), _vm._v(" "), _c("div", {
+    staticClass: "incoming-content"
+  }, [_c("div", {
+    staticClass: "incoming-pdf-viewer"
+  }, [_c("div", {
+    staticClass: "incoming-pdf-header"
+  }, [_vm._m(34), _vm._v(" "), _c("div", {
+    staticClass: "incoming-pdf-controls"
   }, [_c("button", {
     staticClass: "btn-pdf-control",
     attrs: {
       title: "Zoom In",
-      disabled: _vm.pdfLoadError
+      disabled: _vm.incomingPdfLoadError
     },
     on: {
-      click: _vm.zoomIn
+      click: _vm.zoomInIncoming
     }
   }, [_c("i", {
     staticClass: "bi bi-zoom-in"
@@ -17865,40 +19104,189 @@ var render = function render() {
     staticClass: "btn-pdf-control",
     attrs: {
       title: "Zoom Out",
-      disabled: _vm.pdfLoadError
+      disabled: _vm.incomingPdfLoadError
     },
     on: {
-      click: _vm.zoomOut
+      click: _vm.zoomOutIncoming
     }
   }, [_c("i", {
     staticClass: "bi bi-zoom-out"
-  })])])]), _vm._v(" "), _c("div", {
-    staticClass: "pdf-viewer-wrapper"
-  }, [_vm.pdfLoading && !_vm.pdfLoadError ? _c("div", {
+  })]), _vm._v(" "), _vm.getIncomingPdfUrl() ? _c("a", {
+    staticClass: "btn-toolbar-download",
+    attrs: {
+      href: _vm.getIncomingPdfUrl(),
+      download: ""
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-download"
+  }), _vm._v(" Download\n                    ")]) : _vm._e()])]), _vm._v(" "), _c("div", {
+    staticClass: "incoming-pdf-wrapper"
+  }, [_vm.incomingPdfLoading && !_vm.incomingPdfLoadError ? _c("div", {
     staticClass: "pdf-state"
-  }, [_vm._m(12), _vm._v(" "), _c("p", {
+  }, [_vm._m(35), _vm._v(" "), _c("p", {
     staticClass: "pdf-state-text"
-  }, [_vm._v("Loading document preview...")])]) : _vm._e(), _vm._v(" "), _c("iframe", {
+  }, [_vm._v("Loading incoming document...")])]) : _vm._e(), _vm._v(" "), _c("iframe", {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: !_vm.pdfLoading && !_vm.pdfLoadError,
-      expression: "!pdfLoading && !pdfLoadError"
+      value: !_vm.incomingPdfLoading && !_vm.incomingPdfLoadError,
+      expression: "!incomingPdfLoading && !incomingPdfLoadError"
     }],
     staticClass: "pdf-iframe",
     style: {
-      width: "".concat(100 / _vm.pdfZoom, "%"),
-      height: "".concat(_vm.pdfViewerHeight, "px")
+      width: "".concat(100 / _vm.incomingPdfZoom, "%"),
+      height: "".concat(_vm.incomingPdfViewerHeight, "px")
     },
     attrs: {
-      src: _vm.getPdfUrl(_vm.selectedDocument),
+      src: _vm.getIncomingPdfUrl(),
       frameborder: "0"
     },
     on: {
-      load: _vm.onPdfLoaded,
-      error: _vm.handlePdfError
+      load: _vm.onIncomingPdfLoaded,
+      error: _vm.handleIncomingPdfError
     }
-  }), _vm._v(" "), _vm.pdfLoadError ? _c("div", {
+  }), _vm._v(" "), _vm.incomingPdfLoadError ? _c("div", {
+    staticClass: "pdf-state pdf-error"
+  }, [_c("i", {
+    staticClass: "bi bi-file-earmark-x",
+    staticStyle: {
+      "font-size": "4rem",
+      color: "#ef4444"
+    }
+  }), _vm._v(" "), _c("h5", {
+    staticClass: "mt-3"
+  }, [_vm._v("Document Not Available")]), _vm._v(" "), _c("p", {
+    staticClass: "text-muted"
+  }, [_vm._v("The incoming document could not be loaded or doesn't exist.")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-outline-secondary btn-sm mt-3",
+    on: {
+      click: _vm.retryIncomingPdfLoad
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-arrow-repeat me-1"
+  }), _vm._v(" Retry\n                    ")])]) : _vm._e()]), _vm._v(" "), !_vm.incomingPdfLoadError ? _c("div", {
+    staticClass: "pdf-footer"
+  }, [_c("span", {
+    staticClass: "pdf-zoom-level"
+  }, [_vm._v("Zoom: " + _vm._s(Math.round(_vm.incomingPdfZoom * 100)) + "%")]), _vm._v(" "), _vm.selectedDocument ? _c("span", {
+    staticClass: "pdf-page-info"
+  }, [_vm._v("File: " + _vm._s(_vm.selectedDocument.tracking_number) + "_draft.pdf")]) : _vm._e()]) : _vm._e()])])]), _vm._v(" "), _c("div", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.viewerActiveTab === "released",
+      expression: "viewerActiveTab === 'released'"
+    }],
+    staticClass: "released-document-panel"
+  }, [_vm._m(36), _vm._v(" "), _c("div", {
+    staticClass: "released-document-content"
+  }, [_vm.selectedDocument ? _c("div", {
+    staticClass: "release-info-summary"
+  }, [_c("div", {
+    staticClass: "release-info-grid"
+  }, [_c("div", {
+    staticClass: "release-info-item"
+  }, [_c("span", {
+    staticClass: "release-info-label"
+  }, [_vm._v("Released Date")]), _vm._v(" "), _c("span", {
+    staticClass: "release-info-value"
+  }, [_c("i", {
+    staticClass: "bi bi-calendar-check"
+  }), _vm._v(" " + _vm._s(_vm.formatDate(_vm.selectedDocument.date_release || _vm.selectedDocument.released_at)) + "\n                      "), _vm.selectedDocument.time_release ? _c("small", [_vm._v("at " + _vm._s(_vm.formatTime(_vm.selectedDocument.time_release)))]) : _vm._e()])]), _vm._v(" "), _c("div", {
+    staticClass: "release-info-item"
+  }, [_c("span", {
+    staticClass: "release-info-label"
+  }, [_vm._v("Released By")]), _vm._v(" "), _c("span", {
+    staticClass: "release-info-value"
+  }, [_c("i", {
+    staticClass: "bi bi-person-check"
+  }), _vm._v(" \n                      " + _vm._s(_vm.getFullName(_vm.selectedDocument.released_by)) + "\n                    ")])]), _vm._v(" "), _vm.selectedDocument.release_remarks ? _c("div", {
+    staticClass: "release-info-item"
+  }, [_c("span", {
+    staticClass: "release-info-label"
+  }, [_vm._v("Remarks")]), _vm._v(" "), _c("span", {
+    staticClass: "release-info-value"
+  }, [_c("i", {
+    staticClass: "bi bi-chat-left-text"
+  }), _vm._v(" " + _vm._s(_vm.selectedDocument.release_remarks))])]) : _vm._e(), _vm._v(" "), _c("div", {
+    staticClass: "release-info-item"
+  }, [_c("span", {
+    staticClass: "release-info-label"
+  }, [_vm._v("Processing Time")]), _vm._v(" "), _c("span", {
+    staticClass: "release-info-value"
+  }, [_c("i", {
+    staticClass: "bi bi-clock-history"
+  }), _vm._v(" " + _vm._s(_vm.getWorkingDays(_vm.selectedDocument.date_receive, _vm.selectedDocument.date_release)) + " days")])]), _vm._v(" "), _c("div", {
+    staticClass: "release-info-item"
+  }, [_c("span", {
+    staticClass: "release-info-label"
+  }, [_vm._v("Office Routes")]), _vm._v(" "), _c("span", {
+    staticClass: "release-info-value"
+  }, [_c("i", {
+    staticClass: "bi bi-diagram-3"
+  }), _vm._v(" " + _vm._s(_vm.getOfficeRoutesCount(_vm.selectedDocument)) + " route(s)")])])])]) : _vm._e(), _vm._v(" "), _c("div", {
+    staticClass: "released-pdf-viewer"
+  }, [_c("div", {
+    staticClass: "released-pdf-header"
+  }, [_vm._m(37), _vm._v(" "), _c("div", {
+    staticClass: "released-pdf-controls"
+  }, [_c("button", {
+    staticClass: "btn-pdf-control",
+    attrs: {
+      title: "Zoom In",
+      disabled: _vm.releasedPdfLoadError
+    },
+    on: {
+      click: _vm.zoomInReleased
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-zoom-in"
+  })]), _vm._v(" "), _c("button", {
+    staticClass: "btn-pdf-control",
+    attrs: {
+      title: "Zoom Out",
+      disabled: _vm.releasedPdfLoadError
+    },
+    on: {
+      click: _vm.zoomOutReleased
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-zoom-out"
+  })]), _vm._v(" "), _vm.getReleasedPdfUrl() ? _c("a", {
+    staticClass: "btn-toolbar-download",
+    attrs: {
+      href: _vm.getReleasedPdfUrl(),
+      download: ""
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-download"
+  }), _vm._v(" Download\n                    ")]) : _vm._e()])]), _vm._v(" "), _c("div", {
+    staticClass: "released-pdf-wrapper"
+  }, [_vm.releasedPdfLoading && !_vm.releasedPdfLoadError ? _c("div", {
+    staticClass: "pdf-state"
+  }, [_vm._m(38), _vm._v(" "), _c("p", {
+    staticClass: "pdf-state-text"
+  }, [_vm._v("Loading released document...")])]) : _vm._e(), _vm._v(" "), _c("iframe", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: !_vm.releasedPdfLoading && !_vm.releasedPdfLoadError,
+      expression: "!releasedPdfLoading && !releasedPdfLoadError"
+    }],
+    staticClass: "pdf-iframe",
+    style: {
+      width: "".concat(100 / _vm.releasedPdfZoom, "%"),
+      height: "".concat(_vm.releasedPdfViewerHeight, "px")
+    },
+    attrs: {
+      src: _vm.getReleasedPdfUrl(),
+      frameborder: "0"
+    },
+    on: {
+      load: _vm.onReleasedPdfLoaded,
+      error: _vm.handleReleasedPdfError
+    }
+  }), _vm._v(" "), _vm.releasedPdfLoadError ? _c("div", {
     staticClass: "pdf-state pdf-error"
   }, [_c("i", {
     staticClass: "bi bi-file-earmark-x",
@@ -17910,20 +19298,20 @@ var render = function render() {
     staticClass: "mt-3"
   }, [_vm._v("PDF Not Available")]), _vm._v(" "), _c("p", {
     staticClass: "text-muted"
-  }, [_vm._v("\n                    The attachment could not be loaded or doesn't exist.\n                  ")]), _vm._v(" "), _c("button", {
+  }, [_vm._v("The released document could not be loaded.")]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-outline-secondary btn-sm mt-3",
     on: {
-      click: _vm.retryPdfLoad
+      click: _vm.retryReleasedPdfLoad
     }
   }, [_c("i", {
     staticClass: "bi bi-arrow-repeat me-1"
-  }), _vm._v(" Retry\n                  ")])]) : _vm._e()]), _vm._v(" "), !_vm.pdfLoadError ? _c("div", {
+  }), _vm._v(" Retry\n                    ")])]) : _vm._e()]), _vm._v(" "), !_vm.releasedPdfLoadError ? _c("div", {
     staticClass: "pdf-footer"
   }, [_c("span", {
     staticClass: "pdf-zoom-level"
-  }, [_vm._v("Zoom: " + _vm._s(Math.round(_vm.pdfZoom * 100)) + "%")]), _vm._v(" "), _vm.selectedDocument ? _c("span", {
+  }, [_vm._v("Zoom: " + _vm._s(Math.round(_vm.releasedPdfZoom * 100)) + "%")]), _vm._v(" "), _vm.selectedDocument ? _c("span", {
     staticClass: "pdf-page-info"
-  }, [_vm._v("File:\n                  " + _vm._s(_vm.selectedDocument.tracking_number) + "_attachment.pdf")]) : _vm._e()]) : _vm._e()])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("File: " + _vm._s(_vm.selectedDocument.tracking_number) + "_released.pdf")]) : _vm._e()]) : _vm._e()])])]), _vm._v(" "), _c("div", {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -17933,25 +19321,25 @@ var render = function render() {
     staticClass: "route-history-panel"
   }, [_c("div", {
     staticClass: "route-history-header"
-  }, [_vm._m(13), _vm._v(" "), (_vm$selectedDocument7 = _vm.selectedDocument) !== null && _vm$selectedDocument7 !== void 0 && _vm$selectedDocument7.document_route && _vm.selectedDocument.document_route.length > 0 ? _c("div", {
+  }, [_vm._m(39), _vm._v(" "), ((_vm$selectedDocument4 = _vm.selectedDocument) === null || _vm$selectedDocument4 === void 0 || (_vm$selectedDocument4 = _vm$selectedDocument4.document_route) === null || _vm$selectedDocument4 === void 0 ? void 0 : _vm$selectedDocument4.length) > 0 ? _c("div", {
     staticClass: "route-history-badge"
   }, [_c("i", {
     staticClass: "bi bi-arrow-left-right"
-  }), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.selectedDocument.document_route.length) + " Route" + _vm._s(_vm.selectedDocument.document_route.length !== 1 ? "s" : ""))])]) : _vm._e()]), _vm._v(" "), _c("div", {
+  }), _vm._v(" " + _vm._s(_vm.selectedDocument.document_route.length) + " Route" + _vm._s(_vm.selectedDocument.document_route.length !== 1 ? "s" : "") + "\n              ")]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "route-history-content"
   }, [_vm.routeHistoryLoading ? _c("div", {
     staticClass: "route-state-box"
   }, [_c("div", {
     staticClass: "loader-spinner"
-  }), _vm._v(" "), _c("p", {
+  }), _c("p", {
     staticClass: "mt-3 text-muted"
-  }, [_vm._v("Loading route history...")])]) : !((_vm$selectedDocument8 = _vm.selectedDocument) !== null && _vm$selectedDocument8 !== void 0 && _vm$selectedDocument8.document_route) || _vm.selectedDocument.document_route.length === 0 ? _c("div", {
+  }, [_vm._v("Loading...")])]) : !((_vm$selectedDocument5 = _vm.selectedDocument) !== null && _vm$selectedDocument5 !== void 0 && (_vm$selectedDocument5 = _vm$selectedDocument5.document_route) !== null && _vm$selectedDocument5 !== void 0 && _vm$selectedDocument5.length) ? _c("div", {
     staticClass: "route-state-box"
-  }, [_vm._m(14), _vm._v(" "), _c("h5", {
+  }, [_vm._m(40), _vm._v(" "), _c("h5", {
     staticClass: "mt-3"
   }, [_vm._v("No Route History")]), _vm._v(" "), _c("p", {
     staticClass: "text-muted"
-  }, [_vm._v("\n                  This document hasn't been routed yet.\n                ")])]) : _c("div", {
+  }, [_vm._v("This document hasn't been routed yet.")])]) : _c("div", {
     staticClass: "timeline-container"
   }, _vm._l(_vm.selectedDocument.document_route, function (route, rIndex) {
     var _route$office;
@@ -17986,7 +19374,7 @@ var render = function render() {
       "class": _vm.getRouteStatusClass(route.status)
     }, [_c("i", {
       "class": _vm.getRouteStatusIcon(route.status)
-    }), _vm._v("\n                        " + _vm._s(route.status || "PENDING") + "\n                      ")])]), _vm._v(" "), _c("div", {
+    }), _vm._v(" " + _vm._s(route.status || "PENDING") + "\n                      ")])]), _vm._v(" "), _c("div", {
       staticClass: "timeline-card-body"
     }, [_c("div", {
       staticClass: "info-grid-enhanced"
@@ -17996,7 +19384,7 @@ var render = function render() {
       staticClass: "info-card-body"
     }, [_c("div", {
       staticClass: "info-field"
-    }, [_vm._m(15, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(41, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
@@ -18004,99 +19392,23 @@ var render = function render() {
       staticClass: "field-value received-date"
     }, [_c("i", {
       staticClass: "bi bi-clock me-1"
-    }), _vm._v("\n                                  " + _vm._s(_vm.formatDateTime(route.date_receive)) + "\n                                ")])])]), _vm._v(" "), route.received_by || route.received_by_name ? _c("div", {
+    }), _vm._v(" " + _vm._s(_vm.formatDateTime(route.date_receive)))])])]), _vm._v(" "), route.received_by || route.received_by_name ? _c("div", {
       staticClass: "info-field"
-    }, [_vm._m(16, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(42, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
     }, [_vm._v("Received By")]), _vm._v(" "), _c("span", {
       staticClass: "field-value received-by"
-    }, [route.received_by ? [_vm._v("\n                                    " + _vm._s(route.received_by.firstname || "") + "\n                                    " + _vm._s(route.received_by.middlename ? route.received_by.middlename + " " : "") + "\n                                    " + _vm._s(route.received_by.lastname || "") + "\n                                  ")] : route.received_by_name ? [_vm._v("\n                                    " + _vm._s(route.received_by_name) + "\n                                  ")] : _vm._e()], 2)])]) : _vm._e(), _vm._v(" "), route.remarks ? _c("div", {
+    }, [_vm._v(_vm._s(_vm.getPersonName(route.received_by, route.received_by_name)))])])]) : _vm._e(), _vm._v(" "), route.remarks ? _c("div", {
       staticClass: "info-field remarks-field"
-    }, [_vm._m(17, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(43, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
     }, [_vm._v("Remarks")]), _vm._v(" "), _c("span", {
       staticClass: "field-value remarks-text"
-    }, [_vm._v("\n                                  " + _vm._s(route.remarks) + "\n                                ")])])]) : _vm._e()])]) : _vm._e(), _vm._v(" "), route.date_document_out ? _c("div", {
-      staticClass: "info-card completed-card"
-    }, [_c("div", {
-      staticClass: "info-card-header"
-    }, [_vm._m(18, true), _vm._v(" "), _c("span", {
-      staticClass: "info-card-title"
-    }, [_vm._v("Completion Information")]), _vm._v(" "), route.status === "Completed" ? _c("span", {
-      staticClass: "info-card-status completed-status"
-    }, [_c("i", {
-      staticClass: "bi bi-check-circle-fill"
-    }), _vm._v(" Done\n                            ")]) : _vm._e()]), _vm._v(" "), _c("div", {
-      staticClass: "info-card-body"
-    }, [_c("div", {
-      staticClass: "info-field"
-    }, [_vm._m(19, true), _vm._v(" "), _c("div", {
-      staticClass: "field-content"
-    }, [_c("span", {
-      staticClass: "field-label"
-    }, [_vm._v("Completed On")]), _vm._v(" "), _c("span", {
-      staticClass: "field-value completed-date"
-    }, [_c("i", {
-      staticClass: "bi bi-check-circle me-1"
-    }), _vm._v("\n                                  " + _vm._s(_vm.formatDateTime(route.date_document_out)) + "\n                                ")])])]), _vm._v(" "), route.completed_by || route.completed_by_name ? _c("div", {
-      staticClass: "info-field"
-    }, [_vm._m(20, true), _vm._v(" "), _c("div", {
-      staticClass: "field-content"
-    }, [_c("span", {
-      staticClass: "field-label"
-    }, [_vm._v("Completed By")]), _vm._v(" "), _c("span", {
-      staticClass: "field-value"
-    }, [route.completed_by ? [_vm._v("\n                                    " + _vm._s(route.completed_by.firstname || "") + "\n                                    " + _vm._s(route.completed_by.middlename ? route.completed_by.middlename + " " : "") + "\n                                    " + _vm._s(route.completed_by.lastname || "") + "\n                                  ")] : route.completed_by_name ? [_vm._v("\n                                    " + _vm._s(route.completed_by_name) + "\n                                  ")] : _vm._e()], 2)])]) : _vm._e(), _vm._v(" "), route.remarks ? _c("div", {
-      staticClass: "info-field"
-    }, [_vm._m(21, true), _vm._v(" "), _c("div", {
-      staticClass: "field-content"
-    }, [_c("span", {
-      staticClass: "field-label"
-    }, [_vm._v("Completion Notes")]), _vm._v(" "), _c("span", {
-      staticClass: "field-value notes-text"
-    }, [_vm._v("\n                                  " + _vm._s(route.remarks) + "\n                                ")])])]) : _vm._e()])]) : _vm._e()]), _vm._v(" "), route.from_office || route.to_office ? _c("div", {
-      staticClass: "flow-section-enhanced"
-    }, [_c("div", {
-      staticClass: "flow-container"
-    }, [route.from_office ? _c("div", {
-      staticClass: "flow-node origin-node"
-    }, [_vm._m(22, true), _vm._v(" "), _c("div", {
-      staticClass: "flow-node-content"
-    }, [_c("span", {
-      staticClass: "flow-node-label"
-    }, [_vm._v("From")]), _vm._v(" "), _c("span", {
-      staticClass: "flow-node-value"
-    }, [_vm._v(_vm._s(route.from_office))])])]) : _vm._e(), _vm._v(" "), route.from_office && route.to_office ? _c("div", {
-      staticClass: "flow-arrow-enhanced"
-    }, [_c("div", {
-      staticClass: "arrow-line"
-    }), _vm._v(" "), _vm._m(23, true), _vm._v(" "), _c("div", {
-      staticClass: "arrow-line"
-    })]) : _vm._e(), _vm._v(" "), route.to_office ? _c("div", {
-      staticClass: "flow-node destination-node"
-    }, [_vm._m(24, true), _vm._v(" "), _c("div", {
-      staticClass: "flow-node-content"
-    }, [_c("span", {
-      staticClass: "flow-node-label"
-    }, [_vm._v("To")]), _vm._v(" "), _c("span", {
-      staticClass: "flow-node-value"
-    }, [_vm._v(_vm._s(route.to_office))])])]) : _vm._e()])]) : _vm._e(), _vm._v(" "), !route.date_receive && !route.date_document_out && !route.from_office && !route.to_office ? _c("div", {
-      staticClass: "text-center py-3 text-muted"
-    }, [_c("i", {
-      staticClass: "bi bi-hourglass-split",
-      staticStyle: {
-        "font-size": "1.5rem"
-      }
-    }), _vm._v(" "), _c("p", {
-      staticClass: "mt-2 mb-0",
-      staticStyle: {
-        "font-size": "0.85rem"
-      }
-    }, [_vm._v("Awaiting action")])]) : _vm._e()])])]);
+    }, [_vm._v(_vm._s(route.remarks))])])]) : _vm._e()])]) : _vm._e()])])])]);
   }), 0)])])])])])]) : _vm._e()], 1);
 };
 var staticRenderFns = [function () {
@@ -18122,11 +19434,11 @@ var staticRenderFns = [function () {
     staticStyle: {
       width: "15%"
     }
-  }, [_vm._v("Sender/Origin")]), _vm._v(" "), _c("th", {
+  }, [_vm._v("Date Received")]), _vm._v(" "), _c("th", {
     staticStyle: {
       width: "15%"
     }
-  }, [_vm._v("Date Received")]), _vm._v(" "), _c("th", {
+  }, [_vm._v("Date Released")]), _vm._v(" "), _c("th", {
     staticStyle: {
       width: "10%"
     }
@@ -18135,15 +19447,137 @@ var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("td", {
-    staticClass: "text-center py-5",
+    staticClass: "text-center",
     attrs: {
-      colspan: "7"
+      colspan: "8"
     }
   }, [_c("div", {
     staticClass: "loader-spinner"
-  }), _vm._v(" "), _c("div", {
-    staticClass: "mt-2"
-  }, [_vm._v("Loading documents...")])]);
+  }), _vm._v("Loading...")]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "d-flex align-items-center"
+  }, [_c("div", {
+    staticClass: "modal-icon-wrapper square-icon",
+    staticStyle: {
+      background: "rgba(255,255,255,0.2)"
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-arrow-right-circle"
+  })]), _vm._v(" "), _c("div", [_c("h5", {
+    staticClass: "modal-title"
+  }, [_vm._v("Forward Document")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("label", {
+    staticClass: "form-label-enhanced"
+  }, [_vm._v("Select Destination Office(s) "), _c("span", {
+    staticClass: "required-star"
+  }, [_vm._v("*")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "office-icon-wrapper"
+  }, [_c("i", {
+    staticClass: "bi bi-building"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "d-flex align-items-center"
+  }, [_c("div", {
+    staticClass: "modal-icon-wrapper square-icon",
+    staticStyle: {
+      background: "rgba(255,255,255,0.2)"
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-check-circle"
+  })]), _vm._v(" "), _c("div", [_c("h5", {
+    staticClass: "modal-title"
+  }, [_vm._v("Release Document")]), _vm._v(" "), _c("small", {
+    staticClass: "modal-subtitle"
+  }, [_vm._v("Confirm document release")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "release-info-label"
+  }, [_c("i", {
+    staticClass: "bi bi-upc-scan"
+  }), _vm._v(" Tracking Number")]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "release-info-label"
+  }, [_c("i", {
+    staticClass: "bi bi-file-earmark-text"
+  }), _vm._v(" Document Type")]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "release-info-label"
+  }, [_c("i", {
+    staticClass: "bi bi-tags"
+  }), _vm._v(" Classification")]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "release-info-label"
+  }, [_c("i", {
+    staticClass: "bi bi-journal-text"
+  }), _vm._v(" Subject")]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("label", {
+    staticClass: "form-label-enhanced"
+  }, [_c("i", {
+    staticClass: "bi bi-calendar-check me-2"
+  }), _vm._v(" Release Date & Time "), _c("span", {
+    staticClass: "required-star"
+  }, [_vm._v("*")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("label", {
+    staticClass: "form-label-enhanced"
+  }, [_c("i", {
+    staticClass: "bi bi-cloud-upload me-2"
+  }), _vm._v(" Upload Released Attachment "), _c("span", {
+    staticClass: "required-star"
+  }, [_vm._v("*")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "upload-icon-wrapper"
+  }, [_c("i", {
+    staticClass: "bi bi-cloud-arrow-up"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "upload-file-icon"
+  }, [_c("i", {
+    staticClass: "bi bi-file-earmark-pdf"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("label", {
+    staticClass: "form-label-enhanced"
+  }, [_c("i", {
+    staticClass: "bi bi-chat-left-text me-2"
+  }), _vm._v(" Remarks (Optional)")]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -18156,15 +19590,23 @@ var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "details-panel-header"
+    staticClass: "summary-panel-header"
   }, [_c("i", {
     staticClass: "bi bi-info-circle-fill"
-  }), _vm._v(" "), _c("span", [_vm._v("Document Information")])]);
+  }), _vm._v(" Document Summary")]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "detail-icon-wrapper"
+    staticClass: "summary-section-title"
+  }, [_c("i", {
+    staticClass: "bi bi-file-earmark-text"
+  }), _vm._v(" Document Information")]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "summary-icon-wrapper"
   }, [_c("i", {
     staticClass: "bi bi-upc-scan"
   })]);
@@ -18172,7 +19614,7 @@ var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "detail-icon-wrapper type-icon"
+    staticClass: "summary-icon-wrapper type-icon"
   }, [_c("i", {
     staticClass: "bi bi-file-earmark-text"
   })]);
@@ -18180,7 +19622,7 @@ var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "detail-icon-wrapper subject-icon"
+    staticClass: "summary-icon-wrapper subject-icon"
   }, [_c("i", {
     staticClass: "bi bi-journal-text"
   })]);
@@ -18188,7 +19630,7 @@ var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "detail-icon-wrapper sender-icon-card"
+    staticClass: "summary-icon-wrapper sender-icon"
   }, [_c("i", {
     staticClass: "bi bi-person-badge"
   })]);
@@ -18196,7 +19638,15 @@ var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "detail-icon-wrapper date-icon-card"
+    staticClass: "summary-icon-wrapper classification-icon"
+  }, [_c("i", {
+    staticClass: "bi bi-tags"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "summary-icon-wrapper date-icon"
   }, [_c("i", {
     staticClass: "bi bi-calendar-check"
   })]);
@@ -18204,7 +19654,15 @@ var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "detail-icon-wrapper desc-icon"
+    staticClass: "summary-icon-wrapper release-icon"
+  }, [_c("i", {
+    staticClass: "bi bi-calendar-check-fill"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "summary-icon-wrapper desc-icon"
   }, [_c("i", {
     staticClass: "bi bi-blockquote-right"
   })]);
@@ -18212,7 +19670,63 @@ var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "detail-icon-wrapper meta-icon"
+    staticClass: "summary-section-title"
+  }, [_c("i", {
+    staticClass: "bi bi-graph-up-arrow"
+  }), _vm._v(" Document Statistics")]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "stat-icon-wrapper processing-icon"
+  }, [_c("i", {
+    staticClass: "bi bi-clock-history"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "stat-icon-wrapper routes-icon"
+  }, [_c("i", {
+    staticClass: "bi bi-diagram-3"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "stat-icon-wrapper calendar-icon"
+  }, [_c("i", {
+    staticClass: "bi bi-calendar-range"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "stat-icon-wrapper holiday-icon"
+  }, [_c("i", {
+    staticClass: "bi bi-calendar-x"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "stat-icon-wrapper age-icon"
+  }, [_c("i", {
+    staticClass: "bi bi-hourglass-split"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "summary-section-title"
+  }, [_c("i", {
+    staticClass: "bi bi-info-circle"
+  }), _vm._v(" Status")]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "summary-icon-wrapper meta-icon"
   }, [_c("i", {
     staticClass: "bi bi-info-circle"
   })]);
@@ -18220,10 +19734,44 @@ var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "pdf-panel-title"
+    staticClass: "incoming-pdf-title"
   }, [_c("i", {
     staticClass: "bi bi-file-pdf"
-  }), _vm._v(" "), _c("span", [_vm._v("Document Preview")])]);
+  }), _vm._v(" Document Preview")]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "pdf-loader-animation"
+  }, [_c("div", {
+    staticClass: "pdf-loader-icon"
+  }, [_c("i", {
+    staticClass: "bi bi-file-pdf"
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "loader-spinner"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "released-document-header"
+  }, [_c("div", {
+    staticClass: "released-document-title"
+  }, [_c("i", {
+    staticClass: "bi bi-check-circle-fill"
+  }), _vm._v(" Released Document")]), _vm._v(" "), _c("div", {
+    staticClass: "released-document-badge"
+  }, [_c("i", {
+    staticClass: "bi bi-check2-circle"
+  }), _vm._v(" Released")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "released-pdf-title"
+  }, [_c("i", {
+    staticClass: "bi bi-file-pdf"
+  }), _vm._v(" Released Document Preview")]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -18243,7 +19791,7 @@ var staticRenderFns = [function () {
     staticClass: "route-history-title"
   }, [_c("i", {
     staticClass: "bi bi-clock-history"
-  }), _vm._v(" "), _c("span", [_vm._v("Document Route History")])]);
+  }), _vm._v(" Route History")]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -18275,62 +19823,6 @@ var staticRenderFns = [function () {
     staticClass: "field-icon remarks-icon"
   }, [_c("i", {
     staticClass: "bi bi-chat-left-text"
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "info-card-icon completed-icon"
-  }, [_c("i", {
-    staticClass: "bi bi-check2-all"
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "field-icon"
-  }, [_c("i", {
-    staticClass: "bi bi-calendar-check"
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "field-icon"
-  }, [_c("i", {
-    staticClass: "bi bi-person-check"
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "field-icon notes-icon"
-  }, [_c("i", {
-    staticClass: "bi bi-sticky"
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "flow-node-icon"
-  }, [_c("i", {
-    staticClass: "bi bi-box-arrow-right"
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "arrow-icon"
-  }, [_c("i", {
-    staticClass: "bi bi-arrow-right-circle-fill"
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "flow-node-icon"
-  }, [_c("i", {
-    staticClass: "bi bi-box-arrow-in-left"
   })]);
 }];
 render._withStripped = true;
@@ -31181,7 +32673,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* Modal overlay */\n.modal-overlay[data-v-5146eb3c] {\r\n  position: fixed;\r\n  inset: 0;\r\n  background: rgba(0, 0, 0, 0.55);\r\n  backdrop-filter: blur(4px);\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  z-index: 1050;\r\n  animation: fadeIn-5146eb3c 0.2s ease-out;\n}\n.enhanced-modal[data-v-5146eb3c] {\r\n  width: 100%;\r\n  max-width: 620px;\r\n  margin: 0 15px;\r\n  animation: modalSlideUp-5146eb3c 0.3s ease-out;\n}\n.square-modal[data-v-5146eb3c] {\r\n  border: none;\r\n  border-radius: 12px;\r\n  overflow: hidden;\r\n  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);\r\n  background: #fff;\r\n  position: relative;\n}\n.square-header[data-v-5146eb3c] {\r\n  background: linear-gradient(135deg, #1e4d2b, #2d6a4f);\r\n  padding: 20px 24px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n  color: white;\r\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n}\n.square-icon[data-v-5146eb3c] {\r\n  width: 42px;\r\n  height: 42px;\r\n  background: rgba(255, 255, 255, 0.2);\r\n  border-radius: 10px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1.4rem;\r\n  margin-right: 14px;\n}\n.modal-title[data-v-5146eb3c] {\r\n  font-weight: 700;\r\n  font-size: 1.25rem;\n}\n.modal-subtitle[data-v-5146eb3c] {\r\n  font-size: 0.85rem;\r\n  opacity: 0.85;\n}\n.btn-close-custom.square-close[data-v-5146eb3c] {\r\n  background: rgba(255, 255, 255, 0.15);\r\n  border: none;\r\n  color: white;\r\n  width: 36px;\r\n  height: 36px;\r\n  border-radius: 8px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  cursor: pointer;\r\n  transition: background 0.2s;\n}\n.btn-close-custom.square-close[data-v-5146eb3c]:hover {\r\n  background: rgba(255, 255, 255, 0.3);\n}\n.modal-body-enhanced[data-v-5146eb3c] {\r\n  padding: 24px;\r\n  background: #f9fafb;\n}\n.error-msg[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  background: #fef0ef;\r\n  border: 1px solid #f5c6c3;\r\n  border-radius: 7px;\r\n  padding: 10px 14px;\r\n  font-size: 12px;\r\n  color: #c0392b;\r\n  margin-bottom: 20px;\r\n  font-weight: 500;\n}\r\n\r\n/* Form elements */\n.form-label-enhanced[data-v-5146eb3c] {\r\n  font-weight: 600;\r\n  font-size: 0.9rem;\r\n  color: #1e293b;\r\n  margin-bottom: 6px;\r\n  display: block;\n}\n.required-star[data-v-5146eb3c] {\r\n  color: #dc2626;\r\n  margin-left: 3px;\n}\n.form-input[data-v-5146eb3c] {\r\n  width: 100%;\r\n  height: 46px;\r\n  padding: 0 14px;\r\n  border: 1.5px solid #b7d5c3;\r\n  border-radius: 8px;\r\n  font-size: 14px;\r\n  color: #1c2b24;\r\n  background: #f4f9f6;\r\n  outline: none;\r\n  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;\n}\n.form-input[data-v-5146eb3c]:focus {\r\n  border-color: #2d6a4f;\r\n  background: #ffffff;\r\n  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\n.form-input[data-v-5146eb3c]:disabled {\r\n  opacity: 0.7;\r\n  cursor: not-allowed;\n}\n.form-textarea[data-v-5146eb3c] {\r\n  height: auto;\r\n  padding-top: 12px;\r\n  resize: vertical;\r\n  min-height: 46px;\n}\n.invalid-feedback[data-v-5146eb3c] {\r\n  color: #dc2626;\r\n  font-size: 0.8rem;\r\n  margin-top: 4px;\n}\r\n\r\n/* Release Document Cards */\n.release-doc-cards[data-v-5146eb3c] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr;\r\n  gap: 12px;\r\n  margin-bottom: 20px;\n}\n.release-doc-card[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 12px;\r\n  padding: 14px 16px;\r\n  background: #ffffff;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 10px;\r\n  transition: all 0.2s ease;\n}\n.release-doc-card[data-v-5146eb3c]:hover {\r\n  border-color: #86efac;\r\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);\n}\n.release-doc-card-icon[data-v-5146eb3c] {\r\n  width: 36px;\r\n  height: 36px;\r\n  min-width: 36px;\r\n  border-radius: 8px;\r\n  background: #e0f2fe;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1rem;\r\n  color: #0284c7;\n}\n.release-doc-card-icon.type-icon[data-v-5146eb3c] {\r\n  background: #fef3c7;\r\n  color: #d97706;\n}\n.release-doc-card-icon.classification-icon[data-v-5146eb3c] {\r\n  background: #ede9fe;\r\n  color: #7c3aed;\n}\n.release-doc-card-content[data-v-5146eb3c] {\r\n  flex: 1;\r\n  min-width: 0;\n}\n.release-doc-card-label[data-v-5146eb3c] {\r\n  display: block;\r\n  font-size: 0.6rem;\r\n  font-weight: 600;\r\n  color: #64748b;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\n}\n.release-doc-card-value[data-v-5146eb3c] {\r\n  display: block;\r\n  font-size: 0.8rem;\r\n  font-weight: 600;\r\n  color: #1e293b;\r\n  word-break: break-word;\n}\n.tracking-number-value[data-v-5146eb3c] {\r\n  color: #2d6a4f;\r\n  font-family: \"Courier New\", monospace;\n}\r\n\r\n/* Date & Time Display */\n.release-datetime-section[data-v-5146eb3c] {\r\n  margin-bottom: 20px;\n}\n.datetime-display[data-v-5146eb3c] {\r\n  display: flex;\r\n  gap: 12px;\n}\n.datetime-item[data-v-5146eb3c] {\r\n  flex: 1;\r\n  position: relative;\n}\n.datetime-item i[data-v-5146eb3c] {\r\n  position: absolute;\r\n  left: 12px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  color: #64748b;\r\n  z-index: 2;\n}\n.datetime-input[data-v-5146eb3c] {\r\n  padding-left: 36px;\r\n  background: #ffffff;\r\n  border-color: #d1d5db;\n}\n.datetime-input[data-v-5146eb3c]:focus {\r\n  border-color: #2d6a4f;\r\n  background: #ffffff;\r\n  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\r\n\r\n/* Upload Area */\n.upload-area[data-v-5146eb3c] {\r\n  border: 2px dashed #b7d5c3;\r\n  border-radius: 12px;\r\n  padding: 30px 20px;\r\n  text-align: center;\r\n  cursor: pointer;\r\n  transition: all 0.3s ease;\r\n  background: #fafdfb;\r\n  position: relative;\r\n  min-height: 140px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\n}\n.upload-area[data-v-5146eb3c]:hover {\r\n  border-color: #2d6a4f;\r\n  background: #f0fdf4;\n}\n.upload-area.drag-over[data-v-5146eb3c] {\r\n  border-color: #059669;\r\n  background: #ecfdf5;\r\n  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);\n}\n.upload-area.has-file[data-v-5146eb3c] {\r\n  padding: 0;\r\n  border-color: #86efac;\r\n  background: #ffffff;\r\n  cursor: default;\n}\n.upload-content[data-v-5146eb3c] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  gap: 8px;\n}\n.upload-icon-wrapper[data-v-5146eb3c] {\r\n  width: 56px;\r\n  height: 56px;\r\n  border-radius: 50%;\r\n  background: #d1fae5;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  color: #059669;\r\n  font-size: 1.8rem;\n}\n.upload-text[data-v-5146eb3c] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  gap: 2px;\n}\n.upload-title[data-v-5146eb3c] {\r\n  font-weight: 600;\r\n  color: #1e293b;\r\n  font-size: 0.95rem;\n}\n.upload-subtitle[data-v-5146eb3c] {\r\n  font-size: 0.8rem;\r\n  color: #64748b;\n}\n.upload-input[data-v-5146eb3c] {\r\n  position: absolute;\r\n  inset: 0;\r\n  opacity: 0;\r\n  cursor: pointer;\r\n  z-index: 2;\n}\n.upload-input[data-v-5146eb3c]:disabled {\r\n  cursor: not-allowed;\n}\r\n\r\n/* File Preview Card */\n.file-preview-card[data-v-5146eb3c] {\r\n  width: 100%;\r\n  border: none;\r\n  border-radius: 12px;\r\n  overflow: hidden;\r\n  background: #ffffff;\n}\n.file-preview-header[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n  padding: 12px 16px;\r\n  background: #f8fafc;\r\n  border-bottom: 1px solid #e5e7eb;\n}\n.file-info-group[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 12px;\r\n  flex: 1;\r\n  min-width: 0;\n}\n.file-icon-wrapper[data-v-5146eb3c] {\r\n  width: 40px;\r\n  height: 40px;\r\n  min-width: 40px;\r\n  border-radius: 8px;\r\n  background: #fef2f2;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1.2rem;\r\n  color: #dc2626;\n}\n.file-details[data-v-5146eb3c] {\r\n  flex: 1;\r\n  min-width: 0;\n}\n.file-name[data-v-5146eb3c] {\r\n  display: block;\r\n  font-weight: 600;\r\n  color: #1e293b;\r\n  font-size: 0.85rem;\r\n  word-break: break-all;\n}\n.file-size[data-v-5146eb3c] {\r\n  display: block;\r\n  font-size: 0.7rem;\r\n  color: #64748b;\n}\n.btn-remove-file[data-v-5146eb3c] {\r\n  background: none;\r\n  border: none;\r\n  color: #6b7280;\r\n  cursor: pointer;\r\n  padding: 4px;\r\n  font-size: 1.2rem;\r\n  transition: color 0.2s;\r\n  border-radius: 6px;\n}\n.btn-remove-file[data-v-5146eb3c]:hover:not(:disabled) {\r\n  color: #dc2626;\r\n  background: #fef2f2;\n}\n.btn-remove-file[data-v-5146eb3c]:disabled {\r\n  opacity: 0.5;\r\n  cursor: not-allowed;\n}\r\n\r\n/* Release Attachment Section */\n.release-attachment-section[data-v-5146eb3c] {\r\n  margin-bottom: 16px;\n}\r\n\r\n/* Modal actions */\n.modal-actions[data-v-5146eb3c] {\r\n  margin-top: 24px;\r\n  padding-top: 18px;\r\n  border-top: 1px solid #e5e7eb;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\n}\n.square-btn[data-v-5146eb3c] {\r\n  border-radius: 8px !important;\r\n  font-weight: 600;\r\n  transition: all 0.2s;\n}\n.btn-save[data-v-5146eb3c] {\r\n  background: linear-gradient(135deg, #2d6a4f, #1a4731);\r\n  color: white;\r\n  border: none;\r\n  padding: 10px 22px;\r\n  font-weight: 600;\r\n  display: inline-flex;\r\n  align-items: center;\r\n  box-shadow: 0 4px 18px rgba(26, 71, 49, 0.3);\n}\n.btn-save[data-v-5146eb3c]:hover:not(:disabled) {\r\n  box-shadow: 0 6px 24px rgba(26, 71, 49, 0.38);\r\n  transform: translateY(-1px);\n}\n.btn-save[data-v-5146eb3c]:disabled {\r\n  opacity: 0.7;\r\n  cursor: not-allowed;\r\n  transform: none;\n}\r\n\r\n/* Forward doc info */\n.forward-doc-info[data-v-5146eb3c] {\r\n  background: #f8fafc;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  padding: 12px 16px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 8px;\n}\n.forward-doc-row[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\n}\n.forward-doc-label[data-v-5146eb3c] {\r\n  font-size: 0.75rem;\r\n  font-weight: 600;\r\n  color: #64748b;\r\n  text-transform: uppercase;\r\n  min-width: 80px;\n}\n.forward-doc-value[data-v-5146eb3c] {\r\n  font-size: 0.85rem;\r\n  font-weight: 600;\r\n  color: #1e293b;\n}\r\n\r\n/* Office list */\n.office-list-container[data-v-5146eb3c] {\r\n  max-height: 300px;\r\n  overflow-y: auto;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  background: #ffffff;\n}\n.office-list-container[data-v-5146eb3c]::-webkit-scrollbar { width: 6px;\n}\n.office-list-container[data-v-5146eb3c]::-webkit-scrollbar-track { background: #f1f5f9;\n}\n.office-list-container[data-v-5146eb3c]::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 3px;\n}\n.office-select-item[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 12px;\r\n  padding: 12px 16px;\r\n  cursor: pointer;\r\n  transition: all 0.2s ease;\r\n  border-bottom: 1px solid #f3f4f6;\r\n  position: relative;\n}\n.office-select-item[data-v-5146eb3c]:last-child { border-bottom: none;\n}\n.office-select-item[data-v-5146eb3c]:hover { background: #f0fdf4;\n}\n.office-select-item.selected[data-v-5146eb3c] { background: #f0fdf4; border-left: 3px solid #059669;\n}\n.office-checkbox[data-v-5146eb3c] {\r\n  font-size: 1.2rem;\r\n  color: #059669;\r\n  min-width: 24px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\n}\n.office-select-item:not(.selected) .office-checkbox[data-v-5146eb3c] { color: #d1d5db;\n}\n.office-icon-wrapper[data-v-5146eb3c] {\r\n  width: 36px;\r\n  height: 36px;\r\n  min-width: 36px;\r\n  border-radius: 8px;\r\n  background: #e0e7ff;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  color: #3730a3;\r\n  font-size: 1rem;\n}\n.office-select-item.selected .office-icon-wrapper[data-v-5146eb3c] {\r\n  background: #d1fae5;\r\n  color: #059669;\n}\n.office-details[data-v-5146eb3c] { flex: 1; min-width: 0;\n}\n.office-name-text[data-v-5146eb3c] {\r\n  display: block;\r\n  font-size: 0.85rem;\r\n  font-weight: 600;\r\n  color: #1e293b;\r\n  line-height: 1.3;\n}\n.office-code[data-v-5146eb3c] {\r\n  display: block;\r\n  font-size: 0.7rem;\r\n  color: #64748b;\r\n  margin-top: 2px;\n}\n.selected-indicator[data-v-5146eb3c] {\r\n  position: absolute;\r\n  right: 12px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  color: #059669;\r\n  font-size: 1.1rem;\n}\n.selected-offices-summary[data-v-5146eb3c] {\r\n  background: #f0fdf4;\r\n  border: 1px solid #bbf7d0;\r\n  border-radius: 8px;\r\n  padding: 12px 16px;\n}\n.selected-offices-header[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  font-weight: 600;\r\n  font-size: 0.85rem;\r\n  color: #166534;\n}\n.selected-offices-list[data-v-5146eb3c] {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  gap: 8px;\r\n  margin-top: 8px;\n}\n.selected-office-tag[data-v-5146eb3c] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  padding: 4px 10px;\r\n  background: #ffffff;\r\n  border: 1px solid #86efac;\r\n  border-radius: 20px;\r\n  font-size: 0.8rem;\r\n  font-weight: 600;\r\n  color: #166534;\n}\n.remove-office-btn[data-v-5146eb3c] {\r\n  background: none;\r\n  border: none;\r\n  color: #6b7280;\r\n  cursor: pointer;\r\n  padding: 0;\r\n  display: flex;\r\n  align-items: center;\r\n  font-size: 0.9rem;\r\n  transition: color 0.2s;\n}\n.remove-office-btn[data-v-5146eb3c]:hover:not(:disabled) { color: #dc2626;\n}\n.remove-office-btn[data-v-5146eb3c]:disabled { opacity: 0.5; cursor: not-allowed;\n}\r\n\r\n/* Document viewer */\n.document-view-modal[data-v-5146eb3c] {\r\n  max-width: 1400px;\r\n  width: 95vw;\r\n  max-height: 90vh;\n}\n.document-viewer-body[data-v-5146eb3c] {\r\n  padding: 0;\r\n  max-height: calc(90vh - 80px);\r\n  overflow: hidden;\r\n  display: flex;\r\n  flex-direction: column;\n}\n.document-viewer-tabs[data-v-5146eb3c] {\r\n  display: flex;\r\n  gap: 4px;\r\n  padding: 12px 20px;\r\n  background: #f8fafc;\r\n  border-bottom: 2px solid #e5e7eb;\r\n  flex-shrink: 0;\n}\n.viewer-tab-btn[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  padding: 10px 20px;\r\n  background: #ffffff;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  color: #64748b;\r\n  font-size: 13px;\r\n  font-weight: 600;\r\n  cursor: pointer;\r\n  white-space: nowrap;\r\n  transition: all 0.3s ease;\n}\n.viewer-tab-btn[data-v-5146eb3c]:hover {\r\n  background: #f0fdf4;\r\n  border-color: #86efac;\r\n  color: #2d6a4f;\r\n  transform: translateY(-1px);\n}\n.viewer-tab-btn.active[data-v-5146eb3c] {\r\n  background: linear-gradient(135deg, #2d6a4f, #1e4d2b);\r\n  border-color: #2d6a4f;\r\n  color: #ffffff;\r\n  box-shadow: 0 4px 12px rgba(45, 106, 79, 0.3);\n}\n.document-viewer-layout[data-v-5146eb3c] {\r\n  display: grid;\r\n  grid-template-columns: 380px 1fr;\r\n  height: calc(90vh - 140px);\r\n  min-height: 500px;\n}\r\n\r\n/* Details panel */\n.details-panel[data-v-5146eb3c] {\r\n  background: #ffffff;\r\n  border-right: 1px solid #e5e7eb;\r\n  display: flex;\r\n  flex-direction: column;\r\n  overflow: hidden;\n}\n.details-panel-header[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 10px;\r\n  padding: 16px 20px;\r\n  background: #f8fafc;\r\n  border-bottom: 1px solid #e5e7eb;\r\n  font-weight: 700;\r\n  color: #1e293b;\r\n  font-size: 0.9rem;\r\n  flex-shrink: 0;\n}\n.details-content[data-v-5146eb3c] {\r\n  flex: 1;\r\n  overflow-y: auto;\r\n  padding: 16px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 12px;\n}\n.details-content[data-v-5146eb3c]::-webkit-scrollbar { width: 6px;\n}\n.details-content[data-v-5146eb3c]::-webkit-scrollbar-track { background: #f1f5f9;\n}\n.details-content[data-v-5146eb3c]::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 3px;\n}\n.detail-card[data-v-5146eb3c] {\r\n  display: flex;\r\n  gap: 12px;\r\n  padding: 14px;\r\n  background: #f8fafc;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 10px;\r\n  transition: all 0.2s ease;\n}\n.detail-icon-wrapper[data-v-5146eb3c] {\r\n  width: 40px;\r\n  height: 40px;\r\n  min-width: 40px;\r\n  border-radius: 8px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1.1rem;\r\n  background: #e0f2fe;\r\n  color: #0284c7;\n}\n.detail-icon-wrapper.type-icon[data-v-5146eb3c]    { background: #fef3c7; color: #d97706;\n}\n.detail-icon-wrapper.subject-icon[data-v-5146eb3c] { background: #dcfce7; color: #16a34a;\n}\n.detail-icon-wrapper.sender-icon-card[data-v-5146eb3c] { background: #ede9fe; color: #7c3aed;\n}\n.detail-icon-wrapper.date-icon-card[data-v-5146eb3c]   { background: #fce7f3; color: #db2777;\n}\n.detail-icon-wrapper.desc-icon[data-v-5146eb3c]        { background: #fff7ed; color: #ea580c;\n}\n.detail-icon-wrapper.meta-icon[data-v-5146eb3c]        { background: #f1f5f9; color: #64748b;\n}\n.detail-icon-wrapper.release-icon[data-v-5146eb3c]     { background: #d1fae5; color: #059669;\n}\n.release-date-card[data-v-5146eb3c] { background: #f0fdf4; border-color: #86efac;\n}\n.detail-info[data-v-5146eb3c] { flex: 1; min-width: 0;\n}\n.detail-info label[data-v-5146eb3c] {\r\n  display: block;\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  color: #64748b;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  margin-bottom: 4px;\n}\n.detail-value[data-v-5146eb3c] {\r\n  font-size: 0.85rem;\r\n  color: #1e293b;\r\n  font-weight: 500;\r\n  word-break: break-word;\r\n  line-height: 1.4;\n}\n.tracking-number-large[data-v-5146eb3c] {\r\n  font-size: 0.9rem;\r\n  font-weight: 700;\r\n  color: #2d6a4f;\r\n  font-family: \"Courier New\", monospace;\r\n  background: #f0fdf4;\r\n  padding: 2px 8px;\r\n  border-radius: 4px;\r\n  display: inline-block;\n}\n.doc-type-badge-large[data-v-5146eb3c] {\r\n  display: inline-block;\r\n  padding: 3px 12px;\r\n  background: #e0e7ff;\r\n  color: #3730a3;\r\n  border-radius: 6px;\r\n  font-size: 0.8rem;\r\n  font-weight: 600;\r\n  border: 1px solid #c7d2fe;\n}\n.time-text[data-v-5146eb3c] {\r\n  color: #64748b;\r\n  font-size: 0.75rem;\r\n  display: block;\r\n  margin-top: 2px;\n}\n.description-card[data-v-5146eb3c] { background: #fffbeb; border-color: #fde68a;\n}\n.description-text[data-v-5146eb3c] { color: #78350f; font-style: italic; line-height: 1.6;\n}\r\n\r\n/* PDF panel */\n.pdf-panel[data-v-5146eb3c] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  background: #f8fafc;\r\n  overflow: hidden;\n}\n.pdf-panel-header[data-v-5146eb3c] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 12px 20px;\r\n  background: #ffffff;\r\n  border-bottom: 1px solid #e5e7eb;\r\n  flex-shrink: 0;\n}\n.pdf-panel-title[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  font-weight: 700;\r\n  color: #1e293b;\r\n  font-size: 0.9rem;\n}\n.pdf-panel-title i[data-v-5146eb3c] { color: #dc2626; font-size: 1.2rem;\n}\n.pdf-controls[data-v-5146eb3c] { display: flex; gap: 4px; align-items: center;\n}\n.btn-pdf-control[data-v-5146eb3c] {\r\n  background: #f1f5f9;\r\n  border: 1px solid #e5e7eb;\r\n  color: #475569;\r\n  width: 34px;\r\n  height: 34px;\r\n  border-radius: 6px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  cursor: pointer;\r\n  transition: all 0.2s;\r\n  font-size: 0.9rem;\n}\n.btn-pdf-control[data-v-5146eb3c]:hover:not(:disabled) {\r\n  background: #e2e8f0;\r\n  border-color: #94a3b8;\r\n  color: #1e293b;\n}\n.btn-pdf-control[data-v-5146eb3c]:disabled { opacity: 0.5; cursor: not-allowed;\n}\n.pdf-viewer-wrapper[data-v-5146eb3c] {\r\n  flex: 1;\r\n  overflow: auto;\r\n  background: #525659;\r\n  position: relative;\r\n  min-height: 400px;\n}\n.pdf-viewer-wrapper[data-v-5146eb3c]::-webkit-scrollbar { width: 10px; height: 10px;\n}\n.pdf-viewer-wrapper[data-v-5146eb3c]::-webkit-scrollbar-track { background: #3a3d40;\n}\n.pdf-viewer-wrapper[data-v-5146eb3c]::-webkit-scrollbar-thumb { background: #6b7280; border-radius: 5px;\n}\n.pdf-iframe[data-v-5146eb3c] {\r\n  border: none;\r\n  display: block;\r\n  background: #ffffff;\r\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);\n}\n.pdf-state[data-v-5146eb3c] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  height: 100%;\r\n  min-height: 400px;\r\n  color: #9ca3af;\r\n  padding: 40px;\n}\n.pdf-loader-animation[data-v-5146eb3c] {\r\n  position: relative;\r\n  width: 80px;\r\n  height: 80px;\r\n  margin-bottom: 16px;\n}\n.pdf-loader-icon[data-v-5146eb3c] {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 50%;\r\n  transform: translate(-50%, -50%);\r\n  font-size: 2rem;\r\n  color: #dc2626;\r\n  z-index: 2;\n}\n.pdf-state-text[data-v-5146eb3c] { color: #d1d5db; font-size: 0.9rem; margin-top: 8px;\n}\n.pdf-error[data-v-5146eb3c] { color: #fca5a5;\n}\n.pdf-error h5[data-v-5146eb3c] { color: #fca5a5; font-weight: 600;\n}\n.pdf-footer[data-v-5146eb3c] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 8px 20px;\r\n  background: #ffffff;\r\n  border-top: 1px solid #e5e7eb;\r\n  font-size: 0.75rem;\r\n  color: #64748b;\r\n  flex-shrink: 0;\n}\n.pdf-zoom-level[data-v-5146eb3c] { font-weight: 600; color: #2d6a4f;\n}\n.pdf-page-info[data-v-5146eb3c] { font-family: \"Courier New\", monospace;\n}\r\n\r\n/* Document header */\n.document-header[data-v-5146eb3c] { padding: 16px 24px;\n}\n.document-icon[data-v-5146eb3c] { background: rgba(220, 38, 38, 0.2);\n}\n.header-actions[data-v-5146eb3c] { display: flex; align-items: center; gap: 8px;\n}\n.btn-header-action[data-v-5146eb3c] {\r\n  background: rgba(255, 255, 255, 0.15);\r\n  border: 1px solid rgba(255, 255, 255, 0.2);\r\n  color: white;\r\n  width: 36px;\r\n  height: 36px;\r\n  border-radius: 8px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  cursor: pointer;\r\n  transition: all 0.2s;\n}\n.btn-header-action[data-v-5146eb3c]:hover { background: rgba(255, 255, 255, 0.3); transform: scale(1.05);\n}\n.btn-header-update[data-v-5146eb3c] {\r\n  background: rgba(251, 191, 36, 0.3);\r\n  border-color: rgba(251, 191, 36, 0.4);\n}\n.btn-header-update[data-v-5146eb3c]:hover { background: rgba(251, 191, 36, 0.5);\n}\n.tracking-badge[data-v-5146eb3c] {\r\n  background: rgba(255, 255, 255, 0.2);\r\n  padding: 2px 10px;\r\n  border-radius: 12px;\r\n  font-family: \"Courier New\", monospace;\r\n  font-size: 0.75rem;\r\n  margin-right: 8px;\n}\n.status-pill[data-v-5146eb3c] {\r\n  display: inline-block;\r\n  padding: 2px 10px;\r\n  border-radius: 12px;\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  background: rgba(255, 255, 255, 0.2);\r\n  border: 1px solid rgba(255, 255, 255, 0.3);\n}\r\n\r\n/* Attachments Panel */\n.attachments-panel[data-v-5146eb3c] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: calc(90vh - 140px);\r\n  background: #ffffff;\r\n  min-height: 500px;\n}\n.attachments-header[data-v-5146eb3c] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 16px 24px;\r\n  background: #f8fafc;\r\n  border-bottom: 2px solid #e5e7eb;\r\n  flex-shrink: 0;\n}\n.attachments-title[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 10px;\r\n  font-weight: 700;\r\n  color: #1e293b;\r\n  font-size: 1rem;\n}\n.attachments-title i[data-v-5146eb3c] { color: #2d6a4f; font-size: 1.2rem;\n}\n.attachments-count[data-v-5146eb3c] {\r\n  padding: 4px 14px;\r\n  background: #f1f5f9;\r\n  border-radius: 20px;\r\n  font-size: 0.8rem;\r\n  font-weight: 600;\r\n  color: #475569;\n}\n.attachments-content[data-v-5146eb3c] {\r\n  flex: 1;\r\n  overflow-y: auto;\r\n  padding: 24px;\r\n  background: #f9fafb;\n}\n.attachments-content[data-v-5146eb3c]::-webkit-scrollbar { width: 8px;\n}\n.attachments-content[data-v-5146eb3c]::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px;\n}\n.attachments-content[data-v-5146eb3c]::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px;\n}\n.attachment-item[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 16px;\r\n  padding: 16px 20px;\r\n  background: #ffffff;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 12px;\r\n  margin-bottom: 12px;\r\n  cursor: pointer;\r\n  transition: all 0.3s ease;\n}\n.attachment-item[data-v-5146eb3c]:hover {\r\n  border-color: #2563eb;\r\n  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.12);\r\n  transform: translateY(-2px);\n}\n.attachment-item[data-v-5146eb3c]:last-child { margin-bottom: 0;\n}\n.attachment-icon-wrapper[data-v-5146eb3c] {\r\n  width: 48px;\r\n  height: 48px;\r\n  min-width: 48px;\r\n  border-radius: 10px;\r\n  background: #fef2f2;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1.5rem;\r\n  color: #dc2626;\n}\n.attachment-details[data-v-5146eb3c] {\r\n  flex: 1;\r\n  min-width: 0;\n}\n.attachment-name[data-v-5146eb3c] {\r\n  font-weight: 600;\r\n  color: #1e293b;\r\n  font-size: 0.9rem;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  flex-wrap: wrap;\n}\n.attachment-badge[data-v-5146eb3c] {\r\n  font-size: 0.6rem;\r\n  font-weight: 700;\r\n  padding: 2px 8px;\r\n  border-radius: 12px;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\n}\n.draft-badge[data-v-5146eb3c] {\r\n  background: #fef3c7;\r\n  color: #d97706;\r\n  border: 1px solid #fde68a;\n}\n.released-badge[data-v-5146eb3c] {\r\n  background: #d1fae5;\r\n  color: #059669;\r\n  border: 1px solid #a7f3d0;\n}\n.attachment-meta[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  font-size: 0.75rem;\r\n  color: #64748b;\r\n  margin-top: 4px;\n}\n.attachment-separator[data-v-5146eb3c] { color: #d1d5db;\n}\n.attachment-actions[data-v-5146eb3c] {\r\n  display: flex;\r\n  gap: 6px;\r\n  flex-shrink: 0;\n}\n.btn-attachment-view[data-v-5146eb3c],\r\n.btn-attachment-download[data-v-5146eb3c] {\r\n  width: 36px;\r\n  height: 36px;\r\n  border-radius: 8px;\r\n  border: 1px solid #e5e7eb;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  cursor: pointer;\r\n  transition: all 0.2s ease;\r\n  text-decoration: none;\r\n  color: #475569;\r\n  background: #ffffff;\n}\n.btn-attachment-view[data-v-5146eb3c]:hover {\r\n  background: #eff6ff;\r\n  border-color: #93c5fd;\r\n  color: #2563eb;\n}\n.btn-attachment-download[data-v-5146eb3c]:hover {\r\n  background: #f0fdf4;\r\n  border-color: #86efac;\r\n  color: #059669;\n}\n.no-attachments[data-v-5146eb3c] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  height: 100%;\r\n  min-height: 300px;\r\n  text-align: center;\r\n  color: #9ca3af;\n}\r\n\r\n/* Attachment Viewer Modal */\n.attachment-viewer-modal[data-v-5146eb3c] {\r\n  max-width: 1200px;\r\n  width: 95vw;\r\n  max-height: 90vh;\n}\n.attachment-viewer-body[data-v-5146eb3c] {\r\n  padding: 0;\r\n  max-height: calc(90vh - 80px);\r\n  overflow: hidden;\r\n  display: flex;\r\n  flex-direction: column;\r\n  background: #f9fafb;\n}\n.attachment-viewer-toolbar[data-v-5146eb3c] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 12px 20px;\r\n  background: #ffffff;\r\n  border-bottom: 1px solid #e5e7eb;\r\n  flex-shrink: 0;\n}\n.toolbar-left[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 12px;\n}\n.toolbar-file-name[data-v-5146eb3c] {\r\n  font-weight: 600;\r\n  color: #1e293b;\r\n  font-size: 0.9rem;\n}\n.attachment-type-badge[data-v-5146eb3c] {\r\n  display: inline-block;\r\n  padding: 2px 10px;\r\n  border-radius: 12px;\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  background: rgba(255, 255, 255, 0.2);\r\n  border: 1px solid rgba(255, 255, 255, 0.3);\n}\n.toolbar-right[data-v-5146eb3c] {\r\n  display: flex;\r\n  gap: 4px;\r\n  align-items: center;\n}\n.btn-toolbar[data-v-5146eb3c] {\r\n  background: #f1f5f9;\r\n  border: 1px solid #e5e7eb;\r\n  color: #475569;\r\n  width: 36px;\r\n  height: 36px;\r\n  border-radius: 6px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  cursor: pointer;\r\n  transition: all 0.2s;\r\n  font-size: 0.9rem;\r\n  text-decoration: none;\n}\n.btn-toolbar[data-v-5146eb3c]:hover:not(:disabled) {\r\n  background: #e2e8f0;\r\n  border-color: #94a3b8;\r\n  color: #1e293b;\n}\n.btn-toolbar-download[data-v-5146eb3c] {\r\n  background: #dbeafe;\r\n  border-color: #93c5fd;\r\n  color: #2563eb;\n}\n.btn-toolbar-download[data-v-5146eb3c]:hover {\r\n  background: #bfdbfe;\r\n  border-color: #60a5fa;\r\n  color: #1d4ed8;\n}\n.attachment-viewer-content[data-v-5146eb3c] {\r\n  flex: 1;\r\n  overflow: auto;\r\n  background: #525659;\r\n  position: relative;\r\n  min-height: 500px;\n}\n.attachment-viewer-content[data-v-5146eb3c]::-webkit-scrollbar { width: 10px; height: 10px;\n}\n.attachment-viewer-content[data-v-5146eb3c]::-webkit-scrollbar-track { background: #3a3d40;\n}\n.attachment-viewer-content[data-v-5146eb3c]::-webkit-scrollbar-thumb { background: #6b7280; border-radius: 5px;\n}\n.attachment-viewer-iframe[data-v-5146eb3c] {\r\n  border: none;\r\n  display: block;\r\n  background: #ffffff;\r\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);\n}\n.attachment-loading[data-v-5146eb3c] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  height: 100%;\r\n  min-height: 500px;\r\n  color: #9ca3af;\n}\n.attachment-error[data-v-5146eb3c] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  height: 100%;\r\n  min-height: 500px;\r\n  color: #fca5a5;\r\n  padding: 40px;\n}\n.attachment-error h5[data-v-5146eb3c] { color: #fca5a5; font-weight: 600;\n}\n.attachment-viewer-footer[data-v-5146eb3c] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 8px 20px;\r\n  background: #ffffff;\r\n  border-top: 1px solid #e5e7eb;\r\n  font-size: 0.75rem;\r\n  color: #64748b;\r\n  flex-shrink: 0;\n}\n.attachment-zoom-level[data-v-5146eb3c] { font-weight: 600; color: #2d6a4f;\n}\n.attachment-info[data-v-5146eb3c] { font-family: \"Courier New\", monospace;\n}\r\n\r\n/* Route history */\n.route-history-panel[data-v-5146eb3c] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: calc(90vh - 140px);\r\n  background: #ffffff;\r\n  min-height: 500px;\n}\n.route-history-header[data-v-5146eb3c] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 16px 24px;\r\n  background: #f8fafc;\r\n  border-bottom: 2px solid #e5e7eb;\r\n  flex-shrink: 0;\n}\n.route-history-title[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 10px;\r\n  font-weight: 700;\r\n  color: #1e293b;\r\n  font-size: 1rem;\n}\n.route-history-title i[data-v-5146eb3c] { color: #2d6a4f; font-size: 1.2rem;\n}\n.route-history-badge[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  padding: 6px 14px;\r\n  background: #f0fdf4;\r\n  border: 1px solid #bbf7d0;\r\n  border-radius: 20px;\r\n  font-size: 0.8rem;\r\n  font-weight: 600;\r\n  color: #166534;\n}\n.route-history-content[data-v-5146eb3c] {\r\n  flex: 1;\r\n  overflow-y: auto;\r\n  padding: 24px;\r\n  background: #f9fafb;\n}\n.route-history-content[data-v-5146eb3c]::-webkit-scrollbar { width: 8px;\n}\n.route-history-content[data-v-5146eb3c]::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px;\n}\n.route-history-content[data-v-5146eb3c]::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px;\n}\n.route-state-box[data-v-5146eb3c] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  height: 100%;\r\n  min-height: 300px;\r\n  text-align: center;\n}\n.empty-icon-wrapper[data-v-5146eb3c] {\r\n  width: 80px;\r\n  height: 80px;\r\n  border-radius: 50%;\r\n  background: #f1f5f9;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 2rem;\r\n  color: #94a3b8;\r\n  margin-bottom: 16px;\n}\r\n\r\n/* Timeline */\n.timeline-container[data-v-5146eb3c] {\r\n  position: relative;\r\n  padding-left: 45px;\n}\n.timeline-container[data-v-5146eb3c]::before {\r\n  content: \"\";\r\n  position: absolute;\r\n  left: 14px;\r\n  top: 10px;\r\n  bottom: 10px;\r\n  width: 2px;\r\n  background: linear-gradient(180deg, #cbd5e1, #e2e8f0);\n}\n.timeline-item[data-v-5146eb3c] { position: relative; margin-bottom: 32px;\n}\n.timeline-item.is-last[data-v-5146eb3c] { margin-bottom: 0;\n}\n.timeline-node[data-v-5146eb3c] {\r\n  position: absolute;\r\n  left: -38px;\r\n  top: 0;\r\n  width: 30px;\r\n  height: 30px;\r\n  border-radius: 50%;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  color: white;\r\n  z-index: 2;\r\n  border: 3px solid #ffffff;\r\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);\r\n  font-size: 0.8rem;\n}\n.node-completed[data-v-5146eb3c] { background: #059669;\n}\n.node-active[data-v-5146eb3c]    { background: #2563eb; animation: pulse-5146eb3c 2s infinite;\n}\n.node-pending[data-v-5146eb3c]   { background: #d97706;\n}\n.node-rejected[data-v-5146eb3c]  { background: #dc2626;\n}\n.timeline-card[data-v-5146eb3c] {\r\n  background: #ffffff;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 12px;\r\n  transition: all 0.3s ease;\r\n  overflow: hidden;\r\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);\n}\n.timeline-card[data-v-5146eb3c]:hover {\r\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);\r\n  transform: translateY(-2px);\r\n  border-color: #cbd5e1;\n}\n.timeline-card.active-card[data-v-5146eb3c] {\r\n  border-left: 4px solid #2563eb;\r\n  background: linear-gradient(135deg, #eff6ff, #ffffff);\n}\n.timeline-card-header[data-v-5146eb3c] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 16px 20px;\r\n  background: #f8fafc;\r\n  border-bottom: 1px solid #e5e7eb;\r\n  flex-wrap: wrap;\r\n  gap: 12px;\n}\n.office-info[data-v-5146eb3c] { display: flex; align-items: center; gap: 12px;\n}\n.office-info i[data-v-5146eb3c] { font-size: 1.25rem; color: #2d6a4f;\n}\n.office-text[data-v-5146eb3c] { display: flex; flex-direction: column;\n}\n.office-name[data-v-5146eb3c] {\r\n  font-size: 1rem;\r\n  font-weight: 700;\r\n  color: #1e293b;\r\n  line-height: 1.3;\n}\n.route-status-badge[data-v-5146eb3c] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  font-size: 0.75rem;\r\n  font-weight: 700;\r\n  padding: 5px 12px;\r\n  border-radius: 20px;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  white-space: nowrap;\n}\n.badge-completed[data-v-5146eb3c] { background: #d1fae5; color: #059669; border: 1px solid #a7f3d0;\n}\n.badge-active[data-v-5146eb3c]    { background: #dbeafe; color: #2563eb; border: 1px solid #bfdbfe;\n}\n.badge-pending[data-v-5146eb3c]   { background: #fef3c7; color: #d97706; border: 1px solid #fde68a;\n}\n.badge-rejected[data-v-5146eb3c]  { background: #fee2e2; color: #dc2626; border: 1px solid #fecaca;\n}\n.timeline-card-body[data-v-5146eb3c] { padding: 20px;\n}\n.info-grid-enhanced[data-v-5146eb3c] {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));\r\n  gap: 16px;\r\n  margin-bottom: 20px;\n}\n.info-card[data-v-5146eb3c] {\r\n  background: #ffffff;\r\n  border-radius: 12px;\r\n  border: 1px solid #e5e7eb;\r\n  overflow: hidden;\r\n  transition: all 0.3s ease;\n}\n.received-card[data-v-5146eb3c]  { border-left: 4px solid #3b82f6;\n}\n.completed-card[data-v-5146eb3c] { border-left: 4px solid #10b981;\n}\n.info-card-header[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 10px;\r\n  padding: 12px 16px;\r\n  background: #f8fafc;\r\n  border-bottom: 1px solid #e5e7eb;\n}\n.info-card-icon[data-v-5146eb3c] {\r\n  width: 32px;\r\n  height: 32px;\r\n  border-radius: 8px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1rem;\r\n  color: #ffffff;\r\n  flex-shrink: 0;\n}\n.completed-icon[data-v-5146eb3c] { background: linear-gradient(135deg, #10b981, #059669);\n}\n.info-card-title[data-v-5146eb3c] {\r\n  font-weight: 700;\r\n  font-size: 0.8rem;\r\n  color: #1e293b;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  flex: 1;\n}\n.info-card-status[data-v-5146eb3c] {\r\n  font-size: 0.65rem;\r\n  font-weight: 700;\r\n  padding: 3px 10px;\r\n  border-radius: 20px;\n}\n.completed-status[data-v-5146eb3c] { background: #d1fae5; color: #059669;\n}\n.info-card-body[data-v-5146eb3c] {\r\n  padding: 12px 16px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 10px;\n}\n.info-field[data-v-5146eb3c] { display: flex; gap: 12px; align-items: flex-start;\n}\n.field-icon[data-v-5146eb3c] {\r\n  width: 28px;\r\n  height: 28px;\r\n  min-width: 28px;\r\n  border-radius: 6px;\r\n  background: #f1f5f9;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 0.85rem;\r\n  color: #64748b;\n}\n.remarks-icon[data-v-5146eb3c] { background: #fffbeb; color: #d97706;\n}\n.notes-icon[data-v-5146eb3c]   { background: #f0fdf4; color: #059669;\n}\n.field-content[data-v-5146eb3c] { flex: 1; min-width: 0;\n}\n.field-label[data-v-5146eb3c] {\r\n  display: block;\r\n  font-size: 0.65rem;\r\n  font-weight: 600;\r\n  color: #64748b;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  margin-bottom: 2px;\n}\n.field-value[data-v-5146eb3c] {\r\n  display: block;\r\n  font-size: 0.85rem;\r\n  color: #1e293b;\r\n  font-weight: 500;\r\n  word-break: break-word;\r\n  line-height: 1.4;\n}\n.received-date[data-v-5146eb3c] { color: #2563eb; font-weight: 600;\n}\n.completed-date[data-v-5146eb3c] { color: #059669; font-weight: 600;\n}\n.remarks-text[data-v-5146eb3c] {\r\n  font-style: italic;\r\n  color: #78350f;\r\n  background: #fffbeb;\r\n  padding: 4px 10px;\r\n  border-radius: 6px;\r\n  border-left: 3px solid #f59e0b;\n}\n.notes-text[data-v-5146eb3c] {\r\n  background: #f0fdf4;\r\n  padding: 4px 10px;\r\n  border-radius: 6px;\r\n  border-left: 3px solid #10b981;\n}\r\n\r\n/* Flow section */\n.flow-section-enhanced[data-v-5146eb3c] {\r\n  margin-top: 8px;\r\n  padding: 16px 20px;\r\n  background: linear-gradient(135deg, #f8fafc, #f1f5f9);\r\n  border-radius: 12px;\r\n  border: 1px solid #e5e7eb;\n}\n.flow-container[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 16px;\r\n  flex-wrap: wrap;\n}\n.flow-node[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 12px;\r\n  flex: 1;\r\n  min-width: 150px;\r\n  padding: 10px 14px;\r\n  background: #ffffff;\r\n  border-radius: 10px;\r\n  border: 1px solid #e5e7eb;\r\n  transition: all 0.3s ease;\n}\n.origin-node[data-v-5146eb3c]      { border-left: 4px solid #3b82f6;\n}\n.destination-node[data-v-5146eb3c] { border-left: 4px solid #10b981;\n}\n.flow-node-icon[data-v-5146eb3c] {\r\n  width: 32px;\r\n  height: 32px;\r\n  min-width: 32px;\r\n  border-radius: 8px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1rem;\r\n  color: #ffffff;\n}\n.origin-node .flow-node-icon[data-v-5146eb3c]      { background: linear-gradient(135deg, #3b82f6, #2563eb);\n}\n.destination-node .flow-node-icon[data-v-5146eb3c] { background: linear-gradient(135deg, #10b981, #059669);\n}\n.flow-node-content[data-v-5146eb3c] { flex: 1; min-width: 0;\n}\n.flow-node-label[data-v-5146eb3c] {\r\n  display: block;\r\n  font-size: 0.6rem;\r\n  font-weight: 700;\r\n  color: #64748b;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\n}\n.flow-node-value[data-v-5146eb3c] {\r\n  display: block;\r\n  font-size: 0.85rem;\r\n  font-weight: 600;\r\n  color: #1e293b;\r\n  word-break: break-word;\n}\n.flow-arrow-enhanced[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 4px;\r\n  flex-shrink: 0;\r\n  padding: 0 4px;\n}\n.arrow-line[data-v-5146eb3c] {\r\n  width: 20px;\r\n  height: 2px;\r\n  background: linear-gradient(90deg, #94a3b8, #cbd5e1);\r\n  border-radius: 2px;\n}\n.arrow-icon[data-v-5146eb3c] {\r\n  font-size: 1.4rem;\r\n  color: #94a3b8;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  animation: arrowPulse-5146eb3c 1.5s ease-in-out infinite;\n}\r\n\r\n/* Table */\n.office-table[data-v-5146eb3c] {\r\n  width: 100%;\r\n  border-collapse: collapse;\r\n  font-size: 13px;\r\n  background: white;\n}\n.office-table th[data-v-5146eb3c],\r\n.office-table td[data-v-5146eb3c] {\r\n  border: 1px solid #f3f4f6;\r\n  padding: 12px 14px;\r\n  text-align: left;\r\n  vertical-align: middle;\n}\n.office-table thead th[data-v-5146eb3c] {\r\n  background: #f8fafc;\r\n  font-weight: 700;\r\n  color: #374151;\r\n  text-transform: uppercase;\r\n  font-size: 11px;\r\n  letter-spacing: 0.5px;\r\n  border-bottom: 2px solid #e5e7eb;\n}\n.office-table tbody tr[data-v-5146eb3c]:hover { background: #f0fdf4;\n}\n.office-table tbody tr[data-v-5146eb3c]:nth-child(even) { background: #fafafa;\n}\n.office-table tbody tr[data-v-5146eb3c]:nth-child(even):hover { background: #f0fdf4;\n}\n.row-number[data-v-5146eb3c] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 28px;\r\n  height: 28px;\r\n  border-radius: 6px;\r\n  background: #f3f4f6;\r\n  color: #6b7280;\r\n  font-size: 12px;\r\n  font-weight: 600;\n}\n.tracking-number[data-v-5146eb3c] {\r\n  font-weight: 700;\r\n  color: #2d6a4f;\r\n  font-family: \"Courier New\", monospace;\r\n  font-size: 13px;\r\n  padding: 2px 8px;\r\n  background: #f0fdf4;\r\n  border-radius: 4px;\n}\n.doc-type-badge[data-v-5146eb3c] {\r\n  display: inline-block;\r\n  padding: 3px 10px;\r\n  background: #e0e7ff;\r\n  color: #3730a3;\r\n  border-radius: 4px;\r\n  font-size: 11px;\r\n  font-weight: 600;\r\n  border: 1px solid #c7d2fe;\n}\n.subject-text[data-v-5146eb3c] { color: #1e293b; font-weight: 500; line-height: 1.4; font-size: 13px;\n}\n.sender-text[data-v-5146eb3c] {\r\n  color: #475569;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  font-size: 13px;\n}\n.sender-icon[data-v-5146eb3c] { color: #94a3b8; font-size: 14px;\n}\n.date-received[data-v-5146eb3c] { color: #64748b; font-size: 12px; display: flex; align-items: center; gap: 6px;\n}\n.date-icon[data-v-5146eb3c] { color: #94a3b8; font-size: 13px;\n}\r\n\r\n/* Action buttons */\n.action-buttons[data-v-5146eb3c] { display: flex; gap: 6px; align-items: center;\n}\n.btn-action[data-v-5146eb3c] {\r\n  background: none;\r\n  border: 1px solid transparent;\r\n  border-radius: 6px;\r\n  padding: 6px 10px;\r\n  cursor: pointer;\r\n  font-size: 0.95rem;\r\n  transition: all 0.2s;\n}\n.btn-view[data-v-5146eb3c]    { color: #6366f1; border-color: #c7d2fe; background: #eef2ff;\n}\n.btn-forward[data-v-5146eb3c] { color: #2563eb; border-color: #93c5fd; background: #dbeafe;\n}\n.btn-release[data-v-5146eb3c] { color: #059669; border-color: #86efac; background: #d1fae5;\n}\n.btn-view[data-v-5146eb3c]:hover    { background: #ddd6fe; transform: scale(1.05);\n}\n.btn-forward[data-v-5146eb3c]:hover { background: #93c5fd; transform: scale(1.05);\n}\n.btn-release[data-v-5146eb3c]:hover { background: #86efac; transform: scale(1.05);\n}\r\n\r\n/* Filter controls */\n.filter-controls[data-v-5146eb3c] { margin-bottom: 20px;\n}\n.search-filter-row[data-v-5146eb3c] {\r\n  display: flex;\r\n  gap: 12px;\r\n  align-items: center;\r\n  flex-wrap: wrap;\n}\n.search-box-wrapper[data-v-5146eb3c] { flex: 1; min-width: 200px;\n}\n.search-box[data-v-5146eb3c] { position: relative; width: 100%;\n}\n.search-icon[data-v-5146eb3c] {\r\n  position: absolute;\r\n  left: 12px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  color: #9ca3af;\r\n  z-index: 1;\n}\n.search-input[data-v-5146eb3c] {\r\n  width: 100%;\r\n  padding: 10px 35px 10px 36px;\r\n  border: 2px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  font-size: 14px;\r\n  outline: none;\r\n  background: #ffffff;\r\n  transition: all 0.3s ease;\n}\n.search-input[data-v-5146eb3c]:focus {\r\n  border-color: #2d6a4f;\r\n  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\n.search-clear-btn[data-v-5146eb3c] {\r\n  position: absolute;\r\n  right: 8px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  background: none;\r\n  border: none;\r\n  color: #9ca3af;\r\n  cursor: pointer;\r\n  padding: 4px;\n}\n.search-clear-btn[data-v-5146eb3c]:hover { color: #ef4444;\n}\n.per-page-wrapper[data-v-5146eb3c] { display: flex; align-items: center; gap: 8px; white-space: nowrap;\n}\n.per-page-label[data-v-5146eb3c] { font-size: 13px; color: #6b7280; font-weight: 500;\n}\n.per-page-select[data-v-5146eb3c] {\r\n  padding: 8px 12px;\r\n  border: 2px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  font-size: 13px;\r\n  background: #ffffff;\r\n  outline: none;\r\n  cursor: pointer;\r\n  transition: all 0.3s ease;\n}\n.per-page-select[data-v-5146eb3c]:focus { border-color: #2d6a4f;\n}\n.filter-wrapper[data-v-5146eb3c] { min-width: 180px;\n}\n.filter-box[data-v-5146eb3c] { position: relative;\n}\n.filter-icon[data-v-5146eb3c] {\r\n  position: absolute;\r\n  left: 12px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  color: #9ca3af;\r\n  z-index: 1;\n}\n.filter-select[data-v-5146eb3c] {\r\n  width: 100%;\r\n  padding: 10px 12px 10px 36px;\r\n  border: 2px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  font-size: 13px;\r\n  background: #ffffff;\r\n  outline: none;\r\n  cursor: pointer;\r\n  -webkit-appearance: none;\r\n     -moz-appearance: none;\r\n          appearance: none;\r\n  background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E\");\r\n  background-repeat: no-repeat;\r\n  background-position: right 12px center;\r\n  transition: all 0.3s ease;\n}\n.filter-select[data-v-5146eb3c]:focus {\r\n  border-color: #2d6a4f;\r\n  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\n.active-filters[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  margin-top: 12px;\r\n  padding: 10px 14px;\r\n  background: #f0fdf4;\r\n  border: 1px solid #bbf7d0;\r\n  border-radius: 8px;\r\n  flex-wrap: wrap;\n}\n.active-filters-label[data-v-5146eb3c] {\r\n  font-size: 12px;\r\n  font-weight: 600;\r\n  color: #166534;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\n}\n.filter-tag[data-v-5146eb3c] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  padding: 4px 10px;\r\n  background: #ffffff;\r\n  border: 1px solid #86efac;\r\n  border-radius: 20px;\r\n  font-size: 12px;\r\n  color: #166534;\r\n  font-weight: 500;\n}\n.filter-tag-close[data-v-5146eb3c] {\r\n  background: none;\r\n  border: none;\r\n  color: #6b7280;\r\n  cursor: pointer;\r\n  padding: 0;\r\n  display: flex;\r\n  align-items: center;\n}\n.filter-tag-close[data-v-5146eb3c]:hover { color: #ef4444;\n}\n.clear-all-filters[data-v-5146eb3c] {\r\n  padding: 4px 12px;\r\n  background: none;\r\n  border: 1px solid #86efac;\r\n  border-radius: 6px;\r\n  font-size: 12px;\r\n  color: #166534;\r\n  cursor: pointer;\r\n  font-weight: 600;\r\n  transition: all 0.2s;\n}\n.clear-all-filters[data-v-5146eb3c]:hover { background: #dcfce7; border-color: #166534;\n}\n.results-summary[data-v-5146eb3c] { margin-top: 10px; font-size: 13px; color: #6b7280;\n}\n.results-count[data-v-5146eb3c] { font-weight: 700; color: #2d6a4f; font-size: 16px;\n}\r\n\r\n/* Loader */\n.loader-spinner[data-v-5146eb3c] {\r\n  width: 40px;\r\n  height: 40px;\r\n  border: 3px solid #e5e7eb;\r\n  border-top-color: #2d6a4f;\r\n  border-radius: 50%;\r\n  animation: spin-5146eb3c 0.8s linear infinite;\r\n  margin: 0 auto 10px;\n}\n.empty-state[data-v-5146eb3c] { padding: 20px; text-align: center;\n}\n.text-muted[data-v-5146eb3c] { color: #94a3b8;\n}\r\n\r\n/* Status badges */\n.status-badge[data-v-5146eb3c] {\r\n  display: inline-block;\r\n  padding: 4px 12px;\r\n  border-radius: 20px;\r\n  font-size: 0.75rem;\r\n  font-weight: 600;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\n}\n.status-in-progress[data-v-5146eb3c] { background: #fef3c7; color: #d97706; border: 1px solid #fde68a;\n}\n.status-for-release[data-v-5146eb3c] { background: #dbeafe; color: #2563eb; border: 1px solid #bfdbfe;\n}\n.status-released[data-v-5146eb3c]    { background: #d1fae5; color: #059669; border: 1px solid #a7f3d0;\n}\r\n\r\n/* Animations */\n@keyframes fadeIn-5146eb3c {\nfrom { opacity: 0;\n}\nto   { opacity: 1;\n}\n}\n@keyframes modalSlideUp-5146eb3c {\nfrom { transform: translateY(30px); opacity: 0;\n}\nto   { transform: translateY(0);    opacity: 1;\n}\n}\n@keyframes spin-5146eb3c {\nto { transform: rotate(360deg);\n}\n}\n@keyframes pulse-5146eb3c {\n0%, 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);\n}\n50%       { box-shadow: 0 0 0 8px rgba(37, 99, 235, 0.1);\n}\n}\n@keyframes arrowPulse-5146eb3c {\n0%, 100% { transform: translateX(0);  opacity: 1;\n}\n50%       { transform: translateX(4px); opacity: 0.6;\n}\n}\r\n\r\n/* Responsive */\n@media (max-width: 1200px) {\n.document-view-modal[data-v-5146eb3c] { max-width: 98vw;\n}\n.document-viewer-layout[data-v-5146eb3c] { grid-template-columns: 340px 1fr;\n}\n.attachment-viewer-modal[data-v-5146eb3c] { max-width: 98vw;\n}\n.release-doc-cards[data-v-5146eb3c] { grid-template-columns: 1fr 1fr;\n}\n}\n@media (max-width: 992px) {\n.document-viewer-layout[data-v-5146eb3c] {\r\n    grid-template-columns: 1fr;\r\n    grid-template-rows: auto 1fr;\r\n    height: calc(90vh - 140px);\n}\n.details-panel[data-v-5146eb3c] { border-right: none; border-bottom: 1px solid #e5e7eb; max-height: 350px;\n}\n.pdf-viewer-wrapper[data-v-5146eb3c] { min-height: 350px;\n}\n.info-grid-enhanced[data-v-5146eb3c] { grid-template-columns: 1fr;\n}\n.flow-container[data-v-5146eb3c] { flex-direction: column; gap: 8px;\n}\n.flow-node[data-v-5146eb3c] { width: 100%; min-width: unset;\n}\n.flow-arrow-enhanced[data-v-5146eb3c] { transform: rotate(90deg); padding: 0;\n}\n.arrow-line[data-v-5146eb3c] { width: 30px;\n}\n.attachment-viewer-modal[data-v-5146eb3c] { max-width: 98vw;\n}\n.attachment-viewer-content[data-v-5146eb3c] { min-height: 400px;\n}\n.attachment-viewer-iframe[data-v-5146eb3c] { min-height: 400px;\n}\n.release-doc-cards[data-v-5146eb3c] { grid-template-columns: 1fr;\n}\n.datetime-display[data-v-5146eb3c] { flex-direction: column;\n}\n}\n@media (max-width: 768px) {\n.document-view-modal[data-v-5146eb3c] { max-width: 100vw; width: 100vw; margin: 0; border-radius: 0; max-height: 100vh;\n}\n.document-viewer-tabs[data-v-5146eb3c] { padding: 8px 12px; gap: 4px;\n}\n.viewer-tab-btn[data-v-5146eb3c] { padding: 8px 14px; font-size: 12px;\n}\n.viewer-tab-btn span[data-v-5146eb3c] { display: none;\n}\n.viewer-tab-btn i[data-v-5146eb3c] { font-size: 16px;\n}\n.details-panel[data-v-5146eb3c] { max-height: 280px;\n}\n.pdf-viewer-wrapper[data-v-5146eb3c] { min-height: 300px;\n}\n.pdf-state[data-v-5146eb3c] { min-height: 300px;\n}\n.route-history-content[data-v-5146eb3c] { padding: 16px;\n}\n.timeline-container[data-v-5146eb3c] { padding-left: 35px;\n}\n.timeline-node[data-v-5146eb3c] { left: -30px; width: 24px; height: 24px; font-size: 0.7rem;\n}\n.info-card-body[data-v-5146eb3c] { padding: 10px 12px; gap: 8px;\n}\n.info-field[data-v-5146eb3c] { flex-direction: column; gap: 4px;\n}\n.field-icon[data-v-5146eb3c] { width: 24px; height: 24px; min-width: 24px; font-size: 0.75rem;\n}\n.flow-node[data-v-5146eb3c] { padding: 8px 12px;\n}\n.flow-node-value[data-v-5146eb3c] { font-size: 0.8rem;\n}\n.flow-section-enhanced[data-v-5146eb3c] { padding: 12px 14px;\n}\n.search-filter-row[data-v-5146eb3c] { flex-direction: column;\n}\n.filter-wrapper[data-v-5146eb3c] { min-width: 100%;\n}\n.modal-actions[data-v-5146eb3c] { flex-direction: column; gap: 12px; align-items: stretch;\n}\n.modal-actions .d-flex[data-v-5146eb3c] { justify-content: center;\n}\n.square-btn[data-v-5146eb3c] { width: 100%; justify-content: center;\n}\n.attachments-content[data-v-5146eb3c] { padding: 16px;\n}\n.attachment-item[data-v-5146eb3c] { flex-wrap: wrap;\n}\n.attachment-actions[data-v-5146eb3c] { width: 100%; justify-content: flex-end; margin-top: 8px;\n}\n.attachment-viewer-modal[data-v-5146eb3c] { max-width: 100vw; width: 100vw; margin: 0; border-radius: 0; max-height: 100vh;\n}\n.attachment-viewer-content[data-v-5146eb3c] { min-height: 300px;\n}\n.attachment-viewer-iframe[data-v-5146eb3c] { min-height: 300px;\n}\n.attachment-viewer-toolbar[data-v-5146eb3c] { flex-wrap: wrap; gap: 8px;\n}\n.toolbar-left[data-v-5146eb3c] { width: 100%;\n}\n.toolbar-right[data-v-5146eb3c] { width: 100%; justify-content: flex-end;\n}\n.release-doc-cards[data-v-5146eb3c] { grid-template-columns: 1fr;\n}\n}\n@media (max-width: 576px) {\n.document-header[data-v-5146eb3c] { padding: 12px 16px;\n}\n.viewer-tab-btn span[data-v-5146eb3c] { display: none;\n}\n.viewer-tab-btn i[data-v-5146eb3c] { font-size: 16px;\n}\n.detail-card[data-v-5146eb3c] { padding: 10px;\n}\n.detail-icon-wrapper[data-v-5146eb3c] { width: 34px; height: 34px; min-width: 34px; font-size: 0.9rem;\n}\n.btn-pdf-control[data-v-5146eb3c] { width: 30px; height: 30px; font-size: 0.8rem;\n}\n.pdf-footer[data-v-5146eb3c] { flex-direction: column; gap: 4px; align-items: flex-start;\n}\n.route-history-header[data-v-5146eb3c] { padding: 12px 16px; flex-direction: column; gap: 8px; align-items: flex-start;\n}\n.active-filters[data-v-5146eb3c] { flex-direction: column; align-items: flex-start;\n}\n.enhanced-modal[data-v-5146eb3c] { max-width: 95%; margin: 0 10px;\n}\n.upload-area[data-v-5146eb3c] { padding: 20px 16px; min-height: 100px;\n}\n.upload-icon-wrapper[data-v-5146eb3c] { width: 44px; height: 44px; font-size: 1.4rem;\n}\n.file-preview-header[data-v-5146eb3c] { flex-wrap: wrap; gap: 8px;\n}\n.btn-remove-file[data-v-5146eb3c] { align-self: flex-start;\n}\n.document-viewer-tabs[data-v-5146eb3c] { overflow-x: auto; flex-wrap: nowrap;\n}\n.viewer-tab-btn[data-v-5146eb3c] { flex-shrink: 0;\n}\n.attachment-viewer-content[data-v-5146eb3c] { min-height: 250px;\n}\n.attachment-viewer-iframe[data-v-5146eb3c] { min-height: 250px;\n}\n.attachment-item[data-v-5146eb3c] { padding: 12px 16px;\n}\n.attachment-icon-wrapper[data-v-5146eb3c] { width: 40px; height: 40px; min-width: 40px; font-size: 1.2rem;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* Modal overlay */\n.modal-overlay[data-v-5146eb3c] {\r\n  position: fixed;\r\n  inset: 0;\r\n  background: rgba(0, 0, 0, 0.55);\r\n  backdrop-filter: blur(4px);\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  z-index: 1050;\r\n  animation: fadeIn-5146eb3c 0.2s ease-out;\r\n  padding: 15px;\n}\n.enhanced-modal[data-v-5146eb3c] {\r\n  width: 100%;\r\n  max-width: 620px;\r\n  margin: 0 auto;\r\n  animation: modalSlideUp-5146eb3c 0.3s ease-out;\n}\r\n\r\n/* Release Modal Specific */\n.release-modal[data-v-5146eb3c] {\r\n  max-width: 700px;\n}\n.release-modal-body[data-v-5146eb3c] {\r\n  padding: 20px 24px;\n}\n.square-modal[data-v-5146eb3c] {\r\n  border: none;\r\n  border-radius: 12px;\r\n  overflow: hidden;\r\n  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);\r\n  background: #fff;\r\n  position: relative;\r\n  max-height: 95vh;\r\n  display: flex;\r\n  flex-direction: column;\n}\n.square-header[data-v-5146eb3c] {\r\n  padding: 16px 20px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n  color: white;\r\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\r\n  flex-shrink: 0;\n}\n.square-header[data-v-5146eb3c] {\r\n  background: linear-gradient(135deg, #1e4d2b, #2d6a4f);\n}\n.square-icon[data-v-5146eb3c] {\r\n  width: 40px;\r\n  height: 40px;\r\n  background: rgba(255, 255, 255, 0.2);\r\n  border-radius: 10px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1.3rem;\r\n  margin-right: 12px;\r\n  flex-shrink: 0;\n}\n.modal-title[data-v-5146eb3c] {\r\n  font-weight: 700;\r\n  font-size: 1.1rem;\r\n  margin: 0;\n}\n.modal-subtitle[data-v-5146eb3c] {\r\n  font-size: 0.75rem;\r\n  opacity: 0.85;\r\n  display: block;\n}\n.btn-close-custom.square-close[data-v-5146eb3c] {\r\n  background: rgba(255, 255, 255, 0.15);\r\n  border: none;\r\n  color: white;\r\n  width: 34px;\r\n  height: 34px;\r\n  border-radius: 8px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  cursor: pointer;\r\n  transition: background 0.2s;\r\n  flex-shrink: 0;\n}\n.btn-close-custom.square-close[data-v-5146eb3c]:hover {\r\n  background: rgba(255, 255, 255, 0.3);\n}\n.modal-body-enhanced[data-v-5146eb3c] {\r\n  padding: 20px;\r\n  background: #f9fafb;\r\n  overflow-y: auto;\r\n  flex: 1;\n}\n.error-msg[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  background: #fef0ef;\r\n  border: 1px solid #f5c6c3;\r\n  border-radius: 7px;\r\n  padding: 10px 14px;\r\n  font-size: 12px;\r\n  color: #c0392b;\r\n  margin-bottom: 16px;\r\n  font-weight: 500;\n}\r\n\r\n/* Form elements */\n.form-label-enhanced[data-v-5146eb3c] {\r\n  font-weight: 600;\r\n  font-size: 0.85rem;\r\n  color: #1e293b;\r\n  margin-bottom: 6px;\r\n  display: block;\n}\n.required-star[data-v-5146eb3c] {\r\n  color: #dc2626;\r\n  margin-left: 3px;\n}\n.form-input[data-v-5146eb3c] {\r\n  width: 100%;\r\n  height: 42px;\r\n  padding: 0 12px;\r\n  border: 1.5px solid #e2e8f0;\r\n  border-radius: 8px;\r\n  font-size: 13px;\r\n  color: #1c2b24;\r\n  background: #ffffff;\r\n  outline: none;\r\n  transition: border-color 0.2s, box-shadow 0.2s;\n}\n.form-input[data-v-5146eb3c]:focus {\r\n  border-color: #059669;\r\n  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);\n}\n.form-input[data-v-5146eb3c]:disabled {\r\n  opacity: 0.7;\r\n  cursor: not-allowed;\n}\n.form-textarea[data-v-5146eb3c] {\r\n  height: auto;\r\n  padding-top: 10px;\r\n  resize: vertical;\r\n  min-height: 42px;\n}\r\n\r\n/* Release Modal Styles */\n.release-doc-info-grid[data-v-5146eb3c] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr;\r\n  gap: 10px;\r\n  margin-bottom: 16px;\n}\n.release-info-card[data-v-5146eb3c] {\r\n  background: #ffffff;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  padding: 10px 14px;\r\n  transition: all 0.2s ease;\n}\n.release-info-card[data-v-5146eb3c]:hover {\r\n  border-color: #059669;\r\n  background: #f0fdf4;\n}\n.release-info-label[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 4px;\r\n  font-size: 0.6rem;\r\n  font-weight: 600;\r\n  color: #64748b;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  margin-bottom: 3px;\n}\n.release-info-label i[data-v-5146eb3c] {\r\n  font-size: 0.7rem;\r\n  color: #059669;\n}\n.release-info-value[data-v-5146eb3c] {\r\n  font-size: 0.85rem;\r\n  font-weight: 600;\r\n  color: #1e293b;\r\n  word-break: break-word;\n}\n.tracking-value[data-v-5146eb3c] {\r\n  font-family: \"Courier New\", monospace;\r\n  color: #059669;\r\n  background: #ecfdf5;\r\n  padding: 1px 6px;\r\n  border-radius: 4px;\r\n  display: inline-block;\n}\n.subject-value[data-v-5146eb3c] {\r\n  font-weight: 500;\r\n  font-size: 0.8rem;\n}\n.release-datetime-section[data-v-5146eb3c] {\r\n  margin-bottom: 14px;\n}\n.release-datetime-grid[data-v-5146eb3c] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr;\r\n  gap: 10px;\n}\n.form-group[data-v-5146eb3c] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 3px;\n}\n.form-label-sm[data-v-5146eb3c] {\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  color: #475569;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.3px;\n}\r\n\r\n/* Upload Attachment Styles */\n.release-upload-section[data-v-5146eb3c] {\r\n  margin-bottom: 14px;\n}\n.release-upload-area[data-v-5146eb3c] {\r\n  border: 2px dashed #d1d5db;\r\n  border-radius: 10px;\r\n  padding: 24px 16px;\r\n  text-align: center;\r\n  cursor: pointer;\r\n  transition: all 0.3s ease;\r\n  background: #fafbfc;\r\n  position: relative;\r\n  min-height: 100px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\n}\n.release-upload-area[data-v-5146eb3c]:hover {\r\n  border-color: #059669;\r\n  background: #f0fdf4;\n}\n.release-upload-area.drag-over[data-v-5146eb3c] {\r\n  border-color: #059669;\r\n  background: #ecfdf5;\r\n  transform: scale(1.01);\n}\n.release-upload-area.has-file[data-v-5146eb3c] {\r\n  border-color: #059669;\r\n  background: #ecfdf5;\r\n  border-style: solid;\n}\n.release-upload-content[data-v-5146eb3c] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  width: 100%;\n}\n.upload-placeholder[data-v-5146eb3c] {\r\n  width: 100%;\n}\n.upload-icon-wrapper[data-v-5146eb3c] {\r\n  width: 60px;\r\n  height: 60px;\r\n  margin: 0 auto 8px;\r\n  background: #d1fae5;\r\n  border-radius: 50%;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1.6rem;\r\n  color: #059669;\n}\n.upload-title[data-v-5146eb3c] {\r\n  font-weight: 600;\r\n  color: #1e293b;\r\n  font-size: 0.85rem;\r\n  margin-bottom: 2px;\n}\n.upload-subtitle[data-v-5146eb3c] {\r\n  font-size: 0.7rem;\r\n  color: #94a3b8;\r\n  margin: 0;\n}\r\n\r\n/* File preview in upload area */\n.upload-file-preview[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 12px;\r\n  width: 100%;\r\n  padding: 6px 10px;\r\n  background: #ffffff;\r\n  border-radius: 8px;\r\n  border: 1px solid #e5e7eb;\n}\n.upload-file-icon[data-v-5146eb3c] {\r\n  width: 38px;\r\n  height: 38px;\r\n  min-width: 38px;\r\n  border-radius: 8px;\r\n  background: #fef2f2;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1.2rem;\r\n  color: #dc2626;\n}\n.upload-file-info[data-v-5146eb3c] {\r\n  flex: 1;\r\n  text-align: left;\r\n  min-width: 0;\n}\n.upload-file-name[data-v-5146eb3c] {\r\n  display: block;\r\n  font-weight: 600;\r\n  color: #1e293b;\r\n  font-size: 0.8rem;\r\n  word-break: break-all;\n}\n.upload-file-size[data-v-5146eb3c] {\r\n  display: block;\r\n  font-size: 0.65rem;\r\n  color: #64748b;\n}\n.upload-remove-btn[data-v-5146eb3c] {\r\n  width: 28px;\r\n  height: 28px;\r\n  border: none;\r\n  border-radius: 6px;\r\n  background: #fef2f2;\r\n  color: #dc2626;\r\n  cursor: pointer;\r\n  transition: all 0.2s ease;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 0.9rem;\r\n  flex-shrink: 0;\n}\n.upload-remove-btn[data-v-5146eb3c]:hover:not(:disabled) {\r\n  background: #fee2e2;\r\n  transform: scale(1.1);\n}\n.upload-remove-btn[data-v-5146eb3c]:disabled {\r\n  opacity: 0.5;\r\n  cursor: not-allowed;\n}\n.release-file-input[data-v-5146eb3c] {\r\n  display: none;\n}\r\n\r\n/* Upload Progress */\n.upload-progress[data-v-5146eb3c] {\r\n  margin-top: 8px;\r\n  position: relative;\r\n  height: 5px;\r\n  background: #e5e7eb;\r\n  border-radius: 3px;\r\n  overflow: hidden;\n}\n.progress-bar[data-v-5146eb3c] {\r\n  height: 100%;\r\n  background: linear-gradient(90deg, #059669, #047857);\r\n  border-radius: 3px;\r\n  transition: width 0.3s ease;\n}\n.progress-text[data-v-5146eb3c] {\r\n  position: absolute;\r\n  right: 0;\r\n  top: -18px;\r\n  font-size: 0.65rem;\r\n  font-weight: 600;\r\n  color: #059669;\n}\n.release-remarks-section[data-v-5146eb3c] {\r\n  margin-bottom: 14px;\n}\r\n\r\n/* Modal actions */\n.modal-actions[data-v-5146eb3c] {\r\n  margin-top: 16px;\r\n  padding-top: 14px;\r\n  border-top: 1px solid #e5e7eb;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  flex-wrap: wrap;\r\n  gap: 10px;\n}\n.square-btn[data-v-5146eb3c] {\r\n  border-radius: 8px !important;\r\n  font-weight: 600;\r\n  transition: all 0.2s;\r\n  padding: 8px 18px;\r\n  font-size: 0.85rem;\n}\n.btn-save[data-v-5146eb3c] {\r\n  color: white;\r\n  border: none;\r\n  padding: 8px 20px;\r\n  font-weight: 600;\r\n  display: inline-flex;\r\n  align-items: center;\n}\n.btn-save[data-v-5146eb3c]:hover:not(:disabled) {\r\n  box-shadow: 0 4px 16px rgba(5, 150, 105, 0.4);\r\n  transform: translateY(-1px);\n}\n.btn-save[data-v-5146eb3c]:disabled {\r\n  opacity: 0.7;\r\n  cursor: not-allowed;\r\n  transform: none;\n}\r\n\r\n/* Button release */\n.btn-release[data-v-5146eb3c] {\r\n  color: #059669;\r\n  border-color: #86efac;\r\n  background: #ecfdf5;\n}\n.btn-release[data-v-5146eb3c]:hover {\r\n  background: #86efac;\r\n  transform: scale(1.05);\n}\r\n\r\n/* Table */\n.office-table[data-v-5146eb3c] {\r\n  width: 100%;\r\n  border-collapse: collapse;\r\n  font-size: 13px;\r\n  background: white;\n}\n.office-table th[data-v-5146eb3c],\r\n.office-table td[data-v-5146eb3c] {\r\n  border: 1px solid #f3f4f6;\r\n  padding: 10px 12px;\r\n  text-align: left;\r\n  vertical-align: middle;\n}\n.office-table thead th[data-v-5146eb3c] {\r\n  background: #f8fafc;\r\n  font-weight: 700;\r\n  color: #374151;\r\n  text-transform: uppercase;\r\n  font-size: 11px;\r\n  letter-spacing: 0.5px;\r\n  border-bottom: 2px solid #e5e7eb;\n}\n.office-table tbody tr[data-v-5146eb3c]:hover {\r\n  background: #f0fdf4;\n}\n.office-table tbody tr[data-v-5146eb3c]:nth-child(even) {\r\n  background: #fafafa;\n}\n.office-table tbody tr[data-v-5146eb3c]:nth-child(even):hover {\r\n  background: #f0fdf4;\n}\n.row-number[data-v-5146eb3c] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 26px;\r\n  height: 26px;\r\n  border-radius: 6px;\r\n  background: #f3f4f6;\r\n  color: #6b7280;\r\n  font-size: 11px;\r\n  font-weight: 600;\n}\n.tracking-number[data-v-5146eb3c] {\r\n  font-weight: 700;\r\n  color: #2d6a4f;\r\n  font-family: \"Courier New\", monospace;\r\n  font-size: 12px;\r\n  padding: 2px 6px;\r\n  background: #f0fdf4;\r\n  border-radius: 4px;\n}\n.doc-type-badge[data-v-5146eb3c] {\r\n  display: inline-block;\r\n  padding: 2px 8px;\r\n  background: #e0e7ff;\r\n  color: #3730a3;\r\n  border-radius: 4px;\r\n  font-size: 10px;\r\n  font-weight: 600;\r\n  border: 1px solid #c7d2fe;\n}\n.subject-text[data-v-5146eb3c] {\r\n  color: #1e293b;\r\n  font-weight: 500;\r\n  line-height: 1.4;\r\n  font-size: 12px;\n}\n.sender-text[data-v-5146eb3c] {\r\n  color: #475569;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 4px;\r\n  font-size: 12px;\n}\n.sender-icon[data-v-5146eb3c] {\r\n  color: #94a3b8;\r\n  font-size: 13px;\n}\n.date-received[data-v-5146eb3c] {\r\n  color: #64748b;\r\n  font-size: 11px;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 4px;\n}\n.date-icon[data-v-5146eb3c] {\r\n  color: #94a3b8;\r\n  font-size: 12px;\n}\r\n\r\n/* Action buttons */\n.action-buttons[data-v-5146eb3c] {\r\n  display: flex;\r\n  gap: 4px;\r\n  align-items: center;\n}\n.btn-action[data-v-5146eb3c] {\r\n  background: none;\r\n  border: 1px solid transparent;\r\n  border-radius: 6px;\r\n  padding: 5px 8px;\r\n  cursor: pointer;\r\n  font-size: 0.9rem;\r\n  transition: all 0.2s;\n}\n.btn-view[data-v-5146eb3c] {\r\n  color: #6366f1;\r\n  border-color: #c7d2fe;\r\n  background: #eef2ff;\n}\n.btn-forward[data-v-5146eb3c] {\r\n  color: #2563eb;\r\n  border-color: #93c5fd;\r\n  background: #dbeafe;\n}\n.btn-view[data-v-5146eb3c]:hover {\r\n  background: #ddd6fe;\r\n  transform: scale(1.05);\n}\n.btn-forward[data-v-5146eb3c]:hover {\r\n  background: #93c5fd;\r\n  transform: scale(1.05);\n}\r\n\r\n/* Filter controls */\n.filter-controls[data-v-5146eb3c] {\r\n  margin-bottom: 16px;\n}\n.search-filter-row[data-v-5146eb3c] {\r\n  display: flex;\r\n  gap: 10px;\r\n  align-items: center;\r\n  flex-wrap: wrap;\n}\n.search-box-wrapper[data-v-5146eb3c] {\r\n  flex: 1;\r\n  min-width: 180px;\n}\n.search-box[data-v-5146eb3c] {\r\n  position: relative;\r\n  width: 100%;\n}\n.search-icon[data-v-5146eb3c] {\r\n  position: absolute;\r\n  left: 10px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  color: #9ca3af;\r\n  z-index: 1;\n}\n.search-input[data-v-5146eb3c] {\r\n  width: 100%;\r\n  padding: 8px 30px 8px 32px;\r\n  border: 2px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  font-size: 13px;\r\n  outline: none;\r\n  background: #ffffff;\r\n  transition: all 0.3s ease;\n}\n.search-input[data-v-5146eb3c]:focus {\r\n  border-color: #2d6a4f;\r\n  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\n.search-clear-btn[data-v-5146eb3c] {\r\n  position: absolute;\r\n  right: 6px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  background: none;\r\n  border: none;\r\n  color: #9ca3af;\r\n  cursor: pointer;\r\n  padding: 2px;\n}\n.search-clear-btn[data-v-5146eb3c]:hover {\r\n  color: #ef4444;\n}\n.per-page-wrapper[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  white-space: nowrap;\n}\n.per-page-label[data-v-5146eb3c] {\r\n  font-size: 12px;\r\n  color: #6b7280;\r\n  font-weight: 500;\n}\n.per-page-select[data-v-5146eb3c] {\r\n  padding: 6px 10px;\r\n  border: 2px solid #e5e7eb;\r\n  border-radius: 6px;\r\n  font-size: 12px;\r\n  background: #ffffff;\r\n  outline: none;\r\n  cursor: pointer;\r\n  transition: all 0.3s ease;\n}\n.per-page-select[data-v-5146eb3c]:focus {\r\n  border-color: #2d6a4f;\n}\n.filter-wrapper[data-v-5146eb3c] {\r\n  min-width: 160px;\n}\n.filter-box[data-v-5146eb3c] {\r\n  position: relative;\n}\n.filter-icon[data-v-5146eb3c] {\r\n  position: absolute;\r\n  left: 10px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  color: #9ca3af;\r\n  z-index: 1;\n}\n.filter-select[data-v-5146eb3c] {\r\n  width: 100%;\r\n  padding: 8px 10px 8px 32px;\r\n  border: 2px solid #e5e7eb;\r\n  border-radius: 6px;\r\n  font-size: 12px;\r\n  background: #ffffff;\r\n  outline: none;\r\n  cursor: pointer;\r\n  -webkit-appearance: none;\r\n     -moz-appearance: none;\r\n          appearance: none;\r\n  background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E\");\r\n  background-repeat: no-repeat;\r\n  background-position: right 8px center;\r\n  transition: all 0.3s ease;\n}\n.filter-select[data-v-5146eb3c]:focus {\r\n  border-color: #2d6a4f;\r\n  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\n.active-filters[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  margin-top: 10px;\r\n  padding: 8px 12px;\r\n  background: #f0fdf4;\r\n  border: 1px solid #bbf7d0;\r\n  border-radius: 6px;\r\n  flex-wrap: wrap;\n}\n.active-filters-label[data-v-5146eb3c] {\r\n  font-size: 11px;\r\n  font-weight: 600;\r\n  color: #166534;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\n}\n.filter-tag[data-v-5146eb3c] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  gap: 4px;\r\n  padding: 3px 8px;\r\n  background: #ffffff;\r\n  border: 1px solid #86efac;\r\n  border-radius: 16px;\r\n  font-size: 11px;\r\n  color: #166534;\r\n  font-weight: 500;\n}\n.filter-tag-close[data-v-5146eb3c] {\r\n  background: none;\r\n  border: none;\r\n  color: #6b7280;\r\n  cursor: pointer;\r\n  padding: 0;\r\n  display: flex;\r\n  align-items: center;\n}\n.filter-tag-close[data-v-5146eb3c]:hover {\r\n  color: #ef4444;\n}\n.clear-all-filters[data-v-5146eb3c] {\r\n  padding: 3px 10px;\r\n  background: none;\r\n  border: 1px solid #86efac;\r\n  border-radius: 4px;\r\n  font-size: 11px;\r\n  color: #166534;\r\n  cursor: pointer;\r\n  font-weight: 600;\r\n  transition: all 0.2s;\n}\n.clear-all-filters[data-v-5146eb3c]:hover {\r\n  background: #dcfce7;\r\n  border-color: #166534;\n}\n.results-summary[data-v-5146eb3c] {\r\n  margin-top: 8px;\r\n  font-size: 12px;\r\n  color: #6b7280;\n}\n.results-count[data-v-5146eb3c] {\r\n  font-weight: 700;\r\n  color: #2d6a4f;\r\n  font-size: 14px;\n}\r\n\r\n/* Loader */\n.loader-spinner[data-v-5146eb3c] {\r\n  width: 32px;\r\n  height: 32px;\r\n  border: 3px solid #e5e7eb;\r\n  border-top-color: #2d6a4f;\r\n  border-radius: 50%;\r\n  animation: spin-5146eb3c 0.8s linear infinite;\r\n  margin: 0 auto 8px;\n}\n.empty-state[data-v-5146eb3c] {\r\n  padding: 16px;\r\n  text-align: center;\n}\n.text-muted[data-v-5146eb3c] {\r\n  color: #94a3b8;\n}\r\n\r\n/* Status badges */\n.status-badge[data-v-5146eb3c] {\r\n  display: inline-block;\r\n  padding: 3px 10px;\r\n  border-radius: 16px;\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\n}\n.status-in-progress[data-v-5146eb3c] {\r\n  background: #fef3c7;\r\n  color: #d97706;\r\n  border: 1px solid #fde68a;\n}\n.status-for-release[data-v-5146eb3c] {\r\n  background: #dbeafe;\r\n  color: #2563eb;\r\n  border: 1px solid #bfdbfe;\n}\n.status-released[data-v-5146eb3c] {\r\n  background: #d1fae5;\r\n  color: #059669;\r\n  border: 1px solid #a7f3d0;\n}\r\n\r\n/* Animations */\n@keyframes fadeIn-5146eb3c {\nfrom {\r\n    opacity: 0;\n}\nto {\r\n    opacity: 1;\n}\n}\n@keyframes modalSlideUp-5146eb3c {\nfrom {\r\n    transform: translateY(20px);\r\n    opacity: 0;\n}\nto {\r\n    transform: translateY(0);\r\n    opacity: 1;\n}\n}\n@keyframes spin-5146eb3c {\nto {\r\n    transform: rotate(360deg);\n}\n}\r\n\r\n/* Document viewer styles */\n.document-view-modal[data-v-5146eb3c] {\r\n  max-width: 1400px;\r\n  width: 95vw;\r\n  max-height: 90vh;\n}\n.document-viewer-body[data-v-5146eb3c] {\r\n  padding: 0;\r\n  max-height: calc(90vh - 80px);\r\n  overflow: hidden;\r\n  display: flex;\r\n  flex-direction: column;\n}\n.document-viewer-tabs[data-v-5146eb3c] {\r\n  display: flex;\r\n  gap: 4px;\r\n  padding: 10px 16px;\r\n  background: #f8fafc;\r\n  border-bottom: 2px solid #e5e7eb;\r\n  flex-shrink: 0;\r\n  overflow-x: auto;\n}\n.viewer-tab-btn[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  padding: 8px 16px;\r\n  background: #ffffff;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 6px;\r\n  color: #64748b;\r\n  font-size: 12px;\r\n  font-weight: 600;\r\n  cursor: pointer;\r\n  white-space: nowrap;\r\n  transition: all 0.3s ease;\n}\n.viewer-tab-btn[data-v-5146eb3c]:hover {\r\n  background: #f0fdf4;\r\n  border-color: #86efac;\r\n  color: #2d6a4f;\n}\n.viewer-tab-btn.active[data-v-5146eb3c] {\r\n  background: linear-gradient(135deg, #2d6a4f, #1e4d2b);\r\n  border-color: #2d6a4f;\r\n  color: #ffffff;\r\n  box-shadow: 0 4px 12px rgba(45, 106, 79, 0.3);\n}\n.document-viewer-layout[data-v-5146eb3c] {\r\n  display: grid;\r\n  grid-template-columns: 340px 1fr;\r\n  height: calc(90vh - 140px);\r\n  min-height: 400px;\n}\n.details-panel[data-v-5146eb3c] {\r\n  background: #ffffff;\r\n  border-right: 1px solid #e5e7eb;\r\n  display: flex;\r\n  flex-direction: column;\r\n  overflow: hidden;\n}\n.details-panel-header[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  padding: 12px 16px;\r\n  background: #f8fafc;\r\n  border-bottom: 1px solid #e5e7eb;\r\n  font-weight: 700;\r\n  color: #1e293b;\r\n  font-size: 0.85rem;\r\n  flex-shrink: 0;\n}\n.details-content[data-v-5146eb3c] {\r\n  flex: 1;\r\n  overflow-y: auto;\r\n  padding: 12px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 10px;\n}\n.detail-card[data-v-5146eb3c] {\r\n  display: flex;\r\n  gap: 10px;\r\n  padding: 10px 12px;\r\n  background: #f8fafc;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  transition: all 0.2s ease;\n}\n.detail-icon-wrapper[data-v-5146eb3c] {\r\n  width: 34px;\r\n  height: 34px;\r\n  min-width: 34px;\r\n  border-radius: 6px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1rem;\r\n  background: #e0f2fe;\r\n  color: #0284c7;\n}\n.detail-icon-wrapper.type-icon[data-v-5146eb3c] {\r\n  background: #fef3c7;\r\n  color: #d97706;\n}\n.detail-icon-wrapper.subject-icon[data-v-5146eb3c] {\r\n  background: #dcfce7;\r\n  color: #16a34a;\n}\n.detail-icon-wrapper.sender-icon-card[data-v-5146eb3c] {\r\n  background: #ede9fe;\r\n  color: #7c3aed;\n}\n.detail-icon-wrapper.date-icon-card[data-v-5146eb3c] {\r\n  background: #fce7f3;\r\n  color: #db2777;\n}\n.detail-icon-wrapper.desc-icon[data-v-5146eb3c] {\r\n  background: #fff7ed;\r\n  color: #ea580c;\n}\n.detail-icon-wrapper.meta-icon[data-v-5146eb3c] {\r\n  background: #f1f5f9;\r\n  color: #64748b;\n}\n.detail-icon-wrapper.release-icon[data-v-5146eb3c] {\r\n  background: #d1fae5;\r\n  color: #059669;\n}\n.detail-info[data-v-5146eb3c] {\r\n  flex: 1;\r\n  min-width: 0;\n}\n.detail-info label[data-v-5146eb3c] {\r\n  display: block;\r\n  font-size: 0.6rem;\r\n  font-weight: 600;\r\n  color: #64748b;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  margin-bottom: 2px;\n}\n.detail-value[data-v-5146eb3c] {\r\n  font-size: 0.8rem;\r\n  color: #1e293b;\r\n  font-weight: 500;\r\n  word-break: break-word;\r\n  line-height: 1.4;\n}\n.tracking-number-large[data-v-5146eb3c] {\r\n  font-size: 0.85rem;\r\n  font-weight: 700;\r\n  color: #2d6a4f;\r\n  font-family: \"Courier New\", monospace;\r\n  background: #f0fdf4;\r\n  padding: 2px 6px;\r\n  border-radius: 4px;\r\n  display: inline-block;\n}\n.doc-type-badge-large[data-v-5146eb3c] {\r\n  display: inline-block;\r\n  padding: 2px 10px;\r\n  background: #e0e7ff;\r\n  color: #3730a3;\r\n  border-radius: 4px;\r\n  font-size: 0.75rem;\r\n  font-weight: 600;\r\n  border: 1px solid #c7d2fe;\n}\n.time-text[data-v-5146eb3c] {\r\n  color: #64748b;\r\n  font-size: 0.7rem;\r\n  display: block;\r\n  margin-top: 2px;\n}\r\n\r\n/* PDF Panel */\n.pdf-panel[data-v-5146eb3c] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  background: #f8fafc;\r\n  overflow: hidden;\n}\n.pdf-panel-header[data-v-5146eb3c] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 10px 16px;\r\n  background: #ffffff;\r\n  border-bottom: 1px solid #e5e7eb;\r\n  flex-shrink: 0;\n}\n.pdf-panel-title[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  font-weight: 700;\r\n  color: #1e293b;\r\n  font-size: 0.85rem;\n}\n.pdf-panel-title i[data-v-5146eb3c] {\r\n  color: #dc2626;\r\n  font-size: 1.1rem;\n}\n.pdf-controls[data-v-5146eb3c] {\r\n  display: flex;\r\n  gap: 4px;\r\n  align-items: center;\n}\n.btn-pdf-control[data-v-5146eb3c] {\r\n  background: #f1f5f9;\r\n  border: 1px solid #e5e7eb;\r\n  color: #475569;\r\n  width: 30px;\r\n  height: 30px;\r\n  border-radius: 6px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  cursor: pointer;\r\n  transition: all 0.2s;\r\n  font-size: 0.85rem;\n}\n.btn-pdf-control[data-v-5146eb3c]:hover:not(:disabled) {\r\n  background: #e2e8f0;\r\n  border-color: #94a3b8;\r\n  color: #1e293b;\n}\n.btn-pdf-control[data-v-5146eb3c]:disabled {\r\n  opacity: 0.5;\r\n  cursor: not-allowed;\n}\n.pdf-viewer-wrapper[data-v-5146eb3c] {\r\n  flex: 1;\r\n  overflow: auto;\r\n  background: #525659;\r\n  position: relative;\r\n  min-height: 300px;\n}\n.pdf-iframe[data-v-5146eb3c] {\r\n  border: none;\r\n  display: block;\r\n  background: #ffffff;\r\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);\n}\n.pdf-state[data-v-5146eb3c] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  height: 100%;\r\n  min-height: 300px;\r\n  color: #9ca3af;\r\n  padding: 30px;\n}\n.pdf-loader-animation[data-v-5146eb3c] {\r\n  position: relative;\r\n  width: 60px;\r\n  height: 60px;\r\n  margin-bottom: 12px;\n}\n.pdf-loader-icon[data-v-5146eb3c] {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 50%;\r\n  transform: translate(-50%, -50%);\r\n  font-size: 1.6rem;\r\n  color: #dc2626;\r\n  z-index: 2;\n}\n.pdf-error[data-v-5146eb3c] {\r\n  color: #fca5a5;\n}\n.pdf-error h5[data-v-5146eb3c] {\r\n  color: #fca5a5;\r\n  font-weight: 600;\r\n  font-size: 1rem;\n}\n.pdf-footer[data-v-5146eb3c] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 6px 16px;\r\n  background: #ffffff;\r\n  border-top: 1px solid #e5e7eb;\r\n  font-size: 0.7rem;\r\n  color: #64748b;\r\n  flex-shrink: 0;\n}\n.pdf-zoom-level[data-v-5146eb3c] {\r\n  font-weight: 600;\r\n  color: #2d6a4f;\n}\r\n\r\n/* Attachment Viewer */\n.attachment-viewer-modal[data-v-5146eb3c] {\r\n  max-width: 1200px;\r\n  width: 95vw;\r\n  max-height: 90vh;\n}\n.attachment-viewer-body[data-v-5146eb3c] {\r\n  padding: 0;\r\n  max-height: calc(90vh - 80px);\r\n  overflow: hidden;\r\n  display: flex;\r\n  flex-direction: column;\r\n  background: #f9fafb;\n}\n.attachment-viewer-toolbar[data-v-5146eb3c] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 10px 16px;\r\n  background: #ffffff;\r\n  border-bottom: 1px solid #e5e7eb;\r\n  flex-shrink: 0;\r\n  flex-wrap: wrap;\r\n  gap: 8px;\n}\n.toolbar-left[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\n}\n.toolbar-file-name[data-v-5146eb3c] {\r\n  font-weight: 600;\r\n  color: #1e293b;\r\n  font-size: 0.85rem;\n}\n.attachment-type-badge[data-v-5146eb3c] {\r\n  display: inline-block;\r\n  padding: 2px 8px;\r\n  border-radius: 12px;\r\n  font-size: 0.65rem;\r\n  font-weight: 600;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  background: rgba(255, 255, 255, 0.2);\r\n  border: 1px solid rgba(255, 255, 255, 0.3);\n}\n.toolbar-right[data-v-5146eb3c] {\r\n  display: flex;\r\n  gap: 4px;\r\n  align-items: center;\n}\n.btn-toolbar[data-v-5146eb3c] {\r\n  background: #f1f5f9;\r\n  border: 1px solid #e5e7eb;\r\n  color: #475569;\r\n  width: 32px;\r\n  height: 32px;\r\n  border-radius: 6px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  cursor: pointer;\r\n  transition: all 0.2s;\r\n  font-size: 0.85rem;\r\n  text-decoration: none;\n}\n.btn-toolbar[data-v-5146eb3c]:hover:not(:disabled) {\r\n  background: #e2e8f0;\r\n  border-color: #94a3b8;\r\n  color: #1e293b;\n}\n.btn-toolbar-download[data-v-5146eb3c] {\r\n  background: #dbeafe;\r\n  border-color: #93c5fd;\r\n  color: #2563eb;\n}\n.btn-toolbar-download[data-v-5146eb3c]:hover {\r\n  background: #bfdbfe;\r\n  border-color: #60a5fa;\r\n  color: #1d4ed8;\n}\n.attachment-viewer-content[data-v-5146eb3c] {\r\n  flex: 1;\r\n  overflow: auto;\r\n  background: #525659;\r\n  position: relative;\r\n  min-height: 400px;\n}\n.attachment-viewer-iframe[data-v-5146eb3c] {\r\n  border: none;\r\n  display: block;\r\n  background: #ffffff;\r\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);\n}\n.attachment-loading[data-v-5146eb3c] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  height: 100%;\r\n  min-height: 400px;\r\n  color: #9ca3af;\n}\n.attachment-error[data-v-5146eb3c] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  height: 100%;\r\n  min-height: 400px;\r\n  color: #fca5a5;\r\n  padding: 30px;\n}\n.attachment-error h5[data-v-5146eb3c] {\r\n  color: #fca5a5;\r\n  font-weight: 600;\r\n  font-size: 1rem;\n}\n.attachment-viewer-footer[data-v-5146eb3c] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 6px 16px;\r\n  background: #ffffff;\r\n  border-top: 1px solid #e5e7eb;\r\n  font-size: 0.7rem;\r\n  color: #64748b;\r\n  flex-shrink: 0;\n}\n.attachment-zoom-level[data-v-5146eb3c] {\r\n  font-weight: 600;\r\n  color: #2d6a4f;\n}\r\n\r\n/* Forward modal styles */\n.forward-doc-info[data-v-5146eb3c] {\r\n  background: #f8fafc;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  padding: 10px 14px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 6px;\n}\n.forward-doc-row[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\n}\n.forward-doc-label[data-v-5146eb3c] {\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  color: #64748b;\r\n  text-transform: uppercase;\r\n  min-width: 70px;\n}\n.forward-doc-value[data-v-5146eb3c] {\r\n  font-size: 0.8rem;\r\n  font-weight: 600;\r\n  color: #1e293b;\n}\n.office-list-container[data-v-5146eb3c] {\r\n  max-height: 260px;\r\n  overflow-y: auto;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  background: #ffffff;\n}\n.office-select-item[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 10px;\r\n  padding: 10px 14px;\r\n  cursor: pointer;\r\n  transition: all 0.2s ease;\r\n  border-bottom: 1px solid #f3f4f6;\r\n  position: relative;\n}\n.office-select-item[data-v-5146eb3c]:last-child {\r\n  border-bottom: none;\n}\n.office-select-item[data-v-5146eb3c]:hover {\r\n  background: #f0fdf4;\n}\n.office-select-item.selected[data-v-5146eb3c] {\r\n  background: #f0fdf4;\r\n  border-left: 3px solid #059669;\n}\n.office-checkbox[data-v-5146eb3c] {\r\n  font-size: 1.1rem;\r\n  color: #059669;\r\n  min-width: 20px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\n}\n.office-select-item:not(.selected) .office-checkbox[data-v-5146eb3c] {\r\n  color: #d1d5db;\n}\n.office-icon-wrapper[data-v-5146eb3c] {\r\n  width: 32px;\r\n  height: 32px;\r\n  min-width: 32px;\r\n  border-radius: 6px;\r\n  background: #e0e7ff;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  color: #3730a3;\r\n  font-size: 0.9rem;\n}\n.office-select-item.selected .office-icon-wrapper[data-v-5146eb3c] {\r\n  background: #d1fae5;\r\n  color: #059669;\n}\n.office-details[data-v-5146eb3c] {\r\n  flex: 1;\r\n  min-width: 0;\n}\n.office-name-text[data-v-5146eb3c] {\r\n  display: block;\r\n  font-size: 0.8rem;\r\n  font-weight: 600;\r\n  color: #1e293b;\r\n  line-height: 1.3;\n}\n.office-code[data-v-5146eb3c] {\r\n  display: block;\r\n  font-size: 0.65rem;\r\n  color: #64748b;\r\n  margin-top: 1px;\n}\n.selected-indicator[data-v-5146eb3c] {\r\n  position: absolute;\r\n  right: 10px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  color: #059669;\r\n  font-size: 1rem;\n}\n.selected-offices-summary[data-v-5146eb3c] {\r\n  background: #f0fdf4;\r\n  border: 1px solid #bbf7d0;\r\n  border-radius: 6px;\r\n  padding: 10px 14px;\n}\n.selected-offices-header[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  font-weight: 600;\r\n  font-size: 0.8rem;\r\n  color: #166534;\n}\n.selected-offices-list[data-v-5146eb3c] {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  gap: 6px;\r\n  margin-top: 6px;\n}\n.selected-office-tag[data-v-5146eb3c] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  gap: 4px;\r\n  padding: 3px 8px;\r\n  background: #ffffff;\r\n  border: 1px solid #86efac;\r\n  border-radius: 16px;\r\n  font-size: 0.75rem;\r\n  font-weight: 600;\r\n  color: #166534;\n}\n.remove-office-btn[data-v-5146eb3c] {\r\n  background: none;\r\n  border: none;\r\n  color: #6b7280;\r\n  cursor: pointer;\r\n  padding: 0;\r\n  display: flex;\r\n  align-items: center;\r\n  font-size: 0.8rem;\r\n  transition: color 0.2s;\n}\n.remove-office-btn[data-v-5146eb3c]:hover:not(:disabled) {\r\n  color: #dc2626;\n}\n.remove-office-btn[data-v-5146eb3c]:disabled {\r\n  opacity: 0.5;\r\n  cursor: not-allowed;\n}\r\n\r\n/* Route history styles */\n.route-history-panel[data-v-5146eb3c] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: calc(90vh - 140px);\r\n  background: #ffffff;\r\n  min-height: 400px;\n}\n.route-history-header[data-v-5146eb3c] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 12px 20px;\r\n  background: #f8fafc;\r\n  border-bottom: 2px solid #e5e7eb;\r\n  flex-shrink: 0;\r\n  flex-wrap: wrap;\r\n  gap: 8px;\n}\n.route-history-title[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  font-weight: 700;\r\n  color: #1e293b;\r\n  font-size: 0.9rem;\n}\n.route-history-title i[data-v-5146eb3c] {\r\n  color: #2d6a4f;\r\n  font-size: 1.1rem;\n}\n.route-history-badge[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 4px;\r\n  padding: 4px 12px;\r\n  background: #f0fdf4;\r\n  border: 1px solid #bbf7d0;\r\n  border-radius: 16px;\r\n  font-size: 0.75rem;\r\n  font-weight: 600;\r\n  color: #166534;\n}\n.route-history-content[data-v-5146eb3c] {\r\n  flex: 1;\r\n  overflow-y: auto;\r\n  padding: 16px;\r\n  background: #f9fafb;\n}\n.timeline-container[data-v-5146eb3c] {\r\n  position: relative;\r\n  padding-left: 40px;\n}\n.timeline-container[data-v-5146eb3c]::before {\r\n  content: \"\";\r\n  position: absolute;\r\n  left: 12px;\r\n  top: 8px;\r\n  bottom: 8px;\r\n  width: 2px;\r\n  background: linear-gradient(180deg, #cbd5e1, #e2e8f0);\n}\n.timeline-item[data-v-5146eb3c] {\r\n  position: relative;\r\n  margin-bottom: 24px;\n}\n.timeline-item.is-last[data-v-5146eb3c] {\r\n  margin-bottom: 0;\n}\n.timeline-node[data-v-5146eb3c] {\r\n  position: absolute;\r\n  left: -34px;\r\n  top: 0;\r\n  width: 26px;\r\n  height: 26px;\r\n  border-radius: 50%;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  color: white;\r\n  z-index: 2;\r\n  border: 3px solid #ffffff;\r\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);\r\n  font-size: 0.7rem;\n}\n.node-completed[data-v-5146eb3c] {\r\n  background: #059669;\n}\n.node-active[data-v-5146eb3c] {\r\n  background: #2563eb;\r\n  animation: pulse-5146eb3c 2s infinite;\n}\n.node-pending[data-v-5146eb3c] {\r\n  background: #d97706;\n}\n.node-rejected[data-v-5146eb3c] {\r\n  background: #dc2626;\n}\n.timeline-card[data-v-5146eb3c] {\r\n  background: #ffffff;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 10px;\r\n  transition: all 0.3s ease;\r\n  overflow: hidden;\r\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);\n}\n.timeline-card[data-v-5146eb3c]:hover {\r\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);\r\n  border-color: #cbd5e1;\n}\n.timeline-card.active-card[data-v-5146eb3c] {\r\n  border-left: 4px solid #2563eb;\r\n  background: linear-gradient(135deg, #eff6ff, #ffffff);\n}\n.timeline-card-header[data-v-5146eb3c] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 12px 16px;\r\n  background: #f8fafc;\r\n  border-bottom: 1px solid #e5e7eb;\r\n  flex-wrap: wrap;\r\n  gap: 8px;\n}\n.office-info[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\n}\n.office-info i[data-v-5146eb3c] {\r\n  font-size: 1.1rem;\r\n  color: #2d6a4f;\n}\n.office-text[data-v-5146eb3c] {\r\n  display: flex;\r\n  flex-direction: column;\n}\n.office-name[data-v-5146eb3c] {\r\n  font-size: 0.9rem;\r\n  font-weight: 700;\r\n  color: #1e293b;\r\n  line-height: 1.3;\n}\n.route-status-badge[data-v-5146eb3c] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  gap: 4px;\r\n  font-size: 0.65rem;\r\n  font-weight: 700;\r\n  padding: 4px 10px;\r\n  border-radius: 16px;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  white-space: nowrap;\n}\n.badge-completed[data-v-5146eb3c] {\r\n  background: #d1fae5;\r\n  color: #059669;\r\n  border: 1px solid #a7f3d0;\n}\n.badge-active[data-v-5146eb3c] {\r\n  background: #dbeafe;\r\n  color: #2563eb;\r\n  border: 1px solid #bfdbfe;\n}\n.badge-pending[data-v-5146eb3c] {\r\n  background: #fef3c7;\r\n  color: #d97706;\r\n  border: 1px solid #fde68a;\n}\n.badge-rejected[data-v-5146eb3c] {\r\n  background: #fee2e2;\r\n  color: #dc2626;\r\n  border: 1px solid #fecaca;\n}\n.timeline-card-body[data-v-5146eb3c] {\r\n  padding: 14px 16px;\n}\n.info-grid-enhanced[data-v-5146eb3c] {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));\r\n  gap: 12px;\r\n  margin-bottom: 14px;\n}\n.info-card[data-v-5146eb3c] {\r\n  background: #ffffff;\r\n  border-radius: 8px;\r\n  border: 1px solid #e5e7eb;\r\n  overflow: hidden;\r\n  transition: all 0.3s ease;\n}\n.received-card[data-v-5146eb3c] {\r\n  border-left: 4px solid #3b82f6;\n}\n.completed-card[data-v-5146eb3c] {\r\n  border-left: 4px solid #10b981;\n}\n.info-card-body[data-v-5146eb3c] {\r\n  padding: 10px 14px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 8px;\n}\n.info-field[data-v-5146eb3c] {\r\n  display: flex;\r\n  gap: 10px;\r\n  align-items: flex-start;\n}\n.field-icon[data-v-5146eb3c] {\r\n  width: 24px;\r\n  height: 24px;\r\n  min-width: 24px;\r\n  border-radius: 6px;\r\n  background: #f1f5f9;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 0.75rem;\r\n  color: #64748b;\n}\n.field-content[data-v-5146eb3c] {\r\n  flex: 1;\r\n  min-width: 0;\n}\n.field-label[data-v-5146eb3c] {\r\n  display: block;\r\n  font-size: 0.6rem;\r\n  font-weight: 600;\r\n  color: #64748b;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  margin-bottom: 1px;\n}\n.field-value[data-v-5146eb3c] {\r\n  display: block;\r\n  font-size: 0.8rem;\r\n  color: #1e293b;\r\n  font-weight: 500;\r\n  word-break: break-word;\r\n  line-height: 1.4;\n}\n.received-date[data-v-5146eb3c] {\r\n  color: #2563eb;\r\n  font-weight: 600;\n}\n.completed-date[data-v-5146eb3c] {\r\n  color: #059669;\r\n  font-weight: 600;\n}\n.remarks-text[data-v-5146eb3c] {\r\n  font-style: italic;\r\n  color: #78350f;\r\n  background: #fffbeb;\r\n  padding: 3px 8px;\r\n  border-radius: 4px;\r\n  border-left: 3px solid #f59e0b;\n}\r\n\r\n/* Flow section */\n.flow-section-enhanced[data-v-5146eb3c] {\r\n  margin-top: 6px;\r\n  padding: 12px 16px;\r\n  background: linear-gradient(135deg, #f8fafc, #f1f5f9);\r\n  border-radius: 8px;\r\n  border: 1px solid #e5e7eb;\n}\n.flow-container[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 12px;\r\n  flex-wrap: wrap;\n}\n.flow-node[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 10px;\r\n  flex: 1;\r\n  min-width: 120px;\r\n  padding: 8px 12px;\r\n  background: #ffffff;\r\n  border-radius: 8px;\r\n  border: 1px solid #e5e7eb;\r\n  transition: all 0.3s ease;\n}\n.origin-node[data-v-5146eb3c] {\r\n  border-left: 4px solid #3b82f6;\n}\n.destination-node[data-v-5146eb3c] {\r\n  border-left: 4px solid #10b981;\n}\n.flow-node-icon[data-v-5146eb3c] {\r\n  width: 28px;\r\n  height: 28px;\r\n  min-width: 28px;\r\n  border-radius: 6px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 0.9rem;\r\n  color: #ffffff;\n}\n.origin-node .flow-node-icon[data-v-5146eb3c] {\r\n  background: linear-gradient(135deg, #3b82f6, #2563eb);\n}\n.destination-node .flow-node-icon[data-v-5146eb3c] {\r\n  background: linear-gradient(135deg, #10b981, #059669);\n}\n.flow-node-content[data-v-5146eb3c] {\r\n  flex: 1;\r\n  min-width: 0;\n}\n.flow-node-label[data-v-5146eb3c] {\r\n  display: block;\r\n  font-size: 0.55rem;\r\n  font-weight: 700;\r\n  color: #64748b;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\n}\n.flow-node-value[data-v-5146eb3c] {\r\n  display: block;\r\n  font-size: 0.8rem;\r\n  font-weight: 600;\r\n  color: #1e293b;\r\n  word-break: break-word;\n}\n.flow-arrow-enhanced[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 4px;\r\n  flex-shrink: 0;\r\n  padding: 0 4px;\n}\n.arrow-line[data-v-5146eb3c] {\r\n  width: 16px;\r\n  height: 2px;\r\n  background: linear-gradient(90deg, #94a3b8, #cbd5e1);\r\n  border-radius: 2px;\n}\n.arrow-icon[data-v-5146eb3c] {\r\n  font-size: 1.2rem;\r\n  color: #94a3b8;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  animation: arrowPulse-5146eb3c 1.5s ease-in-out infinite;\n}\r\n\r\n/* Attachments styles */\n.attachments-panel[data-v-5146eb3c] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: calc(90vh - 140px);\r\n  background: #ffffff;\r\n  min-height: 400px;\n}\n.attachments-header[data-v-5146eb3c] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 12px 20px;\r\n  background: #f8fafc;\r\n  border-bottom: 2px solid #e5e7eb;\r\n  flex-shrink: 0;\n}\n.attachments-title[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  font-weight: 700;\r\n  color: #1e293b;\r\n  font-size: 0.9rem;\n}\n.attachments-title i[data-v-5146eb3c] {\r\n  color: #2d6a4f;\r\n  font-size: 1.1rem;\n}\n.attachments-count[data-v-5146eb3c] {\r\n  padding: 3px 12px;\r\n  background: #f1f5f9;\r\n  border-radius: 16px;\r\n  font-size: 0.75rem;\r\n  font-weight: 600;\r\n  color: #475569;\n}\n.attachments-content[data-v-5146eb3c] {\r\n  flex: 1;\r\n  overflow-y: auto;\r\n  padding: 16px;\r\n  background: #f9fafb;\n}\n.attachment-item[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 12px;\r\n  padding: 12px 16px;\r\n  background: #ffffff;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 10px;\r\n  margin-bottom: 10px;\r\n  cursor: pointer;\r\n  transition: all 0.3s ease;\n}\n.attachment-item[data-v-5146eb3c]:hover {\r\n  border-color: #2563eb;\r\n  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.12);\r\n  transform: translateY(-2px);\n}\n.attachment-item[data-v-5146eb3c]:last-child {\r\n  margin-bottom: 0;\n}\n.attachment-icon-wrapper[data-v-5146eb3c] {\r\n  width: 40px;\r\n  height: 40px;\r\n  min-width: 40px;\r\n  border-radius: 8px;\r\n  background: #fef2f2;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1.3rem;\r\n  color: #dc2626;\n}\n.attachment-details[data-v-5146eb3c] {\r\n  flex: 1;\r\n  min-width: 0;\n}\n.attachment-name[data-v-5146eb3c] {\r\n  font-weight: 600;\r\n  color: #1e293b;\r\n  font-size: 0.85rem;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  flex-wrap: wrap;\n}\n.attachment-badge[data-v-5146eb3c] {\r\n  font-size: 0.55rem;\r\n  font-weight: 700;\r\n  padding: 2px 6px;\r\n  border-radius: 12px;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\n}\n.draft-badge[data-v-5146eb3c] {\r\n  background: #fef3c7;\r\n  color: #d97706;\r\n  border: 1px solid #fde68a;\n}\n.released-badge[data-v-5146eb3c] {\r\n  background: #d1fae5;\r\n  color: #059669;\r\n  border: 1px solid #a7f3d0;\n}\n.attachment-meta[data-v-5146eb3c] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  font-size: 0.7rem;\r\n  color: #64748b;\r\n  margin-top: 2px;\n}\n.attachment-separator[data-v-5146eb3c] {\r\n  color: #d1d5db;\n}\n.attachment-actions[data-v-5146eb3c] {\r\n  display: flex;\r\n  gap: 4px;\r\n  flex-shrink: 0;\n}\n.btn-attachment-view[data-v-5146eb3c],\r\n.btn-attachment-download[data-v-5146eb3c] {\r\n  width: 32px;\r\n  height: 32px;\r\n  border-radius: 6px;\r\n  border: 1px solid #e5e7eb;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  cursor: pointer;\r\n  transition: all 0.2s ease;\r\n  text-decoration: none;\r\n  color: #475569;\r\n  background: #ffffff;\n}\n.btn-attachment-view[data-v-5146eb3c]:hover {\r\n  background: #eff6ff;\r\n  border-color: #93c5fd;\r\n  color: #2563eb;\n}\n.btn-attachment-download[data-v-5146eb3c]:hover {\r\n  background: #f0fdf4;\r\n  border-color: #86efac;\r\n  color: #059669;\n}\n.no-attachments[data-v-5146eb3c] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  height: 100%;\r\n  min-height: 200px;\r\n  text-align: center;\r\n  color: #9ca3af;\n}\n.no-attachments h5[data-v-5146eb3c] {\r\n  font-size: 1rem;\r\n  margin-top: 8px;\n}\r\n\r\n/* Animations */\n@keyframes pulse-5146eb3c {\n0%,\r\n  100% {\r\n    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);\n}\n50% {\r\n    box-shadow: 0 0 0 8px rgba(37, 99, 235, 0.1);\n}\n}\n@keyframes arrowPulse-5146eb3c {\n0%,\r\n  100% {\r\n    transform: translateX(0);\r\n    opacity: 1;\n}\n50% {\r\n    transform: translateX(4px);\r\n    opacity: 0.6;\n}\n}\r\n\r\n/* Responsive */\n@media (max-width: 1024px) {\n.document-view-modal[data-v-5146eb3c] {\r\n    max-width: 98vw;\n}\n.document-viewer-layout[data-v-5146eb3c] {\r\n    grid-template-columns: 1fr;\r\n    grid-template-rows: auto 1fr;\r\n    height: calc(90vh - 140px);\n}\n.details-panel[data-v-5146eb3c] {\r\n    border-right: none;\r\n    border-bottom: 1px solid #e5e7eb;\r\n    max-height: 300px;\n}\n.pdf-viewer-wrapper[data-v-5146eb3c] {\r\n    min-height: 300px;\n}\n.info-grid-enhanced[data-v-5146eb3c] {\r\n    grid-template-columns: 1fr;\n}\n}\n@media (max-width: 768px) {\n.modal-overlay[data-v-5146eb3c] {\r\n    padding: 10px;\n}\n.enhanced-modal[data-v-5146eb3c] {\r\n    max-width: 100%;\n}\n.square-header[data-v-5146eb3c] {\r\n    padding: 14px 16px;\n}\n.square-icon[data-v-5146eb3c] {\r\n    width: 34px;\r\n    height: 34px;\r\n    font-size: 1.1rem;\r\n    margin-right: 10px;\n}\n.modal-title[data-v-5146eb3c] {\r\n    font-size: 1rem;\n}\n.modal-body-enhanced[data-v-5146eb3c] {\r\n    padding: 16px;\n}\n.release-modal-body[data-v-5146eb3c] {\r\n    padding: 16px;\n}\n.release-doc-info-grid[data-v-5146eb3c] {\r\n    grid-template-columns: 1fr;\r\n    gap: 8px;\n}\n.release-datetime-grid[data-v-5146eb3c] {\r\n    grid-template-columns: 1fr;\r\n    gap: 8px;\n}\n.release-upload-area[data-v-5146eb3c] {\r\n    padding: 20px 16px;\r\n    min-height: 80px;\n}\n.upload-icon-wrapper[data-v-5146eb3c] {\r\n    width: 48px;\r\n    height: 48px;\r\n    font-size: 1.3rem;\n}\n.upload-title[data-v-5146eb3c] {\r\n    font-size: 0.8rem;\n}\n.modal-actions[data-v-5146eb3c] {\r\n    flex-direction: column;\r\n    align-items: stretch;\n}\n.modal-actions .d-flex[data-v-5146eb3c] {\r\n    justify-content: center;\n}\n.square-btn[data-v-5146eb3c] {\r\n    width: 100%;\r\n    justify-content: center;\n}\n.document-view-modal[data-v-5146eb3c] {\r\n    max-width: 100vw;\r\n    width: 100vw;\r\n    margin: 0;\r\n    border-radius: 0;\r\n    max-height: 100vh;\n}\n.document-viewer-tabs[data-v-5146eb3c] {\r\n    padding: 8px 12px;\r\n    gap: 4px;\r\n    overflow-x: auto;\n}\n.viewer-tab-btn[data-v-5146eb3c] {\r\n    padding: 6px 12px;\r\n    font-size: 11px;\n}\n.viewer-tab-btn span[data-v-5146eb3c] {\r\n    display: none;\n}\n.viewer-tab-btn i[data-v-5146eb3c] {\r\n    font-size: 14px;\n}\n.search-filter-row[data-v-5146eb3c] {\r\n    flex-direction: column;\r\n    gap: 8px;\n}\n.filter-wrapper[data-v-5146eb3c] {\r\n    min-width: 100%;\n}\n.office-table[data-v-5146eb3c] {\r\n    font-size: 11px;\n}\n.office-table th[data-v-5146eb3c],\r\n  .office-table td[data-v-5146eb3c] {\r\n    padding: 6px 8px;\n}\n.office-table th[data-v-5146eb3c]:nth-child(3),\r\n  .office-table td[data-v-5146eb3c]:nth-child(3) {\r\n    display: none;\n}\n.office-table th[data-v-5146eb3c]:nth-child(6),\r\n  .office-table td[data-v-5146eb3c]:nth-child(6) {\r\n    display: none;\n}\n.btn-action[data-v-5146eb3c] {\r\n    padding: 4px 6px;\r\n    font-size: 0.8rem;\n}\n.flow-container[data-v-5146eb3c] {\r\n    flex-direction: column;\r\n    gap: 6px;\n}\n.flow-node[data-v-5146eb3c] {\r\n    width: 100%;\r\n    min-width: unset;\n}\n.flow-arrow-enhanced[data-v-5146eb3c] {\r\n    transform: rotate(90deg);\r\n    padding: 0;\n}\n.arrow-line[data-v-5146eb3c] {\r\n    width: 24px;\n}\n.attachment-item[data-v-5146eb3c] {\r\n    flex-wrap: wrap;\n}\n.attachment-actions[data-v-5146eb3c] {\r\n    width: 100%;\r\n    justify-content: flex-end;\r\n    margin-top: 6px;\n}\n.attachment-viewer-modal[data-v-5146eb3c] {\r\n    max-width: 100vw;\r\n    width: 100vw;\r\n    margin: 0;\r\n    border-radius: 0;\r\n    max-height: 100vh;\n}\n.attachment-viewer-content[data-v-5146eb3c] {\r\n    min-height: 300px;\n}\n.timeline-container[data-v-5146eb3c] {\r\n    padding-left: 32px;\n}\n.timeline-node[data-v-5146eb3c] {\r\n    left: -28px;\r\n    width: 22px;\r\n    height: 22px;\r\n    font-size: 0.6rem;\n}\n}\n@media (max-width: 480px) {\n.square-header[data-v-5146eb3c] {\r\n    padding: 12px 14px;\r\n    flex-wrap: wrap;\n}\n.square-icon[data-v-5146eb3c] {\r\n    width: 30px;\r\n    height: 30px;\r\n    font-size: 1rem;\r\n    margin-right: 8px;\n}\n.modal-title[data-v-5146eb3c] {\r\n    font-size: 0.9rem;\n}\n.modal-subtitle[data-v-5146eb3c] {\r\n    font-size: 0.65rem;\n}\n.release-info-card[data-v-5146eb3c] {\r\n    padding: 8px 10px;\n}\n.release-info-value[data-v-5146eb3c] {\r\n    font-size: 0.75rem;\n}\n.release-info-label[data-v-5146eb3c] {\r\n    font-size: 0.55rem;\n}\n.upload-file-preview[data-v-5146eb3c] {\r\n    flex-wrap: wrap;\r\n    gap: 8px;\n}\n.upload-file-icon[data-v-5146eb3c] {\r\n    width: 32px;\r\n    height: 32px;\r\n    min-width: 32px;\r\n    font-size: 1rem;\n}\n.upload-file-name[data-v-5146eb3c] {\r\n    font-size: 0.75rem;\n}\n.upload-remove-btn[data-v-5146eb3c] {\r\n    margin-left: auto;\n}\n.office-table th[data-v-5146eb3c]:nth-child(4),\r\n  .office-table td[data-v-5146eb3c]:nth-child(4) {\r\n    display: none;\n}\n.office-table th[data-v-5146eb3c]:nth-child(7),\r\n  .office-table td[data-v-5146eb3c]:nth-child(7) {\r\n    display: none;\n}\n.per-page-wrapper[data-v-5146eb3c] {\r\n    width: 100%;\r\n    justify-content: flex-start;\n}\n.filter-wrapper[data-v-5146eb3c] {\r\n    min-width: 100%;\n}\n.viewer-tab-btn[data-v-5146eb3c] {\r\n    padding: 4px 10px;\r\n    font-size: 10px;\n}\n.viewer-tab-btn i[data-v-5146eb3c] {\r\n    font-size: 12px;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -31253,7 +32745,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* All styles from the previous tabs - same as ForReleaseTab styles */\r\n/* Copy all styles from ForReleaseTab.vue's style section here */\r\n/* Since all tabs share the same design, the styles are identical */\r\n\r\n/* ===== CSS Variables ===== */\n[data-v-3737035d]:root {\r\n  --forest: #1a4731;\r\n  --leaf: #2d6a4f;\r\n  --mint: #52b788;\r\n  --gold: #c9a84c;\r\n  --gold-light: #f0d080;\r\n  --paper: #f4f9f6;\r\n  --charcoal: #1c2b24;\r\n  --muted: #5c7a6b;\r\n  --border: #b7d5c3;\r\n  --white: #ffffff;\r\n  --error: #c0392b;\n}\r\n\r\n/* ===== FILTER CONTROLS ===== */\n.filter-controls[data-v-3737035d] {\r\n  margin-bottom: 20px;\n}\n.search-filter-row[data-v-3737035d] {\r\n  display: flex;\r\n  gap: 12px;\r\n  align-items: center;\r\n  flex-wrap: wrap;\n}\n.search-box-wrapper[data-v-3737035d] {\r\n  flex: 1;\r\n  min-width: 200px;\n}\n.search-box[data-v-3737035d] {\r\n  position: relative;\r\n  width: 100%;\n}\n.search-icon[data-v-3737035d] {\r\n  position: absolute;\r\n  left: 12px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  color: #9ca3af;\r\n  z-index: 1;\n}\n.search-input[data-v-3737035d] {\r\n  width: 100%;\r\n  padding: 10px 35px 10px 36px;\r\n  border: 2px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  font-size: 14px;\r\n  outline: none;\r\n  background: #ffffff;\r\n  transition: all 0.3s ease;\n}\n.search-input[data-v-3737035d]:focus {\r\n  border-color: #2d6a4f;\r\n  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\n.search-clear-btn[data-v-3737035d] {\r\n  position: absolute;\r\n  right: 8px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  background: none;\r\n  border: none;\r\n  color: #9ca3af;\r\n  cursor: pointer;\r\n  padding: 4px;\n}\n.search-clear-btn[data-v-3737035d]:hover {\r\n  color: #ef4444;\n}\n.per-page-wrapper[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  white-space: nowrap;\n}\n.per-page-label[data-v-3737035d] {\r\n  font-size: 13px;\r\n  color: #6b7280;\r\n  font-weight: 500;\n}\n.per-page-select[data-v-3737035d] {\r\n  padding: 8px 12px;\r\n  border: 2px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  font-size: 13px;\r\n  background: #ffffff;\r\n  outline: none;\r\n  cursor: pointer;\r\n  transition: all 0.3s ease;\n}\n.per-page-select[data-v-3737035d]:focus {\r\n  border-color: #2d6a4f;\n}\n.filter-wrapper[data-v-3737035d] {\r\n  min-width: 180px;\n}\n.filter-box[data-v-3737035d] {\r\n  position: relative;\n}\n.filter-icon[data-v-3737035d] {\r\n  position: absolute;\r\n  left: 12px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  color: #9ca3af;\r\n  z-index: 1;\n}\n.filter-select[data-v-3737035d] {\r\n  width: 100%;\r\n  padding: 10px 12px 10px 36px;\r\n  border: 2px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  font-size: 13px;\r\n  background: #ffffff;\r\n  outline: none;\r\n  cursor: pointer;\r\n  -webkit-appearance: none;\r\n     -moz-appearance: none;\r\n          appearance: none;\r\n  background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E\");\r\n  background-repeat: no-repeat;\r\n  background-position: right 12px center;\r\n  transition: all 0.3s ease;\n}\n.filter-select[data-v-3737035d]:focus {\r\n  border-color: #2d6a4f;\r\n  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\r\n\r\n/* ===== ACTIVE FILTERS ===== */\n.active-filters[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  margin-top: 12px;\r\n  padding: 10px 14px;\r\n  background: #f0fdf4;\r\n  border: 1px solid #bbf7d0;\r\n  border-radius: 8px;\r\n  flex-wrap: wrap;\n}\n.active-filters-label[data-v-3737035d] {\r\n  font-size: 12px;\r\n  font-weight: 600;\r\n  color: #166534;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\n}\n.filter-tag[data-v-3737035d] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  padding: 4px 10px;\r\n  background: #ffffff;\r\n  border: 1px solid #86efac;\r\n  border-radius: 20px;\r\n  font-size: 12px;\r\n  color: #166534;\r\n  font-weight: 500;\n}\n.filter-tag-close[data-v-3737035d] {\r\n  background: none;\r\n  border: none;\r\n  color: #6b7280;\r\n  cursor: pointer;\r\n  padding: 0;\r\n  display: flex;\r\n  align-items: center;\n}\n.filter-tag-close[data-v-3737035d]:hover {\r\n  color: #ef4444;\n}\n.clear-all-filters[data-v-3737035d] {\r\n  padding: 4px 12px;\r\n  background: none;\r\n  border: 1px solid #86efac;\r\n  border-radius: 6px;\r\n  font-size: 12px;\r\n  color: #166534;\r\n  cursor: pointer;\r\n  font-weight: 600;\r\n  transition: all 0.2s;\n}\n.clear-all-filters[data-v-3737035d]:hover {\r\n  background: #dcfce7;\r\n  border-color: #166534;\n}\n.results-summary[data-v-3737035d] {\r\n  margin-top: 10px;\r\n  font-size: 13px;\r\n  color: #6b7280;\n}\n.results-count[data-v-3737035d] {\r\n  font-weight: 700;\r\n  color: #2d6a4f;\r\n  font-size: 16px;\n}\r\n\r\n/* ===== TABLE ===== */\n.table-responsive[data-v-3737035d] {\r\n  overflow-x: auto;\r\n  margin-top: 16px;\n}\n.office-table[data-v-3737035d] {\r\n  width: 100%;\r\n  border-collapse: collapse;\r\n  font-size: 13px;\r\n  background: white;\n}\n.office-table th[data-v-3737035d],\r\n.office-table td[data-v-3737035d] {\r\n  border: 1px solid #f3f4f6;\r\n  padding: 12px 14px;\r\n  text-align: left;\r\n  vertical-align: middle;\n}\n.office-table thead th[data-v-3737035d] {\r\n  background: #f8fafc;\r\n  font-weight: 700;\r\n  color: #374151;\r\n  text-transform: uppercase;\r\n  font-size: 11px;\r\n  letter-spacing: 0.5px;\r\n  border-bottom: 2px solid #e5e7eb;\n}\n.office-table tbody tr[data-v-3737035d]:hover {\r\n  background: #f0fdf4;\n}\n.office-table tbody tr[data-v-3737035d]:nth-child(even) {\r\n  background: #fafafa;\n}\n.office-table tbody tr[data-v-3737035d]:nth-child(even):hover {\r\n  background: #f0fdf4;\n}\n.row-number[data-v-3737035d] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 28px;\r\n  height: 28px;\r\n  border-radius: 6px;\r\n  background: #f3f4f6;\r\n  color: #6b7280;\r\n  font-size: 12px;\r\n  font-weight: 600;\n}\n.tracking-number[data-v-3737035d] {\r\n  font-weight: 700;\r\n  color: #2d6a4f;\r\n  font-family: \"Courier New\", monospace;\r\n  font-size: 13px;\r\n  padding: 2px 8px;\r\n  background: #f0fdf4;\r\n  border-radius: 4px;\n}\n.doc-type-badge[data-v-3737035d] {\r\n  display: inline-block;\r\n  padding: 3px 10px;\r\n  background: #e0e7ff;\r\n  color: #3730a3;\r\n  border-radius: 4px;\r\n  font-size: 11px;\r\n  font-weight: 600;\r\n  border: 1px solid #c7d2fe;\n}\n.subject-text[data-v-3737035d] {\r\n  color: #1e293b;\r\n  font-weight: 500;\r\n  line-height: 1.4;\r\n  font-size: 13px;\n}\n.sender-text[data-v-3737035d] {\r\n  color: #475569;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  font-size: 13px;\n}\n.sender-icon[data-v-3737035d] {\r\n  color: #94a3b8;\r\n  font-size: 14px;\n}\n.date-received[data-v-3737035d] {\r\n  color: #64748b;\r\n  font-size: 12px;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\n}\n.date-icon[data-v-3737035d] {\r\n  color: #94a3b8;\r\n  font-size: 13px;\n}\r\n\r\n/* ===== ACTION BUTTONS ===== */\n.action-buttons[data-v-3737035d] {\r\n  display: flex;\r\n  gap: 6px;\r\n  align-items: center;\n}\n.btn-action[data-v-3737035d] {\r\n  background: none;\r\n  border: 1px solid transparent;\r\n  border-radius: 6px;\r\n  padding: 6px 10px;\r\n  cursor: pointer;\r\n  font-size: 0.95rem;\r\n  transition: all 0.2s;\r\n  text-decoration: none;\n}\n.btn-view[data-v-3737035d] {\r\n  color: #6366f1;\r\n  border-color: #c7d2fe;\r\n  background: #eef2ff;\n}\n.btn-view[data-v-3737035d]:hover {\r\n  background: #ddd6fe;\r\n  transform: scale(1.05);\n}\n.btn-download[data-v-3737035d] {\r\n  color: #0891b2;\r\n  border-color: #67e8f9;\r\n  background: #cffafe;\n}\n.btn-download[data-v-3737035d]:hover {\r\n  background: #67e8f9;\r\n  transform: scale(1.05);\n}\r\n\r\n/* ===== STATUS BADGE ===== */\n.status-badge[data-v-3737035d] {\r\n  display: inline-block;\r\n  padding: 4px 12px;\r\n  border-radius: 20px;\r\n  font-size: 0.75rem;\r\n  font-weight: 600;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\n}\n.status-in-progress[data-v-3737035d] {\r\n  background: #fef3c7;\r\n  color: #d97706;\r\n  border: 1px solid #fde68a;\n}\n.status-for-release[data-v-3737035d] {\r\n  background: #dbeafe;\r\n  color: #2563eb;\r\n  border: 1px solid #bfdbfe;\n}\n.status-released[data-v-3737035d] {\r\n  background: #d1fae5;\r\n  color: #059669;\r\n  border: 1px solid #a7f3d0;\n}\r\n\r\n/* ===== LOADER ===== */\n.loader-spinner[data-v-3737035d] {\r\n  width: 40px;\r\n  height: 40px;\r\n  border: 3px solid #e5e7eb;\r\n  border-top-color: #2d6a4f;\r\n  border-radius: 50%;\r\n  animation: spin-3737035d 0.8s linear infinite;\r\n  margin: 0 auto 10px;\n}\n@keyframes spin-3737035d {\nto {\r\n    transform: rotate(360deg);\n}\n}\n.empty-state[data-v-3737035d] {\r\n  padding: 20px;\r\n  text-align: center;\n}\r\n\r\n/* ===== MODAL OVERLAY ===== */\n.modal-overlay[data-v-3737035d] {\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background: rgba(0, 0, 0, 0.55);\r\n  backdrop-filter: blur(4px);\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  z-index: 1050;\r\n  animation: fadeIn-3737035d 0.2s ease-out;\n}\n.enhanced-modal[data-v-3737035d] {\r\n  width: 100%;\r\n  max-width: 620px;\r\n  margin: 0 15px;\r\n  animation: modalSlideUp-3737035d 0.3s ease-out;\n}\n@keyframes modalSlideUp-3737035d {\nfrom {\r\n    transform: translateY(30px);\r\n    opacity: 0;\n}\nto {\r\n    transform: translateY(0);\r\n    opacity: 1;\n}\n}\n@keyframes fadeIn-3737035d {\nfrom {\r\n    opacity: 0;\n}\nto {\r\n    opacity: 1;\n}\n}\n.square-modal[data-v-3737035d] {\r\n  border: none;\r\n  border-radius: 12px;\r\n  overflow: hidden;\r\n  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);\r\n  background: #fff;\r\n  position: relative;\n}\n.square-header[data-v-3737035d] {\r\n  background: linear-gradient(135deg, #1e4d2b, #2d6a4f);\r\n  padding: 20px 24px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n  color: white;\r\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n}\n.square-icon[data-v-3737035d] {\r\n  width: 42px;\r\n  height: 42px;\r\n  background: rgba(255, 255, 255, 0.2);\r\n  border-radius: 10px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1.4rem;\r\n  margin-right: 14px;\n}\n.modal-title[data-v-3737035d] {\r\n  font-weight: 700;\r\n  font-size: 1.25rem;\n}\n.modal-subtitle[data-v-3737035d] {\r\n  font-size: 0.85rem;\r\n  opacity: 0.85;\n}\n.square-close[data-v-3737035d] {\r\n  background: rgba(255, 255, 255, 0.15);\r\n  border: none;\r\n  color: white;\r\n  width: 36px;\r\n  height: 36px;\r\n  border-radius: 8px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  cursor: pointer;\r\n  transition: background 0.2s;\n}\n.square-close[data-v-3737035d]:hover {\r\n  background: rgba(255, 255, 255, 0.3);\n}\n.modal-body-enhanced[data-v-3737035d] {\r\n  padding: 24px;\r\n  background: #f9fafb;\n}\r\n\r\n/* ===== ENHANCED DOCUMENT VIEWER ===== */\n.document-view-modal[data-v-3737035d] {\r\n  max-width: 1400px;\r\n  width: 95vw;\r\n  max-height: 90vh;\n}\n.document-viewer-body[data-v-3737035d] {\r\n  padding: 0;\r\n  max-height: calc(90vh - 80px);\r\n  overflow: hidden;\r\n  display: flex;\r\n  flex-direction: column;\n}\n.document-viewer-tabs[data-v-3737035d] {\r\n  display: flex;\r\n  gap: 4px;\r\n  padding: 12px 20px;\r\n  background: #f8fafc;\r\n  border-bottom: 2px solid #e5e7eb;\r\n  flex-shrink: 0;\n}\n.viewer-tab-btn[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  padding: 10px 20px;\r\n  background: #ffffff;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  color: #64748b;\r\n  font-size: 13px;\r\n  font-weight: 600;\r\n  cursor: pointer;\r\n  white-space: nowrap;\r\n  transition: all 0.3s ease;\r\n  font-family: \"Inter\", sans-serif;\n}\n.viewer-tab-btn[data-v-3737035d]:hover {\r\n  background: #f0fdf4;\r\n  border-color: #86efac;\r\n  color: #2d6a4f;\r\n  transform: translateY(-1px);\n}\n.viewer-tab-btn.active[data-v-3737035d] {\r\n  background: linear-gradient(135deg, #2d6a4f, #1e4d2b);\r\n  border-color: #2d6a4f;\r\n  color: #ffffff;\r\n  box-shadow: 0 4px 12px rgba(45, 106, 79, 0.3);\n}\n.document-viewer-layout[data-v-3737035d] {\r\n  display: grid;\r\n  grid-template-columns: 380px 1fr;\r\n  height: calc(90vh - 140px);\r\n  min-height: 500px;\n}\r\n\r\n/* ===== DETAILS PANEL ===== */\n.details-panel[data-v-3737035d] {\r\n  background: #ffffff;\r\n  border-right: 1px solid #e5e7eb;\r\n  display: flex;\r\n  flex-direction: column;\r\n  overflow: hidden;\n}\n.details-panel-header[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 10px;\r\n  padding: 16px 20px;\r\n  background: #f8fafc;\r\n  border-bottom: 1px solid #e5e7eb;\r\n  font-weight: 700;\r\n  color: #1e293b;\r\n  font-size: 0.9rem;\r\n  flex-shrink: 0;\n}\n.details-content[data-v-3737035d] {\r\n  flex: 1;\r\n  overflow-y: auto;\r\n  padding: 16px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 12px;\n}\n.details-content[data-v-3737035d]::-webkit-scrollbar {\r\n  width: 6px;\n}\n.details-content[data-v-3737035d]::-webkit-scrollbar-track {\r\n  background: #f1f5f9;\n}\n.details-content[data-v-3737035d]::-webkit-scrollbar-thumb {\r\n  background: #94a3b8;\r\n  border-radius: 3px;\n}\n.detail-card[data-v-3737035d] {\r\n  display: flex;\r\n  gap: 12px;\r\n  padding: 14px;\r\n  background: #f8fafc;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 10px;\r\n  transition: all 0.2s ease;\n}\n.detail-icon-wrapper[data-v-3737035d] {\r\n  width: 40px;\r\n  height: 40px;\r\n  min-width: 40px;\r\n  border-radius: 8px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1.1rem;\r\n  background: #e0f2fe;\r\n  color: #0284c7;\n}\n.detail-icon-wrapper.type-icon[data-v-3737035d] {\r\n  background: #fef3c7;\r\n  color: #d97706;\n}\n.detail-icon-wrapper.subject-icon[data-v-3737035d] {\r\n  background: #dcfce7;\r\n  color: #16a34a;\n}\n.detail-icon-wrapper.sender-icon-card[data-v-3737035d] {\r\n  background: #ede9fe;\r\n  color: #7c3aed;\n}\n.detail-icon-wrapper.date-icon-card[data-v-3737035d] {\r\n  background: #fce7f3;\r\n  color: #db2777;\n}\n.detail-icon-wrapper.desc-icon[data-v-3737035d] {\r\n  background: #fff7ed;\r\n  color: #ea580c;\n}\n.detail-icon-wrapper.meta-icon[data-v-3737035d] {\r\n  background: #f1f5f9;\r\n  color: #64748b;\n}\n.detail-info[data-v-3737035d] {\r\n  flex: 1;\r\n  min-width: 0;\n}\n.detail-info label[data-v-3737035d] {\r\n  display: block;\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  color: #64748b;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  margin-bottom: 4px;\n}\n.detail-value[data-v-3737035d] {\r\n  font-size: 0.85rem;\r\n  color: #1e293b;\r\n  font-weight: 500;\r\n  word-break: break-word;\r\n  line-height: 1.4;\n}\n.tracking-number-large[data-v-3737035d] {\r\n  font-size: 0.9rem;\r\n  font-weight: 700;\r\n  color: #2d6a4f;\r\n  font-family: \"Courier New\", monospace;\r\n  background: #f0fdf4;\r\n  padding: 2px 8px;\r\n  border-radius: 4px;\r\n  display: inline-block;\n}\n.doc-type-badge-large[data-v-3737035d] {\r\n  display: inline-block;\r\n  padding: 3px 12px;\r\n  background: #e0e7ff;\r\n  color: #3730a3;\r\n  border-radius: 6px;\r\n  font-size: 0.8rem;\r\n  font-weight: 600;\r\n  border: 1px solid #c7d2fe;\n}\n.time-text[data-v-3737035d] {\r\n  color: #64748b;\r\n  font-size: 0.75rem;\r\n  display: block;\r\n  margin-top: 2px;\n}\n.description-card[data-v-3737035d] {\r\n  background: #fffbeb;\r\n  border-color: #fde68a;\n}\n.description-text[data-v-3737035d] {\r\n  color: #78350f;\r\n  font-style: italic;\r\n  line-height: 1.6;\n}\r\n\r\n/* ===== PDF PANEL ===== */\n.pdf-panel[data-v-3737035d] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  background: #f8fafc;\r\n  overflow: hidden;\n}\n.pdf-panel-header[data-v-3737035d] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 12px 20px;\r\n  background: #ffffff;\r\n  border-bottom: 1px solid #e5e7eb;\r\n  flex-shrink: 0;\n}\n.pdf-panel-title[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  font-weight: 700;\r\n  color: #1e293b;\r\n  font-size: 0.9rem;\n}\n.pdf-panel-title i[data-v-3737035d] {\r\n  color: #dc2626;\r\n  font-size: 1.2rem;\n}\n.pdf-controls[data-v-3737035d] {\r\n  display: flex;\r\n  gap: 4px;\r\n  align-items: center;\n}\n.btn-pdf-control[data-v-3737035d] {\r\n  background: #f1f5f9;\r\n  border: 1px solid #e5e7eb;\r\n  color: #475569;\r\n  width: 34px;\r\n  height: 34px;\r\n  border-radius: 6px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  cursor: pointer;\r\n  transition: all 0.2s;\r\n  font-size: 0.9rem;\n}\n.btn-pdf-control[data-v-3737035d]:hover:not(:disabled) {\r\n  background: #e2e8f0;\r\n  border-color: #94a3b8;\r\n  color: #1e293b;\n}\n.btn-pdf-control[data-v-3737035d]:disabled {\r\n  opacity: 0.5;\r\n  cursor: not-allowed;\n}\n.pdf-viewer-wrapper[data-v-3737035d] {\r\n  flex: 1;\r\n  overflow: auto;\r\n  background: #525659;\r\n  position: relative;\r\n  min-height: 400px;\n}\n.pdf-viewer-wrapper[data-v-3737035d]::-webkit-scrollbar {\r\n  width: 10px;\r\n  height: 10px;\n}\n.pdf-viewer-wrapper[data-v-3737035d]::-webkit-scrollbar-track {\r\n  background: #3a3d40;\n}\n.pdf-viewer-wrapper[data-v-3737035d]::-webkit-scrollbar-thumb {\r\n  background: #6b7280;\r\n  border-radius: 5px;\n}\n.pdf-iframe[data-v-3737035d] {\r\n  border: none;\r\n  display: block;\r\n  background: #ffffff;\r\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);\n}\n.pdf-state[data-v-3737035d] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  height: 100%;\r\n  min-height: 400px;\r\n  color: #9ca3af;\r\n  padding: 40px;\n}\n.pdf-loader-animation[data-v-3737035d] {\r\n  position: relative;\r\n  width: 80px;\r\n  height: 80px;\r\n  margin-bottom: 16px;\n}\n.pdf-loader-icon[data-v-3737035d] {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 50%;\r\n  transform: translate(-50%, -50%);\r\n  font-size: 2rem;\r\n  color: #dc2626;\r\n  z-index: 2;\n}\n.pdf-state-text[data-v-3737035d] {\r\n  color: #d1d5db;\r\n  font-size: 0.9rem;\r\n  margin-top: 8px;\n}\n.pdf-error[data-v-3737035d] {\r\n  color: #fca5a5;\n}\n.pdf-error h5[data-v-3737035d] {\r\n  color: #fca5a5;\r\n  font-weight: 600;\n}\n.pdf-footer[data-v-3737035d] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 8px 20px;\r\n  background: #ffffff;\r\n  border-top: 1px solid #e5e7eb;\r\n  font-size: 0.75rem;\r\n  color: #64748b;\r\n  flex-shrink: 0;\n}\n.pdf-zoom-level[data-v-3737035d] {\r\n  font-weight: 600;\r\n  color: #2d6a4f;\n}\n.pdf-page-info[data-v-3737035d] {\r\n  font-family: \"Courier New\", monospace;\n}\r\n\r\n/* ===== ROUTE HISTORY PANEL ===== */\n.route-history-panel[data-v-3737035d] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: calc(90vh - 140px);\r\n  background: #ffffff;\r\n  min-height: 500px;\n}\n.route-history-header[data-v-3737035d] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 16px 24px;\r\n  background: #f8fafc;\r\n  border-bottom: 2px solid #e5e7eb;\r\n  flex-shrink: 0;\n}\n.route-history-title[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 10px;\r\n  font-weight: 700;\r\n  color: #1e293b;\r\n  font-size: 1rem;\n}\n.route-history-title i[data-v-3737035d] {\r\n  color: #2d6a4f;\r\n  font-size: 1.2rem;\n}\n.route-history-badge[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  padding: 6px 14px;\r\n  background: #f0fdf4;\r\n  border: 1px solid #bbf7d0;\r\n  border-radius: 20px;\r\n  font-size: 0.8rem;\r\n  font-weight: 600;\r\n  color: #166534;\n}\n.route-history-content[data-v-3737035d] {\r\n  flex: 1;\r\n  overflow-y: auto;\r\n  padding: 24px;\r\n  background: #f9fafb;\n}\n.route-history-content[data-v-3737035d]::-webkit-scrollbar {\r\n  width: 8px;\n}\n.route-history-content[data-v-3737035d]::-webkit-scrollbar-track {\r\n  background: #f1f5f9;\r\n  border-radius: 4px;\n}\n.route-history-content[data-v-3737035d]::-webkit-scrollbar-thumb {\r\n  background: #94a3b8;\r\n  border-radius: 4px;\n}\n.route-state-box[data-v-3737035d] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  height: 100%;\r\n  min-height: 300px;\r\n  text-align: center;\n}\n.empty-icon-wrapper[data-v-3737035d] {\r\n  width: 80px;\r\n  height: 80px;\r\n  border-radius: 50%;\r\n  background: #f1f5f9;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 2rem;\r\n  color: #94a3b8;\r\n  margin-bottom: 16px;\n}\r\n\r\n/* ===== TIMELINE ===== */\n.timeline-container[data-v-3737035d] {\r\n  position: relative;\r\n  padding-left: 45px;\n}\n.timeline-container[data-v-3737035d]::before {\r\n  content: \"\";\r\n  position: absolute;\r\n  left: 14px;\r\n  top: 10px;\r\n  bottom: 10px;\r\n  width: 2px;\r\n  background: linear-gradient(180deg, #cbd5e1 0%, #e2e8f0 100%);\n}\n.timeline-item[data-v-3737035d] {\r\n  position: relative;\r\n  margin-bottom: 32px;\n}\n.timeline-item.is-last[data-v-3737035d] {\r\n  margin-bottom: 0;\n}\n.timeline-node[data-v-3737035d] {\r\n  position: absolute;\r\n  left: -38px;\r\n  top: 0;\r\n  width: 30px;\r\n  height: 30px;\r\n  border-radius: 50%;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  color: white;\r\n  z-index: 2;\r\n  border: 3px solid #ffffff;\r\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);\r\n  font-size: 0.8rem;\n}\n.node-completed[data-v-3737035d] {\r\n  background: #059669;\n}\n.node-active[data-v-3737035d] {\r\n  background: #2563eb;\r\n  animation: pulse-3737035d 2s infinite;\n}\n.node-pending[data-v-3737035d] {\r\n  background: #d97706;\n}\n.node-rejected[data-v-3737035d] {\r\n  background: #dc2626;\n}\n@keyframes pulse-3737035d {\n0%,\r\n  100% {\r\n    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);\n}\n50% {\r\n    box-shadow: 0 0 0 8px rgba(37, 99, 235, 0.1);\n}\n}\n.timeline-card[data-v-3737035d] {\r\n  background: #ffffff;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 12px;\r\n  transition: all 0.3s ease;\r\n  overflow: hidden;\r\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);\n}\n.timeline-card[data-v-3737035d]:hover {\r\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);\r\n  transform: translateY(-2px);\r\n  border-color: #cbd5e1;\n}\n.timeline-card.active-card[data-v-3737035d] {\r\n  border-left: 4px solid #2563eb;\r\n  background: linear-gradient(135deg, #eff6ff, #ffffff);\n}\n.timeline-card-header[data-v-3737035d] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 16px 20px;\r\n  background: #f8fafc;\r\n  border-bottom: 1px solid #e5e7eb;\r\n  flex-wrap: wrap;\r\n  gap: 12px;\n}\n.office-info[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 12px;\n}\n.office-info i[data-v-3737035d] {\r\n  font-size: 1.25rem;\r\n  color: #2d6a4f;\n}\n.office-text[data-v-3737035d] {\r\n  display: flex;\r\n  flex-direction: column;\n}\n.office-name[data-v-3737035d] {\r\n  font-size: 1rem;\r\n  font-weight: 700;\r\n  color: #1e293b;\r\n  line-height: 1.3;\n}\n.route-status-badge[data-v-3737035d] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  font-size: 0.75rem;\r\n  font-weight: 700;\r\n  padding: 5px 12px;\r\n  border-radius: 20px;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  white-space: nowrap;\n}\n.badge-completed[data-v-3737035d] {\r\n  background: #d1fae5;\r\n  color: #059669;\r\n  border: 1px solid #a7f3d0;\n}\n.badge-active[data-v-3737035d] {\r\n  background: #dbeafe;\r\n  color: #2563eb;\r\n  border: 1px solid #bfdbfe;\n}\n.badge-pending[data-v-3737035d] {\r\n  background: #fef3c7;\r\n  color: #d97706;\r\n  border: 1px solid #fde68a;\n}\n.badge-rejected[data-v-3737035d] {\r\n  background: #fee2e2;\r\n  color: #dc2626;\r\n  border: 1px solid #fecaca;\n}\n.timeline-card-body[data-v-3737035d] {\r\n  padding: 20px;\n}\r\n\r\n/* ===== ENHANCED INFO GRID ===== */\n.info-grid-enhanced[data-v-3737035d] {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));\r\n  gap: 16px;\r\n  margin-bottom: 20px;\n}\r\n\r\n/* ===== INFO CARDS ===== */\n.info-card[data-v-3737035d] {\r\n  background: #ffffff;\r\n  border-radius: 12px;\r\n  border: 1px solid #e5e7eb;\r\n  overflow: hidden;\r\n  transition: all 0.3s ease;\n}\n.received-card[data-v-3737035d] {\r\n  border-left: 4px solid #3b82f6;\n}\n.completed-card[data-v-3737035d] {\r\n  border-left: 4px solid #10b981;\n}\n.info-card-header[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 10px;\r\n  padding: 12px 16px;\r\n  background: #f8fafc;\r\n  border-bottom: 1px solid #e5e7eb;\n}\n.info-card-icon[data-v-3737035d] {\r\n  width: 32px;\r\n  height: 32px;\r\n  border-radius: 8px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1rem;\r\n  color: #ffffff;\r\n  flex-shrink: 0;\n}\n.completed-icon[data-v-3737035d] {\r\n  background: linear-gradient(135deg, #10b981, #059669);\n}\n.info-card-title[data-v-3737035d] {\r\n  font-weight: 700;\r\n  font-size: 0.8rem;\r\n  color: #1e293b;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  flex: 1;\n}\n.info-card-status[data-v-3737035d] {\r\n  font-size: 0.65rem;\r\n  font-weight: 700;\r\n  padding: 3px 10px;\r\n  border-radius: 20px;\n}\n.completed-status[data-v-3737035d] {\r\n  background: #d1fae5;\r\n  color: #059669;\n}\n.info-card-body[data-v-3737035d] {\r\n  padding: 12px 16px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 10px;\n}\n.info-field[data-v-3737035d] {\r\n  display: flex;\r\n  gap: 12px;\r\n  align-items: flex-start;\n}\n.field-icon[data-v-3737035d] {\r\n  width: 28px;\r\n  height: 28px;\r\n  min-width: 28px;\r\n  border-radius: 6px;\r\n  background: #f1f5f9;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 0.85rem;\r\n  color: #64748b;\n}\n.remarks-icon[data-v-3737035d] {\r\n  background: #fffbeb;\r\n  color: #d97706;\n}\n.notes-icon[data-v-3737035d] {\r\n  background: #f0fdf4;\r\n  color: #059669;\n}\n.field-content[data-v-3737035d] {\r\n  flex: 1;\r\n  min-width: 0;\n}\n.field-label[data-v-3737035d] {\r\n  display: block;\r\n  font-size: 0.65rem;\r\n  font-weight: 600;\r\n  color: #64748b;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  margin-bottom: 2px;\n}\n.field-value[data-v-3737035d] {\r\n  display: block;\r\n  font-size: 0.85rem;\r\n  color: #1e293b;\r\n  font-weight: 500;\r\n  word-break: break-word;\r\n  line-height: 1.4;\n}\n.received-date[data-v-3737035d] {\r\n  color: #2563eb;\r\n  font-weight: 600;\n}\n.completed-date[data-v-3737035d] {\r\n  color: #059669;\r\n  font-weight: 600;\n}\n.remarks-text[data-v-3737035d] {\r\n  font-style: italic;\r\n  color: #78350f;\r\n  background: #fffbeb;\r\n  padding: 4px 10px;\r\n  border-radius: 6px;\r\n  border-left: 3px solid #f59e0b;\n}\n.notes-text[data-v-3737035d] {\r\n  background: #f0fdf4;\r\n  padding: 4px 10px;\r\n  border-radius: 6px;\r\n  border-left: 3px solid #10b981;\n}\n.text-muted[data-v-3737035d] {\r\n  color: #94a3b8;\n}\r\n\r\n/* ===== FLOW SECTION ===== */\n.flow-section-enhanced[data-v-3737035d] {\r\n  margin-top: 8px;\r\n  padding: 16px 20px;\r\n  background: linear-gradient(135deg, #f8fafc, #f1f5f9);\r\n  border-radius: 12px;\r\n  border: 1px solid #e5e7eb;\n}\n.flow-container[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 16px;\r\n  flex-wrap: wrap;\n}\n.flow-node[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 12px;\r\n  flex: 1;\r\n  min-width: 150px;\r\n  padding: 10px 14px;\r\n  background: #ffffff;\r\n  border-radius: 10px;\r\n  border: 1px solid #e5e7eb;\r\n  transition: all 0.3s ease;\n}\n.origin-node[data-v-3737035d] {\r\n  border-left: 4px solid #3b82f6;\n}\n.destination-node[data-v-3737035d] {\r\n  border-left: 4px solid #10b981;\n}\n.flow-node-icon[data-v-3737035d] {\r\n  width: 32px;\r\n  height: 32px;\r\n  min-width: 32px;\r\n  border-radius: 8px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1rem;\r\n  color: #ffffff;\n}\n.origin-node .flow-node-icon[data-v-3737035d] {\r\n  background: linear-gradient(135deg, #3b82f6, #2563eb);\n}\n.destination-node .flow-node-icon[data-v-3737035d] {\r\n  background: linear-gradient(135deg, #10b981, #059669);\n}\n.flow-node-content[data-v-3737035d] {\r\n  flex: 1;\r\n  min-width: 0;\n}\n.flow-node-label[data-v-3737035d] {\r\n  display: block;\r\n  font-size: 0.6rem;\r\n  font-weight: 700;\r\n  color: #64748b;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\n}\n.flow-node-value[data-v-3737035d] {\r\n  display: block;\r\n  font-size: 0.85rem;\r\n  font-weight: 600;\r\n  color: #1e293b;\r\n  word-break: break-word;\n}\n.flow-arrow-enhanced[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 4px;\r\n  flex-shrink: 0;\r\n  padding: 0 4px;\n}\n.arrow-line[data-v-3737035d] {\r\n  width: 20px;\r\n  height: 2px;\r\n  background: linear-gradient(90deg, #94a3b8, #cbd5e1);\r\n  border-radius: 2px;\n}\n.arrow-icon[data-v-3737035d] {\r\n  font-size: 1.4rem;\r\n  color: #94a3b8;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  animation: arrowPulse-3737035d 1.5s ease-in-out infinite;\n}\n@keyframes arrowPulse-3737035d {\n0%,\r\n  100% {\r\n    transform: translateX(0);\r\n    opacity: 1;\n}\n50% {\r\n    transform: translateX(4px);\r\n    opacity: 0.6;\n}\n}\r\n\r\n/* ===== DOCUMENT HEADER ===== */\n.document-header[data-v-3737035d] {\r\n  padding: 16px 24px;\n}\n.document-icon[data-v-3737035d] {\r\n  background: rgba(220, 38, 38, 0.2);\n}\n.header-actions[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\n}\n.btn-header-action[data-v-3737035d] {\r\n  background: rgba(255, 255, 255, 0.15);\r\n  border: 1px solid rgba(255, 255, 255, 0.2);\r\n  color: white;\r\n  width: 36px;\r\n  height: 36px;\r\n  border-radius: 8px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  cursor: pointer;\r\n  transition: all 0.2s;\n}\n.btn-header-action[data-v-3737035d]:hover {\r\n  background: rgba(255, 255, 255, 0.3);\r\n  transform: scale(1.05);\n}\n.btn-header-update[data-v-3737035d] {\r\n  background: rgba(251, 191, 36, 0.3);\r\n  border-color: rgba(251, 191, 36, 0.4);\n}\n.btn-header-update[data-v-3737035d]:hover {\r\n  background: rgba(251, 191, 36, 0.5);\r\n  transform: scale(1.05);\n}\n.tracking-badge[data-v-3737035d] {\r\n  background: rgba(255, 255, 255, 0.2);\r\n  padding: 2px 10px;\r\n  border-radius: 12px;\r\n  font-family: \"Courier New\", monospace;\r\n  font-size: 0.75rem;\r\n  margin-right: 8px;\n}\n.status-pill[data-v-3737035d] {\r\n  display: inline-block;\r\n  padding: 2px 10px;\r\n  border-radius: 12px;\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  background: rgba(255, 255, 255, 0.2);\r\n  border: 1px solid rgba(255, 255, 255, 0.3);\n}\r\n\r\n/* ===== RESPONSIVE ===== */\n@media (max-width: 1200px) {\n.document-view-modal[data-v-3737035d] {\r\n    max-width: 98vw;\n}\n.document-viewer-layout[data-v-3737035d] {\r\n    grid-template-columns: 340px 1fr;\n}\n}\n@media (max-width: 1024px) {\n.search-filter-row[data-v-3737035d] {\r\n    flex-direction: column;\n}\n.filter-wrapper[data-v-3737035d] {\r\n    min-width: 100%;\n}\n}\n@media (max-width: 992px) {\n.document-viewer-layout[data-v-3737035d] {\r\n    grid-template-columns: 1fr;\r\n    grid-template-rows: auto 1fr;\r\n    height: calc(90vh - 140px);\n}\n.details-panel[data-v-3737035d] {\r\n    border-right: none;\r\n    border-bottom: 1px solid #e5e7eb;\r\n    max-height: 350px;\n}\n.pdf-viewer-wrapper[data-v-3737035d] {\r\n    min-height: 350px;\n}\n.info-grid-enhanced[data-v-3737035d] {\r\n    grid-template-columns: 1fr;\n}\n.flow-container[data-v-3737035d] {\r\n    flex-direction: column;\r\n    gap: 8px;\n}\n.flow-node[data-v-3737035d] {\r\n    width: 100%;\r\n    min-width: unset;\n}\n.flow-arrow-enhanced[data-v-3737035d] {\r\n    transform: rotate(90deg);\r\n    padding: 0;\n}\n.arrow-line[data-v-3737035d] {\r\n    width: 30px;\n}\n}\n@media (max-width: 768px) {\n.document-view-modal[data-v-3737035d] {\r\n    max-width: 100vw;\r\n    width: 100vw;\r\n    margin: 0;\r\n    border-radius: 0;\r\n    max-height: 100vh;\n}\n.document-viewer-tabs[data-v-3737035d] {\r\n    padding: 8px 12px;\r\n    gap: 4px;\n}\n.viewer-tab-btn[data-v-3737035d] {\r\n    padding: 8px 14px;\r\n    font-size: 12px;\n}\n.details-panel[data-v-3737035d] {\r\n    max-height: 280px;\n}\n.pdf-viewer-wrapper[data-v-3737035d] {\r\n    min-height: 300px;\n}\n.pdf-state[data-v-3737035d] {\r\n    min-height: 300px;\n}\n.route-history-content[data-v-3737035d] {\r\n    padding: 16px;\n}\n.timeline-container[data-v-3737035d] {\r\n    padding-left: 35px;\n}\n.timeline-node[data-v-3737035d] {\r\n    left: -30px;\r\n    width: 24px;\r\n    height: 24px;\r\n    font-size: 0.7rem;\n}\n.info-card-body[data-v-3737035d] {\r\n    padding: 10px 12px;\r\n    gap: 8px;\n}\n.info-field[data-v-3737035d] {\r\n    flex-direction: column;\r\n    gap: 4px;\n}\n.field-icon[data-v-3737035d] {\r\n    width: 24px;\r\n    height: 24px;\r\n    min-width: 24px;\r\n    font-size: 0.75rem;\n}\n.flow-node[data-v-3737035d] {\r\n    padding: 8px 12px;\n}\n.flow-node-value[data-v-3737035d] {\r\n    font-size: 0.8rem;\n}\n.flow-section-enhanced[data-v-3737035d] {\r\n    padding: 12px 14px;\n}\n}\n@media (max-width: 576px) {\n.document-header[data-v-3737035d] {\r\n    padding: 12px 16px;\n}\n.viewer-tab-btn span[data-v-3737035d] {\r\n    display: none;\n}\n.viewer-tab-btn i[data-v-3737035d] {\r\n    font-size: 16px;\n}\n.detail-card[data-v-3737035d] {\r\n    padding: 10px;\n}\n.detail-icon-wrapper[data-v-3737035d] {\r\n    width: 34px;\r\n    height: 34px;\r\n    min-width: 34px;\r\n    font-size: 0.9rem;\n}\n.btn-pdf-control[data-v-3737035d] {\r\n    width: 30px;\r\n    height: 30px;\r\n    font-size: 0.8rem;\n}\n.pdf-footer[data-v-3737035d] {\r\n    flex-direction: column;\r\n    gap: 4px;\r\n    align-items: flex-start;\n}\n.route-history-header[data-v-3737035d] {\r\n    padding: 12px 16px;\r\n    flex-direction: column;\r\n    gap: 8px;\r\n    align-items: flex-start;\n}\n.active-filters[data-v-3737035d] {\r\n    flex-direction: column;\r\n    align-items: flex-start;\n}\n.info-card[data-v-3737035d] {\r\n    border-radius: 8px;\n}\n.info-card-title[data-v-3737035d] {\r\n    font-size: 0.7rem;\n}\n.field-value[data-v-3737035d] {\r\n    font-size: 0.8rem;\n}\n.enhanced-modal[data-v-3737035d] {\r\n    max-width: 95%;\r\n    margin: 0 10px;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* Modal Overlay */\n.modal-overlay[data-v-3737035d] {\r\n  position: fixed;\r\n  inset: 0;\r\n  background: rgba(0, 0, 0, 0.55);\r\n  backdrop-filter: blur(4px);\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  z-index: 1050;\r\n  animation: fadeIn-3737035d 0.2s ease-out;\r\n  padding: 15px;\n}\r\n\r\n/* Modal Dialogs */\n.enhanced-modal[data-v-3737035d] {\r\n  width: 100%;\r\n  max-width: 620px;\r\n  margin: 0 auto;\r\n  animation: modalSlideUp-3737035d 0.3s ease-out;\n}\n.release-modal[data-v-3737035d] {\r\n  max-width: 700px;\n}\n.document-view-modal[data-v-3737035d] {\r\n  max-width: 1400px;\r\n  width: 95vw;\r\n  max-height: 90vh;\n}\r\n\r\n/* Modal Content */\n.square-modal[data-v-3737035d] {\r\n  border: none;\r\n  border-radius: 12px;\r\n  overflow: hidden;\r\n  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);\r\n  background: #fff;\r\n  max-height: 95vh;\r\n  display: flex;\r\n  flex-direction: column;\n}\r\n\r\n/* Modal Header */\n.square-header[data-v-3737035d] {\r\n  padding: 16px 20px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n  color: white;\r\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\r\n  flex-shrink: 0;\r\n  background: linear-gradient(135deg, #1e4d2b, #2d6a4f);\n}\n.square-icon[data-v-3737035d] {\r\n  width: 40px;\r\n  height: 40px;\r\n  background: rgba(255, 255, 255, 0.2);\r\n  border-radius: 10px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1.3rem;\r\n  margin-right: 12px;\r\n  flex-shrink: 0;\n}\n.modal-title[data-v-3737035d] {\r\n  font-weight: 700;\r\n  font-size: 1.1rem;\r\n  margin: 0;\n}\n.modal-subtitle[data-v-3737035d] {\r\n  font-size: 0.75rem;\r\n  opacity: 0.85;\r\n  display: block;\n}\r\n\r\n/* Close Button */\n.btn-close-custom.square-close[data-v-3737035d] {\r\n  background: rgba(255, 255, 255, 0.15);\r\n  border: none;\r\n  color: white;\r\n  width: 34px;\r\n  height: 34px;\r\n  border-radius: 8px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  cursor: pointer;\r\n  transition: background 0.2s;\r\n  flex-shrink: 0;\n}\n.btn-close-custom.square-close[data-v-3737035d]:hover {\r\n  background: rgba(255, 255, 255, 0.3);\n}\r\n\r\n/* Modal Body */\n.modal-body-enhanced[data-v-3737035d] {\r\n  padding: 20px;\r\n  background: #f9fafb;\r\n  overflow-y: auto;\r\n  flex: 1;\n}\n.document-viewer-body[data-v-3737035d] {\r\n  padding: 0;\r\n  max-height: calc(90vh - 80px);\r\n  overflow: hidden;\r\n  display: flex;\r\n  flex-direction: column;\n}\r\n\r\n/* Error Messages */\n.error-msg[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  background: #fef0ef;\r\n  border: 1px solid #f5c6c3;\r\n  border-radius: 7px;\r\n  padding: 10px 14px;\r\n  font-size: 12px;\r\n  color: #c0392b;\r\n  margin-bottom: 16px;\r\n  font-weight: 500;\n}\r\n\r\n/* Form Elements */\n.form-label-enhanced[data-v-3737035d] {\r\n  font-weight: 600;\r\n  font-size: 0.85rem;\r\n  color: #1e293b;\r\n  margin-bottom: 6px;\r\n  display: block;\n}\n.required-star[data-v-3737035d] {\r\n  color: #dc2626;\r\n  margin-left: 3px;\n}\n.form-input[data-v-3737035d] {\r\n  width: 100%;\r\n  height: 42px;\r\n  padding: 0 12px;\r\n  border: 1.5px solid #e2e8f0;\r\n  border-radius: 8px;\r\n  font-size: 13px;\r\n  color: #1c2b24;\r\n  background: #fff;\r\n  outline: none;\r\n  transition: border-color 0.2s, box-shadow 0.2s;\n}\n.form-input[data-v-3737035d]:focus {\r\n  border-color: #059669;\r\n  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);\n}\n.form-input[data-v-3737035d]:disabled {\r\n  opacity: 0.7;\r\n  cursor: not-allowed;\n}\n.form-textarea[data-v-3737035d] {\r\n  height: auto;\r\n  padding-top: 10px;\r\n  resize: vertical;\r\n  min-height: 42px;\n}\r\n\r\n/* Release Info Grid */\n.release-doc-info-grid[data-v-3737035d] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr;\r\n  gap: 10px;\r\n  margin-bottom: 16px;\n}\n.release-info-card[data-v-3737035d] {\r\n  background: #fff;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  padding: 10px 14px;\r\n  transition: all 0.2s ease;\n}\n.release-info-card[data-v-3737035d]:hover {\r\n  border-color: #059669;\r\n  background: #f0fdf4;\n}\n.release-info-label[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 4px;\r\n  font-size: 0.6rem;\r\n  font-weight: 600;\r\n  color: #64748b;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  margin-bottom: 3px;\n}\n.release-info-label i[data-v-3737035d] {\r\n  font-size: 0.7rem;\r\n  color: #059669;\n}\n.release-info-value[data-v-3737035d] {\r\n  font-size: 0.85rem;\r\n  font-weight: 600;\r\n  color: #1e293b;\r\n  word-break: break-word;\n}\n.tracking-value[data-v-3737035d] {\r\n  font-family: \"Courier New\", monospace;\r\n  color: #059669;\r\n  background: #ecfdf5;\r\n  padding: 1px 6px;\r\n  border-radius: 4px;\r\n  display: inline-block;\n}\n.subject-value[data-v-3737035d] {\r\n  font-weight: 500;\r\n  font-size: 0.8rem;\n}\r\n\r\n/* Release Date/Time */\n.release-datetime-grid[data-v-3737035d] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr;\r\n  gap: 10px;\r\n  margin-bottom: 14px;\n}\n.form-group[data-v-3737035d] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 3px;\n}\n.form-label-sm[data-v-3737035d] {\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  color: #475569;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.3px;\n}\r\n\r\n/* Upload Area */\n.release-upload-area[data-v-3737035d] {\r\n  border: 2px dashed #d1d5db;\r\n  border-radius: 10px;\r\n  padding: 24px 16px;\r\n  text-align: center;\r\n  cursor: pointer;\r\n  transition: all 0.3s ease;\r\n  background: #fafbfc;\r\n  min-height: 100px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  position: relative;\n}\n.release-upload-area[data-v-3737035d]:hover {\r\n  border-color: #059669;\r\n  background: #f0fdf4;\n}\n.release-upload-area.drag-over[data-v-3737035d] {\r\n  border-color: #059669;\r\n  background: #ecfdf5;\r\n  transform: scale(1.01);\n}\n.release-upload-area.has-file[data-v-3737035d] {\r\n  border-color: #059669;\r\n  background: #ecfdf5;\r\n  border-style: solid;\n}\n.release-upload-content[data-v-3737035d] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  width: 100%;\n}\n.upload-icon-wrapper[data-v-3737035d] {\r\n  width: 60px;\r\n  height: 60px;\r\n  margin: 0 auto 8px;\r\n  background: #d1fae5;\r\n  border-radius: 50%;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1.6rem;\r\n  color: #059669;\n}\n.upload-title[data-v-3737035d] {\r\n  font-weight: 600;\r\n  color: #1e293b;\r\n  font-size: 0.85rem;\r\n  margin-bottom: 2px;\n}\n.upload-subtitle[data-v-3737035d] {\r\n  font-size: 0.7rem;\r\n  color: #94a3b8;\r\n  margin: 0;\n}\n.upload-file-preview[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 12px;\r\n  width: 100%;\r\n  padding: 6px 10px;\r\n  background: #fff;\r\n  border-radius: 8px;\r\n  border: 1px solid #e5e7eb;\n}\n.upload-file-icon[data-v-3737035d] {\r\n  width: 38px;\r\n  height: 38px;\r\n  min-width: 38px;\r\n  border-radius: 8px;\r\n  background: #fef2f2;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1.2rem;\r\n  color: #dc2626;\n}\n.upload-file-info[data-v-3737035d] {\r\n  flex: 1;\r\n  text-align: left;\r\n  min-width: 0;\n}\n.upload-file-name[data-v-3737035d] {\r\n  display: block;\r\n  font-weight: 600;\r\n  color: #1e293b;\r\n  font-size: 0.8rem;\r\n  word-break: break-all;\n}\n.upload-file-size[data-v-3737035d] {\r\n  display: block;\r\n  font-size: 0.65rem;\r\n  color: #64748b;\n}\n.upload-remove-btn[data-v-3737035d] {\r\n  width: 28px;\r\n  height: 28px;\r\n  border: none;\r\n  border-radius: 6px;\r\n  background: #fef2f2;\r\n  color: #dc2626;\r\n  cursor: pointer;\r\n  transition: all 0.2s ease;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 0.9rem;\r\n  flex-shrink: 0;\n}\n.upload-remove-btn[data-v-3737035d]:hover:not(:disabled) {\r\n  background: #fee2e2;\r\n  transform: scale(1.1);\n}\n.upload-remove-btn[data-v-3737035d]:disabled {\r\n  opacity: 0.5;\r\n  cursor: not-allowed;\n}\n.release-file-input[data-v-3737035d] {\r\n  display: none;\n}\n.upload-progress[data-v-3737035d] {\r\n  margin-top: 8px;\r\n  position: relative;\r\n  height: 5px;\r\n  background: #e5e7eb;\r\n  border-radius: 3px;\r\n  overflow: hidden;\n}\n.progress-bar[data-v-3737035d] {\r\n  height: 100%;\r\n  background: linear-gradient(90deg, #059669, #047857);\r\n  border-radius: 3px;\r\n  transition: width 0.3s ease;\n}\n.progress-text[data-v-3737035d] {\r\n  position: absolute;\r\n  right: 0;\r\n  top: -18px;\r\n  font-size: 0.65rem;\r\n  font-weight: 600;\r\n  color: #059669;\n}\r\n\r\n/* Modal Actions */\n.modal-actions[data-v-3737035d] {\r\n  margin-top: 16px;\r\n  padding-top: 14px;\r\n  border-top: 1px solid #e5e7eb;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  flex-wrap: wrap;\r\n  gap: 10px;\n}\n.square-btn[data-v-3737035d] {\r\n  border-radius: 8px !important;\r\n  font-weight: 600;\r\n  transition: all 0.2s;\r\n  padding: 8px 18px;\r\n  font-size: 0.85rem;\n}\n.btn-save[data-v-3737035d] {\r\n  color: white;\r\n  border: none;\r\n  padding: 8px 20px;\r\n  font-weight: 600;\r\n  display: inline-flex;\r\n  align-items: center;\n}\n.btn-save[data-v-3737035d]:hover:not(:disabled) {\r\n  box-shadow: 0 4px 16px rgba(5, 150, 105, 0.4);\r\n  transform: translateY(-1px);\n}\n.btn-save[data-v-3737035d]:disabled {\r\n  opacity: 0.7;\r\n  cursor: not-allowed;\r\n  transform: none;\n}\r\n\r\n/* Table */\n.office-table[data-v-3737035d] {\r\n  width: 100%;\r\n  border-collapse: collapse;\r\n  font-size: 13px;\r\n  background: white;\n}\n.office-table th[data-v-3737035d],\r\n.office-table td[data-v-3737035d] {\r\n  border: 1px solid #f3f4f6;\r\n  padding: 10px 12px;\r\n  text-align: left;\r\n  vertical-align: middle;\n}\n.office-table thead th[data-v-3737035d] {\r\n  background: #f8fafc;\r\n  font-weight: 700;\r\n  color: #374151;\r\n  text-transform: uppercase;\r\n  font-size: 11px;\r\n  letter-spacing: 0.5px;\r\n  border-bottom: 2px solid #e5e7eb;\n}\n.office-table tbody tr[data-v-3737035d]:hover {\r\n  background: #f0fdf4;\n}\n.office-table tbody tr[data-v-3737035d]:nth-child(even) {\r\n  background: #fafafa;\n}\n.office-table tbody tr[data-v-3737035d]:nth-child(even):hover {\r\n  background: #f0fdf4;\n}\n.row-number[data-v-3737035d] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 26px;\r\n  height: 26px;\r\n  border-radius: 6px;\r\n  background: #f3f4f6;\r\n  color: #6b7280;\r\n  font-size: 11px;\r\n  font-weight: 600;\n}\n.tracking-number[data-v-3737035d] {\r\n  font-weight: 700;\r\n  color: #2d6a4f;\r\n  font-family: \"Courier New\", monospace;\r\n  font-size: 12px;\r\n  padding: 2px 6px;\r\n  background: #f0fdf4;\r\n  border-radius: 4px;\n}\n.doc-type-badge[data-v-3737035d] {\r\n  display: inline-block;\r\n  padding: 2px 8px;\r\n  background: #e0e7ff;\r\n  color: #3730a3;\r\n  border-radius: 4px;\r\n  font-size: 10px;\r\n  font-weight: 600;\r\n  border: 1px solid #c7d2fe;\n}\n.subject-text[data-v-3737035d] {\r\n  color: #1e293b;\r\n  font-weight: 500;\r\n  line-height: 1.4;\r\n  font-size: 12px;\n}\n.date-received[data-v-3737035d] {\r\n  color: #64748b;\r\n  font-size: 11px;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 4px;\n}\n.date-icon[data-v-3737035d] {\r\n  color: #94a3b8;\r\n  font-size: 12px;\n}\r\n\r\n/* Action Buttons */\n.action-buttons[data-v-3737035d] {\r\n  display: flex;\r\n  gap: 4px;\r\n  align-items: center;\n}\n.btn-action[data-v-3737035d] {\r\n  background: none;\r\n  border: 1px solid transparent;\r\n  border-radius: 6px;\r\n  padding: 5px 8px;\r\n  cursor: pointer;\r\n  font-size: 0.9rem;\r\n  transition: all 0.2s;\n}\n.btn-view[data-v-3737035d] {\r\n  color: #6366f1;\r\n  border-color: #c7d2fe;\r\n  background: #eef2ff;\n}\n.btn-forward[data-v-3737035d] {\r\n  color: #2563eb;\r\n  border-color: #93c5fd;\r\n  background: #dbeafe;\n}\n.btn-view[data-v-3737035d]:hover {\r\n  background: #ddd6fe;\r\n  transform: scale(1.05);\n}\n.btn-forward[data-v-3737035d]:hover {\r\n  background: #93c5fd;\r\n  transform: scale(1.05);\n}\r\n\r\n/* Filters */\n.filter-controls[data-v-3737035d] {\r\n  margin-bottom: 16px;\n}\n.search-filter-row[data-v-3737035d] {\r\n  display: flex;\r\n  gap: 10px;\r\n  align-items: center;\r\n  flex-wrap: wrap;\n}\n.search-box-wrapper[data-v-3737035d] {\r\n  flex: 1;\r\n  min-width: 180px;\n}\n.search-box[data-v-3737035d] {\r\n  position: relative;\r\n  width: 100%;\n}\n.search-icon[data-v-3737035d] {\r\n  position: absolute;\r\n  left: 10px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  color: #9ca3af;\r\n  z-index: 1;\n}\n.search-input[data-v-3737035d] {\r\n  width: 100%;\r\n  padding: 8px 30px 8px 32px;\r\n  border: 2px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  font-size: 13px;\r\n  outline: none;\r\n  background: #fff;\r\n  transition: all 0.3s ease;\n}\n.search-input[data-v-3737035d]:focus {\r\n  border-color: #2d6a4f;\r\n  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\n.search-clear-btn[data-v-3737035d] {\r\n  position: absolute;\r\n  right: 6px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  background: none;\r\n  border: none;\r\n  color: #9ca3af;\r\n  cursor: pointer;\r\n  padding: 2px;\n}\n.search-clear-btn[data-v-3737035d]:hover {\r\n  color: #ef4444;\n}\n.per-page-wrapper[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  white-space: nowrap;\n}\n.per-page-label[data-v-3737035d] {\r\n  font-size: 12px;\r\n  color: #6b7280;\r\n  font-weight: 500;\n}\n.per-page-select[data-v-3737035d] {\r\n  padding: 6px 10px;\r\n  border: 2px solid #e5e7eb;\r\n  border-radius: 6px;\r\n  font-size: 12px;\r\n  background: #fff;\r\n  outline: none;\r\n  cursor: pointer;\r\n  transition: all 0.3s ease;\n}\n.per-page-select[data-v-3737035d]:focus {\r\n  border-color: #2d6a4f;\n}\n.filter-wrapper[data-v-3737035d] {\r\n  min-width: 160px;\n}\n.filter-box[data-v-3737035d] {\r\n  position: relative;\n}\n.filter-icon[data-v-3737035d] {\r\n  position: absolute;\r\n  left: 10px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  color: #9ca3af;\r\n  z-index: 1;\n}\n.filter-select[data-v-3737035d] {\r\n  width: 100%;\r\n  padding: 8px 10px 8px 32px;\r\n  border: 2px solid #e5e7eb;\r\n  border-radius: 6px;\r\n  font-size: 12px;\r\n  background: #fff;\r\n  outline: none;\r\n  cursor: pointer;\r\n  -webkit-appearance: none;\r\n     -moz-appearance: none;\r\n          appearance: none;\r\n  background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E\");\r\n  background-repeat: no-repeat;\r\n  background-position: right 8px center;\r\n  transition: all 0.3s ease;\n}\n.filter-select[data-v-3737035d]:focus {\r\n  border-color: #2d6a4f;\r\n  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\r\n\r\n/* Active Filters */\n.active-filters[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  margin-top: 10px;\r\n  padding: 8px 12px;\r\n  background: #f0fdf4;\r\n  border: 1px solid #bbf7d0;\r\n  border-radius: 6px;\r\n  flex-wrap: wrap;\n}\n.active-filters-label[data-v-3737035d] {\r\n  font-size: 11px;\r\n  font-weight: 600;\r\n  color: #166534;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\n}\n.filter-tag[data-v-3737035d] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  gap: 4px;\r\n  padding: 3px 8px;\r\n  background: #fff;\r\n  border: 1px solid #86efac;\r\n  border-radius: 16px;\r\n  font-size: 11px;\r\n  color: #166534;\r\n  font-weight: 500;\n}\n.filter-tag-close[data-v-3737035d] {\r\n  background: none;\r\n  border: none;\r\n  color: #6b7280;\r\n  cursor: pointer;\r\n  padding: 0;\r\n  display: flex;\r\n  align-items: center;\n}\n.filter-tag-close[data-v-3737035d]:hover {\r\n  color: #ef4444;\n}\n.clear-all-filters[data-v-3737035d] {\r\n  padding: 3px 10px;\r\n  background: none;\r\n  border: 1px solid #86efac;\r\n  border-radius: 4px;\r\n  font-size: 11px;\r\n  color: #166534;\r\n  cursor: pointer;\r\n  font-weight: 600;\r\n  transition: all 0.2s;\n}\n.clear-all-filters[data-v-3737035d]:hover {\r\n  background: #dcfce7;\r\n  border-color: #166534;\n}\n.results-summary[data-v-3737035d] {\r\n  margin-top: 8px;\r\n  font-size: 12px;\r\n  color: #6b7280;\n}\r\n\r\n/* Loader & Empty State */\n.loader-spinner[data-v-3737035d] {\r\n  width: 32px;\r\n  height: 32px;\r\n  border: 3px solid #e5e7eb;\r\n  border-top-color: #2d6a4f;\r\n  border-radius: 50%;\r\n  animation: spin-3737035d 0.8s linear infinite;\r\n  margin: 0 auto 8px;\n}\n.empty-state[data-v-3737035d] {\r\n  padding: 16px;\r\n  text-align: center;\n}\n.text-muted[data-v-3737035d] {\r\n  color: #94a3b8;\n}\r\n\r\n/* Status Badges */\n.status-badge[data-v-3737035d] {\r\n  display: inline-block;\r\n  padding: 3px 10px;\r\n  border-radius: 16px;\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\n}\n.status-in-progress[data-v-3737035d] {\r\n  background: #fef3c7;\r\n  color: #d97706;\r\n  border: 1px solid #fde68a;\n}\n.status-for-release[data-v-3737035d] {\r\n  background: #dbeafe;\r\n  color: #2563eb;\r\n  border: 1px solid #bfdbfe;\n}\n.status-released[data-v-3737035d] {\r\n  background: #d1fae5;\r\n  color: #059669;\r\n  border: 1px solid #a7f3d0;\n}\r\n\r\n/* Document Viewer Tabs */\n.document-viewer-tabs[data-v-3737035d] {\r\n  display: flex;\r\n  gap: 4px;\r\n  padding: 10px 16px;\r\n  background: #f8fafc;\r\n  border-bottom: 2px solid #e5e7eb;\r\n  flex-shrink: 0;\r\n  overflow-x: auto;\n}\n.viewer-tab-btn[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  padding: 8px 16px;\r\n  background: #fff;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 6px;\r\n  color: #64748b;\r\n  font-size: 12px;\r\n  font-weight: 600;\r\n  cursor: pointer;\r\n  white-space: nowrap;\r\n  transition: all 0.3s ease;\n}\n.viewer-tab-btn[data-v-3737035d]:hover {\r\n  background: #f0fdf4;\r\n  border-color: #86efac;\r\n  color: #2d6a4f;\n}\n.viewer-tab-btn.active[data-v-3737035d] {\r\n  background: linear-gradient(135deg, #2d6a4f, #1e4d2b);\r\n  border-color: #2d6a4f;\r\n  color: #fff;\r\n  box-shadow: 0 4px 12px rgba(45, 106, 79, 0.3);\n}\r\n\r\n/* Summary Panel */\n.document-summary-layout[data-v-3737035d] {\r\n  display: flex;\r\n  height: calc(90vh - 140px);\r\n  min-height: 400px;\r\n  background: #f9fafb;\r\n  padding: 20px;\r\n  overflow-y: auto;\n}\n.summary-panel[data-v-3737035d] {\r\n  flex: 1;\r\n  background: #fff;\r\n  border-radius: 12px;\r\n  border: 1px solid #e5e7eb;\r\n  display: flex;\r\n  flex-direction: column;\r\n  overflow: hidden;\n}\n.summary-panel-header[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  padding: 14px 20px;\r\n  background: #f8fafc;\r\n  border-bottom: 1px solid #e5e7eb;\r\n  font-weight: 700;\r\n  color: #1e293b;\r\n  font-size: 0.9rem;\r\n  flex-shrink: 0;\n}\n.summary-panel-header i[data-v-3737035d] {\r\n  color: #2d6a4f;\n}\n.summary-content[data-v-3737035d] {\r\n  flex: 1;\r\n  overflow-y: auto;\r\n  padding: 16px 20px;\n}\n.summary-grid[data-v-3737035d] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr;\r\n  gap: 8px;\r\n  margin-bottom: 8px;\n}\n.summary-card[data-v-3737035d] {\r\n  display: flex;\r\n  gap: 12px;\r\n  padding: 10px 14px;\r\n  background: #f8fafc;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  transition: all 0.2s ease;\n}\n.summary-card[data-v-3737035d]:hover {\r\n  border-color: #cbd5e1;\r\n  background: #f1f5f9;\n}\n.summary-card.full-width[data-v-3737035d] {\r\n  grid-column: 1 / -1;\n}\n.summary-icon-wrapper[data-v-3737035d] {\r\n  width: 36px;\r\n  height: 36px;\r\n  min-width: 36px;\r\n  border-radius: 8px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1rem;\r\n  background: #e0f2fe;\r\n  color: #0284c7;\n}\n.summary-icon-wrapper.type-icon[data-v-3737035d] {\r\n  background: #fef3c7;\r\n  color: #d97706;\n}\n.summary-icon-wrapper.subject-icon[data-v-3737035d] {\r\n  background: #dcfce7;\r\n  color: #16a34a;\n}\n.summary-icon-wrapper.sender-icon[data-v-3737035d] {\r\n  background: #ede9fe;\r\n  color: #7c3aed;\n}\n.summary-icon-wrapper.classification-icon[data-v-3737035d] {\r\n  background: #cffafe;\r\n  color: #0891b2;\n}\n.summary-icon-wrapper.date-icon[data-v-3737035d] {\r\n  background: #fce7f3;\r\n  color: #db2777;\n}\n.summary-icon-wrapper.desc-icon[data-v-3737035d] {\r\n  background: #fff7ed;\r\n  color: #ea580c;\n}\n.summary-icon-wrapper.meta-icon[data-v-3737035d] {\r\n  background: #f1f5f9;\r\n  color: #64748b;\n}\n.summary-icon-wrapper.release-icon[data-v-3737035d] {\r\n  background: #d1fae5;\r\n  color: #059669;\n}\n.summary-info[data-v-3737035d] {\r\n  flex: 1;\r\n  min-width: 0;\n}\n.summary-info label[data-v-3737035d] {\r\n  display: block;\r\n  font-size: 0.6rem;\r\n  font-weight: 600;\r\n  color: #64748b;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  margin-bottom: 2px;\n}\n.summary-value[data-v-3737035d] {\r\n  font-size: 0.85rem;\r\n  color: #1e293b;\r\n  font-weight: 500;\r\n  word-break: break-word;\r\n  line-height: 1.4;\n}\n.classification-value[data-v-3737035d] {\r\n  display: inline-block;\r\n  padding: 2px 10px;\r\n  background: #cffafe;\r\n  color: #0891b2;\r\n  border-radius: 4px;\r\n  font-size: 0.8rem;\r\n  font-weight: 600;\r\n  border: 1px solid #67e8f9;\n}\n.summary-section-title[data-v-3737035d] {\r\n  font-size: 0.75rem;\r\n  font-weight: 700;\r\n  color: #64748b;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  margin: 12px 0 8px 0;\r\n  padding-bottom: 4px;\r\n  border-bottom: 1px solid #e5e7eb;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\n}\n.summary-section-title i[data-v-3737035d] {\r\n  color: #2d6a4f;\n}\n.tracking-number-large[data-v-3737035d] {\r\n  font-size: 0.85rem;\r\n  font-weight: 700;\r\n  color: #2d6a4f;\r\n  font-family: \"Courier New\", monospace;\r\n  background: #f0fdf4;\r\n  padding: 2px 6px;\r\n  border-radius: 4px;\r\n  display: inline-block;\n}\n.doc-type-badge-large[data-v-3737035d] {\r\n  display: inline-block;\r\n  padding: 2px 10px;\r\n  background: #e0e7ff;\r\n  color: #3730a3;\r\n  border-radius: 4px;\r\n  font-size: 0.75rem;\r\n  font-weight: 600;\r\n  border: 1px solid #c7d2fe;\n}\n.time-text[data-v-3737035d] {\r\n  color: #64748b;\r\n  font-size: 0.7rem;\r\n  display: block;\r\n  margin-top: 2px;\n}\n.description-text[data-v-3737035d] {\r\n  font-size: 0.8rem;\r\n  color: #475569;\r\n  line-height: 1.5;\r\n  margin: 0;\n}\r\n\r\n/* Statistics Grid */\n.summary-stats-grid[data-v-3737035d] {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));\r\n  gap: 10px;\r\n  margin-bottom: 8px;\n}\n.summary-stat-card[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 12px;\r\n  padding: 12px 14px;\r\n  background: linear-gradient(135deg, #f8fafc, #fff);\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  transition: all 0.3s ease;\n}\n.summary-stat-card[data-v-3737035d]:hover {\r\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);\r\n  border-color: #93c5fd;\r\n  transform: translateY(-1px);\n}\n.stat-icon-wrapper[data-v-3737035d] {\r\n  width: 42px;\r\n  height: 42px;\r\n  min-width: 42px;\r\n  border-radius: 10px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1.2rem;\n}\n.processing-icon[data-v-3737035d] {\r\n  background: #d1fae5;\r\n  color: #059669;\n}\n.routes-icon[data-v-3737035d] {\r\n  background: #e0e7ff;\r\n  color: #3730a3;\n}\n.calendar-icon[data-v-3737035d] {\r\n  background: #fef3c7;\r\n  color: #d97706;\n}\n.holiday-icon[data-v-3737035d] {\r\n  background: #fee2e2;\r\n  color: #dc2626;\n}\n.age-icon[data-v-3737035d] {\r\n  background: #fce7f3;\r\n  color: #db2777;\n}\n.visited-icon[data-v-3737035d] {\r\n  background: #ede9fe;\r\n  color: #7c3aed;\n}\n.stat-info[data-v-3737035d] {\r\n  flex: 1;\r\n  min-width: 0;\n}\n.stat-label[data-v-3737035d] {\r\n  display: block;\r\n  font-size: 0.6rem;\r\n  font-weight: 600;\r\n  color: #64748b;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\n}\n.stat-value[data-v-3737035d] {\r\n  display: block;\r\n  font-size: 1rem;\r\n  font-weight: 700;\r\n  color: #1e293b;\n}\n.stat-unit[data-v-3737035d] {\r\n  font-size: 0.7rem;\r\n  font-weight: 500;\r\n  color: #94a3b8;\r\n  margin-left: 2px;\n}\r\n\r\n/* Incoming Panel */\n.incoming-document-panel[data-v-3737035d] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: calc(90vh - 140px);\r\n  background: #fff;\r\n  min-height: 400px;\n}\n.incoming-header[data-v-3737035d] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 12px 20px;\r\n  background: #f8fafc;\r\n  border-bottom: 2px solid #e5e7eb;\r\n  flex-shrink: 0;\n}\n.incoming-title[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  font-weight: 700;\r\n  color: #1e293b;\r\n  font-size: 0.9rem;\n}\n.incoming-title i[data-v-3737035d] {\r\n  color: #dc2626;\r\n  font-size: 1.1rem;\n}\n.incoming-badge[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 4px;\r\n  padding: 4px 12px;\r\n  background: #fee2e2;\r\n  border: 1px solid #fecaca;\r\n  border-radius: 16px;\r\n  font-size: 0.75rem;\r\n  font-weight: 600;\r\n  color: #dc2626;\n}\r\n\r\n/* Incoming Info Summary */\n.incoming-info-summary[data-v-3737035d] {\r\n  padding: 12px 20px;\r\n  background: #fff;\r\n  border-bottom: 1px solid #e5e7eb;\n}\n.incoming-info-grid[data-v-3737035d] {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\r\n  gap: 12px;\n}\n.incoming-info-item[data-v-3737035d] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 2px;\n}\n.incoming-info-label[data-v-3737035d] {\r\n  font-size: 0.6rem;\r\n  font-weight: 600;\r\n  color: #64748b;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\n}\n.incoming-info-value[data-v-3737035d] {\r\n  font-size: 0.85rem;\r\n  font-weight: 500;\r\n  color: #1e293b;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\n}\n.incoming-info-value i[data-v-3737035d] {\r\n  color: #2563eb;\r\n  font-size: 0.9rem;\n}\n.incoming-info-value small[data-v-3737035d] {\r\n  font-size: 0.7rem;\r\n  color: #64748b;\r\n  font-weight: 400;\n}\n.incoming-content[data-v-3737035d] {\r\n  flex: 1;\r\n  overflow: hidden;\r\n  display: flex;\r\n  flex-direction: column;\r\n  background: #f9fafb;\n}\n.incoming-pdf-viewer[data-v-3737035d] {\r\n  flex: 1;\r\n  display: flex;\r\n  flex-direction: column;\r\n  background: #fff;\r\n  overflow: hidden;\n}\n.incoming-pdf-header[data-v-3737035d] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 10px 16px;\r\n  background: #fff;\r\n  border-bottom: 1px solid #e5e7eb;\r\n  flex-shrink: 0;\r\n  flex-wrap: wrap;\r\n  gap: 8px;\n}\n.incoming-pdf-title[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  font-weight: 700;\r\n  color: #1e293b;\r\n  font-size: 0.85rem;\n}\n.incoming-pdf-title i[data-v-3737035d] {\r\n  color: #dc2626;\r\n  font-size: 1.1rem;\n}\n.incoming-pdf-controls[data-v-3737035d] {\r\n  display: flex;\r\n  gap: 4px;\r\n  align-items: center;\n}\n.incoming-pdf-wrapper[data-v-3737035d] {\r\n  flex: 1;\r\n  overflow: auto;\r\n  background: #525659;\r\n  position: relative;\r\n  min-height: 300px;\n}\r\n\r\n/* PDF Viewer */\n.pdf-state[data-v-3737035d] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  height: 100%;\r\n  min-height: 300px;\r\n  color: #9ca3af;\r\n  padding: 30px;\n}\n.pdf-loader-animation[data-v-3737035d] {\r\n  position: relative;\r\n  width: 60px;\r\n  height: 60px;\r\n  margin-bottom: 12px;\n}\n.pdf-loader-icon[data-v-3737035d] {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 50%;\r\n  transform: translate(-50%, -50%);\r\n  font-size: 1.6rem;\r\n  color: #dc2626;\r\n  z-index: 2;\n}\n.pdf-error[data-v-3737035d] {\r\n  color: #fca5a5;\n}\n.pdf-error h5[data-v-3737035d] {\r\n  color: #fca5a5;\r\n  font-weight: 600;\r\n  font-size: 1rem;\n}\n.pdf-iframe[data-v-3737035d] {\r\n  border: none;\r\n  display: block;\r\n  background: #fff;\r\n  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);\n}\n.pdf-footer[data-v-3737035d] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 6px 16px;\r\n  background: #fff;\r\n  border-top: 1px solid #e5e7eb;\r\n  font-size: 0.7rem;\r\n  color: #64748b;\r\n  flex-shrink: 0;\r\n  flex-wrap: wrap;\r\n  gap: 4px;\n}\n.pdf-zoom-level[data-v-3737035d] {\r\n  font-weight: 600;\r\n  color: #2d6a4f;\n}\n.pdf-page-info[data-v-3737035d] {\r\n  font-weight: 500;\r\n  color: #475569;\n}\r\n\r\n/* PDF Controls */\n.btn-pdf-control[data-v-3737035d] {\r\n  background: #f1f5f9;\r\n  border: 1px solid #e5e7eb;\r\n  color: #475569;\r\n  width: 30px;\r\n  height: 30px;\r\n  border-radius: 6px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  cursor: pointer;\r\n  transition: all 0.2s;\r\n  font-size: 0.85rem;\n}\n.btn-pdf-control[data-v-3737035d]:hover:not(:disabled) {\r\n  background: #e2e8f0;\r\n  border-color: #94a3b8;\r\n  color: #1e293b;\n}\n.btn-pdf-control[data-v-3737035d]:disabled {\r\n  opacity: 0.5;\r\n  cursor: not-allowed;\n}\n.btn-toolbar-download[data-v-3737035d] {\r\n  background: #d1fae5;\r\n  border: 1px solid #a7f3d0;\r\n  color: #059669;\r\n  padding: 4px 12px;\r\n  border-radius: 6px;\r\n  font-size: 0.75rem;\r\n  font-weight: 600;\r\n  display: inline-flex;\r\n  align-items: center;\r\n  gap: 4px;\r\n  cursor: pointer;\r\n  transition: all 0.2s ease;\r\n  text-decoration: none;\n}\n.btn-toolbar-download[data-v-3737035d]:hover {\r\n  background: #a7f3d0;\r\n  border-color: #059669;\r\n  color: #047857;\n}\r\n\r\n/* Released Panel */\n.released-document-panel[data-v-3737035d] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: calc(90vh - 140px);\r\n  background: #fff;\r\n  min-height: 400px;\n}\n.released-document-header[data-v-3737035d] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 12px 20px;\r\n  background: #f8fafc;\r\n  border-bottom: 2px solid #e5e7eb;\r\n  flex-shrink: 0;\n}\n.released-document-title[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  font-weight: 700;\r\n  color: #1e293b;\r\n  font-size: 0.9rem;\n}\n.released-document-title i[data-v-3737035d] {\r\n  color: #059669;\r\n  font-size: 1.1rem;\n}\n.released-document-badge[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 4px;\r\n  padding: 4px 14px;\r\n  background: #d1fae5;\r\n  border: 1px solid #a7f3d0;\r\n  border-radius: 16px;\r\n  font-size: 0.75rem;\r\n  font-weight: 600;\r\n  color: #059669;\n}\n.released-document-content[data-v-3737035d] {\r\n  flex: 1;\r\n  overflow: hidden;\r\n  display: flex;\r\n  flex-direction: column;\r\n  background: #f9fafb;\n}\n.release-info-summary[data-v-3737035d] {\r\n  padding: 12px 20px;\r\n  background: #fff;\r\n  border-bottom: 1px solid #e5e7eb;\n}\n.release-info-grid[data-v-3737035d] {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));\r\n  gap: 12px;\n}\n.release-info-item[data-v-3737035d] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 2px;\n}\n.release-info-label[data-v-3737035d] {\r\n  font-size: 0.6rem;\r\n  font-weight: 600;\r\n  color: #64748b;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\n}\n.release-info-value[data-v-3737035d] {\r\n  font-size: 0.85rem;\r\n  font-weight: 500;\r\n  color: #1e293b;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\n}\n.release-info-value i[data-v-3737035d] {\r\n  color: #059669;\r\n  font-size: 0.9rem;\n}\n.release-info-value small[data-v-3737035d] {\r\n  font-size: 0.7rem;\r\n  color: #64748b;\r\n  font-weight: 400;\n}\n.released-pdf-viewer[data-v-3737035d] {\r\n  flex: 1;\r\n  display: flex;\r\n  flex-direction: column;\r\n  background: #fff;\r\n  overflow: hidden;\n}\n.released-pdf-header[data-v-3737035d] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 10px 16px;\r\n  background: #fff;\r\n  border-bottom: 1px solid #e5e7eb;\r\n  flex-shrink: 0;\r\n  flex-wrap: wrap;\r\n  gap: 8px;\n}\n.released-pdf-title[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  font-weight: 700;\r\n  color: #1e293b;\r\n  font-size: 0.85rem;\n}\n.released-pdf-title i[data-v-3737035d] {\r\n  color: #059669;\r\n  font-size: 1.1rem;\n}\n.released-pdf-controls[data-v-3737035d] {\r\n  display: flex;\r\n  gap: 4px;\r\n  align-items: center;\n}\n.released-pdf-wrapper[data-v-3737035d] {\r\n  flex: 1;\r\n  overflow: auto;\r\n  background: #525659;\r\n  position: relative;\r\n  min-height: 300px;\n}\r\n\r\n/* Route History */\n.route-history-panel[data-v-3737035d] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: calc(90vh - 140px);\r\n  background: #fff;\r\n  min-height: 400px;\n}\n.route-history-header[data-v-3737035d] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 12px 20px;\r\n  background: #f8fafc;\r\n  border-bottom: 2px solid #e5e7eb;\r\n  flex-shrink: 0;\r\n  flex-wrap: wrap;\r\n  gap: 8px;\n}\n.route-history-title[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\r\n  font-weight: 700;\r\n  color: #1e293b;\r\n  font-size: 0.9rem;\n}\n.route-history-title i[data-v-3737035d] {\r\n  color: #2d6a4f;\r\n  font-size: 1.1rem;\n}\n.route-history-badge[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 4px;\r\n  padding: 4px 12px;\r\n  background: #f0fdf4;\r\n  border: 1px solid #bbf7d0;\r\n  border-radius: 16px;\r\n  font-size: 0.75rem;\r\n  font-weight: 600;\r\n  color: #166534;\n}\n.route-history-content[data-v-3737035d] {\r\n  flex: 1;\r\n  overflow-y: auto;\r\n  padding: 16px;\r\n  background: #f9fafb;\n}\n.route-state-box[data-v-3737035d] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  height: 100%;\r\n  min-height: 200px;\n}\n.empty-icon-wrapper[data-v-3737035d] {\r\n  font-size: 3rem;\r\n  color: #9ca3af;\n}\r\n\r\n/* Timeline */\n.timeline-container[data-v-3737035d] {\r\n  position: relative;\r\n  padding-left: 40px;\n}\n.timeline-container[data-v-3737035d]::before {\r\n  content: \"\";\r\n  position: absolute;\r\n  left: 12px;\r\n  top: 8px;\r\n  bottom: 8px;\r\n  width: 2px;\r\n  background: linear-gradient(180deg, #cbd5e1, #e2e8f0);\n}\n.timeline-item[data-v-3737035d] {\r\n  position: relative;\r\n  margin-bottom: 24px;\n}\n.timeline-item.is-last[data-v-3737035d] {\r\n  margin-bottom: 0;\n}\n.timeline-node[data-v-3737035d] {\r\n  position: absolute;\r\n  left: -34px;\r\n  top: 0;\r\n  width: 26px;\r\n  height: 26px;\r\n  border-radius: 50%;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  color: white;\r\n  z-index: 2;\r\n  border: 3px solid #fff;\r\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);\r\n  font-size: 0.7rem;\n}\n.node-completed[data-v-3737035d] {\r\n  background: #059669;\n}\n.node-active[data-v-3737035d] {\r\n  background: #2563eb;\r\n  animation: pulse-3737035d 2s infinite;\n}\n.node-pending[data-v-3737035d] {\r\n  background: #d97706;\n}\n.node-rejected[data-v-3737035d] {\r\n  background: #dc2626;\n}\n.timeline-card[data-v-3737035d] {\r\n  background: #fff;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 10px;\r\n  transition: all 0.3s ease;\r\n  overflow: hidden;\r\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);\n}\n.timeline-card[data-v-3737035d]:hover {\r\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);\r\n  border-color: #cbd5e1;\n}\n.timeline-card.active-card[data-v-3737035d] {\r\n  border-left: 4px solid #2563eb;\r\n  background: linear-gradient(135deg, #eff6ff, #fff);\n}\n.timeline-card-header[data-v-3737035d] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  padding: 12px 16px;\r\n  background: #f8fafc;\r\n  border-bottom: 1px solid #e5e7eb;\r\n  flex-wrap: wrap;\r\n  gap: 8px;\n}\n.office-info[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 8px;\n}\n.office-info i[data-v-3737035d] {\r\n  font-size: 1.1rem;\r\n  color: #2d6a4f;\n}\n.office-text[data-v-3737035d] {\r\n  display: flex;\r\n  flex-direction: column;\n}\n.office-name[data-v-3737035d] {\r\n  font-size: 0.9rem;\r\n  font-weight: 700;\r\n  color: #1e293b;\r\n  line-height: 1.3;\n}\n.route-status-badge[data-v-3737035d] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  gap: 4px;\r\n  font-size: 0.65rem;\r\n  font-weight: 700;\r\n  padding: 4px 10px;\r\n  border-radius: 16px;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  white-space: nowrap;\n}\n.badge-completed[data-v-3737035d] {\r\n  background: #d1fae5;\r\n  color: #059669;\r\n  border: 1px solid #a7f3d0;\n}\n.badge-active[data-v-3737035d] {\r\n  background: #dbeafe;\r\n  color: #2563eb;\r\n  border: 1px solid #bfdbfe;\n}\n.badge-pending[data-v-3737035d] {\r\n  background: #fef3c7;\r\n  color: #d97706;\r\n  border: 1px solid #fde68a;\n}\n.badge-rejected[data-v-3737035d] {\r\n  background: #fee2e2;\r\n  color: #dc2626;\r\n  border: 1px solid #fecaca;\n}\n.timeline-card-body[data-v-3737035d] {\r\n  padding: 14px 16px;\n}\n.info-grid-enhanced[data-v-3737035d] {\r\n  display: grid;\r\n  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));\r\n  gap: 12px;\r\n  margin-bottom: 14px;\n}\n.info-card[data-v-3737035d] {\r\n  background: #fff;\r\n  border-radius: 8px;\r\n  border: 1px solid #e5e7eb;\r\n  overflow: hidden;\r\n  transition: all 0.3s ease;\n}\n.received-card[data-v-3737035d] {\r\n  border-left: 4px solid #3b82f6;\n}\n.info-card-body[data-v-3737035d] {\r\n  padding: 10px 14px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 8px;\n}\n.info-field[data-v-3737035d] {\r\n  display: flex;\r\n  gap: 10px;\r\n  align-items: flex-start;\n}\n.field-icon[data-v-3737035d] {\r\n  width: 24px;\r\n  height: 24px;\r\n  min-width: 24px;\r\n  border-radius: 6px;\r\n  background: #f1f5f9;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 0.75rem;\r\n  color: #64748b;\n}\n.field-content[data-v-3737035d] {\r\n  flex: 1;\r\n  min-width: 0;\n}\n.field-label[data-v-3737035d] {\r\n  display: block;\r\n  font-size: 0.6rem;\r\n  font-weight: 600;\r\n  color: #64748b;\r\n  text-transform: uppercase;\r\n  letter-spacing: 0.5px;\r\n  margin-bottom: 1px;\n}\n.field-value[data-v-3737035d] {\r\n  display: block;\r\n  font-size: 0.8rem;\r\n  color: #1e293b;\r\n  font-weight: 500;\r\n  word-break: break-word;\r\n  line-height: 1.4;\n}\n.received-date[data-v-3737035d] {\r\n  color: #2563eb;\r\n  font-weight: 600;\n}\n.remarks-text[data-v-3737035d] {\r\n  font-style: italic;\r\n  color: #78350f;\r\n  background: #fffbeb;\r\n  padding: 3px 8px;\r\n  border-radius: 4px;\r\n  border-left: 3px solid #f59e0b;\n}\r\n\r\n/* Forward Modal */\n.forward-doc-info[data-v-3737035d] {\r\n  background: #f8fafc;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  padding: 10px 14px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 6px;\n}\n.forward-doc-row[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\n}\n.forward-doc-label[data-v-3737035d] {\r\n  font-size: 0.7rem;\r\n  font-weight: 600;\r\n  color: #64748b;\r\n  text-transform: uppercase;\r\n  min-width: 70px;\n}\n.forward-doc-value[data-v-3737035d] {\r\n  font-size: 0.8rem;\r\n  font-weight: 600;\r\n  color: #1e293b;\n}\n.office-list-container[data-v-3737035d] {\r\n  max-height: 260px;\r\n  overflow-y: auto;\r\n  border: 1px solid #e5e7eb;\r\n  border-radius: 8px;\r\n  background: #fff;\n}\n.office-select-item[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 10px;\r\n  padding: 10px 14px;\r\n  cursor: pointer;\r\n  transition: all 0.2s ease;\r\n  border-bottom: 1px solid #f3f4f6;\r\n  position: relative;\n}\n.office-select-item[data-v-3737035d]:last-child {\r\n  border-bottom: none;\n}\n.office-select-item[data-v-3737035d]:hover {\r\n  background: #f0fdf4;\n}\n.office-select-item.selected[data-v-3737035d] {\r\n  background: #f0fdf4;\r\n  border-left: 3px solid #059669;\n}\n.office-checkbox[data-v-3737035d] {\r\n  font-size: 1.1rem;\r\n  color: #059669;\r\n  min-width: 20px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\n}\n.office-select-item:not(.selected) .office-checkbox[data-v-3737035d] {\r\n  color: #d1d5db;\n}\n.office-icon-wrapper[data-v-3737035d] {\r\n  width: 32px;\r\n  height: 32px;\r\n  min-width: 32px;\r\n  border-radius: 6px;\r\n  background: #e0e7ff;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  color: #3730a3;\r\n  font-size: 0.9rem;\n}\n.office-select-item.selected .office-icon-wrapper[data-v-3737035d] {\r\n  background: #d1fae5;\r\n  color: #059669;\n}\n.office-details[data-v-3737035d] {\r\n  flex: 1;\r\n  min-width: 0;\n}\n.office-name-text[data-v-3737035d] {\r\n  display: block;\r\n  font-size: 0.8rem;\r\n  font-weight: 600;\r\n  color: #1e293b;\r\n  line-height: 1.3;\n}\n.office-code[data-v-3737035d] {\r\n  display: block;\r\n  font-size: 0.65rem;\r\n  color: #64748b;\r\n  margin-top: 1px;\n}\n.selected-indicator[data-v-3737035d] {\r\n  position: absolute;\r\n  right: 10px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  color: #059669;\r\n  font-size: 1rem;\n}\n.selected-offices-summary[data-v-3737035d] {\r\n  background: #f0fdf4;\r\n  border: 1px solid #bbf7d0;\r\n  border-radius: 6px;\r\n  padding: 10px 14px;\n}\n.selected-offices-header[data-v-3737035d] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  font-weight: 600;\r\n  font-size: 0.8rem;\r\n  color: #166534;\n}\n.selected-offices-list[data-v-3737035d] {\r\n  display: flex;\r\n  flex-wrap: wrap;\r\n  gap: 6px;\r\n  margin-top: 6px;\n}\n.selected-office-tag[data-v-3737035d] {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  gap: 4px;\r\n  padding: 3px 8px;\r\n  background: #fff;\r\n  border: 1px solid #86efac;\r\n  border-radius: 16px;\r\n  font-size: 0.75rem;\r\n  font-weight: 600;\r\n  color: #166534;\n}\n.remove-office-btn[data-v-3737035d] {\r\n  background: none;\r\n  border: none;\r\n  color: #6b7280;\r\n  cursor: pointer;\r\n  padding: 0;\r\n  display: flex;\r\n  align-items: center;\r\n  font-size: 0.8rem;\r\n  transition: color 0.2s;\n}\n.remove-office-btn[data-v-3737035d]:hover:not(:disabled) {\r\n  color: #dc2626;\n}\n.remove-office-btn[data-v-3737035d]:disabled {\r\n  opacity: 0.5;\r\n  cursor: not-allowed;\n}\r\n\r\n/* Animations */\n@keyframes fadeIn-3737035d {\nfrom {\r\n    opacity: 0;\n}\nto {\r\n    opacity: 1;\n}\n}\n@keyframes modalSlideUp-3737035d {\nfrom {\r\n    transform: translateY(20px);\r\n    opacity: 0;\n}\nto {\r\n    transform: translateY(0);\r\n    opacity: 1;\n}\n}\n@keyframes spin-3737035d {\nto {\r\n    transform: rotate(360deg);\n}\n}\n@keyframes pulse-3737035d {\n0%,\r\n  100% {\r\n    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);\n}\n50% {\r\n    box-shadow: 0 0 0 8px rgba(37, 99, 235, 0.1);\n}\n}\r\n\r\n/* Responsive */\n@media (max-width: 1024px) {\n.document-view-modal[data-v-3737035d] {\r\n    max-width: 98vw;\n}\n.summary-stats-grid[data-v-3737035d] {\r\n    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));\n}\n.info-grid-enhanced[data-v-3737035d] {\r\n    grid-template-columns: 1fr;\n}\n.release-info-grid[data-v-3737035d] {\r\n    grid-template-columns: 1fr;\n}\n.summary-grid[data-v-3737035d] {\r\n    grid-template-columns: 1fr;\n}\n}\n@media (max-width: 768px) {\n.modal-overlay[data-v-3737035d] {\r\n    padding: 10px;\n}\n.enhanced-modal[data-v-3737035d] {\r\n    max-width: 100%;\n}\n.square-header[data-v-3737035d] {\r\n    padding: 14px 16px;\n}\n.square-icon[data-v-3737035d] {\r\n    width: 34px;\r\n    height: 34px;\r\n    font-size: 1.1rem;\r\n    margin-right: 10px;\n}\n.modal-title[data-v-3737035d] {\r\n    font-size: 1rem;\n}\n.modal-body-enhanced[data-v-3737035d] {\r\n    padding: 16px;\n}\n.release-doc-info-grid[data-v-3737035d] {\r\n    grid-template-columns: 1fr;\n}\n.release-datetime-grid[data-v-3737035d] {\r\n    grid-template-columns: 1fr;\n}\n.release-upload-area[data-v-3737035d] {\r\n    padding: 20px 16px;\r\n    min-height: 80px;\n}\n.upload-icon-wrapper[data-v-3737035d] {\r\n    width: 48px;\r\n    height: 48px;\r\n    font-size: 1.3rem;\n}\n.modal-actions[data-v-3737035d] {\r\n    flex-direction: column;\r\n    align-items: stretch;\n}\n.modal-actions .d-flex[data-v-3737035d] {\r\n    justify-content: center;\n}\n.square-btn[data-v-3737035d] {\r\n    width: 100%;\r\n    justify-content: center;\n}\n.document-view-modal[data-v-3737035d] {\r\n    max-width: 100vw;\r\n    width: 100vw;\r\n    margin: 0;\r\n    border-radius: 0;\r\n    max-height: 100vh;\n}\n.document-viewer-tabs[data-v-3737035d] {\r\n    padding: 8px 12px;\r\n    gap: 4px;\r\n    overflow-x: auto;\n}\n.viewer-tab-btn[data-v-3737035d] {\r\n    padding: 6px 10px;\r\n    font-size: 10px;\n}\n.viewer-tab-btn span[data-v-3737035d] {\r\n    display: none;\n}\n.viewer-tab-btn i[data-v-3737035d] {\r\n    font-size: 14px;\n}\n.search-filter-row[data-v-3737035d] {\r\n    flex-direction: column;\r\n    gap: 8px;\n}\n.filter-wrapper[data-v-3737035d] {\r\n    min-width: 100%;\n}\n.office-table[data-v-3737035d] {\r\n    font-size: 11px;\n}\n.office-table th[data-v-3737035d],\r\n  .office-table td[data-v-3737035d] {\r\n    padding: 6px 8px;\n}\n.office-table th[data-v-3737035d]:nth-child(3),\r\n  .office-table td[data-v-3737035d]:nth-child(3) {\r\n    display: none;\n}\n.office-table th[data-v-3737035d]:nth-child(6),\r\n  .office-table td[data-v-3737035d]:nth-child(6) {\r\n    display: none;\n}\n.btn-action[data-v-3737035d] {\r\n    padding: 4px 6px;\r\n    font-size: 0.8rem;\n}\n.timeline-container[data-v-3737035d] {\r\n    padding-left: 32px;\n}\n.timeline-node[data-v-3737035d] {\r\n    left: -28px;\r\n    width: 22px;\r\n    height: 22px;\r\n    font-size: 0.6rem;\n}\n.released-pdf-header[data-v-3737035d] {\r\n    flex-direction: column;\r\n    align-items: stretch;\r\n    gap: 6px;\n}\n.incoming-pdf-header[data-v-3737035d] {\r\n    flex-direction: column;\r\n    align-items: stretch;\r\n    gap: 6px;\n}\n.incoming-pdf-controls[data-v-3737035d] {\r\n    justify-content: flex-start;\n}\n.released-pdf-controls[data-v-3737035d] {\r\n    justify-content: flex-start;\n}\n.incoming-info-grid[data-v-3737035d] {\r\n    grid-template-columns: 1fr;\n}\n}\n@media (max-width: 480px) {\n.square-header[data-v-3737035d] {\r\n    padding: 12px 14px;\r\n    flex-wrap: wrap;\n}\n.square-icon[data-v-3737035d] {\r\n    width: 30px;\r\n    height: 30px;\r\n    font-size: 1rem;\r\n    margin-right: 8px;\n}\n.modal-title[data-v-3737035d] {\r\n    font-size: 0.9rem;\n}\n.release-info-card[data-v-3737035d] {\r\n    padding: 8px 10px;\n}\n.release-info-value[data-v-3737035d] {\r\n    font-size: 0.75rem;\n}\n.upload-file-preview[data-v-3737035d] {\r\n    flex-wrap: wrap;\n}\n.upload-file-icon[data-v-3737035d] {\r\n    width: 32px;\r\n    height: 32px;\r\n    min-width: 32px;\r\n    font-size: 1rem;\n}\n.office-table th[data-v-3737035d]:nth-child(4),\r\n  .office-table td[data-v-3737035d]:nth-child(4) {\r\n    display: none;\n}\n.office-table th[data-v-3737035d]:nth-child(7),\r\n  .office-table td[data-v-3737035d]:nth-child(7) {\r\n    display: none;\n}\n.per-page-wrapper[data-v-3737035d] {\r\n    width: 100%;\r\n    justify-content: flex-start;\n}\n.viewer-tab-btn[data-v-3737035d] {\r\n    padding: 4px 8px;\r\n    font-size: 9px;\n}\n.viewer-tab-btn i[data-v-3737035d] {\r\n    font-size: 12px;\n}\n.summary-stats-grid[data-v-3737035d] {\r\n    grid-template-columns: 1fr;\n}\n.released-document-header[data-v-3737035d] {\r\n    flex-direction: column;\r\n    align-items: flex-start;\r\n    gap: 6px;\n}\n.incoming-header[data-v-3737035d] {\r\n    flex-direction: column;\r\n    align-items: flex-start;\r\n    gap: 6px;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

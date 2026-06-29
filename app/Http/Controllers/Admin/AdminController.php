@@ -584,6 +584,32 @@ public function get_data_in_progress(Request $request){
             'data' => $inprogress
         ]);
     }
+    public function get_data_released(Request $request){
+         $search = $request->query('search');
+        $perPage = $request->query('per_page', 10); // Default to 10 if not provided
+    
+        // Query promotions with optional search and sorting by 'date_original_appointment'
+        
+        $inprogress = IncomingDocument::with('documentType')->with('documentRoute.office','documentRoute.receivedBy','releasedBy','receivedBy')->where('status', 'RELEASED')
+            ->when($search, function ($query, $search) {
+                return $query
+                    ->where('tracking_number', 'like', '%' . $search . '%')
+                     ->OrWhere('sender_name', 'like', '%' . $search . '%')
+                      ->OrWhere('subject', 'like', '%' . $search . '%')
+                         ->OrWhere('document_classification', 'like', '%' . $search . '%')
+                       ->OrWhereHas('documentType', function ($q) use ($search) {
+                            $q->where('document_type_name', 'like', '%' . $search . '%');
+                        });
+            })
+        
+            ->orderBy('tracking_number', 'desc') // Order by date_original_appointment first
+            ->paginate($perPage); // Use the per_page value for pagination
+    
+        return response()->json([
+            'success' => true,
+            'data' => $inprogress
+        ]);
+    }
 
     public function route_office_other(){
     $office = SubOffice::where('status', 'Active')
@@ -594,6 +620,84 @@ public function get_data_in_progress(Request $request){
                     'data' => $office
                 ], 200);
     }
+
+    public function releaseDocument(Request $request,$id)
+    {
+        try {
+            // Validate request
+            $validator = Validator::make($request->all(), [
+                'document_id' => 'required|exists:incoming_documents_tbl,id',
+              
+                'date_released' => 'required|date',
+                'time_released' => 'required|string',
+                'remarks' => 'nullable|string',
+                'attachment' => 'required|file|mimes:pdf|max:102400', // 100MB max
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Validation failed',
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            // Find the document
+            $document = IncomingDocument::find($id);
+            
+            if (!$document) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Document not found'
+                ], 404);
+            }
+
+         
+
+            // Handle attachment upload
+            $attachmentPath = null;
+            if ($request->hasFile('attachment')) {
+                $file = $request->file('attachment');
+                $trackingNumber = $document->tracking_number;
+                
+                // Create directory structure: storage/app/public/attachments/{tracking_number}/RELEASE_DOCUMENT/
+                $directory = "attachments/{$trackingNumber}/RELEASE DOCUMENT";
+                
+                // Generate filename
+                $filename = $trackingNumber . '_released_' . date('Ymd_His') . '.pdf';
+                
+                // Store the file
+                $path = $file->storeAs($directory, $filename, 'public');
+                $attachmentPath = $path;
+            }
+            $document->date_release = $request->date_released;
+            $document->time_release = $request->time_released;
+            $document->release_user_id = Auth::id();
+            $document->status = 'RELEASED';
+            $document->remarks = $request->remarks ?? $document->remarks;
+            $document->release_attachment = $attachmentPath;
+            $document->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Document released successfully',
+                'data' => [
+                    'document' => $document,
+                    'attachment_path' => $attachmentPath
+                ]
+            ], 200);
+
+        } catch (\Exception $e) {
+            \Log::error('Release document error: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to release document: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+
+  
 
 
             
