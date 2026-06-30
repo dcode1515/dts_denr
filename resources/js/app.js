@@ -28,6 +28,7 @@ Vue.component('Incomingdocuments', require('./components/Admin/Incomingdocuments
 Vue.component('Createincoming', require('./components/Admin/Createincoming.vue').default);
 Vue.component('Updateincoming', require('./components/Admin/Updateincoming.vue').default);
 Vue.component('Incomingsecretariat', require('./components/Secretariat/Incomingsecretariat.vue').default);
+Vue.component('Memoslip', require('./components/Secretariat/Memoslip.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -140,7 +140,15 @@
         </svg>
         My Documents
     </a>
-
+ <a class="nav-item" href="{{route('memo.slip')}}">
+    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="8" y="2" width="8" height="4" rx="1"/>
+        <path d="M9 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-3"/>
+        <line x1="8" y1="11" x2="16" y2="11"/>
+        <line x1="8" y1="15" x2="16" y2="15"/>
+    </svg>
+    Memo Slip
+</a>
     <a class="nav-item" href="">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>

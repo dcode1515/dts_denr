@@ -76,6 +76,13 @@ Route::get('/api/document/receive/', [App\Http\Controllers\Secretariat\Secretari
 Route::get('/api/route-office-secratariat', [App\Http\Controllers\Secretariat\SecretariatController::class, 'route_office_secretariat']);
 Route::post('/api/forward-other-office/{id}', [App\Http\Controllers\Secretariat\SecretariatController::class, 'forward_other_office']);
 Route::post('/api/for-release-document', [App\Http\Controllers\Secretariat\SecretariatController::class, 'for_release_document']);
+Route::get('/memo-slip', [App\Http\Controllers\Secretariat\SecretariatController::class, 'memo_slip'])->name('memo.slip');
+Route::post('/api-memo-slip', [App\Http\Controllers\Secretariat\SecretariatController::class, 'store_memo_slip']);
+Route::get('/api-memo-slip', [App\Http\Controllers\Secretariat\SecretariatController::class, 'get_memo_slip']);
+Route::put('/api-memo-slip/{id}', [App\Http\Controllers\Secretariat\SecretariatController::class, 'update_memo_slip']);
+Route::delete('/api-memo-slip/{id}', [App\Http\Controllers\Secretariat\SecretariatController::class, 'delete_memo_slip']);
+Route::get('/api-get-foward-memo-slip', [App\Http\Controllers\Secretariat\SecretariatController::class, 'get_forward_memo_slip']);
+
 
 
 /*END SECRETARIAT ROUTES*/

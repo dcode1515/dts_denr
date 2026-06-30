@@ -9741,6 +9741,459 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Secretariat/Memoslip.vue?vue&type=script&lang=js":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Secretariat/Memoslip.vue?vue&type=script&lang=js ***!
+  \**************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "MemoSlipList",
+  props: {
+    headerIcon: {
+      type: String,
+      "default": "bi bi-file-earmark-text"
+    },
+    headerTitle: {
+      type: String,
+      "default": "List of Memo Slip"
+    },
+    headerSubtitle: {
+      type: String,
+      "default": "Directory of all memo slip records"
+    }
+  },
+  emits: ["create-memo-slip", "update-memo-slip", "delete-memo-slip"],
+  data: function data() {
+    return {
+      searchQuery: "",
+      perPage: 10,
+      currentPage: 1,
+      currentDateTime: "",
+      dateTimeInterval: null,
+      showModal: false,
+      isEditing: false,
+      editingId: null,
+      loading: false,
+      form: {
+        memo_slip: "",
+        date_created: "",
+        status: "Active"
+      },
+      memoSlips: {
+        data: [],
+        current_page: 1,
+        from: 1,
+        to: 1,
+        last_page: 1,
+        per_page: 10,
+        total: 0
+      },
+      errors: {},
+      formErrors: {
+        show: false,
+        message: ""
+      },
+      notification: {
+        show: false,
+        message: "",
+        type: "success",
+        timeout: null
+      },
+      showDeleteConfirm: false,
+      memoToDelete: null
+    };
+  },
+  computed: {
+    displayedPages: function displayedPages() {
+      var pages = [];
+      var total = this.memoSlips.last_page;
+      var current = this.memoSlips.current_page;
+      var delta = 2;
+      for (var i = 1; i <= total; i++) {
+        if (i === 1 || i === total || i >= current - delta && i <= current + delta) {
+          pages.push(i);
+        } else if (pages[pages.length - 1] !== "...") {
+          pages.push("...");
+        }
+      }
+      return pages;
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+    this.getMemoSlips();
+    this.updateDateTime();
+    this.dateTimeInterval = setInterval(function () {
+      return _this.updateDateTime();
+    }, 1000);
+  },
+  beforeUnmount: function beforeUnmount() {
+    if (this.dateTimeInterval) clearInterval(this.dateTimeInterval);
+    if (this.notification.timeout) clearTimeout(this.notification.timeout);
+  },
+  methods: {
+    formatDate: function formatDate(date) {
+      if (!date) return 'N/A';
+      var d = new Date(date);
+      return d.toLocaleString('en-PH', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+      });
+    },
+    getMemoSlips: function getMemoSlips() {
+      var _arguments = arguments,
+        _this2 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+        var page, response, _t;
+        return _regenerator().w(function (_context) {
+          while (1) switch (_context.p = _context.n) {
+            case 0:
+              page = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 1;
+              _context.p = 1;
+              _this2.loading = true;
+              _context.n = 2;
+              return axios.get("/dts_denr/api-memo-slip", {
+                params: {
+                  page: page,
+                  per_page: _this2.perPage,
+                  search: _this2.searchQuery
+                }
+              });
+            case 2:
+              response = _context.v;
+              _this2.memoSlips = response.data.data;
+              _context.n = 4;
+              break;
+            case 3:
+              _context.p = 3;
+              _t = _context.v;
+              console.error("Error fetching memo slips:", _t);
+              _this2.showNotification("Failed to load memo slips. Please try again.", "error");
+            case 4:
+              _context.p = 4;
+              _this2.loading = false;
+              return _context.f(4);
+            case 5:
+              return _context.a(2);
+          }
+        }, _callee, null, [[1, 3, 4, 5]]);
+      }))();
+    },
+    changePage: function changePage(page) {
+      if (page >= 1 && page <= this.memoSlips.last_page && page !== this.memoSlips.current_page) {
+        this.getMemoSlips(page);
+      }
+    },
+    changePerPage: function changePerPage() {
+      this.currentPage = 1;
+      this.getMemoSlips(1);
+    },
+    updateDateTime: function updateDateTime() {
+      var now = new Date();
+      this.currentDateTime = now.toLocaleString("en-PH", {
+        weekday: "short",
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true
+      });
+    },
+    getCsrfToken: function getCsrfToken() {
+      var _document$querySelect;
+      var metaToken = (_document$querySelect = document.querySelector('meta[name="csrf-token"]')) === null || _document$querySelect === void 0 ? void 0 : _document$querySelect.getAttribute("content");
+      if (metaToken) return metaToken;
+      var name = "XSRF-TOKEN=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var cookies = decodedCookie.split(";");
+      for (var i = 0; i < cookies.length; i++) {
+        var c = cookies[i].trim();
+        if (c.indexOf(name) === 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    },
+    openCreateModal: function openCreateModal() {
+      this.isEditing = false;
+      this.editingId = null;
+      this.errors = {};
+      this.formErrors.show = false;
+      this.resetForm();
+      // Set default date to now
+      var now = new Date();
+      now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+      this.form.date_created = now.toISOString().slice(0, 16);
+      this.showModal = true;
+    },
+    openEditModal: function openEditModal(memo) {
+      this.isEditing = true;
+      this.editingId = memo.id;
+      this.errors = {};
+      this.formErrors.show = false;
+      this.form = {
+        memo_slip: memo.memo_slip_name || memo.memo_slip_name || "",
+        date_created: memo.date_created || memo.created_at || "",
+        status: memo.status || "Active"
+      };
+      // Format date for datetime-local input
+      if (this.form.date_created) {
+        var d = new Date(this.form.date_created);
+        d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+        this.form.date_created = d.toISOString().slice(0, 16);
+      }
+      this.showModal = true;
+    },
+    closeModal: function closeModal() {
+      var force = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+      if (this.loading && !force) return;
+      this.showModal = false;
+      this.errors = {};
+      this.formErrors.show = false;
+      this.loading = false;
+    },
+    resetForm: function resetForm() {
+      this.form = {
+        memo_slip: "",
+        date_created: "",
+        status: "Active"
+      };
+      this.errors = {};
+      this.formErrors.show = false;
+    },
+    validateForm: function validateForm() {
+      this.errors = {};
+      this.formErrors.show = false;
+      var requiredFields = ["memo_slip", "date_created"];
+      var fieldLabels = {
+        memo_slip: "Memo Slip",
+        date_created: "Date Created"
+      };
+      var valid = true;
+      for (var _i = 0, _requiredFields = requiredFields; _i < _requiredFields.length; _i++) {
+        var field = _requiredFields[_i];
+        if (!this.form[field] || !this.form[field].trim()) {
+          this.errors[field] = "".concat(fieldLabels[field], " is required.");
+          valid = false;
+        }
+      }
+      if (!valid) {
+        this.formErrors.show = true;
+        this.formErrors.message = "Please correct the highlighted errors before saving.";
+      }
+      return valid;
+    },
+    submitForm: function submitForm() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        var csrfToken, url, method, payload, response, data, serverErrors, field, _t2;
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.p = _context2.n) {
+            case 0:
+              if (_this3.validateForm()) {
+                _context2.n = 1;
+                break;
+              }
+              _this3.showNotification("Please correct the highlighted errors before saving.", "error");
+              return _context2.a(2);
+            case 1:
+              _this3.loading = true;
+              _this3.formErrors.show = false;
+              csrfToken = _this3.getCsrfToken();
+              url = _this3.isEditing ? "/dts_denr/api-memo-slip/".concat(_this3.editingId) : "/dts_denr/api-memo-slip";
+              method = _this3.isEditing ? "PUT" : "POST";
+              payload = {
+                memo_slip: _this3.form.memo_slip.trim(),
+                date_created: _this3.form.date_created,
+                status: _this3.form.status
+              };
+              _context2.p = 2;
+              _context2.n = 3;
+              return fetch(url, {
+                method: method,
+                headers: {
+                  "Content-Type": "application/json",
+                  "X-CSRF-TOKEN": csrfToken,
+                  Accept: "application/json"
+                },
+                body: JSON.stringify(payload)
+              });
+            case 3:
+              response = _context2.v;
+              _context2.n = 4;
+              return response.json();
+            case 4:
+              data = _context2.v;
+              if (response.ok) {
+                _context2.n = 6;
+                break;
+              }
+              if (!(response.status === 422)) {
+                _context2.n = 5;
+                break;
+              }
+              serverErrors = data.errors;
+              _this3.errors = {};
+              for (field in serverErrors) {
+                _this3.errors[field] = serverErrors[field][0];
+              }
+              _this3.formErrors.show = true;
+              _this3.formErrors.message = "Please correct the highlighted errors before saving.";
+              throw new Error("Validation failed");
+            case 5:
+              throw new Error(data.message || "Request failed");
+            case 6:
+              if (_this3.isEditing) {
+                _this3.$emit("update-memo-slip", data.data);
+              } else {
+                _this3.$emit("create-memo-slip", data.data);
+              }
+              _this3.showNotification("Memo slip \"".concat(payload.memo_slip, "\" ").concat(_this3.isEditing ? "updated" : "created", " successfully!"), "success");
+              _this3.resetForm();
+              _this3.closeModal(true);
+              _this3.getMemoSlips();
+              _context2.n = 8;
+              break;
+            case 7:
+              _context2.p = 7;
+              _t2 = _context2.v;
+              if (_t2.message !== "Validation failed") {
+                _this3.formErrors.show = true;
+                _this3.formErrors.message = _t2.message || "An error occurred while saving.";
+                _this3.showNotification(_t2.message || "An error occurred while saving.", "error");
+              }
+            case 8:
+              _context2.p = 8;
+              _this3.loading = false;
+              return _context2.f(8);
+            case 9:
+              return _context2.a(2);
+          }
+        }, _callee2, null, [[2, 7, 8, 9]]);
+      }))();
+    },
+    deleteMemoSlip: function deleteMemoSlip(id) {
+      var memo = this.memoSlips.data.find(function (o) {
+        return o.id === id;
+      });
+      this.memoToDelete = memo;
+      this.showDeleteConfirm = true;
+    },
+    confirmDelete: function confirmDelete() {
+      var _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        var id, name, csrfToken, response, data, index, _t3;
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.p = _context3.n) {
+            case 0:
+              if (_this4.memoToDelete) {
+                _context3.n = 1;
+                break;
+              }
+              return _context3.a(2);
+            case 1:
+              id = _this4.memoToDelete.id;
+              name = _this4.memoToDelete.memo_slip_name || _this4.memoToDelete.memo_slip_name;
+              _this4.loading = true;
+              csrfToken = _this4.getCsrfToken();
+              _context3.p = 2;
+              _context3.n = 3;
+              return fetch("/dts_denr/api-memo-slip/".concat(id), {
+                method: 'DELETE',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRF-TOKEN': csrfToken,
+                  Accept: 'application/json'
+                }
+              });
+            case 3:
+              response = _context3.v;
+              _context3.n = 4;
+              return response.json();
+            case 4:
+              data = _context3.v;
+              if (response.ok) {
+                _context3.n = 5;
+                break;
+              }
+              throw new Error(data.message || 'Delete request failed');
+            case 5:
+              index = _this4.memoSlips.data.findIndex(function (o) {
+                return o.id === id;
+              });
+              if (index > -1) {
+                _this4.memoSlips.data.splice(index, 1);
+              }
+              _this4.$emit('delete-memo-slip', {
+                id: id,
+                name: name
+              });
+              _this4.showNotification("Memo slip \"".concat(name, "\" deleted successfully!"), 'success');
+              _context3.n = 6;
+              return _this4.getMemoSlips(_this4.memoSlips.current_page);
+            case 6:
+              _context3.n = 8;
+              break;
+            case 7:
+              _context3.p = 7;
+              _t3 = _context3.v;
+              _this4.showNotification(_t3.message || 'An error occurred while deleting.', 'error');
+            case 8:
+              _context3.p = 8;
+              _this4.loading = false;
+              _this4.cancelDelete();
+              return _context3.f(8);
+            case 9:
+              return _context3.a(2);
+          }
+        }, _callee3, null, [[2, 7, 8, 9]]);
+      }))();
+    },
+    cancelDelete: function cancelDelete() {
+      this.showDeleteConfirm = false;
+      this.memoToDelete = null;
+    },
+    showNotification: function showNotification(message) {
+      var _this5 = this;
+      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "success";
+      if (this.notification.timeout) clearTimeout(this.notification.timeout);
+      this.notification.show = true;
+      this.notification.message = message;
+      this.notification.type = type;
+      this.notification.timeout = setTimeout(function () {
+        _this5.notification.show = false;
+      }, 5000);
+    },
+    applyFilters: function applyFilters() {
+      this.currentPage = 1;
+      this.getMemoSlips(1);
+    },
+    clearSearch: function clearSearch() {
+      this.searchQuery = "";
+      this.currentPage = 1;
+      this.getMemoSlips(1);
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Secretariat/PendingTab.vue?vue&type=script&lang=js":
 /*!****************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Secretariat/PendingTab.vue?vue&type=script&lang=js ***!
@@ -10381,6 +10834,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_PaginationComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/PaginationComponent.vue */ "./resources/js/components/PaginationComponent.vue");
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
@@ -10438,6 +10897,10 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       uploadedFile: null,
       filePreviewUrl: "",
       attachmentError: "",
+      // Memo Slip
+      memoSlips: [],
+      selectedMemoSlips: [],
+      memoSlipsLoading: false,
       // Forward File Preview Modal
       showFilePreview: false,
       // Release Modal
@@ -10779,11 +11242,68 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     isDocumentConfidential: function isDocumentConfidential(classification) {
       return (classification === null || classification === void 0 ? void 0 : classification.toUpperCase()) === 'CONFIDENTIAL';
     },
+    // ===== MEMO SLIP METHODS =====
+    fetchMemoSlips: function fetchMemoSlips() {
+      var _this3 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+        var response, _t2;
+        return _regenerator().w(function (_context2) {
+          while (1) switch (_context2.p = _context2.n) {
+            case 0:
+              _this3.memoSlipsLoading = true;
+              _context2.p = 1;
+              _context2.n = 2;
+              return axios.get("/dts_denr/api-get-foward-memo-slip");
+            case 2:
+              response = _context2.v;
+              _this3.memoSlips = response.data.data || [];
+              _context2.n = 4;
+              break;
+            case 3:
+              _context2.p = 3;
+              _t2 = _context2.v;
+              console.error("Error fetching memo slips:", _t2);
+              _this3.forwardError = "Failed to load memo slips.";
+            case 4:
+              _context2.p = 4;
+              _this3.memoSlipsLoading = false;
+              return _context2.f(4);
+            case 5:
+              return _context2.a(2);
+          }
+        }, _callee2, null, [[1, 3, 4, 5]]);
+      }))();
+    },
+    isMemoSlipSelected: function isMemoSlipSelected(memoId) {
+      return this.selectedMemoSlips.some(function (memo) {
+        return memo.id === memoId;
+      });
+    },
+    toggleMemoSlipSelection: function toggleMemoSlipSelection(memo) {
+      if (this.forwarding) return;
+      var index = this.selectedMemoSlips.findIndex(function (m) {
+        return m.id === memo.id;
+      });
+      if (index > -1) {
+        this.selectedMemoSlips.splice(index, 1);
+      } else {
+        this.selectedMemoSlips.push(memo);
+      }
+    },
+    selectAllMemoSlips: function selectAllMemoSlips() {
+      if (this.forwarding) return;
+      this.selectedMemoSlips = _toConsumableArray(this.memoSlips);
+    },
+    deselectAllMemoSlips: function deselectAllMemoSlips() {
+      if (this.forwarding) return;
+      this.selectedMemoSlips = [];
+    },
     // ===== FORWARD MODAL =====
     openForwardModal: function openForwardModal(doc) {
       this.forwardDocument = doc;
       this.showForwardModal = true;
       this.selectedOffices = [];
+      this.selectedMemoSlips = [];
       this.forwardError = "";
       this.officeSearchQuery = "";
       this.selectedDuration = "";
@@ -10792,19 +11312,23 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       this.filePreviewUrl = "";
       this.attachmentError = "";
       this.fetchOffices();
+      this.fetchMemoSlips();
     },
     closeForwardModal: function closeForwardModal() {
       this.removeForwardFile();
       this.showForwardModal = false;
       this.forwardDocument = null;
       this.selectedOffices = [];
+      this.selectedMemoSlips = [];
       this.forwardError = "";
       this.officeSearchQuery = "";
       this.selectedDuration = "";
       this.remarks = "";
+      this.memoSlips = [];
     },
     clearForwardForm: function clearForwardForm() {
       this.selectedOffices = [];
+      this.selectedMemoSlips = [];
       this.forwardError = "";
       this.officeSearchQuery = "";
       this.selectedDuration = "";
@@ -10815,34 +11339,34 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       this.officeSearchQuery = "";
     },
     fetchOffices: function fetchOffices() {
-      var _this3 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
-        var response, _t2;
-        return _regenerator().w(function (_context2) {
-          while (1) switch (_context2.p = _context2.n) {
+      var _this4 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
+        var response, _t3;
+        return _regenerator().w(function (_context3) {
+          while (1) switch (_context3.p = _context3.n) {
             case 0:
-              _this3.officesLoading = true;
-              _context2.p = 1;
-              _context2.n = 2;
+              _this4.officesLoading = true;
+              _context3.p = 1;
+              _context3.n = 2;
               return axios.get("/dts_denr/api/route-office-secratariat");
             case 2:
-              response = _context2.v;
-              _this3.offices = response.data.data || [];
-              _context2.n = 4;
+              response = _context3.v;
+              _this4.offices = response.data.data || [];
+              _context3.n = 4;
               break;
             case 3:
-              _context2.p = 3;
-              _t2 = _context2.v;
-              console.error("Error fetching offices:", _t2);
-              _this3.forwardError = "Failed to load offices.";
+              _context3.p = 3;
+              _t3 = _context3.v;
+              console.error("Error fetching offices:", _t3);
+              _this4.forwardError = "Failed to load offices.";
             case 4:
-              _context2.p = 4;
-              _this3.officesLoading = false;
-              return _context2.f(4);
+              _context3.p = 4;
+              _this4.officesLoading = false;
+              return _context3.f(4);
             case 5:
-              return _context2.a(2);
+              return _context3.a(2);
           }
-        }, _callee2, null, [[1, 3, 4, 5]]);
+        }, _callee3, null, [[1, 3, 4, 5]]);
       }))();
     },
     isOfficeSelected: function isOfficeSelected(officeId) {
@@ -10869,92 +11393,93 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
     },
     // ===== SUBMIT FORWARD DOCUMENT =====
     submitForwardDocument: function submitForwardDocument() {
-      var _this4 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3() {
-        var formData, durationValue, currentOfficeId, routeId, response, errorMessage, _error$response$data, _error$response$data2, errors, errorMessages, _t3;
-        return _regenerator().w(function (_context3) {
-          while (1) switch (_context3.p = _context3.n) {
+      var _this5 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+        var formData, durationValue, currentOfficeId, routeId, response, errorMessage, _error$response$data, _error$response$data2, errors, errorMessages, _t4;
+        return _regenerator().w(function (_context4) {
+          while (1) switch (_context4.p = _context4.n) {
             case 0:
-              if (!(_this4.selectedOffices.length === 0)) {
-                _context3.n = 1;
+              if (!(_this5.selectedOffices.length === 0)) {
+                _context4.n = 1;
                 break;
               }
-              _this4.forwardError = "Please select at least one office.";
-              return _context3.a(2);
+              _this5.forwardError = "Please select at least one office.";
+              return _context4.a(2);
             case 1:
-              if (!(!_this4.hasExistingDuration() && !_this4.selectedDuration)) {
-                _context3.n = 2;
+              if (!(!_this5.hasExistingDuration() && !_this5.selectedDuration)) {
+                _context4.n = 2;
                 break;
               }
-              _this4.forwardError = "Please select a duration.";
-              return _context3.a(2);
+              _this5.forwardError = "Please select a duration.";
+              return _context4.a(2);
             case 2:
-              _this4.forwarding = true;
-              _this4.forwardError = "";
-              _context3.p = 3;
+              _this5.forwarding = true;
+              _this5.forwardError = "";
+              _context4.p = 3;
               formData = new FormData();
-              durationValue = _this4.hasExistingDuration() ? _this4.getDurationValue() : _this4.selectedDuration;
-              currentOfficeId = _this4.getCurrentUserOfficeId();
-              routeId = _this4.forwardDocument.id;
-              formData.append('offices', JSON.stringify(_this4.selectedOffices));
+              durationValue = _this5.hasExistingDuration() ? _this5.getDurationValue() : _this5.selectedDuration;
+              currentOfficeId = _this5.getCurrentUserOfficeId();
+              routeId = _this5.forwardDocument.id;
+              formData.append('offices', JSON.stringify(_this5.selectedOffices));
+              formData.append('memoSlips', JSON.stringify(_this5.selectedMemoSlips));
               formData.append('selectedDuration', durationValue);
-              formData.append('remarks', _this4.remarks || '');
+              formData.append('remarks', _this5.remarks || '');
               formData.append('from_office_id', currentOfficeId || '');
-              if (_this4.uploadedFile) {
-                formData.append('attachments[]', _this4.uploadedFile);
+              if (_this5.uploadedFile) {
+                formData.append('attachments[]', _this5.uploadedFile);
               }
-              _context3.n = 4;
+              _context4.n = 4;
               return axios.post("/dts_denr/api/forward-other-office/".concat(routeId), formData, {
                 headers: {
                   'Content-Type': 'multipart/form-data'
                 }
               });
             case 4:
-              response = _context3.v;
-              _context3.n = 5;
+              response = _context4.v;
+              _context4.n = 5;
               return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
                 title: "Forwarded!",
-                text: response.data.message || "Document forwarded to ".concat(_this4.selectedOffices.length, " office(s) successfully."),
+                text: response.data.message || "Document forwarded to ".concat(_this5.selectedOffices.length, " office(s) successfully."),
                 icon: "success",
                 confirmButtonColor: "#1a4731"
               });
             case 5:
-              _this4.closeForwardModal();
-              _this4.$emit("show-notification", {
+              _this5.closeForwardModal();
+              _this5.$emit("show-notification", {
                 message: "Document forwarded successfully!",
                 type: "success"
               });
-              _this4.getDataReceived(_this4.documents.current_page);
-              _context3.n = 7;
+              _this5.getDataReceived(_this5.documents.current_page);
+              _context4.n = 7;
               break;
             case 6:
-              _context3.p = 6;
-              _t3 = _context3.v;
-              console.error("Forward error details:", _t3);
+              _context4.p = 6;
+              _t4 = _context4.v;
+              console.error("Forward error details:", _t4);
               errorMessage = "Failed to forward document. Please try again.";
-              if (_t3.response) {
-                errorMessage = ((_error$response$data = _t3.response.data) === null || _error$response$data === void 0 ? void 0 : _error$response$data.message) || errorMessage;
-                if ((_error$response$data2 = _t3.response.data) !== null && _error$response$data2 !== void 0 && _error$response$data2.errors) {
-                  errors = _t3.response.data.errors;
+              if (_t4.response) {
+                errorMessage = ((_error$response$data = _t4.response.data) === null || _error$response$data === void 0 ? void 0 : _error$response$data.message) || errorMessage;
+                if ((_error$response$data2 = _t4.response.data) !== null && _error$response$data2 !== void 0 && _error$response$data2.errors) {
+                  errors = _t4.response.data.errors;
                   errorMessages = Object.values(errors).flat();
                   errorMessage = errorMessages.join(', ');
                 }
-              } else if (_t3.request) {
+              } else if (_t4.request) {
                 errorMessage = "No response from server. Please check your connection.";
               }
-              _this4.forwardError = errorMessage;
-              _this4.$emit("show-notification", {
+              _this5.forwardError = errorMessage;
+              _this5.$emit("show-notification", {
                 message: errorMessage,
                 type: "error"
               });
             case 7:
-              _context3.p = 7;
-              _this4.forwarding = false;
-              return _context3.f(7);
+              _context4.p = 7;
+              _this5.forwarding = false;
+              return _context4.f(7);
             case 8:
-              return _context3.a(2);
+              return _context4.a(2);
           }
-        }, _callee3, null, [[3, 6, 7, 8]]);
+        }, _callee4, null, [[3, 6, 7, 8]]);
       }))();
     },
     // ===== RELEASE MODAL =====
@@ -10975,32 +11500,32 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       this.releaseRemarks = "";
     },
     submitReleaseDocument: function submitReleaseDocument() {
-      var _this5 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-        var formData, response, _error$response, message, _t4;
-        return _regenerator().w(function (_context4) {
-          while (1) switch (_context4.p = _context4.n) {
+      var _this6 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
+        var formData, response, _error$response, message, _t5;
+        return _regenerator().w(function (_context5) {
+          while (1) switch (_context5.p = _context5.n) {
             case 0:
-              _this5.releasing = true;
-              _this5.releaseError = "";
-              _context4.p = 1;
+              _this6.releasing = true;
+              _this6.releaseError = "";
+              _context5.p = 1;
               formData = new FormData();
-              formData.append('document_route_id', _this5.releaseDocument.id);
-              formData.append('tracking_number', _this5.releaseDocument.document.tracking_number);
-              formData.append('remarks', _this5.releaseRemarks || '');
+              formData.append('document_route_id', _this6.releaseDocument.id);
+              formData.append('tracking_number', _this6.releaseDocument.document.tracking_number);
+              formData.append('remarks', _this6.releaseRemarks || '');
               formData.append('released_at', new Date().toISOString());
-              if (_this5.releaseUploadedFile) {
-                formData.append('attachments[]', _this5.releaseUploadedFile);
+              if (_this6.releaseUploadedFile) {
+                formData.append('attachments[]', _this6.releaseUploadedFile);
               }
-              _context4.n = 2;
+              _context5.n = 2;
               return axios.post("/dts_denr/api/for-release-document", formData, {
                 headers: {
                   'Content-Type': 'multipart/form-data'
                 }
               });
             case 2:
-              response = _context4.v;
-              _context4.n = 3;
+              response = _context5.v;
+              _context5.n = 3;
               return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
                 title: "For Released to Records!",
                 text: response.data.message || "Document has been released successfully.",
@@ -11009,32 +11534,32 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
                 confirmButtonText: "OK"
               });
             case 3:
-              _this5.closeReleaseModal();
-              _this5.$emit("show-notification", {
+              _this6.closeReleaseModal();
+              _this6.$emit("show-notification", {
                 message: "Document released successfully!",
                 type: "success"
               });
-              _this5.getDataReceived(_this5.documents.current_page);
-              _context4.n = 5;
+              _this6.getDataReceived(_this6.documents.current_page);
+              _context5.n = 5;
               break;
             case 4:
-              _context4.p = 4;
-              _t4 = _context4.v;
-              console.error("Release document error:", _t4);
-              message = ((_error$response = _t4.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || "Failed to release document. Please try again.";
-              _this5.releaseError = message;
-              _this5.$emit("show-notification", {
+              _context5.p = 4;
+              _t5 = _context5.v;
+              console.error("Release document error:", _t5);
+              message = ((_error$response = _t5.response) === null || _error$response === void 0 || (_error$response = _error$response.data) === null || _error$response === void 0 ? void 0 : _error$response.message) || "Failed to release document. Please try again.";
+              _this6.releaseError = message;
+              _this6.$emit("show-notification", {
                 message: message,
                 type: "error"
               });
             case 5:
-              _context4.p = 5;
-              _this5.releasing = false;
-              return _context4.f(5);
+              _context5.p = 5;
+              _this6.releasing = false;
+              return _context5.f(5);
             case 6:
-              return _context4.a(2);
+              return _context5.a(2);
           }
-        }, _callee4, null, [[1, 4, 5, 6]]);
+        }, _callee5, null, [[1, 4, 5, 6]]);
       }))();
     },
     // ===== ARCHIVE MODAL =====
@@ -11053,33 +11578,33 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       this.archiveRemarks = "";
     },
     submitArchiveDocument: function submitArchiveDocument() {
-      var _this6 = this;
-      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5() {
-        var response, _error$response2, message, _t5;
-        return _regenerator().w(function (_context5) {
-          while (1) switch (_context5.p = _context5.n) {
+      var _this7 = this;
+      return _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee6() {
+        var response, _error$response2, message, _t6;
+        return _regenerator().w(function (_context6) {
+          while (1) switch (_context6.p = _context6.n) {
             case 0:
-              if (_this6.archiveReason) {
-                _context5.n = 1;
+              if (_this7.archiveReason) {
+                _context6.n = 1;
                 break;
               }
-              _this6.archiveError = "Please select a reason for archiving.";
-              return _context5.a(2);
+              _this7.archiveError = "Please select a reason for archiving.";
+              return _context6.a(2);
             case 1:
-              _this6.archiving = true;
-              _this6.archiveError = "";
-              _context5.p = 2;
-              _context5.n = 3;
+              _this7.archiving = true;
+              _this7.archiveError = "";
+              _context6.p = 2;
+              _context6.n = 3;
               return axios.post("/dts_denr/api/archive-document", {
-                document_route_id: _this6.archiveDocument.id,
-                tracking_number: _this6.archiveDocument.document.tracking_number,
-                reason: _this6.archiveReason,
-                remarks: _this6.archiveRemarks || "",
+                document_route_id: _this7.archiveDocument.id,
+                tracking_number: _this7.archiveDocument.document.tracking_number,
+                reason: _this7.archiveReason,
+                remarks: _this7.archiveRemarks || "",
                 archived_at: new Date().toISOString()
               });
             case 3:
-              response = _context5.v;
-              _context5.n = 4;
+              response = _context6.v;
+              _context6.n = 4;
               return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
                 title: "Archived!",
                 text: response.data.message || "Document has been archived successfully.",
@@ -11088,32 +11613,32 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
                 confirmButtonText: "OK"
               });
             case 4:
-              _this6.closeArchiveModal();
-              _this6.$emit("show-notification", {
+              _this7.closeArchiveModal();
+              _this7.$emit("show-notification", {
                 message: "Document archived successfully!",
                 type: "success"
               });
-              _this6.getDataReceived(_this6.documents.current_page);
-              _context5.n = 6;
+              _this7.getDataReceived(_this7.documents.current_page);
+              _context6.n = 6;
               break;
             case 5:
-              _context5.p = 5;
-              _t5 = _context5.v;
-              console.error("Archive document error:", _t5);
-              message = ((_error$response2 = _t5.response) === null || _error$response2 === void 0 || (_error$response2 = _error$response2.data) === null || _error$response2 === void 0 ? void 0 : _error$response2.message) || "Failed to archive document. Please try again.";
-              _this6.archiveError = message;
-              _this6.$emit("show-notification", {
+              _context6.p = 5;
+              _t6 = _context6.v;
+              console.error("Archive document error:", _t6);
+              message = ((_error$response2 = _t6.response) === null || _error$response2 === void 0 || (_error$response2 = _error$response2.data) === null || _error$response2 === void 0 ? void 0 : _error$response2.message) || "Failed to archive document. Please try again.";
+              _this7.archiveError = message;
+              _this7.$emit("show-notification", {
                 message: message,
                 type: "error"
               });
             case 6:
-              _context5.p = 6;
-              _this6.archiving = false;
-              return _context5.f(6);
+              _context6.p = 6;
+              _this7.archiving = false;
+              return _context6.f(6);
             case 7:
-              return _context5.a(2);
+              return _context6.a(2);
           }
-        }, _callee5, null, [[2, 5, 6, 7]]);
+        }, _callee6, null, [[2, 5, 6, 7]]);
       }))();
     },
     // ===== VIEW MODAL =====
@@ -22754,6 +23279,651 @@ render._withStripped = true;
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Secretariat/Memoslip.vue?vue&type=template&id=53a3a739&scoped=true":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Secretariat/Memoslip.vue?vue&type=template&id=53a3a739&scoped=true ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm$memoToDelete, _vm$memoToDelete2;
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "card border-0 shadow-md"
+  }, [_c("div", {
+    staticClass: "card-header py-3",
+    staticStyle: {
+      background: "#0f766e"
+    }
+  }, [_c("div", {
+    staticClass: "d-flex flex-wrap justify-content-between align-items-center gap-3"
+  }, [_c("div", {
+    staticClass: "d-flex align-items-center"
+  }, [_c("div", {
+    staticClass: "step-header-icon bg-white bg-opacity-20 p-2 rounded"
+  }, [_c("i", {
+    "class": _vm.headerIcon,
+    staticStyle: {
+      color: "rgb(46, 125, 50)",
+      "font-size": "2rem"
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "ms-3"
+  }, [_c("h5", {
+    staticClass: "mb-0 fw-semibold text"
+  }, [_vm._v(_vm._s(_vm.headerTitle))]), _vm._v(" "), _c("small", {
+    staticClass: "text-50 d-none d-sm-inline"
+  }, [_vm._v(_vm._s(_vm.headerSubtitle))])])]), _vm._v(" "), _c("div", {
+    staticClass: "d-flex align-items-center gap-3"
+  }, [_c("div", {
+    staticClass: "bg-light bg-opacity-90 px-3 py-2 rounded-3 shadow-sm"
+  }, [_c("div", {
+    staticClass: "d-flex align-items-center gap-2"
+  }, [_c("i", {
+    staticClass: "bi bi-clock",
+    staticStyle: {
+      color: "rgb(46, 125, 50)"
+    }
+  }), _vm._v(" "), _c("span", {
+    staticClass: "fw-semibold",
+    staticStyle: {
+      color: "rgb(46, 125, 50)"
+    }
+  }, [_vm._v(_vm._s(_vm.currentDateTime))])])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "card-body",
+    staticStyle: {
+      position: "relative",
+      "min-height": "300px"
+    }
+  }, [_vm.notification.show ? _c("div", {
+    "class": ["notification-toast", _vm.notification.type]
+  }, [_c("div", {
+    staticClass: "notification-content"
+  }, [_c("i", {
+    "class": _vm.notification.type === "success" ? "bi bi-check-circle-fill" : "bi bi-exclamation-circle-fill"
+  }), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.notification.message))])]), _vm._v(" "), _c("button", {
+    staticClass: "notification-close",
+    on: {
+      click: function click($event) {
+        _vm.notification.show = false;
+      }
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-x"
+  })])]) : _vm._e(), _vm._v(" "), _c("div", {
+    staticClass: "table-controls"
+  }, [_c("div", {
+    staticClass: "left-controls"
+  }, [_c("div", {
+    staticClass: "per-page-wrapper"
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.perPage,
+      expression: "perPage"
+    }],
+    staticClass: "per-page-select",
+    on: {
+      change: [function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.perPage = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }, _vm.changePerPage]
+    }
+  }, [_c("option", {
+    domProps: {
+      value: 10
+    }
+  }, [_vm._v("10")]), _vm._v(" "), _c("option", {
+    domProps: {
+      value: 25
+    }
+  }, [_vm._v("25")]), _vm._v(" "), _c("option", {
+    domProps: {
+      value: 50
+    }
+  }, [_vm._v("50")]), _vm._v(" "), _c("option", {
+    domProps: {
+      value: 100
+    }
+  }, [_vm._v("100")])])]), _vm._v(" "), _c("div", {
+    staticClass: "search-box-wrapper"
+  }, [_c("div", {
+    staticClass: "search-box"
+  }, [_c("i", {
+    staticClass: "bi bi-search search-icon"
+  }), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.searchQuery,
+      expression: "searchQuery"
+    }],
+    staticClass: "search-input",
+    attrs: {
+      type: "text",
+      placeholder: "Search by memo slip, subject..."
+    },
+    domProps: {
+      value: _vm.searchQuery
+    },
+    on: {
+      input: [function ($event) {
+        if ($event.target.composing) return;
+        _vm.searchQuery = $event.target.value;
+      }, _vm.applyFilters]
+    }
+  }), _vm._v(" "), _vm.searchQuery ? _c("button", {
+    staticClass: "search-clear-btn",
+    on: {
+      click: _vm.clearSearch
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-x-circle"
+  })]) : _vm._e()])])]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-sm shadow-sm",
+    staticStyle: {
+      "background-color": "#2d6a4f",
+      color: "white",
+      border: "none",
+      "border-radius": "0",
+      padding: "8px 16px"
+    },
+    on: {
+      click: _vm.openCreateModal
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-plus-circle me-1"
+  }), _vm._v(" Create Memo Slip\n      ")])]), _vm._v(" "), _c("div", {
+    staticClass: "table-responsive"
+  }, [_c("table", {
+    staticClass: "office-table"
+  }, [_vm._m(0), _vm._v(" "), _c("tbody", [_vm.loading && _vm.memoSlips.data.length === 0 ? _c("tr", [_vm._m(1)]) : !_vm.loading && _vm.memoSlips.data.length === 0 ? _c("tr", [_vm._m(2)]) : _vm._e(), _vm._v(" "), _vm._l(_vm.memoSlips.data, function (memo, index) {
+    return _c("tr", {
+      key: memo.id
+    }, [_c("td", {
+      staticClass: "text-center"
+    }, [_vm._v("\n              " + _vm._s((_vm.memoSlips.current_page - 1) * _vm.memoSlips.per_page + index + 1) + "\n            ")]), _vm._v(" "), _c("td", [_c("span", {
+      staticClass: "office-name-text"
+    }, [_vm._v(_vm._s(memo.memo_slip_name || memo.memo_slip_name || "Memo Slip"))])]), _vm._v(" "), _c("td", [_vm._v("\n              " + _vm._s(_vm.formatDate(memo.created_at || memo.date_created)) + "\n            ")]), _vm._v(" "), _c("td", [_c("span", {
+      "class": ["badge", memo.status === "Active" ? "bg-success" : "bg-danger"]
+    }, [_vm._v("\n                " + _vm._s(memo.status || "Active") + "\n              ")])]), _vm._v(" "), _c("td", [_c("div", {
+      staticClass: "action-buttons"
+    }, [_c("button", {
+      staticClass: "btn-action btn-edit",
+      attrs: {
+        title: "Edit"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.openEditModal(memo);
+        }
+      }
+    }, [_c("i", {
+      staticClass: "bi bi-pencil-square"
+    })]), _vm._v(" "), _c("button", {
+      staticClass: "btn-action btn-delete",
+      attrs: {
+        title: "Delete"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.deleteMemoSlip(memo.id);
+        }
+      }
+    }, [_c("i", {
+      staticClass: "bi bi-trash"
+    })])])])]);
+  })], 2)])]), _vm._v(" "), _vm.memoSlips.total > 0 ? _c("div", {
+    staticClass: "pagination-wrapper"
+  }, [_c("div", {
+    staticClass: "pagination-info"
+  }, [_vm._v("\n        Showing " + _vm._s(_vm.memoSlips.from) + " to " + _vm._s(_vm.memoSlips.to) + " of\n        " + _vm._s(_vm.memoSlips.total) + " entries\n      ")]), _vm._v(" "), _c("div", {
+    staticClass: "pagination-buttons"
+  }, [_c("button", {
+    staticClass: "page-btn",
+    attrs: {
+      disabled: _vm.memoSlips.current_page === 1
+    },
+    on: {
+      click: function click($event) {
+        return _vm.changePage(1);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-chevron-double-left"
+  })]), _vm._v(" "), _c("button", {
+    staticClass: "page-btn",
+    attrs: {
+      disabled: _vm.memoSlips.current_page === 1
+    },
+    on: {
+      click: function click($event) {
+        return _vm.changePage(_vm.memoSlips.current_page - 1);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-chevron-left"
+  })]), _vm._v(" "), _vm._l(_vm.displayedPages, function (page) {
+    return _c("button", {
+      key: page,
+      "class": ["page-btn", {
+        active: _vm.memoSlips.current_page === page
+      }],
+      on: {
+        click: function click($event) {
+          return _vm.changePage(page);
+        }
+      }
+    }, [_vm._v("\n          " + _vm._s(page) + "\n        ")]);
+  }), _vm._v(" "), _c("button", {
+    staticClass: "page-btn",
+    attrs: {
+      disabled: _vm.memoSlips.current_page === _vm.memoSlips.last_page
+    },
+    on: {
+      click: function click($event) {
+        return _vm.changePage(_vm.memoSlips.current_page + 1);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-chevron-right"
+  })]), _vm._v(" "), _c("button", {
+    staticClass: "page-btn",
+    attrs: {
+      disabled: _vm.memoSlips.current_page === _vm.memoSlips.last_page
+    },
+    on: {
+      click: function click($event) {
+        return _vm.changePage(_vm.memoSlips.last_page);
+      }
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-chevron-double-right"
+  })])], 2)]) : _vm._e()]), _vm._v(" "), _vm.showModal ? _c("div", {
+    staticClass: "modal-overlay",
+    on: {
+      click: function click($event) {
+        if ($event.target !== $event.currentTarget) return null;
+        return _vm.closeModal.apply(null, arguments);
+      }
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog enhanced-modal"
+  }, [_c("div", {
+    staticClass: "modal-content square-modal"
+  }, [_c("div", {
+    staticClass: "modal-header-enhanced square-header"
+  }, [_c("div", {
+    staticClass: "d-flex align-items-center"
+  }, [_vm._m(3), _vm._v(" "), _c("div", [_c("h5", {
+    staticClass: "modal-title"
+  }, [_vm._v("\n                " + _vm._s(_vm.isEditing ? "Edit Memo Slip" : "Create New Memo Slip") + "\n              ")]), _vm._v(" "), _c("small", {
+    staticClass: "modal-subtitle"
+  }, [_vm._v("\n                " + _vm._s(_vm.isEditing ? "Update memo slip details" : "Fill in the details to add a memo slip record") + "\n              ")])])]), _vm._v(" "), _c("button", {
+    staticClass: "btn-close-custom square-close",
+    attrs: {
+      type: "button",
+      disabled: _vm.loading
+    },
+    on: {
+      click: _vm.closeModal
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-x-lg"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body-enhanced"
+  }, [_vm.formErrors.show ? _c("div", {
+    staticClass: "error-msg",
+    attrs: {
+      role: "alert"
+    }
+  }, [_c("svg", {
+    attrs: {
+      width: "15",
+      height: "15",
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: "currentColor",
+      "stroke-width": "2.2"
+    }
+  }, [_c("circle", {
+    attrs: {
+      cx: "12",
+      cy: "12",
+      r: "10"
+    }
+  }), _vm._v(" "), _c("line", {
+    attrs: {
+      x1: "12",
+      y1: "8",
+      x2: "12",
+      y2: "12"
+    }
+  }), _vm._v(" "), _c("circle", {
+    attrs: {
+      cx: "12",
+      cy: "16.5",
+      r: "0.7",
+      fill: "currentColor",
+      stroke: "none"
+    }
+  })]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.formErrors.message))])]) : _vm._e(), _vm._v(" "), _c("form", {
+    on: {
+      submit: function submit($event) {
+        $event.preventDefault();
+        return _vm.submitForm.apply(null, arguments);
+      }
+    }
+  }, [_c("div", {
+    staticClass: "row g-3"
+  }, [_c("div", {
+    staticClass: "col-md-12"
+  }, [_vm._m(4), _vm._v(" "), _c("div", {
+    staticClass: "input-wrap"
+  }, [_c("span", {
+    staticClass: "input-icon"
+  }, [_c("svg", {
+    attrs: {
+      width: "16",
+      height: "16",
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: "currentColor",
+      "stroke-width": "2"
+    }
+  }, [_c("path", {
+    attrs: {
+      d: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+    }
+  }), _vm._v(" "), _c("polyline", {
+    attrs: {
+      points: "14 2 14 8 20 8"
+    }
+  })])]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.memo_slip,
+      expression: "form.memo_slip"
+    }],
+    staticClass: "form-input",
+    "class": {
+      "is-invalid": _vm.errors.memo_slip
+    },
+    attrs: {
+      type: "text",
+      id: "memo_slip",
+      placeholder: "Enter memo slip subject",
+      disabled: _vm.loading
+    },
+    domProps: {
+      value: _vm.form.memo_slip
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.form, "memo_slip", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _vm.errors.memo_slip ? _c("div", {
+    staticClass: "invalid-feedback d-block"
+  }, [_vm._v("\n                  " + _vm._s(_vm.errors.memo_slip) + "\n                ")]) : _vm._e(), _vm._v(" "), _c("br")]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-12"
+  }, [_c("label", {
+    staticClass: "form-label-enhanced",
+    attrs: {
+      "for": "status"
+    }
+  }, [_vm._v("\n                  Status\n                ")]), _vm._v(" "), _c("div", {
+    staticClass: "input-wrap"
+  }, [_c("span", {
+    staticClass: "input-icon"
+  }, [_c("svg", {
+    attrs: {
+      width: "16",
+      height: "16",
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: "currentColor",
+      "stroke-width": "2"
+    }
+  }, [_c("path", {
+    attrs: {
+      d: "M22 11.08V12a10 10 0 1 1-5.93-9.14"
+    }
+  }), _vm._v(" "), _c("polyline", {
+    attrs: {
+      points: "22 4 12 14.01 9 11.01"
+    }
+  })])]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.status,
+      expression: "form.status"
+    }],
+    staticClass: "form-input",
+    "class": {
+      "is-invalid": _vm.errors.status
+    },
+    staticStyle: {
+      "padding-left": "42px"
+    },
+    attrs: {
+      id: "status",
+      disabled: _vm.loading
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.form, "status", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      value: "Active"
+    }
+  }, [_vm._v("Active")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "Inactive"
+    }
+  }, [_vm._v("Inactive")])])]), _vm._v(" "), _vm.errors.status ? _c("div", {
+    staticClass: "invalid-feedback d-block"
+  }, [_vm._v("\n                  " + _vm._s(_vm.errors.status) + "\n                ")]) : _vm._e()])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-actions"
+  }, [_c("button", {
+    staticClass: "btn btn-outline-secondary square-btn",
+    attrs: {
+      type: "button",
+      disabled: _vm.loading
+    },
+    on: {
+      click: _vm.resetForm
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-arrow-counterclockwise me-1"
+  }), _vm._v(" Reset\n              ")]), _vm._v(" "), _c("div", {
+    staticClass: "d-flex gap-3"
+  }, [_c("button", {
+    staticClass: "btn btn-light square-btn",
+    attrs: {
+      type: "button",
+      disabled: _vm.loading
+    },
+    on: {
+      click: _vm.closeModal
+    }
+  }, [_vm._v("\n                  Cancel\n                ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-save square-btn",
+    attrs: {
+      type: "submit",
+      disabled: _vm.loading
+    }
+  }, [_vm.loading ? _c("span", {
+    staticClass: "spinner-border spinner-border-sm me-1",
+    attrs: {
+      role: "status",
+      "aria-hidden": "true"
+    }
+  }) : _c("i", {
+    staticClass: "bi bi-check2-circle me-1"
+  }), _vm._v("\n                  " + _vm._s(_vm.loading ? "Saving..." : _vm.isEditing ? "Update Memo Slip" : "Save Memo Slip") + "\n                ")])])])])])])])]) : _vm._e(), _vm._v(" "), _vm.showDeleteConfirm ? _c("div", {
+    staticClass: "modal-overlay",
+    on: {
+      click: function click($event) {
+        if ($event.target !== $event.currentTarget) return null;
+        return _vm.cancelDelete.apply(null, arguments);
+      }
+    }
+  }, [_c("div", {
+    staticClass: "modal-dialog",
+    staticStyle: {
+      "max-width": "400px"
+    }
+  }, [_c("div", {
+    staticClass: "modal-content square-modal"
+  }, [_c("div", {
+    staticClass: "modal-header-enhanced square-header",
+    staticStyle: {
+      background: "linear-gradient(135deg, #b91c1c, #991b1b)"
+    }
+  }, [_vm._m(5), _vm._v(" "), _c("button", {
+    staticClass: "btn-close-custom square-close",
+    attrs: {
+      type: "button",
+      disabled: _vm.loading
+    },
+    on: {
+      click: _vm.cancelDelete
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-x-lg"
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-body-enhanced text-center py-4"
+  }, [_c("p", {
+    staticClass: "mb-4"
+  }, [_vm._v("\n            Are you sure you want to delete\n            "), _c("strong", [_vm._v(_vm._s(((_vm$memoToDelete = _vm.memoToDelete) === null || _vm$memoToDelete === void 0 ? void 0 : _vm$memoToDelete.memo_slip) || ((_vm$memoToDelete2 = _vm.memoToDelete) === null || _vm$memoToDelete2 === void 0 ? void 0 : _vm$memoToDelete2.subject)))]), _vm._v("?\n          ")]), _vm._v(" "), _c("div", {
+    staticClass: "d-flex justify-content-center gap-3"
+  }, [_c("button", {
+    staticClass: "btn btn-light square-btn",
+    attrs: {
+      disabled: _vm.loading
+    },
+    on: {
+      click: _vm.cancelDelete
+    }
+  }, [_vm._v("\n              Cancel\n            ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-save square-btn",
+    staticStyle: {
+      background: "#dc2626"
+    },
+    attrs: {
+      disabled: _vm.loading
+    },
+    on: {
+      click: _vm.confirmDelete
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-trash me-1"
+  }), _vm._v(" Delete\n            ")])])])])])]) : _vm._e()]);
+};
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("thead", [_c("tr", [_c("th", {
+    staticStyle: {
+      width: "5%"
+    }
+  }, [_vm._v("#")]), _vm._v(" "), _c("th", {
+    staticStyle: {
+      width: "30%"
+    }
+  }, [_vm._v("Memo Slip")]), _vm._v(" "), _c("th", {
+    staticStyle: {
+      width: "25%"
+    }
+  }, [_vm._v("Date Created")]), _vm._v(" "), _c("th", {
+    staticStyle: {
+      width: "15%"
+    }
+  }, [_vm._v("Status")]), _vm._v(" "), _c("th", {
+    staticStyle: {
+      width: "15%"
+    }
+  }, [_vm._v("Action")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("td", {
+    staticClass: "text-center",
+    attrs: {
+      colspan: "5"
+    }
+  }, [_c("div", {
+    staticClass: "loader-spinner"
+  }), _vm._v("\n              Loading...\n            ")]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("td", {
+    staticClass: "text-center",
+    attrs: {
+      colspan: "5"
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-inbox"
+  }), _vm._v(" No Memo Slips Found\n            ")]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "modal-icon-wrapper square-icon"
+  }, [_c("i", {
+    staticClass: "bi bi-file-earmark-text"
+  })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("label", {
+    staticClass: "form-label-enhanced",
+    attrs: {
+      "for": "memo_slip"
+    }
+  }, [_vm._v("\n                  Memo Slip "), _c("span", {
+    staticClass: "required-star"
+  }, [_vm._v("*")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("h5", {
+    staticClass: "modal-title"
+  }, [_c("i", {
+    staticClass: "bi bi-exclamation-triangle me-2"
+  }), _vm._v("Confirm Delete\n          ")]);
+}];
+render._withStripped = true;
+
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Secretariat/PendingTab.vue?vue&type=template&id=c955ef06&scoped=true":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Secretariat/PendingTab.vue?vue&type=template&id=c955ef06&scoped=true ***!
@@ -24317,7 +25487,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function render() {
-  var _vm$forwardDocument, _vm$forwardDocument2, _vm$forwardDocument3, _vm$uploadedFile, _vm$releaseDocument, _vm$releaseDocument2, _vm$releaseDocument3, _vm$releaseDocument4, _vm$releaseUploadedFi, _vm$archiveDocument, _vm$archiveDocument2, _vm$archiveDocument3, _vm$archiveDocument4, _vm$selectedDocument, _vm$selectedDocument2, _vm$selectedDocument3, _vm$selectedDocument$, _vm$selectedDocument4, _vm$selectedDocument5;
+  var _vm$forwardDocument, _vm$forwardDocument2, _vm$forwardDocument3, _vm$forwardDocument4, _vm$uploadedFile, _vm$releaseDocument, _vm$releaseDocument2, _vm$releaseDocument3, _vm$releaseDocument4, _vm$releaseUploadedFi, _vm$archiveDocument, _vm$archiveDocument2, _vm$archiveDocument3, _vm$archiveDocument4, _vm$selectedDocument, _vm$selectedDocument2, _vm$selectedDocument3, _vm$selectedDocument$, _vm$selectedDocument4, _vm$selectedDocument5;
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", [_c("div", {
@@ -24588,14 +25758,11 @@ var render = function render() {
       }
     }
   }, [_c("div", {
-    staticClass: "modal-dialog enhanced-modal",
-    staticStyle: {
-      "max-width": "800px"
-    }
+    staticClass: "modal-dialog enhanced-modal forward-modal-large"
   }, [_c("div", {
     staticClass: "modal-content square-modal"
   }, [_c("div", {
-    staticClass: "square-header"
+    staticClass: "square-header forward-header"
   }, [_vm._m(2), _vm._v(" "), _c("button", {
     staticClass: "square-close",
     attrs: {
@@ -24608,7 +25775,7 @@ var render = function render() {
   }, [_c("i", {
     staticClass: "bi bi-x-lg"
   })])]), _vm._v(" "), _c("div", {
-    staticClass: "modal-body"
+    staticClass: "modal-body forward-modal-body"
   }, [_vm.forwardError ? _c("div", {
     staticClass: "error-msg"
   }, [_c("svg", {
@@ -24642,33 +25809,49 @@ var render = function render() {
       stroke: "none"
     }
   })]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.forwardError))])]) : _vm._e(), _vm._v(" "), _c("div", {
-    staticClass: "forward-doc-info"
+    staticClass: "forward-doc-info-bar"
   }, [_c("div", {
-    staticClass: "forward-doc-row"
+    staticClass: "doc-info-item"
   }, [_c("span", {
-    staticClass: "forward-doc-label"
-  }, [_vm._v("Tracking:")]), _vm._v(" "), _c("span", {
-    staticClass: "forward-doc-value"
+    staticClass: "doc-info-label"
+  }, [_vm._v("Tracking")]), _vm._v(" "), _c("span", {
+    staticClass: "doc-info-value"
   }, [_vm._v(_vm._s(((_vm$forwardDocument = _vm.forwardDocument) === null || _vm$forwardDocument === void 0 || (_vm$forwardDocument = _vm$forwardDocument.document) === null || _vm$forwardDocument === void 0 ? void 0 : _vm$forwardDocument.tracking_number) || "N/A"))])]), _vm._v(" "), _c("div", {
-    staticClass: "forward-doc-row"
+    staticClass: "doc-info-divider"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "doc-info-item"
   }, [_c("span", {
-    staticClass: "forward-doc-label"
-  }, [_vm._v("Type:")]), _vm._v(" "), _c("span", {
+    staticClass: "doc-info-label"
+  }, [_vm._v("Type")]), _vm._v(" "), _c("span", {
     staticClass: "doc-type-badge"
   }, [_vm._v(_vm._s(((_vm$forwardDocument2 = _vm.forwardDocument) === null || _vm$forwardDocument2 === void 0 || (_vm$forwardDocument2 = _vm$forwardDocument2.document) === null || _vm$forwardDocument2 === void 0 || (_vm$forwardDocument2 = _vm$forwardDocument2.document_type) === null || _vm$forwardDocument2 === void 0 ? void 0 : _vm$forwardDocument2.document_type_name) || ((_vm$forwardDocument3 = _vm.forwardDocument) === null || _vm$forwardDocument3 === void 0 || (_vm$forwardDocument3 = _vm$forwardDocument3.document) === null || _vm$forwardDocument3 === void 0 ? void 0 : _vm$forwardDocument3.document_type) || "N/A"))])]), _vm._v(" "), _c("div", {
-    staticClass: "forward-doc-row"
+    staticClass: "doc-info-divider"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "doc-info-item doc-info-subject"
   }, [_c("span", {
-    staticClass: "forward-doc-label"
-  }, [_vm._v("Duration:")]), _vm._v(" "), _c("span", {
+    staticClass: "doc-info-label"
+  }, [_vm._v("Subject")]), _vm._v(" "), _c("span", {
+    staticClass: "doc-info-value subject-truncate"
+  }, [_vm._v(_vm._s(((_vm$forwardDocument4 = _vm.forwardDocument) === null || _vm$forwardDocument4 === void 0 || (_vm$forwardDocument4 = _vm$forwardDocument4.document) === null || _vm$forwardDocument4 === void 0 ? void 0 : _vm$forwardDocument4.subject) || "N/A"))])]), _vm._v(" "), _c("div", {
+    staticClass: "doc-info-divider"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "doc-info-item"
+  }, [_c("span", {
+    staticClass: "doc-info-label"
+  }, [_vm._v("Duration")]), _vm._v(" "), _c("span", {
     staticClass: "duration-badge",
     "class": _vm.getDurationBadgeClass(_vm.getDurationValue())
   }, [_c("i", {
     "class": _vm.getDurationIcon(_vm.getDurationValue())
   }), _vm._v("\n                " + _vm._s(_vm.getDurationDisplay()) + "\n              ")])])]), _vm._v(" "), _c("div", {
-    staticClass: "forward-grid"
+    staticClass: "forward-main-grid"
   }, [_c("div", {
-    staticClass: "forward-col"
-  }, [_vm._m(3), _vm._v(" "), _c("div", {
+    staticClass: "forward-col office-col"
+  }, [_c("div", {
+    staticClass: "col-header"
+  }, [_vm._m(3), _vm._v(" "), _vm.selectedOffices.length > 0 ? _c("span", {
+    staticClass: "selection-count"
+  }, [_vm._v("\n                  " + _vm._s(_vm.selectedOffices.length) + " selected\n                ")]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "office-search-box"
   }, [_c("i", {
     staticClass: "bi bi-search office-search-icon"
@@ -24701,7 +25884,7 @@ var render = function render() {
   }, [_c("i", {
     staticClass: "bi bi-x-circle"
   })]) : _vm._e()]), _vm._v(" "), _vm.officesLoading ? _c("div", {
-    staticClass: "text-center py-3"
+    staticClass: "loading-state"
   }, [_c("div", {
     staticClass: "loader-spinner",
     staticStyle: {
@@ -24711,21 +25894,15 @@ var render = function render() {
   }), _vm._v(" "), _c("p", {
     staticClass: "mt-1 text-muted"
   }, [_vm._v("Loading offices...")])]) : _vm.filteredOffices.length === 0 ? _c("div", {
-    staticClass: "text-center py-3"
+    staticClass: "empty-state-compact"
   }, [_c("i", {
-    staticClass: "bi bi-building",
-    staticStyle: {
-      "font-size": "1.5rem",
-      color: "#9ca3af"
-    }
-  }), _vm._v(" "), _c("p", {
-    staticClass: "mt-1 text-muted"
-  }, [_vm._v("\n                  " + _vm._s(_vm.officeSearchQuery ? "No offices match" : "No offices available") + "\n                ")])]) : _c("div", {
-    staticClass: "office-list-container"
+    staticClass: "bi bi-building"
+  }), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.officeSearchQuery ? "No offices match" : "No offices available"))])]) : _c("div", {
+    staticClass: "office-list"
   }, _vm._l(_vm.filteredOffices, function (office) {
     return _c("div", {
       key: office.id,
-      staticClass: "office-select-item",
+      staticClass: "office-item",
       "class": {
         selected: _vm.isOfficeSelected(office.id)
       },
@@ -24735,28 +25912,114 @@ var render = function render() {
         }
       }
     }, [_c("div", {
-      staticClass: "office-checkbox"
+      staticClass: "office-item-check"
     }, [_c("i", {
-      "class": _vm.isOfficeSelected(office.id) ? "bi bi-check-square-fill" : "bi bi-square"
+      "class": _vm.isOfficeSelected(office.id) ? "bi bi-check-circle-fill" : "bi bi-circle"
     })]), _vm._v(" "), _vm._m(4, true), _vm._v(" "), _c("div", {
-      staticClass: "office-details"
+      staticClass: "office-item-info"
     }, [_c("span", {
-      staticClass: "office-name-text"
+      staticClass: "office-item-name"
     }, [_vm._v(_vm._s(office.sub_office_name))]), _vm._v(" "), office.office_code ? _c("span", {
-      staticClass: "office-code"
-    }, [_vm._v(_vm._s(office.office_code))]) : _vm._e()]), _vm._v(" "), _vm.isOfficeSelected(office.id) ? _c("div", {
-      staticClass: "selected-indicator"
-    }, [_c("i", {
-      staticClass: "bi bi-check-circle-fill"
-    })]) : _vm._e()]);
+      staticClass: "office-item-code"
+    }, [_vm._v(_vm._s(office.office_code))]) : _vm._e()])]);
   }), 0), _vm._v(" "), _vm.selectedOffices.length > 0 ? _c("div", {
-    staticClass: "selection-counter"
+    staticClass: "selected-tags"
+  }, [_c("div", {
+    staticClass: "selected-tags-header"
   }, [_c("i", {
-    staticClass: "bi bi-check2-circle"
-  }), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.selectedOffices.length) + " office(s) selected")])]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "forward-col"
-  }, [_vm._m(5), _vm._v(" "), _vm.hasExistingDuration() ? _c("div", {
-    staticClass: "duration-display-container"
+    staticClass: "bi bi-check2-all"
+  }), _vm._v(" "), _c("span", [_vm._v("Selected Offices")]), _vm._v(" "), _c("span", {
+    staticClass: "badge-count"
+  }, [_vm._v(_vm._s(_vm.selectedOffices.length))])]), _vm._v(" "), _c("div", {
+    staticClass: "selected-tags-list"
+  }, _vm._l(_vm.selectedOffices, function (office) {
+    return _c("span", {
+      key: office.id,
+      staticClass: "selected-tag"
+    }, [_vm._v("\n                    " + _vm._s(office.sub_office_name) + "\n                    "), _c("button", {
+      staticClass: "remove-tag-btn",
+      attrs: {
+        disabled: _vm.forwarding
+      },
+      on: {
+        click: function click($event) {
+          return _vm.removeOffice(office.id);
+        }
+      }
+    }, [_c("i", {
+      staticClass: "bi bi-x"
+    })])]);
+  }), 0)]) : _vm._e()]), _vm._v(" "), _c("div", {
+    staticClass: "forward-col memo-col"
+  }, [_vm._m(5), _vm._v(" "), _vm.memoSlipsLoading ? _c("div", {
+    staticClass: "loading-state"
+  }, [_c("div", {
+    staticClass: "loader-spinner",
+    staticStyle: {
+      width: "30px",
+      height: "30px"
+    }
+  }), _vm._v(" "), _c("p", {
+    staticClass: "mt-1 text-muted"
+  }, [_vm._v("Loading memo slips...")])]) : _vm.memoSlips.length === 0 ? _c("div", {
+    staticClass: "empty-state-compact"
+  }, [_c("i", {
+    staticClass: "bi bi-envelope-paper"
+  }), _vm._v(" "), _c("p", [_vm._v("No active memo slips")])]) : _c("div", {
+    staticClass: "memo-section"
+  }, [_c("div", {
+    staticClass: "memo-actions"
+  }, [_c("button", {
+    staticClass: "memo-action-btn select-all-btn",
+    attrs: {
+      disabled: _vm.memoSlips.length === 0 || _vm.forwarding
+    },
+    on: {
+      click: _vm.selectAllMemoSlips
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-check-all"
+  }), _vm._v(" All\n                  ")]), _vm._v(" "), _c("button", {
+    staticClass: "memo-action-btn deselect-all-btn",
+    attrs: {
+      disabled: _vm.selectedMemoSlips.length === 0 || _vm.forwarding
+    },
+    on: {
+      click: _vm.deselectAllMemoSlips
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-x"
+  }), _vm._v(" Clear\n                  ")]), _vm._v(" "), _c("span", {
+    staticClass: "memo-count-badge"
+  }, [_vm._v("\n                    " + _vm._s(_vm.selectedMemoSlips.length) + " / " + _vm._s(_vm.memoSlips.length) + "\n                  ")])]), _vm._v(" "), _c("div", {
+    staticClass: "memo-list"
+  }, _vm._l(_vm.memoSlips, function (memo) {
+    return _c("div", {
+      key: memo.id,
+      staticClass: "memo-item",
+      "class": {
+        selected: _vm.isMemoSlipSelected(memo.id)
+      },
+      on: {
+        click: function click($event) {
+          return _vm.toggleMemoSlipSelection(memo);
+        }
+      }
+    }, [_c("div", {
+      staticClass: "memo-item-check"
+    }, [_c("i", {
+      "class": _vm.isMemoSlipSelected(memo.id) ? "bi bi-check-square-fill" : "bi bi-square"
+    })]), _vm._v(" "), _c("div", {
+      staticClass: "memo-item-content"
+    }, [_c("span", {
+      staticClass: "memo-item-name"
+    }, [_vm._v(_vm._s(memo.memo_slip_name || "No subject"))])])]);
+  }), 0)])]), _vm._v(" "), _c("div", {
+    staticClass: "forward-col details-col"
+  }, [_c("div", {
+    staticClass: "detail-section"
+  }, [_vm._m(6), _vm._v(" "), _vm.hasExistingDuration() ? _c("div", {
+    staticClass: "duration-display"
   }, [_c("div", {
     staticClass: "duration-display-box"
   }, [_c("div", {
@@ -24764,13 +26027,15 @@ var render = function render() {
   }, [_c("i", {
     "class": _vm.getDurationIcon(_vm.getDurationValue())
   })]), _vm._v(" "), _c("div", {
-    staticClass: "duration-display-content"
+    staticClass: "duration-display-info"
   }, [_c("span", {
     staticClass: "duration-display-label"
   }, [_vm._v("Current Duration")]), _vm._v(" "), _c("span", {
     staticClass: "duration-display-value",
     "class": _vm.getDurationBadgeClass(_vm.getDurationValue())
-  }, [_vm._v("\n                      " + _vm._s(_vm.getDurationDisplay()) + "\n                    ")])]), _vm._v(" "), _vm._m(6)]), _vm._v(" "), _vm._m(7)]) : _c("div", [_c("select", {
+  }, [_vm._v("\n                        " + _vm._s(_vm.getDurationDisplay()) + "\n                      ")])]), _vm._v(" "), _c("span", {
+    staticClass: "readonly-badge"
+  }, [_vm._v("Read Only")])]), _vm._v(" "), _vm._m(7)]) : _c("div", [_c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -24808,15 +26073,14 @@ var render = function render() {
     attrs: {
       value: "Highly Technical - 45 Days"
     }
-  }, [_vm._v("Highly Technical - 45 Days")])]), _vm._v(" "), _vm._m(8)]), _vm._v(" "), _c("div", {
-    staticClass: "attachment-section"
-  }, [_c("label", {
-    staticClass: "form-label",
-    staticStyle: {
-      "margin-top": "12px"
-    }
-  }, [_vm._v("\n                  Attachment (PDF only)\n                ")]), _vm._v(" "), !_vm.uploadedFile ? _c("div", {
-    staticClass: "dropzone",
+  }, [_vm._v("Highly Technical - 45 Days")])]), _vm._v(" "), !_vm.selectedDuration ? _c("div", {
+    staticClass: "duration-hint"
+  }, [_c("i", {
+    staticClass: "bi bi-info-circle"
+  }), _vm._v(" "), _c("span", [_vm._v("Please select a duration.")])]) : _vm._e()])]), _vm._v(" "), _c("div", {
+    staticClass: "detail-section attachment-section"
+  }, [_vm._m(8), _vm._v(" "), !_vm.uploadedFile ? _c("div", {
+    staticClass: "dropzone-compact",
     on: {
       click: _vm.triggerFileUpload,
       dragover: function dragover($event) {
@@ -24838,19 +26102,17 @@ var render = function render() {
       change: _vm.handleFileUpload
     }
   }), _vm._v(" "), _vm._m(9)]) : _vm._e(), _vm._v(" "), _vm.uploadedFile ? _c("div", {
-    staticClass: "single-file-card"
-  }, [_c("div", {
-    staticClass: "file-info"
+    staticClass: "file-card-compact"
   }, [_vm._m(10), _vm._v(" "), _c("div", {
-    staticClass: "file-details"
-  }, [_c("div", {
-    staticClass: "file-name"
-  }, [_vm._v(_vm._s(_vm.uploadedFile.name))]), _vm._v(" "), _c("div", {
-    staticClass: "file-size"
-  }, [_vm._v(_vm._s(_vm.formatFileSize(_vm.uploadedFile.size)))])])]), _vm._v(" "), _c("div", {
-    staticClass: "file-actions"
+    staticClass: "file-card-info"
+  }, [_c("span", {
+    staticClass: "file-card-name"
+  }, [_vm._v(_vm._s(_vm.uploadedFile.name))]), _vm._v(" "), _c("span", {
+    staticClass: "file-card-size"
+  }, [_vm._v(_vm._s(_vm.formatFileSize(_vm.uploadedFile.size)))])]), _vm._v(" "), _c("div", {
+    staticClass: "file-card-actions"
   }, [_c("button", {
-    staticClass: "btn-icon btn-icon-view",
+    staticClass: "file-action-btn",
     attrs: {
       type: "button",
       title: "View"
@@ -24861,7 +26123,7 @@ var render = function render() {
   }, [_c("i", {
     staticClass: "bi bi-eye"
   })]), _vm._v(" "), _c("button", {
-    staticClass: "btn-icon btn-icon-replace",
+    staticClass: "file-action-btn",
     attrs: {
       type: "button",
       title: "Replace"
@@ -24872,7 +26134,7 @@ var render = function render() {
   }, [_c("i", {
     staticClass: "bi bi-arrow-repeat"
   })]), _vm._v(" "), _c("button", {
-    staticClass: "btn-icon btn-icon-remove",
+    staticClass: "file-action-btn remove-btn",
     attrs: {
       type: "button",
       title: "Remove"
@@ -24886,12 +26148,9 @@ var render = function render() {
     staticClass: "field-error"
   }, [_c("i", {
     staticClass: "bi bi-exclamation-circle"
-  }), _vm._v("\n                  " + _vm._s(_vm.attachmentError) + "\n                ")]) : _vm._e()]), _vm._v(" "), _c("label", {
-    staticClass: "form-label",
-    staticStyle: {
-      "margin-top": "12px"
-    }
-  }, [_vm._v("\n                Remarks / Instructions\n              ")]), _vm._v(" "), _c("textarea", {
+  }), _vm._v("\n                  " + _vm._s(_vm.attachmentError) + "\n                ")]) : _vm._e()]), _vm._v(" "), _c("div", {
+    staticClass: "detail-section remarks-section"
+  }, [_vm._m(11), _vm._v(" "), _c("textarea", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -24919,33 +26178,8 @@ var render = function render() {
     "class": {
       "text-danger": _vm.remarks.length > 450
     }
-  }, [_vm._v("\n                " + _vm._s(_vm.remarks.length) + "/500\n              ")])])]), _vm._v(" "), _vm.selectedOffices.length > 0 ? _c("div", {
-    staticClass: "selected-offices-summary"
-  }, [_c("div", {
-    staticClass: "selected-offices-header"
-  }, [_c("i", {
-    staticClass: "bi bi-check2-all"
-  }), _vm._v(" "), _c("span", [_vm._v("Selected (" + _vm._s(_vm.selectedOffices.length) + ")")])]), _vm._v(" "), _c("div", {
-    staticClass: "selected-offices-list"
-  }, _vm._l(_vm.selectedOffices, function (office) {
-    return _c("span", {
-      key: office.id,
-      staticClass: "selected-office-tag"
-    }, [_vm._v("\n                " + _vm._s(office.sub_office_name) + "\n                "), _c("button", {
-      staticClass: "remove-office-btn",
-      attrs: {
-        disabled: _vm.forwarding
-      },
-      on: {
-        click: function click($event) {
-          return _vm.removeOffice(office.id);
-        }
-      }
-    }, [_c("i", {
-      staticClass: "bi bi-x"
-    })])]);
-  }), 0)]) : _vm._e(), _vm._v(" "), _c("div", {
-    staticClass: "modal-actions"
+  }, [_vm._v("\n                  " + _vm._s(_vm.remarks.length) + "/500\n                ")])])])]), _vm._v(" "), _c("div", {
+    staticClass: "modal-actions forward-actions"
   }, [_c("button", {
     staticClass: "btn btn-outline-secondary square-btn",
     attrs: {
@@ -25064,7 +26298,7 @@ var render = function render() {
     staticStyle: {
       background: "linear-gradient(135deg, #1e4d2b, #2d6a4f)"
     }
-  }, [_vm._m(11), _vm._v(" "), _c("button", {
+  }, [_vm._m(12), _vm._v(" "), _c("button", {
     staticClass: "square-close",
     attrs: {
       type: "button",
@@ -25112,11 +26346,11 @@ var render = function render() {
       fill: "currentColor",
       stroke: "none"
     }
-  })]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.releaseError))])]) : _vm._e(), _vm._v(" "), _vm._m(12), _vm._v(" "), _c("div", {
+  })]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.releaseError))])]) : _vm._e(), _vm._v(" "), _vm._m(13), _vm._v(" "), _c("div", {
     staticClass: "release-doc-info"
   }, [_c("div", {
     staticClass: "release-doc-row"
-  }, [_vm._m(13), _vm._v(" "), _c("div", {
+  }, [_vm._m(14), _vm._v(" "), _c("div", {
     staticClass: "release-doc-content"
   }, [_c("span", {
     staticClass: "release-doc-label"
@@ -25124,7 +26358,7 @@ var render = function render() {
     staticClass: "release-doc-value"
   }, [_vm._v(_vm._s(((_vm$releaseDocument = _vm.releaseDocument) === null || _vm$releaseDocument === void 0 || (_vm$releaseDocument = _vm$releaseDocument.document) === null || _vm$releaseDocument === void 0 ? void 0 : _vm$releaseDocument.tracking_number) || "N/A"))])])]), _vm._v(" "), _c("div", {
     staticClass: "release-doc-row"
-  }, [_vm._m(14), _vm._v(" "), _c("div", {
+  }, [_vm._m(15), _vm._v(" "), _c("div", {
     staticClass: "release-doc-content"
   }, [_c("span", {
     staticClass: "release-doc-label"
@@ -25132,7 +26366,7 @@ var render = function render() {
     staticClass: "release-doc-value"
   }, [_vm._v(_vm._s(((_vm$releaseDocument2 = _vm.releaseDocument) === null || _vm$releaseDocument2 === void 0 || (_vm$releaseDocument2 = _vm$releaseDocument2.document) === null || _vm$releaseDocument2 === void 0 || (_vm$releaseDocument2 = _vm$releaseDocument2.document_type) === null || _vm$releaseDocument2 === void 0 ? void 0 : _vm$releaseDocument2.document_type_name) || ((_vm$releaseDocument3 = _vm.releaseDocument) === null || _vm$releaseDocument3 === void 0 || (_vm$releaseDocument3 = _vm$releaseDocument3.document) === null || _vm$releaseDocument3 === void 0 ? void 0 : _vm$releaseDocument3.document_type) || "N/A"))])])]), _vm._v(" "), _c("div", {
     staticClass: "release-doc-row"
-  }, [_vm._m(15), _vm._v(" "), _c("div", {
+  }, [_vm._m(16), _vm._v(" "), _c("div", {
     staticClass: "release-doc-content"
   }, [_c("span", {
     staticClass: "release-doc-label"
@@ -25164,11 +26398,11 @@ var render = function render() {
     on: {
       change: _vm.handleReleaseFileUpload
     }
-  }), _vm._v(" "), _vm._m(16)]) : _vm._e(), _vm._v(" "), _vm.releaseUploadedFile ? _c("div", {
+  }), _vm._v(" "), _vm._m(17)]) : _vm._e(), _vm._v(" "), _vm.releaseUploadedFile ? _c("div", {
     staticClass: "single-file-card"
   }, [_c("div", {
     staticClass: "file-info"
-  }, [_vm._m(17), _vm._v(" "), _c("div", {
+  }, [_vm._m(18), _vm._v(" "), _c("div", {
     staticClass: "file-details"
   }, [_c("div", {
     staticClass: "file-name"
@@ -25247,7 +26481,7 @@ var render = function render() {
     }
   }, [_vm._v("\n              " + _vm._s(_vm.releaseRemarks.length) + "/500\n            ")])]), _vm._v(" "), _c("div", {
     staticClass: "system-datetime-box mt-3"
-  }, [_vm._m(18), _vm._v(" "), _c("div", {
+  }, [_vm._m(19), _vm._v(" "), _c("div", {
     staticClass: "system-datetime-display"
   }, [_c("div", {
     staticClass: "datetime-item"
@@ -25265,7 +26499,7 @@ var render = function render() {
     staticClass: "datetime-label"
   }, [_vm._v("Time:")]), _vm._v(" "), _c("span", {
     staticClass: "datetime-value"
-  }, [_vm._v(_vm._s(_vm.currentPstTime))])])]), _vm._v(" "), _vm._m(19)]), _vm._v(" "), _c("div", {
+  }, [_vm._v(_vm._s(_vm.currentPstTime))])])]), _vm._v(" "), _vm._m(20)]), _vm._v(" "), _c("div", {
     staticClass: "modal-actions"
   }, [_c("button", {
     staticClass: "btn btn-outline-secondary square-btn",
@@ -25375,7 +26609,7 @@ var render = function render() {
     staticStyle: {
       background: "linear-gradient(135deg, #6b7280, #4b5563)"
     }
-  }, [_vm._m(20), _vm._v(" "), _c("button", {
+  }, [_vm._m(21), _vm._v(" "), _c("button", {
     staticClass: "btn-close-custom square-close",
     attrs: {
       type: "button",
@@ -25423,11 +26657,11 @@ var render = function render() {
       fill: "currentColor",
       stroke: "none"
     }
-  })]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.archiveError))])]) : _vm._e(), _vm._v(" "), _vm._m(21), _vm._v(" "), _c("div", {
+  })]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.archiveError))])]) : _vm._e(), _vm._v(" "), _vm._m(22), _vm._v(" "), _c("div", {
     staticClass: "archive-doc-info"
   }, [_c("div", {
     staticClass: "archive-doc-row"
-  }, [_vm._m(22), _vm._v(" "), _c("div", {
+  }, [_vm._m(23), _vm._v(" "), _c("div", {
     staticClass: "archive-doc-content"
   }, [_c("span", {
     staticClass: "archive-doc-label"
@@ -25435,7 +26669,7 @@ var render = function render() {
     staticClass: "archive-doc-value"
   }, [_vm._v(_vm._s(((_vm$archiveDocument = _vm.archiveDocument) === null || _vm$archiveDocument === void 0 || (_vm$archiveDocument = _vm$archiveDocument.document) === null || _vm$archiveDocument === void 0 ? void 0 : _vm$archiveDocument.tracking_number) || "N/A"))])])]), _vm._v(" "), _c("div", {
     staticClass: "archive-doc-row"
-  }, [_vm._m(23), _vm._v(" "), _c("div", {
+  }, [_vm._m(24), _vm._v(" "), _c("div", {
     staticClass: "archive-doc-content"
   }, [_c("span", {
     staticClass: "archive-doc-label"
@@ -25443,7 +26677,7 @@ var render = function render() {
     staticClass: "archive-doc-value"
   }, [_vm._v(_vm._s(((_vm$archiveDocument2 = _vm.archiveDocument) === null || _vm$archiveDocument2 === void 0 || (_vm$archiveDocument2 = _vm$archiveDocument2.document) === null || _vm$archiveDocument2 === void 0 || (_vm$archiveDocument2 = _vm$archiveDocument2.document_type) === null || _vm$archiveDocument2 === void 0 ? void 0 : _vm$archiveDocument2.document_type_name) || ((_vm$archiveDocument3 = _vm.archiveDocument) === null || _vm$archiveDocument3 === void 0 || (_vm$archiveDocument3 = _vm$archiveDocument3.document) === null || _vm$archiveDocument3 === void 0 ? void 0 : _vm$archiveDocument3.document_type) || "N/A"))])])]), _vm._v(" "), _c("div", {
     staticClass: "archive-doc-row"
-  }, [_vm._m(24), _vm._v(" "), _c("div", {
+  }, [_vm._m(25), _vm._v(" "), _c("div", {
     staticClass: "archive-doc-content"
   }, [_c("span", {
     staticClass: "archive-doc-label"
@@ -25451,7 +26685,7 @@ var render = function render() {
     staticClass: "archive-doc-value"
   }, [_vm._v(_vm._s(((_vm$archiveDocument4 = _vm.archiveDocument) === null || _vm$archiveDocument4 === void 0 || (_vm$archiveDocument4 = _vm$archiveDocument4.document) === null || _vm$archiveDocument4 === void 0 ? void 0 : _vm$archiveDocument4.subject) || "N/A"))])])])]), _vm._v(" "), _c("div", {
     staticClass: "mt-3"
-  }, [_vm._m(25), _vm._v(" "), _c("select", {
+  }, [_vm._m(26), _vm._v(" "), _c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -25535,7 +26769,7 @@ var render = function render() {
     }
   }, [_vm._v("\n              " + _vm._s(_vm.archiveRemarks.length) + "/500\n            ")])]), _vm._v(" "), _c("div", {
     staticClass: "system-datetime-box mt-3"
-  }, [_vm._m(26), _vm._v(" "), _c("div", {
+  }, [_vm._m(27), _vm._v(" "), _c("div", {
     staticClass: "system-datetime-display"
   }, [_c("div", {
     staticClass: "datetime-item"
@@ -25553,7 +26787,7 @@ var render = function render() {
     staticClass: "datetime-label"
   }, [_vm._v("Time:")]), _vm._v(" "), _c("span", {
     staticClass: "datetime-value"
-  }, [_vm._v(_vm._s(_vm.currentPstTime))])])]), _vm._v(" "), _vm._m(27)]), _vm._v(" "), _c("div", {
+  }, [_vm._v(_vm._s(_vm.currentPstTime))])])]), _vm._v(" "), _vm._m(28)]), _vm._v(" "), _c("div", {
     staticClass: "modal-actions"
   }, [_c("button", {
     staticClass: "btn btn-outline-secondary square-btn",
@@ -25596,7 +26830,7 @@ var render = function render() {
     staticClass: "square-header document-header"
   }, [_c("div", {
     staticClass: "d-flex align-items-center"
-  }, [_vm._m(28), _vm._v(" "), _c("div", [_c("h5", {
+  }, [_vm._m(29), _vm._v(" "), _c("div", [_c("h5", {
     staticClass: "modal-title"
   }, [_vm._v("Document Viewer")]), _vm._v(" "), _c("small", {
     staticClass: "modal-subtitle"
@@ -25654,29 +26888,29 @@ var render = function render() {
     staticClass: "document-viewer-layout"
   }, [_c("div", {
     staticClass: "details-panel"
-  }, [_vm._m(29), _vm._v(" "), _vm.selectedDocument ? _c("div", {
+  }, [_vm._m(30), _vm._v(" "), _vm.selectedDocument ? _c("div", {
     staticClass: "details-content"
   }, [_c("div", {
     staticClass: "detail-card"
-  }, [_vm._m(30), _vm._v(" "), _c("div", {
+  }, [_vm._m(31), _vm._v(" "), _c("div", {
     staticClass: "detail-info"
   }, [_c("label", [_vm._v("Tracking Number")]), _vm._v(" "), _c("span", {
     staticClass: "tracking-number-large"
   }, [_vm._v(_vm._s(_vm.selectedDocument.document.tracking_number))])])]), _vm._v(" "), _c("div", {
     staticClass: "detail-card"
-  }, [_vm._m(31), _vm._v(" "), _c("div", {
+  }, [_vm._m(32), _vm._v(" "), _c("div", {
     staticClass: "detail-info"
   }, [_c("label", [_vm._v("Classification")]), _vm._v(" "), _c("span", {
     "class": ["classification-badge-large", _vm.getClassificationBadgeClass(_vm.selectedDocument.document.document_classification)]
   }, [_vm._v("\n                      " + _vm._s(_vm.selectedDocument.document.document_classification || "N/A") + "\n                    ")])])]), _vm._v(" "), _c("div", {
     staticClass: "detail-card"
-  }, [_vm._m(32), _vm._v(" "), _c("div", {
+  }, [_vm._m(33), _vm._v(" "), _c("div", {
     staticClass: "detail-info"
   }, [_c("label", [_vm._v("Document Type")]), _vm._v(" "), _c("span", {
     staticClass: "doc-type-badge-large"
   }, [_vm._v(_vm._s(((_vm$selectedDocument$ = _vm.selectedDocument.document.document_type) === null || _vm$selectedDocument$ === void 0 ? void 0 : _vm$selectedDocument$.document_type_name) || _vm.selectedDocument.document.document_type))])])]), _vm._v(" "), _c("div", {
     staticClass: "detail-card"
-  }, [_vm._m(33), _vm._v(" "), _c("div", {
+  }, [_vm._m(34), _vm._v(" "), _c("div", {
     staticClass: "detail-info"
   }, [_c("label", [_vm._v("Subject / Title")]), _vm._v(" "), _c("span", {
     staticClass: "detail-value",
@@ -25687,7 +26921,7 @@ var render = function render() {
     staticClass: "confidential-label"
   }, [_vm._v("CONFIDENTIAL")]) : _vm._e()])])]), _vm._v(" "), _c("div", {
     staticClass: "detail-card"
-  }, [_vm._m(34), _vm._v(" "), _c("div", {
+  }, [_vm._m(35), _vm._v(" "), _c("div", {
     staticClass: "detail-info"
   }, [_c("label", [_vm._v("Sender / Origin")]), _vm._v(" "), _c("span", {
     staticClass: "detail-value",
@@ -25698,7 +26932,7 @@ var render = function render() {
     staticClass: "confidential-label"
   }, [_vm._v("CONFIDENTIAL")]) : _vm._e()])])]), _vm._v(" "), _c("div", {
     staticClass: "detail-card duration-detail-card"
-  }, [_vm._m(35), _vm._v(" "), _c("div", {
+  }, [_vm._m(36), _vm._v(" "), _c("div", {
     staticClass: "detail-info"
   }, [_c("label", [_vm._v("Duration")]), _vm._v(" "), _c("span", {
     staticClass: "duration-badge-large",
@@ -25741,11 +26975,11 @@ var render = function render() {
     staticClass: "pdf-viewer-wrapper"
   }, [_vm.isConfidential ? _c("div", {
     staticClass: "confidential-notice"
-  }, [_vm._m(36), _vm._v(" "), _c("h3", {
+  }, [_vm._m(37), _vm._v(" "), _c("h3", {
     staticClass: "confidential-title"
   }, [_vm._v("CONFIDENTIAL DOCUMENT")]), _vm._v(" "), _c("div", {
     staticClass: "confidential-divider"
-  }), _vm._v(" "), _vm._m(37), _vm._v(" "), _c("p", {
+  }), _vm._v(" "), _vm._m(38), _vm._v(" "), _c("p", {
     staticClass: "confidential-sub-message"
   }, [_vm._v("\n                    PDF preview is restricted for security purposes.\n                  ")]), _vm._v(" "), _c("div", {
     staticClass: "confidential-details"
@@ -25757,9 +26991,9 @@ var render = function render() {
     staticClass: "confidential-detail-item"
   }, [_c("i", {
     staticClass: "bi bi-file-earmark-lock"
-  }), _vm._v(" "), _c("span", [_vm._v("Classification: " + _vm._s((_vm$selectedDocument5 = _vm.selectedDocument) === null || _vm$selectedDocument5 === void 0 || (_vm$selectedDocument5 = _vm$selectedDocument5.document) === null || _vm$selectedDocument5 === void 0 ? void 0 : _vm$selectedDocument5.document_classification))])])]), _vm._v(" "), _vm._m(38)]) : [_vm.pdfLoading && !_vm.pdfLoadError ? _c("div", {
+  }), _vm._v(" "), _c("span", [_vm._v("Classification: " + _vm._s((_vm$selectedDocument5 = _vm.selectedDocument) === null || _vm$selectedDocument5 === void 0 || (_vm$selectedDocument5 = _vm$selectedDocument5.document) === null || _vm$selectedDocument5 === void 0 ? void 0 : _vm$selectedDocument5.document_classification))])])]), _vm._v(" "), _vm._m(39)]) : [_vm.pdfLoading && !_vm.pdfLoadError ? _c("div", {
     staticClass: "pdf-state"
-  }, [_vm._m(39), _vm._v(" "), _c("p", {
+  }, [_vm._m(40), _vm._v(" "), _c("p", {
     staticClass: "pdf-state-text"
   }, [_vm._v("Loading document preview...")])]) : _vm._e(), _vm._v(" "), _c("iframe", {
     directives: [{
@@ -25816,7 +27050,7 @@ var render = function render() {
     staticClass: "route-history-panel"
   }, [_c("div", {
     staticClass: "route-history-header"
-  }, [_vm._m(40), _vm._v(" "), _vm.getDocumentRoutes().length > 0 ? _c("div", {
+  }, [_vm._m(41), _vm._v(" "), _vm.getDocumentRoutes().length > 0 ? _c("div", {
     staticClass: "route-history-badge"
   }, [_c("i", {
     staticClass: "bi bi-arrow-left-right"
@@ -25830,7 +27064,7 @@ var render = function render() {
     staticClass: "mt-3 text-muted"
   }, [_vm._v("Loading route history...")])]) : _vm.getDocumentRoutes().length === 0 ? _c("div", {
     staticClass: "route-state-box"
-  }, [_vm._m(41), _vm._v(" "), _c("h5", {
+  }, [_vm._m(42), _vm._v(" "), _c("h5", {
     staticClass: "mt-3"
   }, [_vm._v("No Route History")]), _vm._v(" "), _c("p", {
     staticClass: "text-muted"
@@ -25878,7 +27112,7 @@ var render = function render() {
       staticClass: "info-card-body"
     }, [_c("div", {
       staticClass: "info-field"
-    }, [_vm._m(42, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(43, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
@@ -25888,7 +27122,7 @@ var render = function render() {
       staticClass: "bi bi-clock me-1"
     }), _vm._v("\n                                  " + _vm._s(_vm.formatDateTime(route.date_receive)) + "\n                                ")])])]), _vm._v(" "), route.received_by || route.received_by_name ? _c("div", {
       staticClass: "info-field"
-    }, [_vm._m(43, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(44, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
@@ -25896,7 +27130,7 @@ var render = function render() {
       staticClass: "field-value"
     }, [route.received_by ? [_vm._v("\n                                    " + _vm._s(route.received_by.firstname || "") + "\n                                    " + _vm._s(route.received_by.middlename ? route.received_by.middlename + " " : "") + "\n                                    " + _vm._s(route.received_by.lastname || "") + "\n                                  ")] : route.received_by_name ? [_vm._v("\n                                    " + _vm._s(route.received_by_name) + "\n                                  ")] : _vm._e()], 2)])]) : _vm._e(), _vm._v(" "), route.remarks ? _c("div", {
       staticClass: "info-field"
-    }, [_vm._m(44, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(45, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
@@ -25906,7 +27140,7 @@ var render = function render() {
       staticClass: "info-card completed-card"
     }, [_c("div", {
       staticClass: "info-card-header"
-    }, [_vm._m(45, true), _vm._v(" "), _c("span", {
+    }, [_vm._m(46, true), _vm._v(" "), _c("span", {
       staticClass: "info-card-title"
     }, [_vm._v("Completion Information")]), _vm._v(" "), route.status === "Completed" ? _c("span", {
       staticClass: "info-card-status completed-status"
@@ -25916,7 +27150,7 @@ var render = function render() {
       staticClass: "info-card-body"
     }, [_c("div", {
       staticClass: "info-field"
-    }, [_vm._m(46, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(47, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
@@ -25926,7 +27160,7 @@ var render = function render() {
       staticClass: "bi bi-check-circle me-1"
     }), _vm._v("\n                                  " + _vm._s(_vm.formatDateTime(route.date_document_out)) + "\n                                ")])])]), _vm._v(" "), route.completed_by || route.completed_by_name ? _c("div", {
       staticClass: "info-field"
-    }, [_vm._m(47, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(48, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
@@ -25934,7 +27168,7 @@ var render = function render() {
       staticClass: "field-value"
     }, [route.completed_by ? [_vm._v("\n                                    " + _vm._s(route.completed_by.firstname || "") + "\n                                    " + _vm._s(route.completed_by.middlename ? route.completed_by.middlename + " " : "") + "\n                                    " + _vm._s(route.completed_by.lastname || "") + "\n                                  ")] : route.completed_by_name ? [_vm._v("\n                                    " + _vm._s(route.completed_by_name) + "\n                                  ")] : _vm._e()], 2)])]) : _vm._e(), _vm._v(" "), route.remarks ? _c("div", {
       staticClass: "info-field"
-    }, [_vm._m(48, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(49, true), _vm._v(" "), _c("div", {
       staticClass: "field-content"
     }, [_c("span", {
       staticClass: "field-label"
@@ -25946,7 +27180,7 @@ var render = function render() {
       staticClass: "flow-container"
     }, [route.from_office ? _c("div", {
       staticClass: "flow-node origin-node"
-    }, [_vm._m(49, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(50, true), _vm._v(" "), _c("div", {
       staticClass: "flow-node-content"
     }, [_c("span", {
       staticClass: "flow-node-label"
@@ -25956,11 +27190,11 @@ var render = function render() {
       staticClass: "flow-arrow"
     }, [_c("div", {
       staticClass: "arrow-line"
-    }), _vm._v(" "), _vm._m(50, true), _vm._v(" "), _c("div", {
+    }), _vm._v(" "), _vm._m(51, true), _vm._v(" "), _c("div", {
       staticClass: "arrow-line"
     })]) : _vm._e(), _vm._v(" "), route.to_office ? _c("div", {
       staticClass: "flow-node destination-node"
-    }, [_vm._m(51, true), _vm._v(" "), _c("div", {
+    }, [_vm._m(52, true), _vm._v(" "), _c("div", {
       staticClass: "flow-node-content"
     }, [_c("span", {
       staticClass: "flow-node-label"
@@ -26018,49 +27252,61 @@ var staticRenderFns = [function () {
   return _c("div", {
     staticClass: "d-flex align-items-center"
   }, [_c("div", {
-    staticClass: "square-icon"
+    staticClass: "square-icon forward-icon"
   }, [_c("i", {
     staticClass: "bi bi-arrow-right-circle"
   })]), _vm._v(" "), _c("div", [_c("h5", {
     staticClass: "modal-title"
-  }, [_vm._v("Forward Document")])])]);
+  }, [_vm._v("Forward Document")]), _vm._v(" "), _c("small", {
+    staticClass: "modal-subtitle"
+  }, [_vm._v("Route document to offices with memo slip")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("label", {
-    staticClass: "form-label"
-  }, [_vm._v("\n                Select Office(s) "), _c("span", {
+  return _c("div", {
+    staticClass: "col-header-left"
+  }, [_c("i", {
+    staticClass: "bi bi-building"
+  }), _vm._v(" "), _c("span", [_vm._v("Select Offices")]), _vm._v(" "), _c("span", {
     staticClass: "required-star"
   }, [_vm._v("*")])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "office-icon-wrapper"
+    staticClass: "office-item-icon"
   }, [_c("i", {
     staticClass: "bi bi-building"
   })]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("label", {
-    staticClass: "form-label"
-  }, [_vm._v("\n                Duration "), _c("span", {
+  return _c("div", {
+    staticClass: "col-header"
+  }, [_c("div", {
+    staticClass: "col-header-left"
+  }, [_c("i", {
+    staticClass: "bi bi-envelope-paper"
+  }), _vm._v(" "), _c("span", [_vm._v("Memo Slip")])]), _vm._v(" "), _c("span", {
+    staticClass: "optional-badge"
+  }, [_vm._v("Optional")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "col-header"
+  }, [_c("div", {
+    staticClass: "col-header-left"
+  }, [_c("i", {
+    staticClass: "bi bi-clock"
+  }), _vm._v(" "), _c("span", [_vm._v("Duration")]), _vm._v(" "), _c("span", {
     staticClass: "required-star"
-  }, [_vm._v("*")])]);
+  }, [_vm._v("*")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "duration-display-badge"
-  }, [_c("span", {
-    staticClass: "badge-readonly"
-  }, [_vm._v("Read Only")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "existing-duration-info"
+    staticClass: "duration-note"
   }, [_c("i", {
     staticClass: "bi bi-info-circle-fill"
   }), _vm._v(" "), _c("span", [_vm._v("Duration is set and cannot be changed.")])]);
@@ -26068,32 +27314,46 @@ var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "duration-hint"
+    staticClass: "col-header"
+  }, [_c("div", {
+    staticClass: "col-header-left"
   }, [_c("i", {
-    staticClass: "bi bi-info-circle"
-  }), _vm._v(" "), _c("span", [_vm._v("No duration set. Please select one.")])]);
+    staticClass: "bi bi-paperclip"
+  }), _vm._v(" "), _c("span", [_vm._v("Attachment")])]), _vm._v(" "), _c("span", {
+    staticClass: "optional-badge"
+  }, [_vm._v("Optional")])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "dropzone-content"
-  }, [_c("div", {
-    staticClass: "dropzone-icon"
+    staticClass: "dropzone-compact-content"
   }, [_c("i", {
     staticClass: "bi bi-cloud-arrow-up"
-  })]), _vm._v(" "), _c("h6", {
-    staticClass: "fw-semibold mb-1"
-  }, [_vm._v("Click to upload or drag PDF here")]), _vm._v(" "), _c("p", {
-    staticClass: "text-muted small mb-0"
-  }, [_vm._v("PDF only (Max 20MB)")])]);
+  }), _vm._v(" "), _c("div", [_c("p", {
+    staticClass: "dropzone-title"
+  }, [_vm._v("Click to upload or drag PDF")]), _vm._v(" "), _c("p", {
+    staticClass: "dropzone-hint"
+  }, [_vm._v("PDF only (Max 20MB)")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "file-icon-wrap file-pdf"
+    staticClass: "file-card-icon"
   }, [_c("i", {
     staticClass: "bi bi-file-pdf"
   })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "col-header"
+  }, [_c("div", {
+    staticClass: "col-header-left"
+  }, [_c("i", {
+    staticClass: "bi bi-chat-left-text"
+  }), _vm._v(" "), _c("span", [_vm._v("Remarks / Instructions")])]), _vm._v(" "), _c("span", {
+    staticClass: "optional-badge"
+  }, [_vm._v("Optional")])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -28080,6 +29340,7 @@ Vue.component('Incomingdocuments', (__webpack_require__(/*! ./components/Admin/I
 Vue.component('Createincoming', (__webpack_require__(/*! ./components/Admin/Createincoming.vue */ "./resources/js/components/Admin/Createincoming.vue")["default"]));
 Vue.component('Updateincoming', (__webpack_require__(/*! ./components/Admin/Updateincoming.vue */ "./resources/js/components/Admin/Updateincoming.vue")["default"]));
 Vue.component('Incomingsecretariat', (__webpack_require__(/*! ./components/Secretariat/Incomingsecretariat.vue */ "./resources/js/components/Secretariat/Incomingsecretariat.vue")["default"]));
+Vue.component('Memoslip', (__webpack_require__(/*! ./components/Secretariat/Memoslip.vue */ "./resources/js/components/Secretariat/Memoslip.vue")["default"]));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -32873,6 +34134,30 @@ ___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* ===== CSS Variables ===== */\n[
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Secretariat/Memoslip.vue?vue&type=style&index=0&id=53a3a739&scoped=true&lang=css":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Secretariat/Memoslip.vue?vue&type=style&index=0&id=53a3a739&scoped=true&lang=css ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* ===== CSS Variables (matching login form) ===== */\n[data-v-53a3a739]:root {\r\n  --forest:     #1A4731;\r\n  --leaf:       #2D6A4F;\r\n  --mint:       #52B788;\r\n  --gold:       #C9A84C;\r\n  --gold-light: #F0D080;\r\n  --paper:      #F4F9F6;\r\n  --charcoal:   #1C2B24;\r\n  --muted:      #5C7A6B;\r\n  --border:     #B7D5C3;\r\n  --white:      #FFFFFF;\r\n  --error:      #C0392B;\n}\r\n\r\n/* ===== MODAL OVERLAY ===== */\n.modal-overlay[data-v-53a3a739] {\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background: rgba(0, 0, 0, 0.55);\r\n  backdrop-filter: blur(4px);\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  z-index: 1050;\r\n  animation: fadeIn-53a3a739 0.2s ease-out;\n}\n.enhanced-modal[data-v-53a3a739] {\r\n  width: 100%;\r\n  max-width: 620px;\r\n  margin: 0 15px;\r\n  animation: modalSlideUp-53a3a739 0.3s ease-out;\n}\n@keyframes modalSlideUp-53a3a739 {\nfrom {\r\n    transform: translateY(30px);\r\n    opacity: 0;\n}\nto {\r\n    transform: translateY(0);\r\n    opacity: 1;\n}\n}\n@keyframes fadeIn-53a3a739 {\nfrom { opacity: 0;\n}\nto { opacity: 1;\n}\n}\n.square-modal[data-v-53a3a739] {\r\n  border: none;\r\n  border-radius: 0;\r\n  overflow: hidden;\r\n  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);\r\n  background: #fff;\r\n  position: relative;\n}\n.square-header[data-v-53a3a739] {\r\n  background: linear-gradient(135deg, #1e4d2b, #2d6a4f);\r\n  padding: 20px 24px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n  color: white;\r\n  border-bottom: 1px solid rgba(255, 255, 255, 0.1);\n}\n.square-icon[data-v-53a3a739] {\r\n  width: 42px;\r\n  height: 42px;\r\n  background: rgba(255, 255, 255, 0.2);\r\n  border-radius: 0;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  font-size: 1.4rem;\r\n  margin-right: 14px;\n}\n.modal-title[data-v-53a3a739] {\r\n  font-weight: 700;\r\n  font-size: 1.25rem;\n}\n.modal-subtitle[data-v-53a3a739] {\r\n  font-size: 0.85rem;\r\n  opacity: 0.85;\n}\n.square-close[data-v-53a3a739] {\r\n  background: rgba(255, 255, 255, 0.15);\r\n  border: none;\r\n  color: white;\r\n  width: 36px;\r\n  height: 36px;\r\n  border-radius: 0;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  cursor: pointer;\r\n  transition: background 0.2s;\n}\n.square-close[data-v-53a3a739]:hover {\r\n  background: rgba(255, 255, 255, 0.3);\n}\r\n\r\n/* ===== MODAL BODY ===== */\n.modal-body-enhanced[data-v-53a3a739] {\r\n  padding: 24px;\r\n  background: #f9fafb;\n}\r\n\r\n/* ===== ERROR MESSAGE ===== */\n.error-msg[data-v-53a3a739] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 6px;\r\n  background: #FEF0EF;\r\n  border: 1px solid #F5C6C3;\r\n  border-radius: 7px;\r\n  padding: 10px 14px;\r\n  font-size: 12px;\r\n  color: var(--error);\r\n  margin-bottom: 20px;\r\n  font-weight: 500;\n}\r\n\r\n/* ===== FORM LABELS ===== */\n.form-label-enhanced[data-v-53a3a739] {\r\n  font-weight: 600;\r\n  font-size: 0.9rem;\r\n  color: #1e293b;\r\n  margin-bottom: 6px;\r\n  display: block;\n}\n.required-star[data-v-53a3a739] {\r\n  color: #dc2626;\r\n  margin-left: 3px;\n}\r\n\r\n/* ===== INPUT WRAPPER ===== */\n.input-wrap[data-v-53a3a739] {\r\n  position: relative;\r\n  display: flex;\r\n  align-items: center;\n}\n.input-icon[data-v-53a3a739] {\r\n  position: absolute;\r\n  left: 14px;\r\n  color: #5C7A6B;\r\n  pointer-events: none;\r\n  display: flex;\r\n  z-index: 2;\n}\n.form-input[data-v-53a3a739] {\r\n  width: 100%;\r\n  height: 46px;\r\n  padding: 0 14px 0 42px;\r\n  border: 1.5px solid #B7D5C3;\r\n  border-radius: 8px;\r\n  font-family: 'Inter', sans-serif;\r\n  font-size: 14px;\r\n  color: #1C2B24;\r\n  background: #F4F9F6;\r\n  transition: border-color .2s, box-shadow .2s, background .2s;\r\n  outline: none;\n}\n.form-input[data-v-53a3a739]::-moz-placeholder {\r\n  color: #B0C4B8;\n}\n.form-input[data-v-53a3a739]::placeholder {\r\n  color: #B0C4B8;\n}\n.form-input[data-v-53a3a739]:focus {\r\n  border-color: #2D6A4F;\r\n  background: #FFFFFF;\r\n  box-shadow: 0 0 0 3px rgba(45,106,79,0.1);\n}\n.form-input[data-v-53a3a739]:disabled {\r\n  opacity: 0.7;\r\n  cursor: not-allowed;\n}\r\n\r\n/* Select specific */\nselect.form-input[data-v-53a3a739] {\r\n  -webkit-appearance: none;\r\n     -moz-appearance: none;\r\n          appearance: none;\r\n  background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235C7A6B' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E\");\r\n  background-repeat: no-repeat;\r\n  background-position: right 14px center;\r\n  padding-right: 36px;\n}\r\n\r\n/* Validation states */\n.is-invalid[data-v-53a3a739] {\r\n  border-color: #dc2626 !important;\r\n  background: #FFF5F5 !important;\n}\n.is-invalid[data-v-53a3a739]:focus {\r\n  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15) !important;\n}\n.invalid-feedback[data-v-53a3a739] {\r\n  color: #dc2626;\r\n  font-size: 0.8rem;\r\n  margin-top: 4px;\n}\r\n\r\n/* ===== MODAL ACTIONS ===== */\n.modal-actions[data-v-53a3a739] {\r\n  margin-top: 24px;\r\n  padding-top: 18px;\r\n  border-top: 1px solid #e5e7eb;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\n}\n.square-btn[data-v-53a3a739] {\r\n  border-radius: 0 !important;\r\n  font-family: 'Inter', sans-serif;\r\n  font-weight: 600;\r\n  transition: all 0.2s;\n}\n.btn-save[data-v-53a3a739] {\r\n  background: linear-gradient(135deg, #2D6A4F 0%, #1A4731 100%);\r\n  color: white;\r\n  border: none;\r\n  padding: 10px 22px;\r\n  font-weight: 600;\r\n  display: inline-flex;\r\n  align-items: center;\r\n  box-shadow: 0 4px 18px rgba(26,71,49,0.3);\n}\n.btn-save[data-v-53a3a739]:hover {\r\n  box-shadow: 0 6px 24px rgba(26,71,49,0.38);\r\n  transform: translateY(-1px);\n}\n.btn-save[data-v-53a3a739]:disabled {\r\n  opacity: 0.7;\r\n  cursor: not-allowed;\r\n  transform: none;\n}\n.btn-outline-secondary[data-v-53a3a739] {\r\n  border-color: #d1d5db;\r\n  color: #374151;\r\n  padding: 10px 18px;\n}\n.btn-outline-secondary[data-v-53a3a739]:hover {\r\n  background: #f9fafb;\n}\n.btn-light[data-v-53a3a739] {\r\n  background: #f9fafb;\r\n  border-color: #e5e7eb;\r\n  color: #374151;\r\n  padding: 10px 18px;\n}\n.btn-light[data-v-53a3a739]:hover {\r\n  background: #f3f4f6;\n}\r\n\r\n/* ===== BADGES ===== */\n.badge[data-v-53a3a739] {\r\n  padding: 5px 10px;\r\n  border-radius: 4px;\r\n  font-size: 12px;\r\n  font-weight: 500;\n}\n.bg-success[data-v-53a3a739] {\r\n  background-color: #059669;\r\n  color: white;\n}\n.bg-danger[data-v-53a3a739] {\r\n  background-color: #dc2626;\r\n  color: white;\n}\r\n\r\n/* ===== ACTION BUTTONS (TABLE) ===== */\n.action-buttons[data-v-53a3a739] {\r\n  display: flex;\r\n  gap: 8px;\r\n  align-items: center;\n}\n.btn-action[data-v-53a3a739] {\r\n  background: none;\r\n  border: 1px solid transparent;\r\n  border-radius: 4px;\r\n  padding: 4px 8px;\r\n  cursor: pointer;\r\n  font-size: 1rem;\n}\n.btn-edit[data-v-53a3a739] {\r\n  color: #2563eb;\r\n  border-color: #bfdbfe;\r\n  background: #eff6ff;\n}\n.btn-edit[data-v-53a3a739]:hover {\r\n  background: #dbeafe;\n}\n.btn-delete[data-v-53a3a739] {\r\n  color: #dc2626;\r\n  border-color: #fecaca;\r\n  background: #fef2f2;\n}\n.btn-delete[data-v-53a3a739]:hover {\r\n  background: #fee2e2;\n}\r\n\r\n/* ===== NOTIFICATION TOAST ===== */\n.notification-toast[data-v-53a3a739] {\r\n  position: fixed;\r\n  top: 20px;\r\n  right: 20px;\r\n  z-index: 9999;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n  gap: 12px;\r\n  padding: 16px 20px;\r\n  border-radius: 12px;\r\n  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);\r\n  animation: slideInRight-53a3a739 0.3s ease-out;\r\n  min-width: 300px;\r\n  max-width: 500px;\n}\n@keyframes slideInRight-53a3a739 {\nfrom {\r\n    transform: translateX(100%);\r\n    opacity: 0;\n}\nto {\r\n    transform: translateX(0);\r\n    opacity: 1;\n}\n}\n.notification-toast.success[data-v-53a3a739] {\r\n  background: linear-gradient(135deg, #059669, #047857);\r\n  color: white;\n}\n.notification-toast.error[data-v-53a3a739] {\r\n  background: linear-gradient(135deg, #dc2626, #b91c1c);\r\n  color: white;\n}\n.notification-content[data-v-53a3a739] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 10px;\r\n  font-size: 14px;\r\n  font-weight: 500;\n}\n.notification-content i[data-v-53a3a739] {\r\n  font-size: 1.2rem;\n}\n.notification-close[data-v-53a3a739] {\r\n  background: rgba(255, 255, 255, 0.2);\r\n  border: none;\r\n  color: white;\r\n  cursor: pointer;\r\n  padding: 6px;\r\n  border-radius: 6px;\n}\n.notification-close[data-v-53a3a739]:hover {\r\n  background: rgba(255, 255, 255, 0.3);\n}\r\n\r\n/* ===== TABLE CONTROLS ===== */\n.table-controls[data-v-53a3a739] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  margin-bottom: 20px;\r\n  flex-wrap: wrap;\r\n  gap: 15px;\n}\n.left-controls[data-v-53a3a739] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 15px;\r\n  flex: 1;\r\n  min-width: 0;\n}\n.per-page-wrapper[data-v-53a3a739] {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 5px;\r\n  white-space: nowrap;\r\n  flex-shrink: 0;\n}\n.per-page-select[data-v-53a3a739] {\r\n  padding: 6px 8px;\r\n  border: 1px solid #ced4da;\r\n  border-radius: 6px;\r\n  font-size: 14px;\r\n  background: white;\r\n  outline: none;\n}\n.per-page-select[data-v-53a3a739]:focus {\r\n  border-color: #2d6a4f;\n}\n.search-box-wrapper[data-v-53a3a739] {\r\n  flex: 1;\r\n  min-width: 150px;\n}\n.search-box[data-v-53a3a739] {\r\n  position: relative;\r\n  width: 100%;\n}\n.search-icon[data-v-53a3a739] {\r\n  position: absolute;\r\n  left: 10px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  color: #6c757d;\n}\n.search-input[data-v-53a3a739] {\r\n  width: 100%;\r\n  padding: 8px 30px 8px 32px;\r\n  border: 1px solid #ced4da;\r\n  border-radius: 6px;\r\n  font-size: 14px;\r\n  outline: none;\r\n  box-sizing: border-box;\n}\n.search-input[data-v-53a3a739]:focus {\r\n  border-color: #2d6a4f;\n}\n.search-clear-btn[data-v-53a3a739] {\r\n  position: absolute;\r\n  right: 6px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  background: none;\r\n  border: none;\r\n  color: #6c757d;\r\n  cursor: pointer;\n}\r\n\r\n/* ===== TABLE ===== */\n.table-responsive[data-v-53a3a739] {\r\n  overflow-x: auto;\n}\n.office-table[data-v-53a3a739] {\r\n  width: 100%;\r\n  border-collapse: collapse;\r\n  font-size: 13px;\r\n  background: white;\n}\n.office-table th[data-v-53a3a739],\r\n.office-table td[data-v-53a3a739] {\r\n  border: 1px solid #dee2e6;\r\n  padding: 12px 14px;\r\n  text-align: left;\r\n  vertical-align: middle;\n}\n.office-table thead th[data-v-53a3a739] {\r\n  background: #f8f9fa;\r\n  font-weight: 600;\r\n  color: #212529;\r\n  text-transform: uppercase;\n}\n.office-table tbody tr[data-v-53a3a739]:hover {\r\n  background: #f8f9fa;\n}\n.office-table tbody tr[data-v-53a3a739]:nth-child(even) {\r\n  background: #fafafa;\n}\n.office-name-text[data-v-53a3a739] {\r\n  font-weight: 600;\r\n  color: #1e293b;\n}\r\n\r\n/* ===== PAGINATION ===== */\n.pagination-wrapper[data-v-53a3a739] {\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  margin-top: 20px;\r\n  gap: 10px;\n}\n.pagination-info[data-v-53a3a739] {\r\n  font-size: 14px;\r\n  color: #6c757d;\r\n  white-space: nowrap;\n}\n.pagination-buttons[data-v-53a3a739] {\r\n  display: flex;\r\n  gap: 5px;\r\n  flex-wrap: wrap;\r\n  justify-content: flex-end;\n}\n.page-btn[data-v-53a3a739] {\r\n  border: 1px solid #dee2e6;\r\n  background: white;\r\n  color: #495057;\r\n  padding: 6px 12px;\r\n  cursor: pointer;\r\n  border-radius: 4px;\r\n  font-size: 14px;\r\n  line-height: 1;\r\n  display: inline-flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  transition: background 0.2s;\n}\n.page-btn[data-v-53a3a739]:hover:not(:disabled) {\r\n  background: #f1f3f5;\n}\n.page-btn.active[data-v-53a3a739] {\r\n  background: #2d6a4f;\r\n  color: white;\r\n  border-color: #2d6a4f;\n}\n.page-btn[data-v-53a3a739]:disabled {\r\n  opacity: 0.5;\r\n  cursor: not-allowed;\n}\r\n\r\n/* ===== RESPONSIVE ===== */\n@media (max-width: 576px) {\n.pagination-wrapper[data-v-53a3a739] {\r\n    flex-direction: column;\r\n    align-items: center;\n}\n.pagination-buttons[data-v-53a3a739] {\r\n    justify-content: center;\n}\n}\n@media (max-width: 500px) {\n.left-controls[data-v-53a3a739] {\r\n    flex-wrap: wrap;\n}\n.search-box-wrapper[data-v-53a3a739] {\r\n    flex: 1 1 100%;\r\n    min-width: 100%;\n}\n}\n@media (max-width: 768px) {\n.table-controls[data-v-53a3a739] {\r\n    flex-direction: column;\r\n    align-items: stretch;\n}\n.office-table[data-v-53a3a739] {\r\n    font-size: 11px;\n}\n.notification-toast[data-v-53a3a739] {\r\n    left: 10px;\r\n    right: 10px;\r\n    min-width: auto;\r\n    max-width: none;\r\n    top: 10px;\n}\n.enhanced-modal[data-v-53a3a739] {\r\n    max-width: 95%;\r\n    margin: 0 10px;\n}\n}\r\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Secretariat/PendingTab.vue?vue&type=style&index=0&id=c955ef06&scoped=true&lang=css":
 /*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Secretariat/PendingTab.vue?vue&type=style&index=0&id=c955ef06&scoped=true&lang=css ***!
@@ -32914,7 +34199,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* ===== FILTER CONTROLS ===== */\n.filter-controls[data-v-71b451b1] { margin-bottom: 20px;\n}\n.search-filter-row[data-v-71b451b1] { display: flex; gap: 12px; align-items: center; flex-wrap: wrap;\n}\n.search-box-wrapper[data-v-71b451b1] { flex: 1; min-width: 200px;\n}\n.search-box[data-v-71b451b1] { position: relative;\n}\n.search-icon[data-v-71b451b1] { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #9ca3af;\n}\n.search-input[data-v-71b451b1] { width: 100%; padding: 10px 35px 10px 36px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px; outline: none; background: #fff; transition: all 0.3s ease;\n}\n.search-input[data-v-71b451b1]:focus { border-color: #2d6a4f; box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\n.search-clear-btn[data-v-71b451b1] { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #9ca3af; cursor: pointer; padding: 4px;\n}\n.search-clear-btn[data-v-71b451b1]:hover { color: #ef4444;\n}\n.per-page-wrapper[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; white-space: nowrap;\n}\n.per-page-label[data-v-71b451b1] { font-size: 13px; color: #6b7280; font-weight: 500;\n}\n.per-page-select[data-v-71b451b1] { padding: 8px 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 13px; background: #fff; outline: none; cursor: pointer; transition: all 0.3s ease;\n}\n.per-page-select[data-v-71b451b1]:focus { border-color: #2d6a4f;\n}\n.filter-wrapper[data-v-71b451b1] { min-width: 180px;\n}\n.filter-box[data-v-71b451b1] { position: relative;\n}\n.filter-icon[data-v-71b451b1] { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #9ca3af;\n}\n.filter-select[data-v-71b451b1] { width: 100%; padding: 10px 12px 10px 36px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 13px; background: #fff; outline: none; cursor: pointer; -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E\"); background-repeat: no-repeat; background-position: right 12px center; transition: all 0.3s ease;\n}\n.filter-select[data-v-71b451b1]:focus { border-color: #2d6a4f; box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\n.active-filters[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; margin-top: 12px; padding: 10px 14px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; flex-wrap: wrap;\n}\n.active-filters-label[data-v-71b451b1] { font-size: 12px; font-weight: 600; color: #166534; text-transform: uppercase; letter-spacing: 0.5px;\n}\n.filter-tag[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: #fff; border: 1px solid #86efac; border-radius: 20px; font-size: 12px; color: #166534; font-weight: 500;\n}\n.filter-tag-close[data-v-71b451b1] { background: none; border: none; color: #6b7280; cursor: pointer; padding: 0;\n}\n.filter-tag-close[data-v-71b451b1]:hover { color: #ef4444;\n}\n.clear-all-filters[data-v-71b451b1] { padding: 4px 12px; background: none; border: 1px solid #86efac; border-radius: 6px; font-size: 12px; color: #166534; cursor: pointer; font-weight: 600; transition: all 0.2s;\n}\n.clear-all-filters[data-v-71b451b1]:hover { background: #dcfce7; border-color: #166534;\n}\n.results-summary[data-v-71b451b1] { margin-top: 10px; font-size: 13px; color: #6b7280;\n}\n.results-count[data-v-71b451b1] { font-weight: 700; color: #2d6a4f; font-size: 16px;\n}\r\n\r\n/* ===== TABLE ===== */\n.table-responsive[data-v-71b451b1] { overflow-x: auto; margin-top: 16px;\n}\n.office-table[data-v-71b451b1] { width: 100%; border-collapse: collapse; font-size: 13px; background: #fff;\n}\n.office-table th[data-v-71b451b1], .office-table td[data-v-71b451b1] { border: 1px solid #f3f4f6; padding: 12px 14px; text-align: left; vertical-align: middle;\n}\n.office-table thead th[data-v-71b451b1] { background: #f8fafc; font-weight: 700; color: #374151; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; border-bottom: 2px solid #e5e7eb;\n}\n.office-table tbody tr[data-v-71b451b1]:hover { background: #f0fdf4;\n}\n.office-table tbody tr[data-v-71b451b1]:nth-child(even) { background: #fafafa;\n}\n.office-table tbody tr[data-v-71b451b1]:nth-child(even):hover { background: #f0fdf4;\n}\n.row-number[data-v-71b451b1] { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 6px; background: #f3f4f6; color: #6b7280; font-size: 12px; font-weight: 600;\n}\n.tracking-number[data-v-71b451b1] { font-weight: 700; color: #2d6a4f; font-family: \"Courier New\", monospace; font-size: 13px; padding: 2px 8px; background: #f0fdf4; border-radius: 4px;\n}\n.doc-type-badge[data-v-71b451b1] { display: inline-block; padding: 3px 10px; background: #e0e7ff; color: #3730a3; border-radius: 4px; font-size: 11px; font-weight: 600; border: 1px solid #c7d2fe;\n}\n.subject-text[data-v-71b451b1] { color: #1e293b; font-weight: 500; line-height: 1.4; font-size: 13px; position: relative;\n}\n.date-received[data-v-71b451b1] { color: #64748b; font-size: 12px; display: flex; align-items: center; gap: 6px;\n}\n.date-icon[data-v-71b451b1] { color: #94a3b8; font-size: 13px;\n}\r\n\r\n/* ===== ACTION BUTTONS ===== */\n.action-buttons[data-v-71b451b1] { display: flex; gap: 6px; align-items: center; flex-wrap: wrap;\n}\n.btn-action[data-v-71b451b1] { background: none; border: 1px solid transparent; border-radius: 6px; padding: 6px 10px; cursor: pointer; font-size: 0.95rem; transition: all 0.2s;\n}\n.btn-view[data-v-71b451b1] { color: #6366f1; border-color: #c7d2fe; background: #eef2ff;\n}\n.btn-view[data-v-71b451b1]:hover { background: #ddd6fe; transform: scale(1.05);\n}\n.btn-forward[data-v-71b451b1] { color: #0891b2; border-color: #67e8f9; background: #cffafe;\n}\n.btn-forward[data-v-71b451b1]:hover { background: #67e8f9; transform: scale(1.05);\n}\n.btn-release[data-v-71b451b1] { color: #059669; border-color: #6ee7b7; background: #d1fae5;\n}\n.btn-release[data-v-71b451b1]:hover { background: #6ee7b7; transform: scale(1.05);\n}\n.btn-archive[data-v-71b451b1] { color: #6b7280; border-color: #d1d5db; background: #f3f4f6;\n}\n.btn-archive[data-v-71b451b1]:hover { background: #e5e7eb; transform: scale(1.05);\n}\r\n\r\n/* ===== CONFIDENTIAL ===== */\n.confidential-blur-static[data-v-71b451b1] { filter: blur(8px); -webkit-user-select: none; -moz-user-select: none; user-select: none; pointer-events: none; position: relative;\n}\n.confidential-blur-static .confidential-label[data-v-71b451b1] { display: inline-block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.7rem; font-weight: 800; color: #dc2626; background: rgba(255,255,255,0.95); padding: 2px 10px; border-radius: 4px; border: 2px solid #dc2626; letter-spacing: 1px; text-transform: uppercase; pointer-events: none; white-space: nowrap; filter: none;\n}\n.confidential-label[data-v-71b451b1] { display: inline-block; font-size: 0.7rem; font-weight: 800; color: #dc2626; background: rgba(255,255,255,0.95); padding: 2px 10px; border-radius: 4px; border: 2px solid #dc2626; letter-spacing: 1px; text-transform: uppercase; margin-left: 8px; white-space: nowrap;\n}\r\n\r\n/* ===== CLASSIFICATION BADGES ===== */\n.classification-confidential[data-v-71b451b1] { display: inline-block; padding: 3px 10px; background: #fee2e2; color: #991b1b; border-radius: 4px; font-size: 11px; font-weight: 700; border: 1px solid #fecaca; text-transform: uppercase;\n}\n.classification-restricted[data-v-71b451b1] { display: inline-block; padding: 3px 10px; background: #fed7aa; color: #9a3412; border-radius: 4px; font-size: 11px; font-weight: 700; border: 1px solid #fdba74; text-transform: uppercase;\n}\n.classification-top-secret[data-v-71b451b1] { display: inline-block; padding: 3px 10px; background: #fce7f3; color: #9d174d; border-radius: 4px; font-size: 11px; font-weight: 700; border: 1px solid #f9a8d4; text-transform: uppercase;\n}\n.classification-general[data-v-71b451b1] { display: inline-block; padding: 3px 10px; background: #d1fae5; color: #065f46; border-radius: 4px; font-size: 11px; font-weight: 700; border: 1px solid #a7f3d0; text-transform: uppercase;\n}\n.classification-badge-large[data-v-71b451b1] { display: inline-block; padding: 4px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;\n}\r\n\r\n/* ===== DURATION BADGES ===== */\n.duration-badge[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;\n}\n.duration-simple[data-v-71b451b1] { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd;\n}\n.duration-complex[data-v-71b451b1] { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d;\n}\n.duration-highly-technical[data-v-71b451b1] { background: #fce7f3; color: #9d174d; border: 1px solid #f9a8d4;\n}\n.duration-not-set[data-v-71b451b1] { background: #f3f4f6; color: #6b7280; border: 1px solid #d1d5db;\n}\n.duration-badge-large[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 6px; padding: 4px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 700;\n}\n.duration-detail-card[data-v-71b451b1] { background: #f0fdf4; border-color: #86efac;\n}\r\n\r\n/* ===== DURATION DISPLAY ===== */\n.duration-display-container[data-v-71b451b1] { display: flex; flex-direction: column; gap: 8px;\n}\n.duration-display-box[data-v-71b451b1] { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: #f8fafc; border: 2px solid #e5e7eb; border-radius: 8px; transition: all 0.3s ease;\n}\n.duration-display-box[data-v-71b451b1]:hover { border-color: #2d6a4f; background: #f0fdf4;\n}\n.duration-display-icon[data-v-71b451b1] { width: 36px; height: 36px; min-width: 36px; border-radius: 8px; background: #d1fae5; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: #059669;\n}\n.duration-display-content[data-v-71b451b1] { flex: 1; display: flex; flex-direction: column;\n}\n.duration-display-label[data-v-71b451b1] { font-size: 0.6rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;\n}\n.duration-display-value[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 6px; padding: 2px 12px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; margin-top: 2px; width: -moz-fit-content; width: fit-content;\n}\n.badge-readonly[data-v-71b451b1] { padding: 2px 10px; background: #e5e7eb; color: #6b7280; border-radius: 12px; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;\n}\n.duration-hint[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: #fef3c7; border: 1px solid #fcd34d; border-radius: 4px; font-size: 0.7rem; color: #92400e; margin-top: 4px;\n}\n.duration-hint i[data-v-71b451b1] { color: #d97706;\n}\n.existing-duration-info[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; padding: 4px 10px; background: #f0fdf4; border: 1px solid #86efac; border-radius: 4px; font-size: 0.7rem; color: #166534;\n}\n.existing-duration-info i[data-v-71b451b1] { color: #16a34a;\n}\r\n\r\n/* ===== ATTACHMENT SECTION ===== */\n.attachment-section[data-v-71b451b1] { margin-top: 4px;\n}\n.dropzone[data-v-71b451b1] { border: 2px dashed #d1d5db; border-radius: 8px; padding: 20px 16px; text-align: center; cursor: pointer; transition: all 0.3s ease; background: #fafafa;\n}\n.dropzone[data-v-71b451b1]:hover { border-color: #2d6a4f; background: #f0fdf4;\n}\n.dropzone-content[data-v-71b451b1] { display: flex; flex-direction: column; align-items: center; gap: 4px;\n}\n.dropzone-icon[data-v-71b451b1] { font-size: 2rem; color: #9ca3af; margin-bottom: 4px; transition: all 0.3s ease;\n}\n.dropzone:hover .dropzone-icon[data-v-71b451b1] { color: #2d6a4f; transform: translateY(-2px);\n}\n.dropzone h6[data-v-71b451b1] { font-size: 0.85rem; color: #1e293b; margin-bottom: 2px;\n}\n.dropzone .text-muted[data-v-71b451b1] { font-size: 0.7rem; color: #94a3b8;\n}\n.single-file-card[data-v-71b451b1] { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: #f8fafc; border: 2px solid #e5e7eb; border-radius: 8px; gap: 12px; transition: all 0.3s ease;\n}\n.single-file-card[data-v-71b451b1]:hover { border-color: #2d6a4f; background: #f0fdf4;\n}\n.file-info[data-v-71b451b1] { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0;\n}\n.file-icon-wrap[data-v-71b451b1] { width: 40px; height: 40px; min-width: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem;\n}\n.file-icon-wrap.file-pdf[data-v-71b451b1] { background: #fee2e2; color: #dc2626;\n}\n.file-icon-wrap.file-word[data-v-71b451b1] { background: #dbeafe; color: #2563eb;\n}\n.file-icon-wrap.file-image[data-v-71b451b1] { background: #d1fae5; color: #059669;\n}\n.file-details[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.file-name[data-v-71b451b1] { font-size: 0.8rem; font-weight: 600; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;\n}\n.file-size[data-v-71b451b1] { font-size: 0.65rem; color: #94a3b8;\n}\n.file-actions[data-v-71b451b1] { display: flex; gap: 4px;\n}\n.btn-icon[data-v-71b451b1] { width: 30px; height: 30px; border: none; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 0.8rem;\n}\n.btn-icon-view[data-v-71b451b1] { background: #dbeafe; color: #2563eb;\n}\n.btn-icon-view[data-v-71b451b1]:hover { background: #bfdbfe; transform: scale(1.05);\n}\n.btn-icon-replace[data-v-71b451b1] { background: #fef3c7; color: #d97706;\n}\n.btn-icon-replace[data-v-71b451b1]:hover { background: #fde68a; transform: scale(1.05);\n}\n.btn-icon-remove[data-v-71b451b1] { background: #fee2e2; color: #dc2626;\n}\n.btn-icon-remove[data-v-71b451b1]:hover { background: #fecaca; transform: scale(1.05);\n}\n.field-error[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; margin-top: 4px; padding: 6px 10px; background: #fef0ef; border: 1px solid #f5c6c3; border-radius: 4px; font-size: 0.7rem; color: #c0392b;\n}\r\n\r\n/* ===== MODAL ===== */\n.modal-overlay[data-v-71b451b1] { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.55); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 1050; animation: fadeIn-71b451b1 0.2s ease-out;\n}\n.enhanced-modal[data-v-71b451b1] { width: 100%; max-width: 620px; margin: 0 15px; animation: slideUp-71b451b1 0.3s ease-out;\n}\n@keyframes slideUp-71b451b1 {\nfrom { transform: translateY(30px); opacity: 0;\n}\nto { transform: translateY(0); opacity: 1;\n}\n}\n@keyframes fadeIn-71b451b1 {\nfrom { opacity: 0;\n}\nto { opacity: 1;\n}\n}\n.square-modal[data-v-71b451b1] { border: none; border-radius: 12px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.3); background: #fff;\n}\n.square-header[data-v-71b451b1] { background: linear-gradient(135deg, #1e4d2b, #2d6a4f); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1);\n}\n.square-icon[data-v-71b451b1] { width: 38px; height: 38px; background: rgba(255,255,255,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-right: 12px;\n}\n.modal-title[data-v-71b451b1] { font-weight: 700; font-size: 1.1rem;\n}\n.modal-subtitle[data-v-71b451b1] { font-size: 0.8rem; opacity: 0.85;\n}\n.square-close[data-v-71b451b1] { background: rgba(255,255,255,0.15); border: none; color: #fff; width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s;\n}\n.square-close[data-v-71b451b1]:hover { background: rgba(255,255,255,0.3);\n}\n.modal-body[data-v-71b451b1], .modal-body-enhanced[data-v-71b451b1] { padding: 16px 20px; background: #f9fafb; max-height: calc(90vh - 120px); overflow-y: auto;\n}\n.modal-body[data-v-71b451b1]::-webkit-scrollbar, .modal-body-enhanced[data-v-71b451b1]::-webkit-scrollbar { width: 4px;\n}\n.modal-body[data-v-71b451b1]::-webkit-scrollbar-thumb, .modal-body-enhanced[data-v-71b451b1]::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 2px;\n}\n.error-msg[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; background: #fef0ef; border: 1px solid #f5c6c3; border-radius: 6px; padding: 8px 12px; font-size: 12px; color: #c0392b; margin-bottom: 12px; font-weight: 500;\n}\n.form-label[data-v-71b451b1], .form-label-enhanced[data-v-71b451b1] { font-weight: 600; font-size: 0.8rem; color: #1e293b; margin-bottom: 4px; display: block;\n}\n.required-star[data-v-71b451b1] { color: #dc2626; margin-left: 2px;\n}\n.modal-actions[data-v-71b451b1] { margin-top: 16px; padding-top: 12px; border-top: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;\n}\n.square-btn[data-v-71b451b1] { border-radius: 6px !important; font-weight: 600; transition: all 0.2s; padding: 6px 16px !important; font-size: 0.85rem !important;\n}\n.btn-save[data-v-71b451b1] { background: linear-gradient(135deg, #1e4d2b, #2d6a4f); color: #fff; border: none; padding: 6px 16px; font-weight: 600; display: inline-flex; align-items: center; box-shadow: 0 2px 12px rgba(26,71,49,0.3);\n}\n.btn-save[data-v-71b451b1]:hover { box-shadow: 0 4px 16px rgba(26,71,49,0.4); transform: translateY(-1px);\n}\n.btn-save[data-v-71b451b1]:disabled { opacity: 0.7; cursor: not-allowed; transform: none;\n}\r\n\r\n/* ===== RELEASE MODAL ===== */\n.release-warning-icon[data-v-71b451b1] { display: inline-flex; align-items: center; justify-content: center; width: 70px; height: 70px; border-radius: 50%; background: #dbeafe; font-size: 2.5rem; color: #2563eb; border: 3px solid #bfdbfe;\n}\n.release-doc-info[data-v-71b451b1] { background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px 16px; display: flex; flex-direction: column; gap: 10px;\n}\n.release-doc-row[data-v-71b451b1] { display: flex; align-items: center; gap: 12px;\n}\n.release-doc-icon-wrapper[data-v-71b451b1] { width: 36px; height: 36px; min-width: 36px; border-radius: 8px; background: #dbeafe; display: flex; align-items: center; justify-content: center; color: #2563eb; font-size: 1rem;\n}\n.release-doc-content[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.release-doc-label[data-v-71b451b1] { display: block; font-size: 0.65rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;\n}\n.release-doc-value[data-v-71b451b1] { display: block; font-size: 0.85rem; font-weight: 600; color: #1e293b;\n}\r\n\r\n/* ===== ARCHIVE MODAL ===== */\n.archive-warning-icon[data-v-71b451b1] { display: inline-flex; align-items: center; justify-content: center; width: 70px; height: 70px; border-radius: 50%; background: #fef3c7; font-size: 2.5rem; color: #d97706; border: 3px solid #fde68a;\n}\n.archive-doc-info[data-v-71b451b1] { background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px 16px; display: flex; flex-direction: column; gap: 10px;\n}\n.archive-doc-row[data-v-71b451b1] { display: flex; align-items: center; gap: 12px;\n}\n.archive-doc-icon-wrapper[data-v-71b451b1] { width: 36px; height: 36px; min-width: 36px; border-radius: 8px; background: #e5e7eb; display: flex; align-items: center; justify-content: center; color: #6b7280; font-size: 1rem;\n}\n.archive-doc-content[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.archive-doc-label[data-v-71b451b1] { display: block; font-size: 0.65rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;\n}\n.archive-doc-value[data-v-71b451b1] { display: block; font-size: 0.85rem; font-weight: 600; color: #1e293b;\n}\n.archive-select[data-v-71b451b1] { width: 100%; padding: 6px 10px; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 0.8rem; background: #fff; outline: none; cursor: pointer; -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E\"); background-repeat: no-repeat; background-position: right 10px center;\n}\n.archive-select[data-v-71b451b1]:focus { border-color: #6b7280; box-shadow: 0 0 0 2px rgba(107,114,128,0.1);\n}\n.archive-select[data-v-71b451b1]:disabled { opacity: 0.6; cursor: not-allowed;\n}\n.archive-hint[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: #fef3c7; border: 1px solid #fcd34d; border-radius: 4px; font-size: 0.7rem; color: #92400e; margin-top: 4px;\n}\n.archive-hint i[data-v-71b451b1] { color: #d97706;\n}\r\n\r\n/* ===== SYSTEM DATETIME ===== */\n.system-datetime-box[data-v-71b451b1] { margin-top: 16px; background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 1px solid #bfdbfe; border-radius: 10px; overflow: hidden;\n}\n.system-datetime-header[data-v-71b451b1] { padding: 10px 16px; font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 8px; color: #fff;\n}\n.system-datetime-header i[data-v-71b451b1] { color: rgba(255,255,255,0.8);\n}\n.system-datetime-display[data-v-71b451b1] { padding: 16px; display: flex; gap: 24px; flex-wrap: wrap;\n}\n.datetime-item[data-v-71b451b1] { display: flex; align-items: center; gap: 8px;\n}\n.datetime-item i[data-v-71b451b1] { color: #2563eb; font-size: 1.1rem;\n}\n.datetime-label[data-v-71b451b1] { font-size: 0.75rem; font-weight: 600; color: #64748b; text-transform: uppercase;\n}\n.datetime-value[data-v-71b451b1] { font-size: 0.95rem; font-weight: 700; color: #1e293b; font-family: \"Courier New\", monospace;\n}\n.system-datetime-footer[data-v-71b451b1] { padding: 8px 16px; background: rgba(37, 99, 235, 0.05); border-top: 1px solid #bfdbfe; display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: #64748b;\n}\n.system-datetime-footer i[data-v-71b451b1] { color: #2563eb;\n}\r\n\r\n/* ===== FORWARD MODAL ===== */\n.forward-doc-info[data-v-71b451b1] { display: flex; gap: 16px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 6px; padding: 8px 14px; margin-bottom: 12px; flex-wrap: wrap;\n}\n.forward-doc-row[data-v-71b451b1] { display: flex; align-items: center; gap: 6px;\n}\n.forward-doc-label[data-v-71b451b1] { font-size: 0.7rem; font-weight: 600; color: #64748b; text-transform: uppercase;\n}\n.forward-doc-value[data-v-71b451b1] { font-size: 0.85rem; font-weight: 600; color: #1e293b;\n}\n.forward-grid[data-v-71b451b1] { display: grid; grid-template-columns: 1fr 1fr; gap: 16px;\n}\n.forward-col[data-v-71b451b1] { display: flex; flex-direction: column;\n}\n.office-search-box[data-v-71b451b1] { position: relative; margin-bottom: 8px;\n}\n.office-search-icon[data-v-71b451b1] { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #9ca3af; font-size: 0.85rem;\n}\n.office-search-input[data-v-71b451b1] { width: 100%; padding: 6px 30px 6px 32px; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 0.8rem; outline: none; background: #fff; transition: all 0.3s ease;\n}\n.office-search-input[data-v-71b451b1]:focus { border-color: #2d6a4f; box-shadow: 0 0 0 2px rgba(45,106,79,0.1);\n}\n.office-search-clear[data-v-71b451b1] { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #9ca3af; cursor: pointer; padding: 2px;\n}\n.office-search-clear[data-v-71b451b1]:hover { color: #ef4444;\n}\n.office-list-container[data-v-71b451b1] { max-height: 180px; overflow-y: auto; border: 1px solid #e5e7eb; border-radius: 6px; background: #fff;\n}\n.office-list-container[data-v-71b451b1]::-webkit-scrollbar { width: 4px;\n}\n.office-list-container[data-v-71b451b1]::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 2px;\n}\n.office-select-item[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; padding: 6px 10px; cursor: pointer; transition: all 0.15s ease; border-bottom: 1px solid #f3f4f6; position: relative;\n}\n.office-select-item[data-v-71b451b1]:last-child { border-bottom: none;\n}\n.office-select-item[data-v-71b451b1]:hover { background: #f0fdf4;\n}\n.office-select-item.selected[data-v-71b451b1] { background: #f0fdf4; border-left: 2px solid #059669;\n}\n.office-checkbox[data-v-71b451b1] { font-size: 1rem; color: #059669; min-width: 18px; display: flex; align-items: center; justify-content: center;\n}\n.office-select-item:not(.selected) .office-checkbox[data-v-71b451b1] { color: #d1d5db;\n}\n.office-icon-wrapper[data-v-71b451b1] { width: 28px; height: 28px; min-width: 28px; border-radius: 6px; background: #e0e7ff; display: flex; align-items: center; justify-content: center; color: #3730a3; font-size: 0.8rem;\n}\n.office-select-item.selected .office-icon-wrapper[data-v-71b451b1] { background: #d1fae5; color: #059669;\n}\n.office-details[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.office-name-text[data-v-71b451b1] { display: block; font-size: 0.8rem; font-weight: 600; color: #1e293b; line-height: 1.2;\n}\n.office-code[data-v-71b451b1] { display: block; font-size: 0.6rem; color: #64748b;\n}\n.selected-indicator[data-v-71b451b1] { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); color: #059669; font-size: 0.9rem;\n}\n.selection-counter[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: #f0fdf4; border: 1px solid #86efac; border-radius: 16px; font-size: 0.75rem; font-weight: 600; color: #166534; margin-top: 6px;\n}\n.duration-select[data-v-71b451b1] { width: 100%; padding: 6px 10px; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 0.8rem; background: #fff; outline: none; cursor: pointer; -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E\"); background-repeat: no-repeat; background-position: right 10px center;\n}\n.duration-select[data-v-71b451b1]:focus { border-color: #2d6a4f; box-shadow: 0 0 0 2px rgba(45,106,79,0.1);\n}\n.duration-select[data-v-71b451b1]:disabled { opacity: 0.6; cursor: not-allowed;\n}\n.remarks-textarea[data-v-71b451b1] { width: 100%; padding: 6px 10px; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 0.8rem; outline: none; background: #fff; transition: all 0.3s ease; resize: vertical; font-family: inherit; min-height: 60px;\n}\n.remarks-textarea[data-v-71b451b1]:focus { border-color: #2d6a4f; box-shadow: 0 0 0 2px rgba(45,106,79,0.1);\n}\n.remarks-textarea[data-v-71b451b1]:disabled { opacity: 0.6; cursor: not-allowed;\n}\n.remarks-counter[data-v-71b451b1] { text-align: right; font-size: 0.65rem; color: #94a3b8; margin-top: 2px;\n}\n.remarks-counter.text-danger[data-v-71b451b1] { color: #dc2626;\n}\n.selected-offices-summary[data-v-71b451b1] { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 8px 12px; margin-top: 8px;\n}\n.selected-offices-header[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 0.75rem; color: #166534;\n}\n.selected-offices-list[data-v-71b451b1] { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px;\n}\n.selected-office-tag[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; background: #fff; border: 1px solid #86efac; border-radius: 12px; font-size: 0.7rem; font-weight: 600; color: #166534;\n}\n.remove-office-btn[data-v-71b451b1] { background: none; border: none; color: #6b7280; cursor: pointer; padding: 0; font-size: 0.8rem; transition: color 0.2s;\n}\n.remove-office-btn[data-v-71b451b1]:hover { color: #dc2626;\n}\n.remove-office-btn[data-v-71b451b1]:disabled { opacity: 0.5; cursor: not-allowed;\n}\r\n\r\n/* ===== DOCUMENT VIEWER ===== */\n.document-view-modal[data-v-71b451b1] { max-width: 1600px; width: 98vw; max-height: 95vh;\n}\n.document-viewer-body[data-v-71b451b1] { padding: 0; max-height: calc(95vh - 80px); overflow: hidden; display: flex; flex-direction: column;\n}\n.document-viewer-tabs[data-v-71b451b1] { display: flex; gap: 4px; padding: 10px 16px; background: #f8fafc; border-bottom: 2px solid #e5e7eb; flex-shrink: 0;\n}\n.viewer-tab-btn[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; padding: 8px 16px; background: #fff; border: 1px solid #e5e7eb; border-radius: 6px; color: #64748b; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s ease;\n}\n.viewer-tab-btn[data-v-71b451b1]:hover { background: #f0fdf4; border-color: #86efac; color: #2d6a4f; transform: translateY(-1px);\n}\n.viewer-tab-btn.active[data-v-71b451b1] { background: linear-gradient(135deg, #2d6a4f, #1e4d2b); border-color: #2d6a4f; color: #fff; box-shadow: 0 4px 12px rgba(45,106,79,0.3);\n}\n.document-viewer-layout[data-v-71b451b1] { display: grid; grid-template-columns: 280px 1fr; height: calc(95vh - 140px); min-height: 500px;\n}\n.details-panel[data-v-71b451b1] { background: #fff; border-right: 1px solid #e5e7eb; display: flex; flex-direction: column; overflow: hidden;\n}\n.details-panel-header[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; padding: 12px 16px; background: #f8fafc; border-bottom: 1px solid #e5e7eb; font-weight: 700; color: #1e293b; font-size: 0.85rem; flex-shrink: 0;\n}\n.details-content[data-v-71b451b1] { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px;\n}\n.details-content[data-v-71b451b1]::-webkit-scrollbar { width: 4px;\n}\n.details-content[data-v-71b451b1]::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 2px;\n}\n.detail-card[data-v-71b451b1] { display: flex; gap: 10px; padding: 10px 12px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px;\n}\n.detail-icon-wrapper[data-v-71b451b1] { width: 32px; height: 32px; min-width: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; background: #e0f2fe; color: #0284c7;\n}\n.detail-icon-wrapper.classification-icon[data-v-71b451b1] { background: #fee2e2; color: #991b1b;\n}\n.detail-icon-wrapper.type-icon[data-v-71b451b1] { background: #fef3c7; color: #d97706;\n}\n.detail-icon-wrapper.subject-icon[data-v-71b451b1] { background: #dcfce7; color: #16a34a;\n}\n.detail-icon-wrapper.sender-icon-card[data-v-71b451b1] { background: #ede9fe; color: #7c3aed;\n}\n.detail-icon-wrapper.duration-icon[data-v-71b451b1] { background: #f0fdf4; color: #16a34a;\n}\n.detail-info[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.detail-info label[data-v-71b451b1] { display: block; font-size: 0.6rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 2px;\n}\n.detail-value[data-v-71b451b1] { font-size: 0.8rem; color: #1e293b; font-weight: 500; word-break: break-word; line-height: 1.3; position: relative;\n}\n.tracking-number-large[data-v-71b451b1] { font-size: 0.85rem; font-weight: 700; color: #2d6a4f; font-family: \"Courier New\", monospace; background: #f0fdf4; padding: 2px 8px; border-radius: 4px; display: inline-block;\n}\n.doc-type-badge-large[data-v-71b451b1] { display: inline-block; padding: 2px 10px; background: #e0e7ff; color: #3730a3; border-radius: 4px; font-size: 0.75rem; font-weight: 600; border: 1px solid #c7d2fe;\n}\r\n\r\n/* ===== PDF PANEL ===== */\n.pdf-panel[data-v-71b451b1] { display: flex; flex-direction: column; background: #f8fafc; overflow: hidden;\n}\n.pdf-panel-header[data-v-71b451b1] { display: flex; justify-content: space-between; align-items: center; padding: 8px 16px; background: #fff; border-bottom: 1px solid #e5e7eb; flex-shrink: 0;\n}\n.pdf-panel-title[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; font-weight: 700; color: #1e293b; font-size: 0.85rem;\n}\n.pdf-panel-title i[data-v-71b451b1] { color: #dc2626; font-size: 1rem;\n}\n.text-danger[data-v-71b451b1] { color: #dc2626 !important;\n}\n.pdf-controls[data-v-71b451b1] { display: flex; gap: 4px; align-items: center;\n}\n.btn-pdf-control[data-v-71b451b1] { background: #f1f5f9; border: 1px solid #e5e7eb; color: #475569; width: 28px; height: 28px; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 0.8rem;\n}\n.btn-pdf-control[data-v-71b451b1]:hover:not(:disabled) { background: #e2e8f0; border-color: #94a3b8; color: #1e293b;\n}\n.btn-pdf-control[data-v-71b451b1]:disabled { opacity: 0.5; cursor: not-allowed;\n}\n.pdf-viewer-wrapper[data-v-71b451b1] { flex: 1; overflow: auto; background: #525659; position: relative; min-height: 500px;\n}\n.pdf-viewer-wrapper[data-v-71b451b1]::-webkit-scrollbar { width: 8px; height: 8px;\n}\n.pdf-viewer-wrapper[data-v-71b451b1]::-webkit-scrollbar-track { background: #3a3d40;\n}\n.pdf-viewer-wrapper[data-v-71b451b1]::-webkit-scrollbar-thumb { background: #6b7280; border-radius: 4px;\n}\n.pdf-iframe[data-v-71b451b1] { border: none; display: block; background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.3);\n}\n.pdf-state[data-v-71b451b1] { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 500px; color: #9ca3af; padding: 30px;\n}\n.pdf-loader-animation[data-v-71b451b1] { position: relative; width: 60px; height: 60px; margin-bottom: 12px;\n}\n.pdf-loader-icon[data-v-71b451b1] { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.5rem; color: #dc2626; z-index: 2;\n}\n.pdf-state-text[data-v-71b451b1] { color: #d1d5db; font-size: 0.85rem; margin-top: 6px;\n}\n.pdf-error[data-v-71b451b1] { color: #fca5a5;\n}\n.pdf-error h5[data-v-71b451b1] { color: #fca5a5; font-weight: 600; font-size: 1rem;\n}\n.pdf-footer[data-v-71b451b1] { display: flex; justify-content: space-between; align-items: center; padding: 6px 16px; background: #fff; border-top: 1px solid #e5e7eb; font-size: 0.7rem; color: #64748b; flex-shrink: 0;\n}\n.pdf-zoom-level[data-v-71b451b1] { font-weight: 600; color: #2d6a4f;\n}\n.pdf-page-info[data-v-71b451b1] { font-family: \"Courier New\", monospace;\n}\r\n\r\n/* ===== ROUTE HISTORY ===== */\n.route-history-panel[data-v-71b451b1] { display: flex; flex-direction: column; height: calc(95vh - 140px); background: #fff; min-height: 500px;\n}\n.route-history-header[data-v-71b451b1] { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; background: #f8fafc; border-bottom: 2px solid #e5e7eb; flex-shrink: 0;\n}\n.route-history-title[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; font-weight: 700; color: #1e293b; font-size: 0.9rem;\n}\n.route-history-title i[data-v-71b451b1] { color: #2d6a4f; font-size: 1rem;\n}\n.route-history-badge[data-v-71b451b1] { display: flex; align-items: center; gap: 4px; padding: 4px 12px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; font-size: 0.7rem; font-weight: 600; color: #166534;\n}\n.route-history-content[data-v-71b451b1] { flex: 1; overflow-y: auto; padding: 16px; background: #f9fafb;\n}\n.route-history-content[data-v-71b451b1]::-webkit-scrollbar { width: 6px;\n}\n.route-history-content[data-v-71b451b1]::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 3px;\n}\n.route-state-box[data-v-71b451b1] { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 200px; text-align: center;\n}\n.empty-icon-wrapper[data-v-71b451b1] { width: 60px; height: 60px; border-radius: 50%; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #94a3b8; margin-bottom: 12px;\n}\n.timeline-container[data-v-71b451b1] { position: relative; padding-left: 35px;\n}\n.timeline-container[data-v-71b451b1]::before { content: \"\"; position: absolute; left: 12px; top: 10px; bottom: 10px; width: 2px; background: linear-gradient(180deg, #cbd5e1, #e2e8f0);\n}\n.timeline-item[data-v-71b451b1] { position: relative; margin-bottom: 20px;\n}\n.timeline-item.is-last[data-v-71b451b1] { margin-bottom: 0;\n}\n.timeline-node[data-v-71b451b1] { position: absolute; left: -30px; top: 0; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; z-index: 2; border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.15); font-size: 0.65rem;\n}\n.node-completed[data-v-71b451b1] { background: #059669;\n}\n.node-active[data-v-71b451b1] { background: #2563eb; animation: pulse-71b451b1 2s infinite;\n}\n.node-pending[data-v-71b451b1] { background: #d97706;\n}\n.node-rejected[data-v-71b451b1] { background: #dc2626;\n}\n@keyframes pulse-71b451b1 {\n0%, 100% { box-shadow: 0 0 0 0 rgba(37,99,235,0.4);\n}\n50% { box-shadow: 0 0 0 6px rgba(37,99,235,0.1);\n}\n}\n.timeline-card[data-v-71b451b1] { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; transition: all 0.3s ease; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05);\n}\n.timeline-card[data-v-71b451b1]:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); transform: translateY(-1px);\n}\n.timeline-card.active-card[data-v-71b451b1] { border-left: 3px solid #2563eb; background: linear-gradient(135deg, #eff6ff, #fff);\n}\n.timeline-card-header[data-v-71b451b1] { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #f8fafc; border-bottom: 1px solid #e5e7eb; flex-wrap: wrap; gap: 8px;\n}\n.office-info[data-v-71b451b1] { display: flex; align-items: center; gap: 8px;\n}\n.office-info i[data-v-71b451b1] { font-size: 1rem; color: #2d6a4f;\n}\n.office-name[data-v-71b451b1] { font-size: 0.85rem; font-weight: 700; color: #1e293b; line-height: 1.2;\n}\n.route-status-badge[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 4px; font-size: 0.65rem; font-weight: 700; padding: 3px 10px; border-radius: 16px; text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap;\n}\n.badge-completed[data-v-71b451b1] { background: #d1fae5; color: #059669; border: 1px solid #a7f3d0;\n}\n.badge-active[data-v-71b451b1] { background: #dbeafe; color: #2563eb; border: 1px solid #bfdbfe;\n}\n.badge-pending[data-v-71b451b1] { background: #fef3c7; color: #d97706; border: 1px solid #fde68a;\n}\n.badge-rejected[data-v-71b451b1] { background: #fee2e2; color: #dc2626; border: 1px solid #fecaca;\n}\n.timeline-card-body[data-v-71b451b1] { padding: 12px 14px;\n}\n.info-grid-enhanced[data-v-71b451b1] { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;\n}\n.info-card[data-v-71b451b1] { background: #fff; border-radius: 8px; border: 1px solid #e5e7eb; overflow: hidden;\n}\n.received-card[data-v-71b451b1] { border-left: 3px solid #3b82f6;\n}\n.completed-card[data-v-71b451b1] { border-left: 3px solid #10b981;\n}\n.info-card-header[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #f8fafc; border-bottom: 1px solid #e5e7eb;\n}\n.info-card-icon[data-v-71b451b1] { width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #fff; flex-shrink: 0;\n}\n.completed-icon[data-v-71b451b1] { background: linear-gradient(135deg, #10b981, #059669);\n}\n.info-card-title[data-v-71b451b1] { font-weight: 700; font-size: 0.65rem; color: #1e293b; text-transform: uppercase; letter-spacing: 0.3px; flex: 1;\n}\n.info-card-status[data-v-71b451b1] { font-size: 0.55rem; font-weight: 700; padding: 2px 8px; border-radius: 12px;\n}\n.completed-status[data-v-71b451b1] { background: #d1fae5; color: #059669;\n}\n.info-card-body[data-v-71b451b1] { padding: 8px 12px; display: flex; flex-direction: column; gap: 6px;\n}\n.info-field[data-v-71b451b1] { display: flex; gap: 8px; align-items: flex-start;\n}\n.field-icon[data-v-71b451b1] { width: 20px; height: 20px; min-width: 20px; border-radius: 4px; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #64748b;\n}\n.remarks-icon[data-v-71b451b1] { background: #fffbeb; color: #d97706;\n}\n.notes-icon[data-v-71b451b1] { background: #f0fdf4; color: #059669;\n}\n.field-content[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.field-label[data-v-71b451b1] { display: block; font-size: 0.55rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 1px;\n}\n.field-value[data-v-71b451b1] { display: block; font-size: 0.75rem; color: #1e293b; font-weight: 500; word-break: break-word; line-height: 1.3;\n}\n.received-date[data-v-71b451b1] { color: #2563eb; font-weight: 600;\n}\n.completed-date[data-v-71b451b1] { color: #059669; font-weight: 600;\n}\n.remarks-text[data-v-71b451b1] { font-style: italic; color: #78350f; background: #fffbeb; padding: 2px 8px; border-radius: 4px; border-left: 2px solid #f59e0b; font-size: 0.7rem;\n}\n.notes-text[data-v-71b451b1] { background: #f0fdf4; padding: 2px 8px; border-radius: 4px; border-left: 2px solid #10b981; font-size: 0.7rem;\n}\n.text-muted[data-v-71b451b1] { color: #94a3b8;\n}\r\n\r\n/* ===== FLOW SECTION ===== */\n.flow-section[data-v-71b451b1] { margin-top: 6px; padding: 10px 14px; background: linear-gradient(135deg, #f8fafc, #f1f5f9); border-radius: 8px; border: 1px solid #e5e7eb;\n}\n.flow-container[data-v-71b451b1] { display: flex; align-items: center; gap: 12px; flex-wrap: wrap;\n}\n.flow-node[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 120px; padding: 6px 10px; background: #fff; border-radius: 6px; border: 1px solid #e5e7eb;\n}\n.origin-node[data-v-71b451b1] { border-left: 3px solid #3b82f6;\n}\n.destination-node[data-v-71b451b1] { border-left: 3px solid #10b981;\n}\n.flow-node-icon[data-v-71b451b1] { width: 24px; height: 24px; min-width: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #fff;\n}\n.origin-node .flow-node-icon[data-v-71b451b1] { background: linear-gradient(135deg, #3b82f6, #2563eb);\n}\n.destination-node .flow-node-icon[data-v-71b451b1] { background: linear-gradient(135deg, #10b981, #059669);\n}\n.flow-node-content[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.flow-node-label[data-v-71b451b1] { display: block; font-size: 0.5rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.3px;\n}\n.flow-node-value[data-v-71b451b1] { display: block; font-size: 0.75rem; font-weight: 600; color: #1e293b; word-break: break-word;\n}\n.flow-arrow[data-v-71b451b1] { display: flex; align-items: center; gap: 2px; flex-shrink: 0; padding: 0 2px;\n}\n.arrow-line[data-v-71b451b1] { width: 16px; height: 2px; background: linear-gradient(90deg, #94a3b8, #cbd5e1); border-radius: 1px;\n}\n.arrow-icon[data-v-71b451b1] { font-size: 1rem; color: #94a3b8; display: flex; align-items: center; justify-content: center; animation: arrowPulse-71b451b1 1.5s ease-in-out infinite;\n}\n@keyframes arrowPulse-71b451b1 {\n0%, 100% { transform: translateX(0); opacity: 1;\n}\n50% { transform: translateX(3px); opacity: 0.6;\n}\n}\r\n\r\n/* ===== LOADER ===== */\n.loader-spinner[data-v-71b451b1] { width: 30px; height: 30px; border: 2px solid #e5e7eb; border-top-color: #2d6a4f; border-radius: 50%; animation: spin-71b451b1 0.8s linear infinite; margin: 0 auto 6px;\n}\n@keyframes spin-71b451b1 {\nto { transform: rotate(360deg);\n}\n}\n.empty-state[data-v-71b451b1] { padding: 16px; text-align: center;\n}\r\n\r\n/* ===== DOCUMENT HEADER ===== */\n.document-header[data-v-71b451b1] { padding: 12px 20px;\n}\n.document-icon[data-v-71b451b1] { background: rgba(220,38,38,0.2);\n}\n.header-actions[data-v-71b451b1] { display: flex; align-items: center; gap: 6px;\n}\n.tracking-badge[data-v-71b451b1] { background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 10px; font-family: \"Courier New\", monospace; font-size: 0.7rem; margin-right: 6px;\n}\n.status-pill[data-v-71b451b1] { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3);\n}\r\n\r\n/* ===== CONFIDENTIAL NOTICE ===== */\n.confidential-notice[data-v-71b451b1] { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 500px; padding: 30px; background: linear-gradient(135deg, #1a1a2e, #16213e 50%, #0f3460); text-align: center;\n}\n.confidential-icon-wrapper[data-v-71b451b1] { position: relative; width: 90px; height: 90px; margin-bottom: 16px; display: flex; align-items: center; justify-content: center;\n}\n.confidential-icon[data-v-71b451b1] { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #dc2626, #991b1b); display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff; z-index: 2; box-shadow: 0 0 30px rgba(220,38,38,0.4);\n}\n.confidential-ring[data-v-71b451b1] { position: absolute; width: 90px; height: 90px; border-radius: 50%; border: 2px solid rgba(220,38,38,0.3); animation: ringPulse-71b451b1 2s ease-in-out infinite;\n}\n@keyframes ringPulse-71b451b1 {\n0%, 100% { transform: scale(1); opacity: 0.3;\n}\n50% { transform: scale(1.1); opacity: 0.6;\n}\n}\n.confidential-title[data-v-71b451b1] { font-size: 1.4rem; font-weight: 800; color: #dc2626; letter-spacing: 2px; margin-bottom: 6px; text-shadow: 0 0 20px rgba(220,38,38,0.3);\n}\n.confidential-divider[data-v-71b451b1] { width: 60px; height: 2px; background: linear-gradient(90deg, transparent, #dc2626, transparent); margin-bottom: 12px;\n}\n.confidential-message[data-v-71b451b1] { color: #e2e8f0; font-size: 0.9rem; margin-bottom: 6px;\n}\n.confidential-sub-message[data-v-71b451b1] { color: #94a3b8; font-size: 0.8rem; margin-bottom: 16px; max-width: 350px;\n}\n.confidential-details[data-v-71b451b1] { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; padding: 12px 16px; background: rgba(255,255,255,0.05); border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);\n}\n.confidential-detail-item[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; color: #cbd5e1; font-size: 0.75rem; font-family: \"Courier New\", monospace;\n}\n.confidential-detail-item i[data-v-71b451b1] { color: #dc2626; font-size: 0.85rem;\n}\n.confidential-footer-note[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: rgba(220,38,38,0.1); border: 1px solid rgba(220,38,38,0.2); border-radius: 4px; color: #fca5a5; font-size: 0.65rem; max-width: 400px;\n}\r\n\r\n/* ===== STATUS BADGE ===== */\n.status-badge[data-v-71b451b1] { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;\n}\n.status-in-progress[data-v-71b451b1] { background: #fef3c7; color: #d97706; border: 1px solid #fde68a;\n}\n.status-for-release[data-v-71b451b1] { background: #dbeafe; color: #2563eb; border: 1px solid #bfdbfe;\n}\n.status-released[data-v-71b451b1] { background: #d1fae5; color: #059669; border: 1px solid #a7f3d0;\n}\r\n\r\n/* ===== RESPONSIVE ===== */\n@media (max-width: 1200px) {\n.document-view-modal[data-v-71b451b1] { max-width: 100vw; width: 100vw;\n}\n.document-viewer-layout[data-v-71b451b1] { grid-template-columns: 260px 1fr;\n}\n}\n@media (max-width: 992px) {\n.document-viewer-layout[data-v-71b451b1] { grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: calc(95vh - 140px);\n}\n.details-panel[data-v-71b451b1] { border-right: none; border-bottom: 1px solid #e5e7eb; max-height: 300px;\n}\n.pdf-viewer-wrapper[data-v-71b451b1] { min-height: 500px;\n}\n.forward-grid[data-v-71b451b1] { grid-template-columns: 1fr;\n}\n.info-grid-enhanced[data-v-71b451b1] { grid-template-columns: 1fr;\n}\n.flow-container[data-v-71b451b1] { flex-direction: column; gap: 6px;\n}\n.flow-node[data-v-71b451b1] { width: 100%; min-width: unset;\n}\n.flow-arrow[data-v-71b451b1] { transform: rotate(90deg); padding: 0;\n}\n.arrow-line[data-v-71b451b1] { width: 24px;\n}\n.forward-doc-info[data-v-71b451b1] { flex-direction: column; gap: 4px;\n}\n.modal-actions[data-v-71b451b1] { flex-direction: column; gap: 8px; align-items: stretch;\n}\n.modal-actions .d-flex[data-v-71b451b1] { justify-content: center;\n}\n.square-btn[data-v-71b451b1] { width: 100%; justify-content: center;\n}\n}\n@media (max-width: 768px) {\n.document-view-modal[data-v-71b451b1] { max-width: 100vw; width: 100vw; margin: 0; border-radius: 0; max-height: 100vh;\n}\n.document-viewer-tabs[data-v-71b451b1] { padding: 6px 10px; gap: 3px;\n}\n.viewer-tab-btn[data-v-71b451b1] { padding: 6px 12px; font-size: 11px;\n}\n.details-panel[data-v-71b451b1] { max-height: 250px;\n}\n.pdf-viewer-wrapper[data-v-71b451b1] { min-height: 400px;\n}\n.pdf-state[data-v-71b451b1] { min-height: 400px;\n}\n.confidential-notice[data-v-71b451b1] { min-height: 400px;\n}\n.route-history-content[data-v-71b451b1] { padding: 12px;\n}\n.timeline-container[data-v-71b451b1] { padding-left: 30px;\n}\n.timeline-node[data-v-71b451b1] { left: -26px; width: 20px; height: 20px; font-size: 0.55rem;\n}\n.info-card-body[data-v-71b451b1] { padding: 6px 10px; gap: 4px;\n}\n.info-field[data-v-71b451b1] { flex-direction: column; gap: 2px;\n}\n.field-icon[data-v-71b451b1] { width: 20px; height: 20px; min-width: 20px; font-size: 0.65rem;\n}\n.flow-node[data-v-71b451b1] { padding: 4px 8px;\n}\n.flow-node-value[data-v-71b451b1] { font-size: 0.7rem;\n}\n.flow-section[data-v-71b451b1] { padding: 8px 10px;\n}\n.confidential-notice[data-v-71b451b1] { padding: 20px;\n}\n.confidential-title[data-v-71b451b1] { font-size: 1.2rem;\n}\n.forward-grid[data-v-71b451b1] { grid-template-columns: 1fr; gap: 10px;\n}\n.office-list-container[data-v-71b451b1] { max-height: 140px;\n}\n}\n@media (max-width: 576px) {\n.document-header[data-v-71b451b1] { padding: 10px 14px;\n}\n.viewer-tab-btn span[data-v-71b451b1] { display: none;\n}\n.viewer-tab-btn i[data-v-71b451b1] { font-size: 14px;\n}\n.detail-card[data-v-71b451b1] { padding: 8px;\n}\n.detail-icon-wrapper[data-v-71b451b1] { width: 28px; height: 28px; min-width: 28px; font-size: 0.8rem;\n}\n.btn-pdf-control[data-v-71b451b1] { width: 26px; height: 26px; font-size: 0.7rem;\n}\n.pdf-footer[data-v-71b451b1] { flex-direction: column; gap: 2px; align-items: flex-start;\n}\n.route-history-header[data-v-71b451b1] { padding: 10px 14px; flex-direction: column; gap: 6px; align-items: flex-start;\n}\n.active-filters[data-v-71b451b1] { flex-direction: column; align-items: flex-start;\n}\n.action-buttons[data-v-71b451b1] { gap: 4px;\n}\n.btn-action[data-v-71b451b1] { padding: 4px 8px; font-size: 0.8rem;\n}\n}\n.d-none[data-v-71b451b1] { display: none !important;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* ===== FILTER CONTROLS ===== */\n.filter-controls[data-v-71b451b1] { margin-bottom: 20px;\n}\n.search-filter-row[data-v-71b451b1] { display: flex; gap: 12px; align-items: center; flex-wrap: wrap;\n}\n.search-box-wrapper[data-v-71b451b1] { flex: 1; min-width: 200px;\n}\n.search-box[data-v-71b451b1] { position: relative;\n}\n.search-icon[data-v-71b451b1] { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #9ca3af;\n}\n.search-input[data-v-71b451b1] { width: 100%; padding: 10px 35px 10px 36px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px; outline: none; background: #fff; transition: all 0.3s ease;\n}\n.search-input[data-v-71b451b1]:focus { border-color: #2d6a4f; box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\n.search-clear-btn[data-v-71b451b1] { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #9ca3af; cursor: pointer; padding: 4px;\n}\n.search-clear-btn[data-v-71b451b1]:hover { color: #ef4444;\n}\n.per-page-wrapper[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; white-space: nowrap;\n}\n.per-page-label[data-v-71b451b1] { font-size: 13px; color: #6b7280; font-weight: 500;\n}\n.per-page-select[data-v-71b451b1] { padding: 8px 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 13px; background: #fff; outline: none; cursor: pointer; transition: all 0.3s ease;\n}\n.per-page-select[data-v-71b451b1]:focus { border-color: #2d6a4f;\n}\n.filter-wrapper[data-v-71b451b1] { min-width: 180px;\n}\n.filter-box[data-v-71b451b1] { position: relative;\n}\n.filter-icon[data-v-71b451b1] { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #9ca3af;\n}\n.filter-select[data-v-71b451b1] { width: 100%; padding: 10px 12px 10px 36px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 13px; background: #fff; outline: none; cursor: pointer; -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E\"); background-repeat: no-repeat; background-position: right 12px center; transition: all 0.3s ease;\n}\n.filter-select[data-v-71b451b1]:focus { border-color: #2d6a4f; box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);\n}\n.active-filters[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; margin-top: 12px; padding: 10px 14px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; flex-wrap: wrap;\n}\n.active-filters-label[data-v-71b451b1] { font-size: 12px; font-weight: 600; color: #166534; text-transform: uppercase; letter-spacing: 0.5px;\n}\n.filter-tag[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: #fff; border: 1px solid #86efac; border-radius: 20px; font-size: 12px; color: #166534; font-weight: 500;\n}\n.filter-tag-close[data-v-71b451b1] { background: none; border: none; color: #6b7280; cursor: pointer; padding: 0;\n}\n.filter-tag-close[data-v-71b451b1]:hover { color: #ef4444;\n}\n.clear-all-filters[data-v-71b451b1] { padding: 4px 12px; background: none; border: 1px solid #86efac; border-radius: 6px; font-size: 12px; color: #166534; cursor: pointer; font-weight: 600; transition: all 0.2s;\n}\n.clear-all-filters[data-v-71b451b1]:hover { background: #dcfce7; border-color: #166534;\n}\n.results-summary[data-v-71b451b1] { margin-top: 10px; font-size: 13px; color: #6b7280;\n}\n.results-count[data-v-71b451b1] { font-weight: 700; color: #2d6a4f; font-size: 16px;\n}\r\n\r\n/* ===== TABLE ===== */\n.table-responsive[data-v-71b451b1] { overflow-x: auto; margin-top: 16px;\n}\n.office-table[data-v-71b451b1] { width: 100%; border-collapse: collapse; font-size: 13px; background: #fff;\n}\n.office-table th[data-v-71b451b1], .office-table td[data-v-71b451b1] { border: 1px solid #f3f4f6; padding: 12px 14px; text-align: left; vertical-align: middle;\n}\n.office-table thead th[data-v-71b451b1] { background: #f8fafc; font-weight: 700; color: #374151; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; border-bottom: 2px solid #e5e7eb;\n}\n.office-table tbody tr[data-v-71b451b1]:hover { background: #f0fdf4;\n}\n.office-table tbody tr[data-v-71b451b1]:nth-child(even) { background: #fafafa;\n}\n.office-table tbody tr[data-v-71b451b1]:nth-child(even):hover { background: #f0fdf4;\n}\n.row-number[data-v-71b451b1] { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 6px; background: #f3f4f6; color: #6b7280; font-size: 12px; font-weight: 600;\n}\n.tracking-number[data-v-71b451b1] { font-weight: 700; color: #2d6a4f; font-family: \"Courier New\", monospace; font-size: 13px; padding: 2px 8px; background: #f0fdf4; border-radius: 4px;\n}\n.doc-type-badge[data-v-71b451b1] { display: inline-block; padding: 3px 10px; background: #e0e7ff; color: #3730a3; border-radius: 4px; font-size: 11px; font-weight: 600; border: 1px solid #c7d2fe;\n}\n.subject-text[data-v-71b451b1] { color: #1e293b; font-weight: 500; line-height: 1.4; font-size: 13px; position: relative;\n}\n.date-received[data-v-71b451b1] { color: #64748b; font-size: 12px; display: flex; align-items: center; gap: 6px;\n}\n.date-icon[data-v-71b451b1] { color: #94a3b8; font-size: 13px;\n}\r\n\r\n/* ===== ACTION BUTTONS ===== */\n.action-buttons[data-v-71b451b1] { display: flex; gap: 6px; align-items: center; flex-wrap: wrap;\n}\n.btn-action[data-v-71b451b1] { background: none; border: 1px solid transparent; border-radius: 6px; padding: 6px 10px; cursor: pointer; font-size: 0.95rem; transition: all 0.2s;\n}\n.btn-view[data-v-71b451b1] { color: #6366f1; border-color: #c7d2fe; background: #eef2ff;\n}\n.btn-view[data-v-71b451b1]:hover { background: #ddd6fe; transform: scale(1.05);\n}\n.btn-forward[data-v-71b451b1] { color: #0891b2; border-color: #67e8f9; background: #cffafe;\n}\n.btn-forward[data-v-71b451b1]:hover { background: #67e8f9; transform: scale(1.05);\n}\n.btn-release[data-v-71b451b1] { color: #059669; border-color: #6ee7b7; background: #d1fae5;\n}\n.btn-release[data-v-71b451b1]:hover { background: #6ee7b7; transform: scale(1.05);\n}\n.btn-archive[data-v-71b451b1] { color: #6b7280; border-color: #d1d5db; background: #f3f4f6;\n}\n.btn-archive[data-v-71b451b1]:hover { background: #e5e7eb; transform: scale(1.05);\n}\r\n\r\n/* ===== CONFIDENTIAL ===== */\n.confidential-blur-static[data-v-71b451b1] { filter: blur(8px); -webkit-user-select: none; -moz-user-select: none; user-select: none; pointer-events: none; position: relative;\n}\n.confidential-blur-static .confidential-label[data-v-71b451b1] { display: inline-block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.7rem; font-weight: 800; color: #dc2626; background: rgba(255,255,255,0.95); padding: 2px 10px; border-radius: 4px; border: 2px solid #dc2626; letter-spacing: 1px; text-transform: uppercase; pointer-events: none; white-space: nowrap; filter: none;\n}\n.confidential-label[data-v-71b451b1] { display: inline-block; font-size: 0.7rem; font-weight: 800; color: #dc2626; background: rgba(255,255,255,0.95); padding: 2px 10px; border-radius: 4px; border: 2px solid #dc2626; letter-spacing: 1px; text-transform: uppercase; margin-left: 8px; white-space: nowrap;\n}\r\n\r\n/* ===== CLASSIFICATION BADGES ===== */\n.classification-confidential[data-v-71b451b1] { display: inline-block; padding: 3px 10px; background: #fee2e2; color: #991b1b; border-radius: 4px; font-size: 11px; font-weight: 700; border: 1px solid #fecaca; text-transform: uppercase;\n}\n.classification-restricted[data-v-71b451b1] { display: inline-block; padding: 3px 10px; background: #fed7aa; color: #9a3412; border-radius: 4px; font-size: 11px; font-weight: 700; border: 1px solid #fdba74; text-transform: uppercase;\n}\n.classification-top-secret[data-v-71b451b1] { display: inline-block; padding: 3px 10px; background: #fce7f3; color: #9d174d; border-radius: 4px; font-size: 11px; font-weight: 700; border: 1px solid #f9a8d4; text-transform: uppercase;\n}\n.classification-general[data-v-71b451b1] { display: inline-block; padding: 3px 10px; background: #d1fae5; color: #065f46; border-radius: 4px; font-size: 11px; font-weight: 700; border: 1px solid #a7f3d0; text-transform: uppercase;\n}\n.classification-badge-large[data-v-71b451b1] { display: inline-block; padding: 4px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;\n}\r\n\r\n/* ===== DURATION BADGES ===== */\n.duration-badge[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;\n}\n.duration-simple[data-v-71b451b1] { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd;\n}\n.duration-complex[data-v-71b451b1] { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d;\n}\n.duration-highly-technical[data-v-71b451b1] { background: #fce7f3; color: #9d174d; border: 1px solid #f9a8d4;\n}\n.duration-not-set[data-v-71b451b1] { background: #f3f4f6; color: #6b7280; border: 1px solid #d1d5db;\n}\n.duration-badge-large[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 6px; padding: 4px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 700;\n}\n.duration-detail-card[data-v-71b451b1] { background: #f0fdf4; border-color: #86efac;\n}\r\n\r\n/* ===== MODAL ===== */\n.modal-overlay[data-v-71b451b1] { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.55); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 1050; animation: fadeIn-71b451b1 0.2s ease-out;\n}\n.enhanced-modal[data-v-71b451b1] { width: 100%; margin: 0 15px; animation: slideUp-71b451b1 0.3s ease-out;\n}\n@keyframes slideUp-71b451b1 {\nfrom { transform: translateY(30px); opacity: 0;\n}\nto { transform: translateY(0); opacity: 1;\n}\n}\n@keyframes fadeIn-71b451b1 {\nfrom { opacity: 0;\n}\nto { opacity: 1;\n}\n}\n.square-modal[data-v-71b451b1] { border: none; border-radius: 12px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.3); background: #fff;\n}\n.square-header[data-v-71b451b1] { background: linear-gradient(135deg, #1e4d2b, #2d6a4f); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1);\n}\n.square-icon[data-v-71b451b1] { width: 38px; height: 38px; background: rgba(255,255,255,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-right: 12px;\n}\n.modal-title[data-v-71b451b1] { font-weight: 700; font-size: 1.1rem;\n}\n.modal-subtitle[data-v-71b451b1] { font-size: 0.8rem; opacity: 0.85;\n}\n.square-close[data-v-71b451b1] { background: rgba(255,255,255,0.15); border: none; color: #fff; width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s;\n}\n.square-close[data-v-71b451b1]:hover { background: rgba(255,255,255,0.3);\n}\n.square-close[data-v-71b451b1]:disabled { opacity: 0.5; cursor: not-allowed;\n}\n.modal-body[data-v-71b451b1] { padding: 16px 20px; background: #f9fafb; max-height: calc(90vh - 120px); overflow-y: auto;\n}\n.modal-body[data-v-71b451b1]::-webkit-scrollbar { width: 4px;\n}\n.modal-body[data-v-71b451b1]::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 2px;\n}\n.error-msg[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; background: #fef0ef; border: 1px solid #f5c6c3; border-radius: 6px; padding: 8px 12px; font-size: 12px; color: #c0392b; margin-bottom: 12px; font-weight: 500;\n}\r\n\r\n/* ===== REDESIGNED FORWARD MODAL ===== */\n.forward-modal-large[data-v-71b451b1] { max-width: 1200px; width: 98vw;\n}\n.forward-header[data-v-71b451b1] { background: linear-gradient(135deg, #0f3b2a, #1a5a3a); padding: 14px 24px;\n}\n.forward-icon[data-v-71b451b1] { background: rgba(255,255,255,0.2);\n}\n.forward-modal-body[data-v-71b451b1] { padding: 20px 24px; max-height: calc(90vh - 80px); overflow-y: auto; background: #f8fafc;\n}\n.forward-doc-info-bar[data-v-71b451b1] { display: flex; align-items: center; gap: 16px; padding: 10px 16px; background: #fff; border-radius: 8px; border: 1px solid #e5e7eb; margin-bottom: 16px; flex-wrap: wrap; box-shadow: 0 1px 3px rgba(0,0,0,0.05);\n}\n.doc-info-item[data-v-71b451b1] { display: flex; align-items: center; gap: 6px;\n}\n.doc-info-label[data-v-71b451b1] { font-size: 0.6rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.3px;\n}\n.doc-info-value[data-v-71b451b1] { font-size: 0.85rem; font-weight: 600; color: #1e293b;\n}\n.doc-info-subject[data-v-71b451b1] { flex: 1; min-width: 150px;\n}\n.subject-truncate[data-v-71b451b1] { max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block;\n}\n.doc-info-divider[data-v-71b451b1] { width: 1px; height: 24px; background: #e5e7eb; flex-shrink: 0;\n}\n.forward-main-grid[data-v-71b451b1] { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;\n}\n.forward-col[data-v-71b451b1] { display: flex; flex-direction: column; background: #fff; border-radius: 8px; border: 1px solid #e5e7eb; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04);\n}\n.col-header[data-v-71b451b1] { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #f8fafc; border-bottom: 1px solid #e5e7eb;\n}\n.col-header-left[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.8rem; color: #1e293b;\n}\n.col-header-left i[data-v-71b451b1] { color: #2d6a4f; font-size: 0.9rem;\n}\n.required-star[data-v-71b451b1] { color: #dc2626; margin-left: 2px;\n}\n.optional-badge[data-v-71b451b1] { font-size: 0.55rem; font-weight: 600; padding: 2px 8px; background: #f3f4f6; color: #6b7280; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.3px;\n}\n.selection-count[data-v-71b451b1] { font-size: 0.7rem; font-weight: 600; color: #059669; background: #d1fae5; padding: 1px 8px; border-radius: 10px;\n}\r\n\r\n/* Office Column */\n.office-col[data-v-71b451b1] { display: flex; flex-direction: column;\n}\n.office-search-box[data-v-71b451b1] { position: relative; padding: 8px 12px; border-bottom: 1px solid #e5e7eb;\n}\n.office-search-icon[data-v-71b451b1] { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: #9ca3af; font-size: 0.8rem;\n}\n.office-search-input[data-v-71b451b1] { width: 100%; padding: 6px 30px 6px 28px; border: 1px solid #e5e7eb; border-radius: 6px; font-size: 0.75rem; outline: none; background: #fff; transition: all 0.3s ease;\n}\n.office-search-input[data-v-71b451b1]:focus { border-color: #2d6a4f; box-shadow: 0 0 0 2px rgba(45,106,79,0.1);\n}\n.office-search-clear[data-v-71b451b1] { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #9ca3af; cursor: pointer; padding: 2px;\n}\n.office-search-clear[data-v-71b451b1]:hover { color: #ef4444;\n}\n.office-list[data-v-71b451b1] { flex: 1; overflow-y: auto; max-height: 280px; padding: 4px 0;\n}\n.office-list[data-v-71b451b1]::-webkit-scrollbar { width: 4px;\n}\n.office-list[data-v-71b451b1]::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 2px;\n}\n.office-item[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; padding: 6px 12px; cursor: pointer; transition: all 0.15s ease; border-left: 2px solid transparent;\n}\n.office-item[data-v-71b451b1]:hover { background: #f0fdf4;\n}\n.office-item.selected[data-v-71b451b1] { background: #f0fdf4; border-left-color: #059669;\n}\n.office-item-check[data-v-71b451b1] { font-size: 1rem; color: #d1d5db; min-width: 18px; display: flex; align-items: center; justify-content: center;\n}\n.office-item.selected .office-item-check[data-v-71b451b1] { color: #059669;\n}\n.office-item-icon[data-v-71b451b1] { width: 26px; height: 26px; min-width: 26px; border-radius: 6px; background: #e0e7ff; display: flex; align-items: center; justify-content: center; color: #3730a3; font-size: 0.7rem;\n}\n.office-item.selected .office-item-icon[data-v-71b451b1] { background: #d1fae5; color: #059669;\n}\n.office-item-info[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.office-item-name[data-v-71b451b1] { display: block; font-size: 0.75rem; font-weight: 600; color: #1e293b; line-height: 1.2;\n}\n.office-item-code[data-v-71b451b1] { display: block; font-size: 0.55rem; color: #64748b;\n}\n.selected-tags[data-v-71b451b1] { padding: 8px 12px; border-top: 1px solid #e5e7eb; background: #f0fdf4; max-height: 80px; overflow-y: auto;\n}\n.selected-tags-header[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 0.65rem; color: #166534; margin-bottom: 4px;\n}\n.badge-count[data-v-71b451b1] { background: #d1fae5; color: #059669; padding: 0 6px; border-radius: 10px; font-size: 0.6rem;\n}\n.selected-tags-list[data-v-71b451b1] { display: flex; flex-wrap: wrap; gap: 4px;\n}\n.selected-tag[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; background: #fff; border: 1px solid #86efac; border-radius: 12px; font-size: 0.65rem; font-weight: 600; color: #166534;\n}\n.remove-tag-btn[data-v-71b451b1] { background: none; border: none; color: #6b7280; cursor: pointer; padding: 0; font-size: 0.7rem; transition: color 0.2s;\n}\n.remove-tag-btn[data-v-71b451b1]:hover { color: #dc2626;\n}\n.remove-tag-btn[data-v-71b451b1]:disabled { opacity: 0.5; cursor: not-allowed;\n}\r\n\r\n/* Memo Column */\n.memo-col[data-v-71b451b1] { display: flex; flex-direction: column;\n}\n.memo-section[data-v-71b451b1] { flex: 1; display: flex; flex-direction: column;\n}\n.memo-actions[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; padding: 6px 12px; background: #f8fafc; border-bottom: 1px solid #e5e7eb; flex-wrap: wrap;\n}\n.memo-action-btn[data-v-71b451b1] { padding: 2px 10px; border: none; border-radius: 4px; font-size: 0.65rem; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 3px;\n}\n.select-all-btn[data-v-71b451b1] { background: #d1fae5; color: #059669;\n}\n.select-all-btn[data-v-71b451b1]:hover:not(:disabled) { background: #a7f3d0;\n}\n.deselect-all-btn[data-v-71b451b1] { background: #fee2e2; color: #dc2626;\n}\n.deselect-all-btn[data-v-71b451b1]:hover:not(:disabled) { background: #fecaca;\n}\n.memo-action-btn[data-v-71b451b1]:disabled { opacity: 0.5; cursor: not-allowed;\n}\n.memo-count-badge[data-v-71b451b1] { font-size: 0.65rem; font-weight: 600; color: #64748b; margin-left: auto;\n}\n.memo-list[data-v-71b451b1] { flex: 1; overflow-y: auto; max-height: 280px; padding: 4px 0;\n}\n.memo-list[data-v-71b451b1]::-webkit-scrollbar { width: 4px;\n}\n.memo-list[data-v-71b451b1]::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 2px;\n}\n.memo-item[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; padding: 6px 12px; cursor: pointer; transition: all 0.15s ease; border-left: 2px solid transparent;\n}\n.memo-item[data-v-71b451b1]:hover { background: #f0fdf4;\n}\n.memo-item.selected[data-v-71b451b1] { background: #f0fdf4; border-left-color: #059669;\n}\n.memo-item-check[data-v-71b451b1] { font-size: 0.95rem; color: #d1d5db; min-width: 18px; display: flex; align-items: center; justify-content: center;\n}\n.memo-item.selected .memo-item-check[data-v-71b451b1] { color: #059669;\n}\n.memo-item-content[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.memo-item-name[data-v-71b451b1] { display: block; font-size: 0.75rem; font-weight: 500; color: #1e293b; line-height: 1.2;\n}\r\n\r\n/* Details Column */\n.details-col[data-v-71b451b1] { display: flex; flex-direction: column; gap: 0;\n}\n.detail-section[data-v-71b451b1] { padding: 10px 14px; border-bottom: 1px solid #e5e7eb;\n}\n.detail-section[data-v-71b451b1]:last-child { border-bottom: none;\n}\n.detail-section .col-header[data-v-71b451b1] { padding: 0 0 6px 0; background: none; border-bottom: none;\n}\n.duration-display[data-v-71b451b1] { display: flex; flex-direction: column; gap: 6px;\n}\n.duration-display-box[data-v-71b451b1] { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: #f0fdf4; border: 1px solid #86efac; border-radius: 6px;\n}\n.duration-display-icon[data-v-71b451b1] { width: 28px; height: 28px; min-width: 28px; border-radius: 6px; background: #d1fae5; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: #059669;\n}\n.duration-display-info[data-v-71b451b1] { flex: 1;\n}\n.duration-display-label[data-v-71b451b1] { display: block; font-size: 0.55rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.3px;\n}\n.duration-display-value[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 12px; font-size: 0.7rem; font-weight: 600;\n}\n.readonly-badge[data-v-71b451b1] { font-size: 0.55rem; font-weight: 600; color: #6b7280; background: #e5e7eb; padding: 1px 8px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.3px;\n}\n.duration-note[data-v-71b451b1] { display: flex; align-items: center; gap: 4px; padding: 4px 8px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 4px; font-size: 0.6rem; color: #166534;\n}\n.duration-note i[data-v-71b451b1] { color: #16a34a; font-size: 0.7rem;\n}\n.duration-select[data-v-71b451b1] { width: 100%; padding: 6px 10px; border: 1px solid #e5e7eb; border-radius: 6px; font-size: 0.75rem; background: #fff; outline: none; cursor: pointer; -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E\"); background-repeat: no-repeat; background-position: right 10px center; transition: all 0.3s ease;\n}\n.duration-select[data-v-71b451b1]:focus { border-color: #2d6a4f; box-shadow: 0 0 0 2px rgba(45,106,79,0.1);\n}\n.duration-select[data-v-71b451b1]:disabled { opacity: 0.6; cursor: not-allowed;\n}\n.duration-hint[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: #fef3c7; border: 1px solid #fcd34d; border-radius: 4px; font-size: 0.7rem; color: #92400e; margin-top: 4px;\n}\n.duration-hint i[data-v-71b451b1] { color: #d97706;\n}\r\n\r\n/* Dropzone Compact */\n.dropzone-compact[data-v-71b451b1] { border: 2px dashed #d1d5db; border-radius: 6px; padding: 12px 16px; cursor: pointer; transition: all 0.3s ease; background: #fafafa;\n}\n.dropzone-compact[data-v-71b451b1]:hover { border-color: #2d6a4f; background: #f0fdf4;\n}\n.dropzone-compact-content[data-v-71b451b1] { display: flex; align-items: center; gap: 12px;\n}\n.dropzone-compact-content i[data-v-71b451b1] { font-size: 1.5rem; color: #9ca3af; transition: all 0.3s ease;\n}\n.dropzone-compact:hover .dropzone-compact-content i[data-v-71b451b1] { color: #2d6a4f;\n}\n.dropzone-title[data-v-71b451b1] { font-size: 0.75rem; font-weight: 600; color: #1e293b; margin: 0;\n}\n.dropzone-hint[data-v-71b451b1] { font-size: 0.6rem; color: #94a3b8; margin: 0;\n}\n.file-card-compact[data-v-71b451b1] { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 6px; transition: all 0.3s ease;\n}\n.file-card-compact[data-v-71b451b1]:hover { border-color: #2d6a4f; background: #f0fdf4;\n}\n.file-card-icon[data-v-71b451b1] { width: 32px; height: 32px; min-width: 32px; border-radius: 6px; background: #fee2e2; display: flex; align-items: center; justify-content: center; color: #dc2626; font-size: 1rem;\n}\n.file-card-info[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.file-card-name[data-v-71b451b1] { display: block; font-size: 0.7rem; font-weight: 600; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;\n}\n.file-card-size[data-v-71b451b1] { font-size: 0.55rem; color: #94a3b8;\n}\n.file-card-actions[data-v-71b451b1] { display: flex; gap: 3px;\n}\n.file-action-btn[data-v-71b451b1] { width: 26px; height: 26px; border: none; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 0.7rem; background: #f1f5f9; color: #64748b;\n}\n.file-action-btn[data-v-71b451b1]:hover { background: #e2e8f0;\n}\n.file-action-btn.remove-btn[data-v-71b451b1]:hover { background: #fee2e2; color: #dc2626;\n}\n.remarks-textarea[data-v-71b451b1] { width: 100%; padding: 6px 10px; border: 1px solid #e5e7eb; border-radius: 6px; font-size: 0.75rem; outline: none; background: #fff; transition: all 0.3s ease; resize: vertical; font-family: inherit; min-height: 50px;\n}\n.remarks-textarea[data-v-71b451b1]:focus { border-color: #2d6a4f; box-shadow: 0 0 0 2px rgba(45,106,79,0.1);\n}\n.remarks-textarea[data-v-71b451b1]:disabled { opacity: 0.6; cursor: not-allowed;\n}\n.remarks-counter[data-v-71b451b1] { text-align: right; font-size: 0.6rem; color: #94a3b8; margin-top: 2px;\n}\n.remarks-counter.text-danger[data-v-71b451b1] { color: #dc2626;\n}\n.loading-state[data-v-71b451b1] { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center;\n}\n.loading-state .text-muted[data-v-71b451b1] { font-size: 0.7rem; color: #94a3b8;\n}\n.empty-state-compact[data-v-71b451b1] { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; color: #94a3b8;\n}\n.empty-state-compact i[data-v-71b451b1] { font-size: 1.5rem; margin-bottom: 4px; color: #d1d5db;\n}\n.empty-state-compact p[data-v-71b451b1] { font-size: 0.7rem; margin: 0;\n}\n.forward-actions[data-v-71b451b1] { margin-top: 16px; padding-top: 12px; border-top: 1px solid #e5e7eb;\n}\n.modal-actions[data-v-71b451b1] { display: flex; justify-content: space-between; align-items: center;\n}\n.d-flex[data-v-71b451b1] { display: flex;\n}\n.gap-2[data-v-71b451b1] { gap: 8px;\n}\n.me-1[data-v-71b451b1] { margin-right: 4px;\n}\n.btn[data-v-71b451b1] { padding: 6px 16px; border-radius: 6px; font-weight: 600; font-size: 0.85rem; transition: all 0.2s; border: 1px solid transparent;\n}\n.btn-outline-secondary[data-v-71b451b1] { background: transparent; border-color: #d1d5db; color: #6b7280;\n}\n.btn-outline-secondary[data-v-71b451b1]:hover { background: #f3f4f6;\n}\n.btn-light[data-v-71b451b1] { background: #f3f4f6; border-color: #e5e7eb; color: #1e293b;\n}\n.btn-light[data-v-71b451b1]:hover { background: #e5e7eb;\n}\n.btn-save[data-v-71b451b1] { background: linear-gradient(135deg, #1e4d2b, #2d6a4f); color: #fff; border: none; box-shadow: 0 2px 12px rgba(26,71,49,0.3);\n}\n.btn-save[data-v-71b451b1]:hover:not(:disabled) { box-shadow: 0 4px 16px rgba(26,71,49,0.4); transform: translateY(-1px);\n}\n.btn-save[data-v-71b451b1]:disabled { opacity: 0.7; cursor: not-allowed; transform: none;\n}\n.square-btn[data-v-71b451b1] { border-radius: 6px !important;\n}\n.spinner-border-sm[data-v-71b451b1] { width: 1rem; height: 1rem; border-width: 0.15em;\n}\r\n\r\n/* ===== RELEASE MODAL ===== */\n.release-warning-icon[data-v-71b451b1] { display: inline-flex; align-items: center; justify-content: center; width: 70px; height: 70px; border-radius: 50%; background: #dbeafe; font-size: 2.5rem; color: #2563eb; border: 3px solid #bfdbfe;\n}\n.release-doc-info[data-v-71b451b1] { background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px 16px; display: flex; flex-direction: column; gap: 10px;\n}\n.release-doc-row[data-v-71b451b1] { display: flex; align-items: center; gap: 12px;\n}\n.release-doc-icon-wrapper[data-v-71b451b1] { width: 36px; height: 36px; min-width: 36px; border-radius: 8px; background: #dbeafe; display: flex; align-items: center; justify-content: center; color: #2563eb; font-size: 1rem;\n}\n.release-doc-content[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.release-doc-label[data-v-71b451b1] { display: block; font-size: 0.65rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;\n}\n.release-doc-value[data-v-71b451b1] { display: block; font-size: 0.85rem; font-weight: 600; color: #1e293b;\n}\r\n\r\n/* ===== ARCHIVE MODAL ===== */\n.archive-warning-icon[data-v-71b451b1] { display: inline-flex; align-items: center; justify-content: center; width: 70px; height: 70px; border-radius: 50%; background: #fef3c7; font-size: 2.5rem; color: #d97706; border: 3px solid #fde68a;\n}\n.archive-doc-info[data-v-71b451b1] { background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px 16px; display: flex; flex-direction: column; gap: 10px;\n}\n.archive-doc-row[data-v-71b451b1] { display: flex; align-items: center; gap: 12px;\n}\n.archive-doc-icon-wrapper[data-v-71b451b1] { width: 36px; height: 36px; min-width: 36px; border-radius: 8px; background: #e5e7eb; display: flex; align-items: center; justify-content: center; color: #6b7280; font-size: 1rem;\n}\n.archive-doc-content[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.archive-doc-label[data-v-71b451b1] { display: block; font-size: 0.65rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;\n}\n.archive-doc-value[data-v-71b451b1] { display: block; font-size: 0.85rem; font-weight: 600; color: #1e293b;\n}\n.archive-select[data-v-71b451b1] { width: 100%; padding: 6px 10px; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 0.8rem; background: #fff; outline: none; cursor: pointer; -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E\"); background-repeat: no-repeat; background-position: right 10px center;\n}\n.archive-select[data-v-71b451b1]:focus { border-color: #6b7280; box-shadow: 0 0 0 2px rgba(107,114,128,0.1);\n}\n.archive-select[data-v-71b451b1]:disabled { opacity: 0.6; cursor: not-allowed;\n}\n.archive-hint[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: #fef3c7; border: 1px solid #fcd34d; border-radius: 4px; font-size: 0.7rem; color: #92400e; margin-top: 4px;\n}\n.archive-hint i[data-v-71b451b1] { color: #d97706;\n}\r\n\r\n/* ===== SYSTEM DATETIME ===== */\n.system-datetime-box[data-v-71b451b1] { margin-top: 16px; background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 1px solid #bfdbfe; border-radius: 10px; overflow: hidden;\n}\n.system-datetime-header[data-v-71b451b1] { padding: 10px 16px; font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 8px; color: #fff;\n}\n.system-datetime-header i[data-v-71b451b1] { color: rgba(255,255,255,0.8);\n}\n.system-datetime-display[data-v-71b451b1] { padding: 16px; display: flex; gap: 24px; flex-wrap: wrap;\n}\n.datetime-item[data-v-71b451b1] { display: flex; align-items: center; gap: 8px;\n}\n.datetime-item i[data-v-71b451b1] { color: #2563eb; font-size: 1.1rem;\n}\n.datetime-label[data-v-71b451b1] { font-size: 0.75rem; font-weight: 600; color: #64748b; text-transform: uppercase;\n}\n.datetime-value[data-v-71b451b1] { font-size: 0.95rem; font-weight: 700; color: #1e293b; font-family: \"Courier New\", monospace;\n}\n.system-datetime-footer[data-v-71b451b1] { padding: 8px 16px; background: rgba(37, 99, 235, 0.05); border-top: 1px solid #bfdbfe; display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: #64748b;\n}\n.system-datetime-footer i[data-v-71b451b1] { color: #2563eb;\n}\r\n\r\n/* ===== ATTACHMENT SECTION ===== */\n.attachment-section[data-v-71b451b1] { margin-top: 4px;\n}\n.dropzone[data-v-71b451b1] { border: 2px dashed #d1d5db; border-radius: 8px; padding: 20px 16px; text-align: center; cursor: pointer; transition: all 0.3s ease; background: #fafafa;\n}\n.dropzone[data-v-71b451b1]:hover { border-color: #2d6a4f; background: #f0fdf4;\n}\n.dropzone-content[data-v-71b451b1] { display: flex; flex-direction: column; align-items: center; gap: 4px;\n}\n.dropzone-icon[data-v-71b451b1] { font-size: 2rem; color: #9ca3af; margin-bottom: 4px; transition: all 0.3s ease;\n}\n.dropzone:hover .dropzone-icon[data-v-71b451b1] { color: #2d6a4f; transform: translateY(-2px);\n}\n.dropzone h6[data-v-71b451b1] { font-size: 0.85rem; color: #1e293b; margin-bottom: 2px;\n}\n.dropzone .text-muted[data-v-71b451b1] { font-size: 0.7rem; color: #94a3b8;\n}\n.single-file-card[data-v-71b451b1] { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: #f8fafc; border: 2px solid #e5e7eb; border-radius: 8px; gap: 12px; transition: all 0.3s ease;\n}\n.single-file-card[data-v-71b451b1]:hover { border-color: #2d6a4f; background: #f0fdf4;\n}\n.file-info[data-v-71b451b1] { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0;\n}\n.file-icon-wrap[data-v-71b451b1] { width: 40px; height: 40px; min-width: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem;\n}\n.file-icon-wrap.file-pdf[data-v-71b451b1] { background: #fee2e2; color: #dc2626;\n}\n.file-details[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.file-name[data-v-71b451b1] { font-size: 0.8rem; font-weight: 600; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;\n}\n.file-size[data-v-71b451b1] { font-size: 0.65rem; color: #94a3b8;\n}\n.file-actions[data-v-71b451b1] { display: flex; gap: 4px;\n}\n.btn-icon[data-v-71b451b1] { width: 30px; height: 30px; border: none; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 0.8rem;\n}\n.btn-icon-view[data-v-71b451b1] { background: #dbeafe; color: #2563eb;\n}\n.btn-icon-view[data-v-71b451b1]:hover { background: #bfdbfe; transform: scale(1.05);\n}\n.btn-icon-replace[data-v-71b451b1] { background: #fef3c7; color: #d97706;\n}\n.btn-icon-replace[data-v-71b451b1]:hover { background: #fde68a; transform: scale(1.05);\n}\n.btn-icon-remove[data-v-71b451b1] { background: #fee2e2; color: #dc2626;\n}\n.btn-icon-remove[data-v-71b451b1]:hover { background: #fecaca; transform: scale(1.05);\n}\n.field-error[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; margin-top: 4px; padding: 6px 10px; background: #fef0ef; border: 1px solid #f5c6c3; border-radius: 4px; font-size: 0.7rem; color: #c0392b;\n}\r\n\r\n/* ===== DOCUMENT VIEWER ===== */\n.document-view-modal[data-v-71b451b1] { max-width: 1600px; width: 98vw; max-height: 95vh;\n}\n.document-viewer-body[data-v-71b451b1] { padding: 0; max-height: calc(95vh - 80px); overflow: hidden; display: flex; flex-direction: column;\n}\n.document-viewer-tabs[data-v-71b451b1] { display: flex; gap: 4px; padding: 10px 16px; background: #f8fafc; border-bottom: 2px solid #e5e7eb; flex-shrink: 0;\n}\n.viewer-tab-btn[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; padding: 8px 16px; background: #fff; border: 1px solid #e5e7eb; border-radius: 6px; color: #64748b; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s ease;\n}\n.viewer-tab-btn[data-v-71b451b1]:hover { background: #f0fdf4; border-color: #86efac; color: #2d6a4f; transform: translateY(-1px);\n}\n.viewer-tab-btn.active[data-v-71b451b1] { background: linear-gradient(135deg, #2d6a4f, #1e4d2b); border-color: #2d6a4f; color: #fff; box-shadow: 0 4px 12px rgba(45,106,79,0.3);\n}\n.document-viewer-layout[data-v-71b451b1] { display: grid; grid-template-columns: 280px 1fr; height: calc(95vh - 140px); min-height: 500px;\n}\n.details-panel[data-v-71b451b1] { background: #fff; border-right: 1px solid #e5e7eb; display: flex; flex-direction: column; overflow: hidden;\n}\n.details-panel-header[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; padding: 12px 16px; background: #f8fafc; border-bottom: 1px solid #e5e7eb; font-weight: 700; color: #1e293b; font-size: 0.85rem; flex-shrink: 0;\n}\n.details-content[data-v-71b451b1] { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px;\n}\n.details-content[data-v-71b451b1]::-webkit-scrollbar { width: 4px;\n}\n.details-content[data-v-71b451b1]::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 2px;\n}\n.detail-card[data-v-71b451b1] { display: flex; gap: 10px; padding: 10px 12px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px;\n}\n.detail-icon-wrapper[data-v-71b451b1] { width: 32px; height: 32px; min-width: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; background: #e0f2fe; color: #0284c7;\n}\n.detail-icon-wrapper.classification-icon[data-v-71b451b1] { background: #fee2e2; color: #991b1b;\n}\n.detail-icon-wrapper.type-icon[data-v-71b451b1] { background: #fef3c7; color: #d97706;\n}\n.detail-icon-wrapper.subject-icon[data-v-71b451b1] { background: #dcfce7; color: #16a34a;\n}\n.detail-icon-wrapper.sender-icon-card[data-v-71b451b1] { background: #ede9fe; color: #7c3aed;\n}\n.detail-icon-wrapper.duration-icon[data-v-71b451b1] { background: #f0fdf4; color: #16a34a;\n}\n.detail-info[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.detail-info label[data-v-71b451b1] { display: block; font-size: 0.6rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 2px;\n}\n.detail-value[data-v-71b451b1] { font-size: 0.8rem; color: #1e293b; font-weight: 500; word-break: break-word; line-height: 1.3; position: relative;\n}\n.tracking-number-large[data-v-71b451b1] { font-size: 0.85rem; font-weight: 700; color: #2d6a4f; font-family: \"Courier New\", monospace; background: #f0fdf4; padding: 2px 8px; border-radius: 4px; display: inline-block;\n}\n.doc-type-badge-large[data-v-71b451b1] { display: inline-block; padding: 2px 10px; background: #e0e7ff; color: #3730a3; border-radius: 4px; font-size: 0.75rem; font-weight: 600; border: 1px solid #c7d2fe;\n}\r\n\r\n/* ===== PDF PANEL ===== */\n.pdf-panel[data-v-71b451b1] { display: flex; flex-direction: column; background: #f8fafc; overflow: hidden;\n}\n.pdf-panel-header[data-v-71b451b1] { display: flex; justify-content: space-between; align-items: center; padding: 8px 16px; background: #fff; border-bottom: 1px solid #e5e7eb; flex-shrink: 0;\n}\n.pdf-panel-title[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; font-weight: 700; color: #1e293b; font-size: 0.85rem;\n}\n.pdf-panel-title i[data-v-71b451b1] { color: #dc2626; font-size: 1rem;\n}\n.text-danger[data-v-71b451b1] { color: #dc2626 !important;\n}\n.pdf-controls[data-v-71b451b1] { display: flex; gap: 4px; align-items: center;\n}\n.btn-pdf-control[data-v-71b451b1] { background: #f1f5f9; border: 1px solid #e5e7eb; color: #475569; width: 28px; height: 28px; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 0.8rem;\n}\n.btn-pdf-control[data-v-71b451b1]:hover:not(:disabled) { background: #e2e8f0; border-color: #94a3b8; color: #1e293b;\n}\n.btn-pdf-control[data-v-71b451b1]:disabled { opacity: 0.5; cursor: not-allowed;\n}\n.pdf-viewer-wrapper[data-v-71b451b1] { flex: 1; overflow: auto; background: #525659; position: relative; min-height: 500px;\n}\n.pdf-viewer-wrapper[data-v-71b451b1]::-webkit-scrollbar { width: 8px; height: 8px;\n}\n.pdf-viewer-wrapper[data-v-71b451b1]::-webkit-scrollbar-track { background: #3a3d40;\n}\n.pdf-viewer-wrapper[data-v-71b451b1]::-webkit-scrollbar-thumb { background: #6b7280; border-radius: 4px;\n}\n.pdf-iframe[data-v-71b451b1] { border: none; display: block; background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.3);\n}\n.pdf-state[data-v-71b451b1] { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 500px; color: #9ca3af; padding: 30px;\n}\n.pdf-loader-animation[data-v-71b451b1] { position: relative; width: 60px; height: 60px; margin-bottom: 12px;\n}\n.pdf-loader-icon[data-v-71b451b1] { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.5rem; color: #dc2626; z-index: 2;\n}\n.pdf-state-text[data-v-71b451b1] { color: #d1d5db; font-size: 0.85rem; margin-top: 6px;\n}\n.pdf-error[data-v-71b451b1] { color: #fca5a5;\n}\n.pdf-error h5[data-v-71b451b1] { color: #fca5a5; font-weight: 600; font-size: 1rem;\n}\n.pdf-footer[data-v-71b451b1] { display: flex; justify-content: space-between; align-items: center; padding: 6px 16px; background: #fff; border-top: 1px solid #e5e7eb; font-size: 0.7rem; color: #64748b; flex-shrink: 0;\n}\n.pdf-zoom-level[data-v-71b451b1] { font-weight: 600; color: #2d6a4f;\n}\n.pdf-page-info[data-v-71b451b1] { font-family: \"Courier New\", monospace;\n}\r\n\r\n/* ===== ROUTE HISTORY ===== */\n.route-history-panel[data-v-71b451b1] { display: flex; flex-direction: column; height: calc(95vh - 140px); background: #fff; min-height: 500px;\n}\n.route-history-header[data-v-71b451b1] { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; background: #f8fafc; border-bottom: 2px solid #e5e7eb; flex-shrink: 0;\n}\n.route-history-title[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; font-weight: 700; color: #1e293b; font-size: 0.9rem;\n}\n.route-history-title i[data-v-71b451b1] { color: #2d6a4f; font-size: 1rem;\n}\n.route-history-badge[data-v-71b451b1] { display: flex; align-items: center; gap: 4px; padding: 4px 12px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; font-size: 0.7rem; font-weight: 600; color: #166534;\n}\n.route-history-content[data-v-71b451b1] { flex: 1; overflow-y: auto; padding: 16px; background: #f9fafb;\n}\n.route-history-content[data-v-71b451b1]::-webkit-scrollbar { width: 6px;\n}\n.route-history-content[data-v-71b451b1]::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 3px;\n}\n.route-state-box[data-v-71b451b1] { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 200px; text-align: center;\n}\n.empty-icon-wrapper[data-v-71b451b1] { width: 60px; height: 60px; border-radius: 50%; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #94a3b8; margin-bottom: 12px;\n}\n.timeline-container[data-v-71b451b1] { position: relative; padding-left: 35px;\n}\n.timeline-container[data-v-71b451b1]::before { content: \"\"; position: absolute; left: 12px; top: 10px; bottom: 10px; width: 2px; background: linear-gradient(180deg, #cbd5e1, #e2e8f0);\n}\n.timeline-item[data-v-71b451b1] { position: relative; margin-bottom: 20px;\n}\n.timeline-item.is-last[data-v-71b451b1] { margin-bottom: 0;\n}\n.timeline-node[data-v-71b451b1] { position: absolute; left: -30px; top: 0; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; z-index: 2; border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.15); font-size: 0.65rem;\n}\n.node-completed[data-v-71b451b1] { background: #059669;\n}\n.node-active[data-v-71b451b1] { background: #2563eb; animation: pulse-71b451b1 2s infinite;\n}\n.node-pending[data-v-71b451b1] { background: #d97706;\n}\n.node-rejected[data-v-71b451b1] { background: #dc2626;\n}\n@keyframes pulse-71b451b1 {\n0%, 100% { box-shadow: 0 0 0 0 rgba(37,99,235,0.4);\n}\n50% { box-shadow: 0 0 0 6px rgba(37,99,235,0.1);\n}\n}\n.timeline-card[data-v-71b451b1] { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; transition: all 0.3s ease; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05);\n}\n.timeline-card[data-v-71b451b1]:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); transform: translateY(-1px);\n}\n.timeline-card.active-card[data-v-71b451b1] { border-left: 3px solid #2563eb; background: linear-gradient(135deg, #eff6ff, #fff);\n}\n.timeline-card-header[data-v-71b451b1] { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #f8fafc; border-bottom: 1px solid #e5e7eb; flex-wrap: wrap; gap: 8px;\n}\n.office-info[data-v-71b451b1] { display: flex; align-items: center; gap: 8px;\n}\n.office-info i[data-v-71b451b1] { font-size: 1rem; color: #2d6a4f;\n}\n.office-name[data-v-71b451b1] { font-size: 0.85rem; font-weight: 700; color: #1e293b; line-height: 1.2;\n}\n.route-status-badge[data-v-71b451b1] { display: inline-flex; align-items: center; gap: 4px; font-size: 0.65rem; font-weight: 700; padding: 3px 10px; border-radius: 16px; text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap;\n}\n.badge-completed[data-v-71b451b1] { background: #d1fae5; color: #059669; border: 1px solid #a7f3d0;\n}\n.badge-active[data-v-71b451b1] { background: #dbeafe; color: #2563eb; border: 1px solid #bfdbfe;\n}\n.badge-pending[data-v-71b451b1] { background: #fef3c7; color: #d97706; border: 1px solid #fde68a;\n}\n.badge-rejected[data-v-71b451b1] { background: #fee2e2; color: #dc2626; border: 1px solid #fecaca;\n}\n.timeline-card-body[data-v-71b451b1] { padding: 12px 14px;\n}\n.info-grid-enhanced[data-v-71b451b1] { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;\n}\n.info-card[data-v-71b451b1] { background: #fff; border-radius: 8px; border: 1px solid #e5e7eb; overflow: hidden;\n}\n.received-card[data-v-71b451b1] { border-left: 3px solid #3b82f6;\n}\n.completed-card[data-v-71b451b1] { border-left: 3px solid #10b981;\n}\n.info-card-header[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #f8fafc; border-bottom: 1px solid #e5e7eb;\n}\n.info-card-icon[data-v-71b451b1] { width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #fff; flex-shrink: 0;\n}\n.completed-icon[data-v-71b451b1] { background: linear-gradient(135deg, #10b981, #059669);\n}\n.info-card-title[data-v-71b451b1] { font-weight: 700; font-size: 0.65rem; color: #1e293b; text-transform: uppercase; letter-spacing: 0.3px; flex: 1;\n}\n.info-card-status[data-v-71b451b1] { font-size: 0.55rem; font-weight: 700; padding: 2px 8px; border-radius: 12px;\n}\n.completed-status[data-v-71b451b1] { background: #d1fae5; color: #059669;\n}\n.info-card-body[data-v-71b451b1] { padding: 8px 12px; display: flex; flex-direction: column; gap: 6px;\n}\n.info-field[data-v-71b451b1] { display: flex; gap: 8px; align-items: flex-start;\n}\n.field-icon[data-v-71b451b1] { width: 20px; height: 20px; min-width: 20px; border-radius: 4px; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #64748b;\n}\n.remarks-icon[data-v-71b451b1] { background: #fffbeb; color: #d97706;\n}\n.notes-icon[data-v-71b451b1] { background: #f0fdf4; color: #059669;\n}\n.field-content[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.field-label[data-v-71b451b1] { display: block; font-size: 0.55rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 1px;\n}\n.field-value[data-v-71b451b1] { display: block; font-size: 0.75rem; color: #1e293b; font-weight: 500; word-break: break-word; line-height: 1.3;\n}\n.received-date[data-v-71b451b1] { color: #2563eb; font-weight: 600;\n}\n.completed-date[data-v-71b451b1] { color: #059669; font-weight: 600;\n}\n.remarks-text[data-v-71b451b1] { font-style: italic; color: #78350f; background: #fffbeb; padding: 2px 8px; border-radius: 4px; border-left: 2px solid #f59e0b; font-size: 0.7rem;\n}\n.notes-text[data-v-71b451b1] { background: #f0fdf4; padding: 2px 8px; border-radius: 4px; border-left: 2px solid #10b981; font-size: 0.7rem;\n}\n.text-muted[data-v-71b451b1] { color: #94a3b8;\n}\r\n\r\n/* ===== FLOW SECTION ===== */\n.flow-section[data-v-71b451b1] { margin-top: 6px; padding: 10px 14px; background: linear-gradient(135deg, #f8fafc, #f1f5f9); border-radius: 8px; border: 1px solid #e5e7eb;\n}\n.flow-container[data-v-71b451b1] { display: flex; align-items: center; gap: 12px; flex-wrap: wrap;\n}\n.flow-node[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 120px; padding: 6px 10px; background: #fff; border-radius: 6px; border: 1px solid #e5e7eb;\n}\n.origin-node[data-v-71b451b1] { border-left: 3px solid #3b82f6;\n}\n.destination-node[data-v-71b451b1] { border-left: 3px solid #10b981;\n}\n.flow-node-icon[data-v-71b451b1] { width: 24px; height: 24px; min-width: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #fff;\n}\n.origin-node .flow-node-icon[data-v-71b451b1] { background: linear-gradient(135deg, #3b82f6, #2563eb);\n}\n.destination-node .flow-node-icon[data-v-71b451b1] { background: linear-gradient(135deg, #10b981, #059669);\n}\n.flow-node-content[data-v-71b451b1] { flex: 1; min-width: 0;\n}\n.flow-node-label[data-v-71b451b1] { display: block; font-size: 0.5rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.3px;\n}\n.flow-node-value[data-v-71b451b1] { display: block; font-size: 0.75rem; font-weight: 600; color: #1e293b; word-break: break-word;\n}\n.flow-arrow[data-v-71b451b1] { display: flex; align-items: center; gap: 2px; flex-shrink: 0; padding: 0 2px;\n}\n.arrow-line[data-v-71b451b1] { width: 16px; height: 2px; background: linear-gradient(90deg, #94a3b8, #cbd5e1); border-radius: 1px;\n}\n.arrow-icon[data-v-71b451b1] { font-size: 1rem; color: #94a3b8; display: flex; align-items: center; justify-content: center; animation: arrowPulse-71b451b1 1.5s ease-in-out infinite;\n}\n@keyframes arrowPulse-71b451b1 {\n0%, 100% { transform: translateX(0); opacity: 1;\n}\n50% { transform: translateX(3px); opacity: 0.6;\n}\n}\r\n\r\n/* ===== LOADER ===== */\n.loader-spinner[data-v-71b451b1] { width: 30px; height: 30px; border: 2px solid #e5e7eb; border-top-color: #2d6a4f; border-radius: 50%; animation: spin-71b451b1 0.8s linear infinite; margin: 0 auto 6px;\n}\n@keyframes spin-71b451b1 {\nto { transform: rotate(360deg);\n}\n}\n.empty-state[data-v-71b451b1] { padding: 16px; text-align: center;\n}\r\n\r\n/* ===== DOCUMENT HEADER ===== */\n.document-header[data-v-71b451b1] { padding: 12px 20px;\n}\n.document-icon[data-v-71b451b1] { background: rgba(220,38,38,0.2);\n}\n.header-actions[data-v-71b451b1] { display: flex; align-items: center; gap: 6px;\n}\n.tracking-badge[data-v-71b451b1] { background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 10px; font-family: \"Courier New\", monospace; font-size: 0.7rem; margin-right: 6px;\n}\n.status-pill[data-v-71b451b1] { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3);\n}\r\n\r\n/* ===== CONFIDENTIAL NOTICE ===== */\n.confidential-notice[data-v-71b451b1] { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 500px; padding: 30px; background: linear-gradient(135deg, #1a1a2e, #16213e 50%, #0f3460); text-align: center;\n}\n.confidential-icon-wrapper[data-v-71b451b1] { position: relative; width: 90px; height: 90px; margin-bottom: 16px; display: flex; align-items: center; justify-content: center;\n}\n.confidential-icon[data-v-71b451b1] { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #dc2626, #991b1b); display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff; z-index: 2; box-shadow: 0 0 30px rgba(220,38,38,0.4);\n}\n.confidential-ring[data-v-71b451b1] { position: absolute; width: 90px; height: 90px; border-radius: 50%; border: 2px solid rgba(220,38,38,0.3); animation: ringPulse-71b451b1 2s ease-in-out infinite;\n}\n@keyframes ringPulse-71b451b1 {\n0%, 100% { transform: scale(1); opacity: 0.3;\n}\n50% { transform: scale(1.1); opacity: 0.6;\n}\n}\n.confidential-title[data-v-71b451b1] { font-size: 1.4rem; font-weight: 800; color: #dc2626; letter-spacing: 2px; margin-bottom: 6px; text-shadow: 0 0 20px rgba(220,38,38,0.3);\n}\n.confidential-divider[data-v-71b451b1] { width: 60px; height: 2px; background: linear-gradient(90deg, transparent, #dc2626, transparent); margin-bottom: 12px;\n}\n.confidential-message[data-v-71b451b1] { color: #e2e8f0; font-size: 0.9rem; margin-bottom: 6px;\n}\n.confidential-sub-message[data-v-71b451b1] { color: #94a3b8; font-size: 0.8rem; margin-bottom: 16px; max-width: 350px;\n}\n.confidential-details[data-v-71b451b1] { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; padding: 12px 16px; background: rgba(255,255,255,0.05); border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);\n}\n.confidential-detail-item[data-v-71b451b1] { display: flex; align-items: center; gap: 8px; color: #cbd5e1; font-size: 0.75rem; font-family: \"Courier New\", monospace;\n}\n.confidential-detail-item i[data-v-71b451b1] { color: #dc2626; font-size: 0.85rem;\n}\n.confidential-footer-note[data-v-71b451b1] { display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: rgba(220,38,38,0.1); border: 1px solid rgba(220,38,38,0.2); border-radius: 4px; color: #fca5a5; font-size: 0.65rem; max-width: 400px;\n}\r\n\r\n/* ===== STATUS BADGE ===== */\n.status-badge[data-v-71b451b1] { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;\n}\n.status-in-progress[data-v-71b451b1] { background: #fef3c7; color: #d97706; border: 1px solid #fde68a;\n}\n.status-for-release[data-v-71b451b1] { background: #dbeafe; color: #2563eb; border: 1px solid #bfdbfe;\n}\n.status-released[data-v-71b451b1] { background: #d1fae5; color: #059669; border: 1px solid #a7f3d0;\n}\r\n\r\n/* ===== RESPONSIVE ===== */\n@media (max-width: 1200px) {\n.document-view-modal[data-v-71b451b1] { max-width: 100vw; width: 100vw;\n}\n.document-viewer-layout[data-v-71b451b1] { grid-template-columns: 260px 1fr;\n}\n}\n@media (max-width: 1024px) {\n.forward-main-grid[data-v-71b451b1] {\r\n    grid-template-columns: 1fr 1fr;\n}\n.details-col[data-v-71b451b1] {\r\n    grid-column: span 2;\n}\n}\n@media (max-width: 992px) {\n.document-viewer-layout[data-v-71b451b1] { grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: calc(95vh - 140px);\n}\n.details-panel[data-v-71b451b1] { border-right: none; border-bottom: 1px solid #e5e7eb; max-height: 300px;\n}\n.pdf-viewer-wrapper[data-v-71b451b1] { min-height: 500px;\n}\n.info-grid-enhanced[data-v-71b451b1] { grid-template-columns: 1fr;\n}\n.flow-container[data-v-71b451b1] { flex-direction: column; gap: 6px;\n}\n.flow-node[data-v-71b451b1] { width: 100%; min-width: unset;\n}\n.flow-arrow[data-v-71b451b1] { transform: rotate(90deg); padding: 0;\n}\n.arrow-line[data-v-71b451b1] { width: 24px;\n}\n}\n@media (max-width: 768px) {\n.forward-modal-large[data-v-71b451b1] { max-width: 100vw; width: 100vw; margin: 0; border-radius: 0; max-height: 100vh;\n}\n.forward-modal-body[data-v-71b451b1] { padding: 12px 16px; max-height: calc(100vh - 70px);\n}\n.forward-main-grid[data-v-71b451b1] {\r\n    grid-template-columns: 1fr;\n}\n.details-col[data-v-71b451b1] {\r\n    grid-column: span 1;\n}\n.forward-doc-info-bar[data-v-71b451b1] { flex-direction: column; align-items: flex-start; gap: 4px;\n}\n.doc-info-divider[data-v-71b451b1] { display: none;\n}\n.doc-info-subject[data-v-71b451b1] { width: 100%; min-width: unset;\n}\n.subject-truncate[data-v-71b451b1] { max-width: 100%;\n}\n.office-list[data-v-71b451b1], .memo-list[data-v-71b451b1] { max-height: 200px;\n}\n.modal-actions[data-v-71b451b1] { flex-direction: column; gap: 8px; align-items: stretch;\n}\n.modal-actions .d-flex[data-v-71b451b1] { justify-content: center;\n}\n.square-btn[data-v-71b451b1] { width: 100%; justify-content: center;\n}\n.col-header[data-v-71b451b1] { padding: 8px 12px;\n}\n.office-item[data-v-71b451b1], .memo-item[data-v-71b451b1] { padding: 4px 10px;\n}\n.document-view-modal[data-v-71b451b1] { max-width: 100vw; width: 100vw; margin: 0; border-radius: 0; max-height: 100vh;\n}\n.document-viewer-tabs[data-v-71b451b1] { padding: 6px 10px; gap: 3px;\n}\n.viewer-tab-btn[data-v-71b451b1] { padding: 6px 12px; font-size: 11px;\n}\n.details-panel[data-v-71b451b1] { max-height: 250px;\n}\n.pdf-viewer-wrapper[data-v-71b451b1] { min-height: 400px;\n}\n.pdf-state[data-v-71b451b1] { min-height: 400px;\n}\n.confidential-notice[data-v-71b451b1] { min-height: 400px;\n}\n.route-history-content[data-v-71b451b1] { padding: 12px;\n}\n.timeline-container[data-v-71b451b1] { padding-left: 30px;\n}\n.timeline-node[data-v-71b451b1] { left: -26px; width: 20px; height: 20px; font-size: 0.55rem;\n}\n.info-card-body[data-v-71b451b1] { padding: 6px 10px; gap: 4px;\n}\n.info-field[data-v-71b451b1] { flex-direction: column; gap: 2px;\n}\n.field-icon[data-v-71b451b1] { width: 20px; height: 20px; min-width: 20px; font-size: 0.65rem;\n}\n.flow-node[data-v-71b451b1] { padding: 4px 8px;\n}\n.flow-node-value[data-v-71b451b1] { font-size: 0.7rem;\n}\n.flow-section[data-v-71b451b1] { padding: 8px 10px;\n}\n.confidential-notice[data-v-71b451b1] { padding: 20px;\n}\n.confidential-title[data-v-71b451b1] { font-size: 1.2rem;\n}\n}\n@media (max-width: 576px) {\n.forward-header[data-v-71b451b1] { padding: 10px 14px;\n}\n.forward-header .modal-title[data-v-71b451b1] { font-size: 0.9rem;\n}\n.forward-header .modal-subtitle[data-v-71b451b1] { font-size: 0.65rem;\n}\n.forward-doc-info-bar[data-v-71b451b1] { padding: 8px 12px;\n}\n.doc-info-item[data-v-71b451b1] { font-size: 0.7rem;\n}\n.office-search-box[data-v-71b451b1] { padding: 6px 10px;\n}\n.office-search-input[data-v-71b451b1] { font-size: 0.7rem; padding: 4px 24px 4px 24px;\n}\n.selected-tags[data-v-71b451b1] { max-height: 60px;\n}\n.selected-tag[data-v-71b451b1] { font-size: 0.6rem;\n}\n.dropzone-compact-content[data-v-71b451b1] { gap: 8px;\n}\n.dropzone-compact-content i[data-v-71b451b1] { font-size: 1.2rem;\n}\n.dropzone-title[data-v-71b451b1] { font-size: 0.65rem;\n}\n.file-card-compact[data-v-71b451b1] { padding: 6px 10px;\n}\n.file-card-name[data-v-71b451b1] { font-size: 0.6rem;\n}\n.memo-actions[data-v-71b451b1] { padding: 4px 10px;\n}\n.memo-action-btn[data-v-71b451b1] { font-size: 0.6rem; padding: 2px 8px;\n}\n.detail-section[data-v-71b451b1] { padding: 8px 10px;\n}\n.remarks-textarea[data-v-71b451b1] { min-height: 40px; font-size: 0.7rem;\n}\n.document-header[data-v-71b451b1] { padding: 10px 14px;\n}\n.viewer-tab-btn span[data-v-71b451b1] { display: none;\n}\n.viewer-tab-btn i[data-v-71b451b1] { font-size: 14px;\n}\n.detail-card[data-v-71b451b1] { padding: 8px;\n}\n.detail-icon-wrapper[data-v-71b451b1] { width: 28px; height: 28px; min-width: 28px; font-size: 0.8rem;\n}\n.btn-pdf-control[data-v-71b451b1] { width: 26px; height: 26px; font-size: 0.7rem;\n}\n.pdf-footer[data-v-71b451b1] { flex-direction: column; gap: 2px; align-items: flex-start;\n}\n.route-history-header[data-v-71b451b1] { padding: 10px 14px; flex-direction: column; gap: 6px; align-items: flex-start;\n}\n.active-filters[data-v-71b451b1] { flex-direction: column; align-items: flex-start;\n}\n.action-buttons[data-v-71b451b1] { gap: 4px;\n}\n.btn-action[data-v-71b451b1] { padding: 4px 8px; font-size: 0.8rem;\n}\n}\n.d-none[data-v-71b451b1] { display: none !important;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -50844,6 +52129,36 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Secretariat/Memoslip.vue?vue&type=style&index=0&id=53a3a739&scoped=true&lang=css":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Secretariat/Memoslip.vue?vue&type=style&index=0&id=53a3a739&scoped=true&lang=css ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Memoslip_vue_vue_type_style_index_0_id_53a3a739_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Memoslip.vue?vue&type=style&index=0&id=53a3a739&scoped=true&lang=css */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Secretariat/Memoslip.vue?vue&type=style&index=0&id=53a3a739&scoped=true&lang=css");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Memoslip_vue_vue_type_style_index_0_id_53a3a739_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Memoslip_vue_vue_type_style_index_0_id_53a3a739_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Secretariat/PendingTab.vue?vue&type=style&index=0&id=c955ef06&scoped=true&lang=css":
 /*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Secretariat/PendingTab.vue?vue&type=style&index=0&id=c955ef06&scoped=true&lang=css ***!
@@ -56528,6 +57843,47 @@ component.options.__file = "resources/js/components/Secretariat/Incomingsecretar
 
 /***/ }),
 
+/***/ "./resources/js/components/Secretariat/Memoslip.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/Secretariat/Memoslip.vue ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Memoslip_vue_vue_type_template_id_53a3a739_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Memoslip.vue?vue&type=template&id=53a3a739&scoped=true */ "./resources/js/components/Secretariat/Memoslip.vue?vue&type=template&id=53a3a739&scoped=true");
+/* harmony import */ var _Memoslip_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Memoslip.vue?vue&type=script&lang=js */ "./resources/js/components/Secretariat/Memoslip.vue?vue&type=script&lang=js");
+/* harmony import */ var _Memoslip_vue_vue_type_style_index_0_id_53a3a739_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Memoslip.vue?vue&type=style&index=0&id=53a3a739&scoped=true&lang=css */ "./resources/js/components/Secretariat/Memoslip.vue?vue&type=style&index=0&id=53a3a739&scoped=true&lang=css");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _Memoslip_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Memoslip_vue_vue_type_template_id_53a3a739_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render,
+  _Memoslip_vue_vue_type_template_id_53a3a739_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "53a3a739",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Secretariat/Memoslip.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/Secretariat/PendingTab.vue":
 /*!************************************************************!*\
   !*** ./resources/js/components/Secretariat/PendingTab.vue ***!
@@ -56884,6 +58240,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Secretariat/Memoslip.vue?vue&type=script&lang=js":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/Secretariat/Memoslip.vue?vue&type=script&lang=js ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Memoslip_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Memoslip.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Secretariat/Memoslip.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Memoslip_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/Secretariat/PendingTab.vue?vue&type=script&lang=js":
 /*!************************************************************************************!*\
   !*** ./resources/js/components/Secretariat/PendingTab.vue?vue&type=script&lang=js ***!
@@ -57152,6 +58524,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Secretariat/Memoslip.vue?vue&type=template&id=53a3a739&scoped=true":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/components/Secretariat/Memoslip.vue?vue&type=template&id=53a3a739&scoped=true ***!
+  \****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Memoslip_vue_vue_type_template_id_53a3a739_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Memoslip_vue_vue_type_template_id_53a3a739_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Memoslip_vue_vue_type_template_id_53a3a739_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Memoslip.vue?vue&type=template&id=53a3a739&scoped=true */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Secretariat/Memoslip.vue?vue&type=template&id=53a3a739&scoped=true");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/Secretariat/PendingTab.vue?vue&type=template&id=c955ef06&scoped=true":
 /*!******************************************************************************************************!*\
   !*** ./resources/js/components/Secretariat/PendingTab.vue?vue&type=template&id=c955ef06&scoped=true ***!
@@ -57359,6 +58748,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Incomingsecretariat_vue_vue_type_style_index_0_id_60b7b586_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Incomingsecretariat.vue?vue&type=style&index=0&id=60b7b586&scoped=true&lang=css */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Secretariat/Incomingsecretariat.vue?vue&type=style&index=0&id=60b7b586&scoped=true&lang=css");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Secretariat/Memoslip.vue?vue&type=style&index=0&id=53a3a739&scoped=true&lang=css":
+/*!******************************************************************************************************************!*\
+  !*** ./resources/js/components/Secretariat/Memoslip.vue?vue&type=style&index=0&id=53a3a739&scoped=true&lang=css ***!
+  \******************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Memoslip_vue_vue_type_style_index_0_id_53a3a739_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Memoslip.vue?vue&type=style&index=0&id=53a3a739&scoped=true&lang=css */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Secretariat/Memoslip.vue?vue&type=style&index=0&id=53a3a739&scoped=true&lang=css");
 
 
 /***/ }),

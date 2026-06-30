@@ -8,6 +8,7 @@ use App\Models\IncomingDocumentRoute;
 use App\Models\IncomingDocument;
 use Auth;
 use App\Models\SubOffice;
+use App\Models\MemoSlip;
 use Illuminate\Support\Facades\Validator;
 use DB;
 use Illuminate\Support\Facades\Log;  // ← ADD THIS LINE
@@ -22,6 +23,10 @@ class SecretariatController extends Controller
     }
     public function incoming_secretariat(){
          return view ('secretariat.incoming');
+    }
+    public function memo_slip (){
+        return view ('secretariat.memo_slip');
+    
     }
   public function get_data_pending_incoming(Request $request){
     $search = $request->query('search');
@@ -151,6 +156,17 @@ public function receive_secretariat_incoming(Request $request, $id){
                 return response()->json([
                     'status' => true,
                     'data' => $office
+                ], 200);
+        }
+
+         public function get_forward_memo_slip()
+        {
+             $memoSlip = MemoSlip::where('status', 'Active')->where('office_id',Auth::user()->sub_office_id)
+                 ->get();
+
+                return response()->json([
+                    'status' => true,
+                    'data' => $memoSlip
                 ], 200);
         }
 
@@ -406,5 +422,87 @@ public function for_release_document(Request $request)
         ], 500);
     }
 }
+ public function store_memo_slip(Request $request){
+    $request->validate([
+             'memo_slip' => 'required|string|max:255|unique:memo_slip_tbl,memo_slip_name',
+             'status' => 'required|in:Active,Inactive'
+        ]);
+
+        try {
+            // Create a new DocumentType instance and save it to the database
+            $memoSlip = new MemoSlip();
+            $memoSlip->memo_slip_name = $request->input('memo_slip');
+            $memoSlip->date_created = now();
+            $memoSlip->office_id = Auth::user()->sub_office_id;
+            $memoSlip->status = $request->input('status');
+            $memoSlip->save();
+
+           return response()->json(['message' => 'Memo Slip created successfully', 'data' => $memoSlip], 201);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to create Memo Slip', 'error' => $e->getMessage()], 500);
+        }
+ }
+  public function update_memo_slip(Request $request,$id){
+    $request->validate([
+             'memo_slip' => 'required|string|max:255|unique:memo_slip_tbl,memo_slip_name,'.$id,
+             'status' => 'required|in:Active,Inactive'
+        ]);
+
+        try {
+            // Create a new DocumentType instance and save it to the database
+            $memoSlip =  MemoSlip::find($id);
+            $memoSlip->memo_slip_name = $request->input('memo_slip');
+            $memoSlip->date_created = now();
+            $memoSlip->office_id = Auth::user()->sub_office_id;
+            $memoSlip->status = $request->input('status');
+            $memoSlip->save();
+
+           return response()->json(['message' => 'Memo Slip created successfully', 'data' => $memoSlip], 201);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to create Memo Slip', 'error' => $e->getMessage()], 500);
+        }
+ }
+ public function delete_memo_slip($id)
+{
+    try {
+        // Find the document type by ID
+        $memoSlip = MemoSlip::find($id);
+        
+        // Check if record exists
+        if (!$memoSlip) {
+            return response()->json(['message' => 'Memo Slip type not found'], 404);
+        }
+        
+        // Delete the document type
+        $memoSlip->delete();
+        
+        return response()->json(['message' => 'Memo Slip deleted successfully'], 200);
+        
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Failed to delete Memo Slip', 'error' => $e->getMessage()], 500);
+    }
+    
+}
+ public function get_memo_slip(Request $request){
+         $search = $request->query('search');
+        $perPage = $request->query('per_page', 10); // Default to 10 if not provided
+    
+        // Query promotions with optional search and sorting by 'date_original_appointment'
+        $documentType = MemoSlip::query()
+            ->when($search, function ($query, $search) {
+                return $query
+                    ->where('memo_slip_name', 'like', '%' . $search . '%');
+                  
+                   
+            })
+        
+            ->orderBy('memo_slip_name', 'desc') // Order by date_original_appointment first
+            ->paginate($perPage); // Use the per_page value for pagination
+    
+        return response()->json([
+            'success' => true,
+            'data' => $documentType
+        ]);
+    }
 } 
    

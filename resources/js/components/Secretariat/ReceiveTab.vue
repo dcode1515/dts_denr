@@ -162,15 +162,17 @@
 
     <!-- Forward Modal -->
     <div v-if="showForwardModal" class="modal-overlay" @click.self="closeForwardModal">
-      <div class="modal-dialog enhanced-modal" style="max-width: 800px">
+      <div class="modal-dialog enhanced-modal forward-modal-large">
         <div class="modal-content square-modal">
-          <div class="square-header">
+          <!-- Header -->
+          <div class="square-header forward-header">
             <div class="d-flex align-items-center">
-              <div class="square-icon">
+              <div class="square-icon forward-icon">
                 <i class="bi bi-arrow-right-circle"></i>
               </div>
               <div>
                 <h5 class="modal-title">Forward Document</h5>
+                <small class="modal-subtitle">Route document to offices with memo slip</small>
               </div>
             </div>
             <button type="button" class="square-close" @click="closeForwardModal" :disabled="forwarding">
@@ -178,7 +180,8 @@
             </button>
           </div>
 
-          <div class="modal-body">
+          <div class="modal-body forward-modal-body">
+            <!-- Error Message -->
             <div v-if="forwardError" class="error-msg">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                 <circle cx="12" cy="12" r="10" />
@@ -188,18 +191,25 @@
               <span>{{ forwardError }}</span>
             </div>
 
-            <!-- Document Info -->
-            <div class="forward-doc-info">
-              <div class="forward-doc-row">
-                <span class="forward-doc-label">Tracking:</span>
-                <span class="forward-doc-value">{{ forwardDocument?.document?.tracking_number || "N/A" }}</span>
+            <!-- Document Info Bar -->
+            <div class="forward-doc-info-bar">
+              <div class="doc-info-item">
+                <span class="doc-info-label">Tracking</span>
+                <span class="doc-info-value">{{ forwardDocument?.document?.tracking_number || "N/A" }}</span>
               </div>
-              <div class="forward-doc-row">
-                <span class="forward-doc-label">Type:</span>
+              <div class="doc-info-divider"></div>
+              <div class="doc-info-item">
+                <span class="doc-info-label">Type</span>
                 <span class="doc-type-badge">{{ forwardDocument?.document?.document_type?.document_type_name || forwardDocument?.document?.document_type || "N/A" }}</span>
               </div>
-              <div class="forward-doc-row">
-                <span class="forward-doc-label">Duration:</span>
+              <div class="doc-info-divider"></div>
+              <div class="doc-info-item doc-info-subject">
+                <span class="doc-info-label">Subject</span>
+                <span class="doc-info-value subject-truncate">{{ forwardDocument?.document?.subject || "N/A" }}</span>
+              </div>
+              <div class="doc-info-divider"></div>
+              <div class="doc-info-item">
+                <span class="doc-info-label">Duration</span>
                 <span class="duration-badge" :class="getDurationBadgeClass(getDurationValue())">
                   <i :class="getDurationIcon(getDurationValue())"></i>
                   {{ getDurationDisplay() }}
@@ -207,13 +217,20 @@
               </div>
             </div>
 
-            <!-- Two Column Layout -->
-            <div class="forward-grid">
-              <!-- Left Column: Offices -->
-              <div class="forward-col">
-                <label class="form-label">
-                  Select Office(s) <span class="required-star">*</span>
-                </label>
+            <!-- Main 3-Column Grid -->
+            <div class="forward-main-grid">
+              <!-- Column 1: Select Offices -->
+              <div class="forward-col office-col">
+                <div class="col-header">
+                  <div class="col-header-left">
+                    <i class="bi bi-building"></i>
+                    <span>Select Offices</span>
+                    <span class="required-star">*</span>
+                  </div>
+                  <span class="selection-count" v-if="selectedOffices.length > 0">
+                    {{ selectedOffices.length }} selected
+                  </span>
+                </div>
 
                 <div class="office-search-box">
                   <i class="bi bi-search office-search-icon"></i>
@@ -228,100 +245,173 @@
                   </button>
                 </div>
 
-                <div v-if="officesLoading" class="text-center py-3">
+                <div v-if="officesLoading" class="loading-state">
                   <div class="loader-spinner" style="width: 30px; height: 30px;"></div>
                   <p class="mt-1 text-muted">Loading offices...</p>
                 </div>
 
-                <div v-else-if="filteredOffices.length === 0" class="text-center py-3">
-                  <i class="bi bi-building" style="font-size: 1.5rem; color: #9ca3af"></i>
-                  <p class="mt-1 text-muted">
-                    {{ officeSearchQuery ? "No offices match" : "No offices available" }}
-                  </p>
+                <div v-else-if="filteredOffices.length === 0" class="empty-state-compact">
+                  <i class="bi bi-building"></i>
+                  <p>{{ officeSearchQuery ? "No offices match" : "No offices available" }}</p>
                 </div>
 
-                <div v-else class="office-list-container">
+                <div v-else class="office-list">
                   <div
                     v-for="office in filteredOffices"
                     :key="office.id"
-                    class="office-select-item"
+                    class="office-item"
                     :class="{ selected: isOfficeSelected(office.id) }"
                     @click="toggleOfficeSelection(office)"
                   >
-                    <div class="office-checkbox">
-                      <i :class="isOfficeSelected(office.id) ? 'bi bi-check-square-fill' : 'bi bi-square'"></i>
+                    <div class="office-item-check">
+                      <i :class="isOfficeSelected(office.id) ? 'bi bi-check-circle-fill' : 'bi bi-circle'"></i>
                     </div>
-                    <div class="office-icon-wrapper">
+                    <div class="office-item-icon">
                       <i class="bi bi-building"></i>
                     </div>
-                    <div class="office-details">
-                      <span class="office-name-text">{{ office.sub_office_name }}</span>
-                      <span class="office-code" v-if="office.office_code">{{ office.office_code }}</span>
-                    </div>
-                    <div v-if="isOfficeSelected(office.id)" class="selected-indicator">
-                      <i class="bi bi-check-circle-fill"></i>
+                    <div class="office-item-info">
+                      <span class="office-item-name">{{ office.sub_office_name }}</span>
+                      <span class="office-item-code" v-if="office.office_code">{{ office.office_code }}</span>
                     </div>
                   </div>
                 </div>
 
-                <div class="selection-counter" v-if="selectedOffices.length > 0">
-                  <i class="bi bi-check2-circle"></i>
-                  <span>{{ selectedOffices.length }} office(s) selected</span>
+                <!-- Selected Offices Tags -->
+                <div v-if="selectedOffices.length > 0" class="selected-tags">
+                  <div class="selected-tags-header">
+                    <i class="bi bi-check2-all"></i>
+                    <span>Selected Offices</span>
+                    <span class="badge-count">{{ selectedOffices.length }}</span>
+                  </div>
+                  <div class="selected-tags-list">
+                    <span v-for="office in selectedOffices" :key="office.id" class="selected-tag">
+                      {{ office.sub_office_name }}
+                      <button @click="removeOffice(office.id)" class="remove-tag-btn" :disabled="forwarding">
+                        <i class="bi bi-x"></i>
+                      </button>
+                    </span>
+                  </div>
                 </div>
               </div>
 
-              <!-- Right Column: Duration & Attachment & Remarks -->
-              <div class="forward-col">
-                <label class="form-label">
-                  Duration <span class="required-star">*</span>
-                </label>
-                
-                <!-- Read-only duration if exists -->
-                <div v-if="hasExistingDuration()" class="duration-display-container">
-                  <div class="duration-display-box">
-                    <div class="duration-display-icon">
-                      <i :class="getDurationIcon(getDurationValue())"></i>
-                    </div>
-                    <div class="duration-display-content">
-                      <span class="duration-display-label">Current Duration</span>
-                      <span class="duration-display-value" :class="getDurationBadgeClass(getDurationValue())">
-                        {{ getDurationDisplay() }}
-                      </span>
-                    </div>
-                    <div class="duration-display-badge">
-                      <span class="badge-readonly">Read Only</span>
+              <!-- Column 2: Memo Slip Selection -->
+              <div class="forward-col memo-col">
+                <div class="col-header">
+                  <div class="col-header-left">
+                    <i class="bi bi-envelope-paper"></i>
+                    <span>Memo Slip</span>
+                  </div>
+                  <span class="optional-badge">Optional</span>
+                </div>
+
+                <div v-if="memoSlipsLoading" class="loading-state">
+                  <div class="loader-spinner" style="width: 30px; height: 30px;"></div>
+                  <p class="mt-1 text-muted">Loading memo slips...</p>
+                </div>
+
+                <div v-else-if="memoSlips.length === 0" class="empty-state-compact">
+                  <i class="bi bi-envelope-paper"></i>
+                  <p>No active memo slips</p>
+                </div>
+
+                <div v-else class="memo-section">
+                  <div class="memo-actions">
+                    <button 
+                      class="memo-action-btn select-all-btn" 
+                      @click="selectAllMemoSlips" 
+                      :disabled="memoSlips.length === 0 || forwarding"
+                    >
+                      <i class="bi bi-check-all"></i> All
+                    </button>
+                    <button 
+                      class="memo-action-btn deselect-all-btn" 
+                      @click="deselectAllMemoSlips" 
+                      :disabled="selectedMemoSlips.length === 0 || forwarding"
+                    >
+                      <i class="bi bi-x"></i> Clear
+                    </button>
+                    <span class="memo-count-badge">
+                      {{ selectedMemoSlips.length }} / {{ memoSlips.length }}
+                    </span>
+                  </div>
+
+                  <div class="memo-list">
+                    <div
+                      v-for="memo in memoSlips"
+                      :key="memo.id"
+                      class="memo-item"
+                      :class="{ selected: isMemoSlipSelected(memo.id) }"
+                      @click="toggleMemoSlipSelection(memo)"
+                    >
+                      <div class="memo-item-check">
+                        <i :class="isMemoSlipSelected(memo.id) ? 'bi bi-check-square-fill' : 'bi bi-square'"></i>
+                      </div>
+                      <div class="memo-item-content">
+                        <span class="memo-item-name">{{ memo.memo_slip_name || 'No subject' }}</span>
+                      </div>
                     </div>
                   </div>
-                  <div class="existing-duration-info">
-                    <i class="bi bi-info-circle-fill"></i>
-                    <span>Duration is set and cannot be changed.</span>
+                </div>
+              </div>
+
+              <!-- Column 3: Duration, Attachment & Remarks -->
+              <div class="forward-col details-col">
+                <!-- Duration -->
+                <div class="detail-section">
+                  <div class="col-header">
+                    <div class="col-header-left">
+                      <i class="bi bi-clock"></i>
+                      <span>Duration</span>
+                      <span class="required-star">*</span>
+                    </div>
+                  </div>
+                  
+                  <div v-if="hasExistingDuration()" class="duration-display">
+                    <div class="duration-display-box">
+                      <div class="duration-display-icon">
+                        <i :class="getDurationIcon(getDurationValue())"></i>
+                      </div>
+                      <div class="duration-display-info">
+                        <span class="duration-display-label">Current Duration</span>
+                        <span class="duration-display-value" :class="getDurationBadgeClass(getDurationValue())">
+                          {{ getDurationDisplay() }}
+                        </span>
+                      </div>
+                      <span class="readonly-badge">Read Only</span>
+                    </div>
+                    <div class="duration-note">
+                      <i class="bi bi-info-circle-fill"></i>
+                      <span>Duration is set and cannot be changed.</span>
+                    </div>
+                  </div>
+
+                  <div v-else>
+                    <select v-model="selectedDuration" class="duration-select" :disabled="forwarding">
+                      <option value="">Select Duration</option>
+                      <option value="Simple - 3 Days">Simple - 3 Days</option>
+                      <option value="Complex - 15 Days">Complex - 15 Days</option>
+                      <option value="Highly Technical - 45 Days">Highly Technical - 45 Days</option>
+                    </select>
+                    <div class="duration-hint" v-if="!selectedDuration">
+                      <i class="bi bi-info-circle"></i>
+                      <span>Please select a duration.</span>
+                    </div>
                   </div>
                 </div>
 
-                <!-- Dropdown if no duration -->
-                <div v-else>
-                  <select v-model="selectedDuration" class="duration-select" :disabled="forwarding">
-                    <option value="">Select Duration</option>
-                    <option value="Simple - 3 Days">Simple - 3 Days</option>
-                    <option value="Complex - 15 Days">Complex - 15 Days</option>
-                    <option value="Highly Technical - 45 Days">Highly Technical - 45 Days</option>
-                  </select>
-                  <div class="duration-hint">
-                    <i class="bi bi-info-circle"></i>
-                    <span>No duration set. Please select one.</span>
+                <!-- Attachment -->
+                <div class="detail-section attachment-section">
+                  <div class="col-header">
+                    <div class="col-header-left">
+                      <i class="bi bi-paperclip"></i>
+                      <span>Attachment</span>
+                    </div>
+                    <span class="optional-badge">Optional</span>
                   </div>
-                </div>
 
-                <!-- Attachment Section -->
-                <div class="attachment-section">
-                  <label class="form-label" style="margin-top: 12px;">
-                    Attachment (PDF only)
-                  </label>
-
-                  <!-- Dropzone when no file uploaded -->
                   <div
                     v-if="!uploadedFile"
-                    class="dropzone"
+                    class="dropzone-compact"
                     @click="triggerFileUpload"
                     @dragover.prevent
                     @drop.prevent="handleDrop"
@@ -333,49 +423,31 @@
                       accept=".pdf"
                       @change="handleFileUpload"
                     />
-                    <div class="dropzone-content">
-                      <div class="dropzone-icon">
-                        <i class="bi bi-cloud-arrow-up"></i>
+                    <div class="dropzone-compact-content">
+                      <i class="bi bi-cloud-arrow-up"></i>
+                      <div>
+                        <p class="dropzone-title">Click to upload or drag PDF</p>
+                        <p class="dropzone-hint">PDF only (Max 20MB)</p>
                       </div>
-                      <h6 class="fw-semibold mb-1">Click to upload or drag PDF here</h6>
-                      <p class="text-muted small mb-0">PDF only (Max 20MB)</p>
                     </div>
                   </div>
 
-                  <!-- File card when file is uploaded -->
-                  <div v-if="uploadedFile" class="single-file-card">
-                    <div class="file-info">
-                      <div class="file-icon-wrap file-pdf">
-                        <i class="bi bi-file-pdf"></i>
-                      </div>
-                      <div class="file-details">
-                        <div class="file-name">{{ uploadedFile.name }}</div>
-                        <div class="file-size">{{ formatFileSize(uploadedFile.size) }}</div>
-                      </div>
+                  <div v-if="uploadedFile" class="file-card-compact">
+                    <div class="file-card-icon">
+                      <i class="bi bi-file-pdf"></i>
                     </div>
-                    <div class="file-actions">
-                      <button
-                        type="button"
-                        class="btn-icon btn-icon-view"
-                        @click="openFilePreview"
-                        title="View"
-                      >
+                    <div class="file-card-info">
+                      <span class="file-card-name">{{ uploadedFile.name }}</span>
+                      <span class="file-card-size">{{ formatFileSize(uploadedFile.size) }}</span>
+                    </div>
+                    <div class="file-card-actions">
+                      <button type="button" class="file-action-btn" @click="openFilePreview" title="View">
                         <i class="bi bi-eye"></i>
                       </button>
-                      <button
-                        type="button"
-                        class="btn-icon btn-icon-replace"
-                        @click="triggerFileUpload"
-                        title="Replace"
-                      >
+                      <button type="button" class="file-action-btn" @click="triggerFileUpload" title="Replace">
                         <i class="bi bi-arrow-repeat"></i>
                       </button>
-                      <button
-                        type="button"
-                        class="btn-icon btn-icon-remove"
-                        @click="removeForwardFile"
-                        title="Remove"
-                      >
+                      <button type="button" class="file-action-btn remove-btn" @click="removeForwardFile" title="Remove">
                         <i class="bi bi-x-lg"></i>
                       </button>
                     </div>
@@ -388,41 +460,31 @@
                 </div>
 
                 <!-- Remarks -->
-                <label class="form-label" style="margin-top: 12px;">
-                  Remarks / Instructions
-                </label>
-                <textarea
-                  v-model="remarks"
-                  class="remarks-textarea"
-                  rows="2"
-                  placeholder="Add remarks or instructions..."
-                  :disabled="forwarding"
-                  maxlength="500"
-                ></textarea>
-                <div class="remarks-counter" :class="{ 'text-danger': remarks.length > 450 }">
-                  {{ remarks.length }}/500
+                <div class="detail-section remarks-section">
+                  <div class="col-header">
+                    <div class="col-header-left">
+                      <i class="bi bi-chat-left-text"></i>
+                      <span>Remarks / Instructions</span>
+                    </div>
+                    <span class="optional-badge">Optional</span>
+                  </div>
+                  <textarea
+                    v-model="remarks"
+                    class="remarks-textarea"
+                    rows="2"
+                    placeholder="Add remarks or instructions..."
+                    :disabled="forwarding"
+                    maxlength="500"
+                  ></textarea>
+                  <div class="remarks-counter" :class="{ 'text-danger': remarks.length > 450 }">
+                    {{ remarks.length }}/500
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- Selected Offices Tags -->
-            <div v-if="selectedOffices.length > 0" class="selected-offices-summary">
-              <div class="selected-offices-header">
-                <i class="bi bi-check2-all"></i>
-                <span>Selected ({{ selectedOffices.length }})</span>
-              </div>
-              <div class="selected-offices-list">
-                <span v-for="office in selectedOffices" :key="office.id" class="selected-office-tag">
-                  {{ office.sub_office_name }}
-                  <button @click="removeOffice(office.id)" class="remove-office-btn" :disabled="forwarding">
-                    <i class="bi bi-x"></i>
-                  </button>
-                </span>
-              </div>
-            </div>
-
             <!-- Actions -->
-            <div class="modal-actions">
+            <div class="modal-actions forward-actions">
               <button type="button" class="btn btn-outline-secondary square-btn" @click="clearForwardForm" :disabled="forwarding">
                 <i class="bi bi-arrow-counterclockwise me-1"></i> Reset
               </button>
@@ -504,7 +566,6 @@
               <span>{{ releaseError }}</span>
             </div>
 
-            <!-- Warning Icon -->
             <div class="text-center mb-4">
               <div class="release-warning-icon">
                 <i class="bi bi-question-circle-fill"></i>
@@ -513,7 +574,6 @@
               <p class="text-muted" style="font-size: 0.85rem;">This action will mark the document as released and ready for the next step.</p>
             </div>
 
-            <!-- Document Info Summary -->
             <div class="release-doc-info">
               <div class="release-doc-row">
                 <div class="release-doc-icon-wrapper">
@@ -544,13 +604,11 @@
               </div>
             </div>
 
-            <!-- Attachment Section -->
             <div class="attachment-section mt-3">
               <label class="form-label">
                 Attachment (PDF only)
               </label>
 
-              <!-- Dropzone when no file uploaded -->
               <div
                 v-if="!releaseUploadedFile"
                 class="dropzone"
@@ -574,7 +632,6 @@
                 </div>
               </div>
 
-              <!-- File card when file is uploaded -->
               <div v-if="releaseUploadedFile" class="single-file-card">
                 <div class="file-info">
                   <div class="file-icon-wrap file-pdf">
@@ -619,7 +676,6 @@
               </div>
             </div>
 
-            <!-- Remarks -->
             <div class="mt-3">
               <label class="form-label">
                 Remarks (Optional)
@@ -637,7 +693,6 @@
               </div>
             </div>
 
-            <!-- System Date and Time Display -->
             <div class="system-datetime-box mt-3">
               <div class="system-datetime-header" style="background: #2d6a4f;">
                 <i class="bi bi-clock-fill"></i>
@@ -661,7 +716,6 @@
               </div>
             </div>
 
-            <!-- Actions -->
             <div class="modal-actions">
               <button
                 type="button"
@@ -744,7 +798,6 @@
               <span>{{ archiveError }}</span>
             </div>
 
-            <!-- Warning Icon -->
             <div class="text-center mb-4">
               <div class="archive-warning-icon">
                 <i class="bi bi-exclamation-triangle-fill"></i>
@@ -753,7 +806,6 @@
               <p class="text-muted" style="font-size: 0.85rem;">This action will move the document to the archive. You can still access it from the archived records.</p>
             </div>
 
-            <!-- Document Info Summary -->
             <div class="archive-doc-info">
               <div class="archive-doc-row">
                 <div class="archive-doc-icon-wrapper">
@@ -784,7 +836,6 @@
               </div>
             </div>
 
-            <!-- Archive Reason -->
             <div class="mt-3">
               <label class="form-label-enhanced">
                 Archive Reason <span class="required-star">*</span>
@@ -803,7 +854,6 @@
               </div>
             </div>
 
-            <!-- Remarks -->
             <div class="mt-3">
               <label class="form-label-enhanced">
                 Remarks (Optional)
@@ -821,7 +871,6 @@
               </div>
             </div>
 
-            <!-- System Date and Time Display -->
             <div class="system-datetime-box mt-3">
               <div class="system-datetime-header" style="background: #6b7280;">
                 <i class="bi bi-clock-fill"></i>
@@ -845,7 +894,6 @@
               </div>
             </div>
 
-            <!-- Actions -->
             <div class="modal-actions">
               <button
                 type="button"
@@ -1335,6 +1383,11 @@ export default {
       filePreviewUrl: "",
       attachmentError: "",
 
+      // Memo Slip
+      memoSlips: [],
+      selectedMemoSlips: [],
+      memoSlipsLoading: false,
+
       // Forward File Preview Modal
       showFilePreview: false,
 
@@ -1701,11 +1754,50 @@ export default {
       return classification?.toUpperCase() === 'CONFIDENTIAL';
     },
 
+    // ===== MEMO SLIP METHODS =====
+    async fetchMemoSlips() {
+      this.memoSlipsLoading = true;
+      try {
+        const response = await axios.get("/dts_denr/api-get-foward-memo-slip");
+        this.memoSlips = response.data.data || [];
+      } catch (error) {
+        console.error("Error fetching memo slips:", error);
+        this.forwardError = "Failed to load memo slips.";
+      } finally {
+        this.memoSlipsLoading = false;
+      }
+    },
+
+    isMemoSlipSelected(memoId) {
+      return this.selectedMemoSlips.some((memo) => memo.id === memoId);
+    },
+
+    toggleMemoSlipSelection(memo) {
+      if (this.forwarding) return;
+      const index = this.selectedMemoSlips.findIndex((m) => m.id === memo.id);
+      if (index > -1) {
+        this.selectedMemoSlips.splice(index, 1);
+      } else {
+        this.selectedMemoSlips.push(memo);
+      }
+    },
+
+    selectAllMemoSlips() {
+      if (this.forwarding) return;
+      this.selectedMemoSlips = [...this.memoSlips];
+    },
+
+    deselectAllMemoSlips() {
+      if (this.forwarding) return;
+      this.selectedMemoSlips = [];
+    },
+
     // ===== FORWARD MODAL =====
     openForwardModal(doc) {
       this.forwardDocument = doc;
       this.showForwardModal = true;
       this.selectedOffices = [];
+      this.selectedMemoSlips = [];
       this.forwardError = "";
       this.officeSearchQuery = "";
       this.selectedDuration = "";
@@ -1714,6 +1806,7 @@ export default {
       this.filePreviewUrl = "";
       this.attachmentError = "";
       this.fetchOffices();
+      this.fetchMemoSlips();
     },
 
     closeForwardModal() {
@@ -1721,14 +1814,17 @@ export default {
       this.showForwardModal = false;
       this.forwardDocument = null;
       this.selectedOffices = [];
+      this.selectedMemoSlips = [];
       this.forwardError = "";
       this.officeSearchQuery = "";
       this.selectedDuration = "";
       this.remarks = "";
+      this.memoSlips = [];
     },
 
     clearForwardForm() {
       this.selectedOffices = [];
+      this.selectedMemoSlips = [];
       this.forwardError = "";
       this.officeSearchQuery = "";
       this.selectedDuration = "";
@@ -1798,6 +1894,7 @@ export default {
         const routeId = this.forwardDocument.id;
 
         formData.append('offices', JSON.stringify(this.selectedOffices));
+        formData.append('memoSlips', JSON.stringify(this.selectedMemoSlips));
         formData.append('selectedDuration', durationValue);
         formData.append('remarks', this.remarks || '');
         formData.append('from_office_id', currentOfficeId || '');
@@ -2198,74 +2295,180 @@ export default {
 .duration-badge-large { display: inline-flex; align-items: center; gap: 6px; padding: 4px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 700; }
 .duration-detail-card { background: #f0fdf4; border-color: #86efac; }
 
-/* ===== DURATION DISPLAY ===== */
-.duration-display-container { display: flex; flex-direction: column; gap: 8px; }
-.duration-display-box { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: #f8fafc; border: 2px solid #e5e7eb; border-radius: 8px; transition: all 0.3s ease; }
-.duration-display-box:hover { border-color: #2d6a4f; background: #f0fdf4; }
-.duration-display-icon { width: 36px; height: 36px; min-width: 36px; border-radius: 8px; background: #d1fae5; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: #059669; }
-.duration-display-content { flex: 1; display: flex; flex-direction: column; }
-.duration-display-label { font-size: 0.6rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
-.duration-display-value { display: inline-flex; align-items: center; gap: 6px; padding: 2px 12px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; margin-top: 2px; width: fit-content; }
-.badge-readonly { padding: 2px 10px; background: #e5e7eb; color: #6b7280; border-radius: 12px; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-.duration-hint { display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: #fef3c7; border: 1px solid #fcd34d; border-radius: 4px; font-size: 0.7rem; color: #92400e; margin-top: 4px; }
-.duration-hint i { color: #d97706; }
-.existing-duration-info { display: flex; align-items: center; gap: 6px; padding: 4px 10px; background: #f0fdf4; border: 1px solid #86efac; border-radius: 4px; font-size: 0.7rem; color: #166534; }
-.existing-duration-info i { color: #16a34a; }
-
-/* ===== ATTACHMENT SECTION ===== */
-.attachment-section { margin-top: 4px; }
-.dropzone { border: 2px dashed #d1d5db; border-radius: 8px; padding: 20px 16px; text-align: center; cursor: pointer; transition: all 0.3s ease; background: #fafafa; }
-.dropzone:hover { border-color: #2d6a4f; background: #f0fdf4; }
-.dropzone-content { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-.dropzone-icon { font-size: 2rem; color: #9ca3af; margin-bottom: 4px; transition: all 0.3s ease; }
-.dropzone:hover .dropzone-icon { color: #2d6a4f; transform: translateY(-2px); }
-.dropzone h6 { font-size: 0.85rem; color: #1e293b; margin-bottom: 2px; }
-.dropzone .text-muted { font-size: 0.7rem; color: #94a3b8; }
-
-.single-file-card { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: #f8fafc; border: 2px solid #e5e7eb; border-radius: 8px; gap: 12px; transition: all 0.3s ease; }
-.single-file-card:hover { border-color: #2d6a4f; background: #f0fdf4; }
-.file-info { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
-.file-icon-wrap { width: 40px; height: 40px; min-width: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
-.file-icon-wrap.file-pdf { background: #fee2e2; color: #dc2626; }
-.file-icon-wrap.file-word { background: #dbeafe; color: #2563eb; }
-.file-icon-wrap.file-image { background: #d1fae5; color: #059669; }
-.file-details { flex: 1; min-width: 0; }
-.file-name { font-size: 0.8rem; font-weight: 600; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.file-size { font-size: 0.65rem; color: #94a3b8; }
-.file-actions { display: flex; gap: 4px; }
-.btn-icon { width: 30px; height: 30px; border: none; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 0.8rem; }
-.btn-icon-view { background: #dbeafe; color: #2563eb; }
-.btn-icon-view:hover { background: #bfdbfe; transform: scale(1.05); }
-.btn-icon-replace { background: #fef3c7; color: #d97706; }
-.btn-icon-replace:hover { background: #fde68a; transform: scale(1.05); }
-.btn-icon-remove { background: #fee2e2; color: #dc2626; }
-.btn-icon-remove:hover { background: #fecaca; transform: scale(1.05); }
-.field-error { display: flex; align-items: center; gap: 6px; margin-top: 4px; padding: 6px 10px; background: #fef0ef; border: 1px solid #f5c6c3; border-radius: 4px; font-size: 0.7rem; color: #c0392b; }
-
 /* ===== MODAL ===== */
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.55); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 1050; animation: fadeIn 0.2s ease-out; }
-.enhanced-modal { width: 100%; max-width: 620px; margin: 0 15px; animation: slideUp 0.3s ease-out; }
+.enhanced-modal { width: 100%; margin: 0 15px; animation: slideUp 0.3s ease-out; }
 @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 .square-modal { border: none; border-radius: 12px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.3); background: #fff; }
+
 .square-header { background: linear-gradient(135deg, #1e4d2b, #2d6a4f); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1); }
 .square-icon { width: 38px; height: 38px; background: rgba(255,255,255,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-right: 12px; }
 .modal-title { font-weight: 700; font-size: 1.1rem; }
 .modal-subtitle { font-size: 0.8rem; opacity: 0.85; }
 .square-close { background: rgba(255,255,255,0.15); border: none; color: #fff; width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s; }
 .square-close:hover { background: rgba(255,255,255,0.3); }
-.modal-body, .modal-body-enhanced { padding: 16px 20px; background: #f9fafb; max-height: calc(90vh - 120px); overflow-y: auto; }
-.modal-body::-webkit-scrollbar, .modal-body-enhanced::-webkit-scrollbar { width: 4px; }
-.modal-body::-webkit-scrollbar-thumb, .modal-body-enhanced::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 2px; }
+.square-close:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.modal-body { padding: 16px 20px; background: #f9fafb; max-height: calc(90vh - 120px); overflow-y: auto; }
+.modal-body::-webkit-scrollbar { width: 4px; }
+.modal-body::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 2px; }
 
 .error-msg { display: flex; align-items: center; gap: 6px; background: #fef0ef; border: 1px solid #f5c6c3; border-radius: 6px; padding: 8px 12px; font-size: 12px; color: #c0392b; margin-bottom: 12px; font-weight: 500; }
-.form-label, .form-label-enhanced { font-weight: 600; font-size: 0.8rem; color: #1e293b; margin-bottom: 4px; display: block; }
+
+/* ===== REDESIGNED FORWARD MODAL ===== */
+.forward-modal-large { max-width: 1200px; width: 98vw; }
+
+.forward-header { background: linear-gradient(135deg, #0f3b2a, #1a5a3a); padding: 14px 24px; }
+.forward-icon { background: rgba(255,255,255,0.2); }
+
+.forward-modal-body { padding: 20px 24px; max-height: calc(90vh - 80px); overflow-y: auto; background: #f8fafc; }
+
+.forward-doc-info-bar { display: flex; align-items: center; gap: 16px; padding: 10px 16px; background: #fff; border-radius: 8px; border: 1px solid #e5e7eb; margin-bottom: 16px; flex-wrap: wrap; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.doc-info-item { display: flex; align-items: center; gap: 6px; }
+.doc-info-label { font-size: 0.6rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.3px; }
+.doc-info-value { font-size: 0.85rem; font-weight: 600; color: #1e293b; }
+.doc-info-subject { flex: 1; min-width: 150px; }
+.subject-truncate { max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block; }
+.doc-info-divider { width: 1px; height: 24px; background: #e5e7eb; flex-shrink: 0; }
+
+.forward-main-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+.forward-col { display: flex; flex-direction: column; background: #fff; border-radius: 8px; border: 1px solid #e5e7eb; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+
+.col-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #f8fafc; border-bottom: 1px solid #e5e7eb; }
+.col-header-left { display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.8rem; color: #1e293b; }
+.col-header-left i { color: #2d6a4f; font-size: 0.9rem; }
 .required-star { color: #dc2626; margin-left: 2px; }
-.modal-actions { margin-top: 16px; padding-top: 12px; border-top: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center; }
-.square-btn { border-radius: 6px !important; font-weight: 600; transition: all 0.2s; padding: 6px 16px !important; font-size: 0.85rem !important; }
-.btn-save { background: linear-gradient(135deg, #1e4d2b, #2d6a4f); color: #fff; border: none; padding: 6px 16px; font-weight: 600; display: inline-flex; align-items: center; box-shadow: 0 2px 12px rgba(26,71,49,0.3); }
-.btn-save:hover { box-shadow: 0 4px 16px rgba(26,71,49,0.4); transform: translateY(-1px); }
+.optional-badge { font-size: 0.55rem; font-weight: 600; padding: 2px 8px; background: #f3f4f6; color: #6b7280; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.3px; }
+.selection-count { font-size: 0.7rem; font-weight: 600; color: #059669; background: #d1fae5; padding: 1px 8px; border-radius: 10px; }
+
+/* Office Column */
+.office-col { display: flex; flex-direction: column; }
+.office-search-box { position: relative; padding: 8px 12px; border-bottom: 1px solid #e5e7eb; }
+.office-search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: #9ca3af; font-size: 0.8rem; }
+.office-search-input { width: 100%; padding: 6px 30px 6px 28px; border: 1px solid #e5e7eb; border-radius: 6px; font-size: 0.75rem; outline: none; background: #fff; transition: all 0.3s ease; }
+.office-search-input:focus { border-color: #2d6a4f; box-shadow: 0 0 0 2px rgba(45,106,79,0.1); }
+.office-search-clear { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #9ca3af; cursor: pointer; padding: 2px; }
+.office-search-clear:hover { color: #ef4444; }
+
+.office-list { flex: 1; overflow-y: auto; max-height: 280px; padding: 4px 0; }
+.office-list::-webkit-scrollbar { width: 4px; }
+.office-list::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 2px; }
+
+.office-item { display: flex; align-items: center; gap: 8px; padding: 6px 12px; cursor: pointer; transition: all 0.15s ease; border-left: 2px solid transparent; }
+.office-item:hover { background: #f0fdf4; }
+.office-item.selected { background: #f0fdf4; border-left-color: #059669; }
+.office-item-check { font-size: 1rem; color: #d1d5db; min-width: 18px; display: flex; align-items: center; justify-content: center; }
+.office-item.selected .office-item-check { color: #059669; }
+.office-item-icon { width: 26px; height: 26px; min-width: 26px; border-radius: 6px; background: #e0e7ff; display: flex; align-items: center; justify-content: center; color: #3730a3; font-size: 0.7rem; }
+.office-item.selected .office-item-icon { background: #d1fae5; color: #059669; }
+.office-item-info { flex: 1; min-width: 0; }
+.office-item-name { display: block; font-size: 0.75rem; font-weight: 600; color: #1e293b; line-height: 1.2; }
+.office-item-code { display: block; font-size: 0.55rem; color: #64748b; }
+
+.selected-tags { padding: 8px 12px; border-top: 1px solid #e5e7eb; background: #f0fdf4; max-height: 80px; overflow-y: auto; }
+.selected-tags-header { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 0.65rem; color: #166534; margin-bottom: 4px; }
+.badge-count { background: #d1fae5; color: #059669; padding: 0 6px; border-radius: 10px; font-size: 0.6rem; }
+.selected-tags-list { display: flex; flex-wrap: wrap; gap: 4px; }
+.selected-tag { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; background: #fff; border: 1px solid #86efac; border-radius: 12px; font-size: 0.65rem; font-weight: 600; color: #166534; }
+.remove-tag-btn { background: none; border: none; color: #6b7280; cursor: pointer; padding: 0; font-size: 0.7rem; transition: color 0.2s; }
+.remove-tag-btn:hover { color: #dc2626; }
+.remove-tag-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Memo Column */
+.memo-col { display: flex; flex-direction: column; }
+.memo-section { flex: 1; display: flex; flex-direction: column; }
+.memo-actions { display: flex; align-items: center; gap: 6px; padding: 6px 12px; background: #f8fafc; border-bottom: 1px solid #e5e7eb; flex-wrap: wrap; }
+.memo-action-btn { padding: 2px 10px; border: none; border-radius: 4px; font-size: 0.65rem; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 3px; }
+.select-all-btn { background: #d1fae5; color: #059669; }
+.select-all-btn:hover:not(:disabled) { background: #a7f3d0; }
+.deselect-all-btn { background: #fee2e2; color: #dc2626; }
+.deselect-all-btn:hover:not(:disabled) { background: #fecaca; }
+.memo-action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.memo-count-badge { font-size: 0.65rem; font-weight: 600; color: #64748b; margin-left: auto; }
+
+.memo-list { flex: 1; overflow-y: auto; max-height: 280px; padding: 4px 0; }
+.memo-list::-webkit-scrollbar { width: 4px; }
+.memo-list::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 2px; }
+
+.memo-item { display: flex; align-items: center; gap: 8px; padding: 6px 12px; cursor: pointer; transition: all 0.15s ease; border-left: 2px solid transparent; }
+.memo-item:hover { background: #f0fdf4; }
+.memo-item.selected { background: #f0fdf4; border-left-color: #059669; }
+.memo-item-check { font-size: 0.95rem; color: #d1d5db; min-width: 18px; display: flex; align-items: center; justify-content: center; }
+.memo-item.selected .memo-item-check { color: #059669; }
+.memo-item-content { flex: 1; min-width: 0; }
+.memo-item-name { display: block; font-size: 0.75rem; font-weight: 500; color: #1e293b; line-height: 1.2; }
+
+/* Details Column */
+.details-col { display: flex; flex-direction: column; gap: 0; }
+.detail-section { padding: 10px 14px; border-bottom: 1px solid #e5e7eb; }
+.detail-section:last-child { border-bottom: none; }
+.detail-section .col-header { padding: 0 0 6px 0; background: none; border-bottom: none; }
+
+.duration-display { display: flex; flex-direction: column; gap: 6px; }
+.duration-display-box { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: #f0fdf4; border: 1px solid #86efac; border-radius: 6px; }
+.duration-display-icon { width: 28px; height: 28px; min-width: 28px; border-radius: 6px; background: #d1fae5; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: #059669; }
+.duration-display-info { flex: 1; }
+.duration-display-label { display: block; font-size: 0.55rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.3px; }
+.duration-display-value { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 12px; font-size: 0.7rem; font-weight: 600; }
+.readonly-badge { font-size: 0.55rem; font-weight: 600; color: #6b7280; background: #e5e7eb; padding: 1px 8px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.3px; }
+.duration-note { display: flex; align-items: center; gap: 4px; padding: 4px 8px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 4px; font-size: 0.6rem; color: #166534; }
+.duration-note i { color: #16a34a; font-size: 0.7rem; }
+
+.duration-select { width: 100%; padding: 6px 10px; border: 1px solid #e5e7eb; border-radius: 6px; font-size: 0.75rem; background: #fff; outline: none; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; transition: all 0.3s ease; }
+.duration-select:focus { border-color: #2d6a4f; box-shadow: 0 0 0 2px rgba(45,106,79,0.1); }
+.duration-select:disabled { opacity: 0.6; cursor: not-allowed; }
+.duration-hint { display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: #fef3c7; border: 1px solid #fcd34d; border-radius: 4px; font-size: 0.7rem; color: #92400e; margin-top: 4px; }
+.duration-hint i { color: #d97706; }
+
+/* Dropzone Compact */
+.dropzone-compact { border: 2px dashed #d1d5db; border-radius: 6px; padding: 12px 16px; cursor: pointer; transition: all 0.3s ease; background: #fafafa; }
+.dropzone-compact:hover { border-color: #2d6a4f; background: #f0fdf4; }
+.dropzone-compact-content { display: flex; align-items: center; gap: 12px; }
+.dropzone-compact-content i { font-size: 1.5rem; color: #9ca3af; transition: all 0.3s ease; }
+.dropzone-compact:hover .dropzone-compact-content i { color: #2d6a4f; }
+.dropzone-title { font-size: 0.75rem; font-weight: 600; color: #1e293b; margin: 0; }
+.dropzone-hint { font-size: 0.6rem; color: #94a3b8; margin: 0; }
+
+.file-card-compact { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 6px; transition: all 0.3s ease; }
+.file-card-compact:hover { border-color: #2d6a4f; background: #f0fdf4; }
+.file-card-icon { width: 32px; height: 32px; min-width: 32px; border-radius: 6px; background: #fee2e2; display: flex; align-items: center; justify-content: center; color: #dc2626; font-size: 1rem; }
+.file-card-info { flex: 1; min-width: 0; }
+.file-card-name { display: block; font-size: 0.7rem; font-weight: 600; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.file-card-size { font-size: 0.55rem; color: #94a3b8; }
+.file-card-actions { display: flex; gap: 3px; }
+.file-action-btn { width: 26px; height: 26px; border: none; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 0.7rem; background: #f1f5f9; color: #64748b; }
+.file-action-btn:hover { background: #e2e8f0; }
+.file-action-btn.remove-btn:hover { background: #fee2e2; color: #dc2626; }
+
+.remarks-textarea { width: 100%; padding: 6px 10px; border: 1px solid #e5e7eb; border-radius: 6px; font-size: 0.75rem; outline: none; background: #fff; transition: all 0.3s ease; resize: vertical; font-family: inherit; min-height: 50px; }
+.remarks-textarea:focus { border-color: #2d6a4f; box-shadow: 0 0 0 2px rgba(45,106,79,0.1); }
+.remarks-textarea:disabled { opacity: 0.6; cursor: not-allowed; }
+.remarks-counter { text-align: right; font-size: 0.6rem; color: #94a3b8; margin-top: 2px; }
+.remarks-counter.text-danger { color: #dc2626; }
+
+.loading-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; }
+.loading-state .text-muted { font-size: 0.7rem; color: #94a3b8; }
+.empty-state-compact { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; color: #94a3b8; }
+.empty-state-compact i { font-size: 1.5rem; margin-bottom: 4px; color: #d1d5db; }
+.empty-state-compact p { font-size: 0.7rem; margin: 0; }
+
+.forward-actions { margin-top: 16px; padding-top: 12px; border-top: 1px solid #e5e7eb; }
+.modal-actions { display: flex; justify-content: space-between; align-items: center; }
+.d-flex { display: flex; }
+.gap-2 { gap: 8px; }
+.me-1 { margin-right: 4px; }
+.btn { padding: 6px 16px; border-radius: 6px; font-weight: 600; font-size: 0.85rem; transition: all 0.2s; border: 1px solid transparent; }
+.btn-outline-secondary { background: transparent; border-color: #d1d5db; color: #6b7280; }
+.btn-outline-secondary:hover { background: #f3f4f6; }
+.btn-light { background: #f3f4f6; border-color: #e5e7eb; color: #1e293b; }
+.btn-light:hover { background: #e5e7eb; }
+.btn-save { background: linear-gradient(135deg, #1e4d2b, #2d6a4f); color: #fff; border: none; box-shadow: 0 2px 12px rgba(26,71,49,0.3); }
+.btn-save:hover:not(:disabled) { box-shadow: 0 4px 16px rgba(26,71,49,0.4); transform: translateY(-1px); }
 .btn-save:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+.square-btn { border-radius: 6px !important; }
+.spinner-border-sm { width: 1rem; height: 1rem; border-width: 0.15em; }
 
 /* ===== RELEASE MODAL ===== */
 .release-warning-icon { display: inline-flex; align-items: center; justify-content: center; width: 70px; height: 70px; border-radius: 50%; background: #dbeafe; font-size: 2.5rem; color: #2563eb; border: 3px solid #bfdbfe; }
@@ -2288,7 +2491,6 @@ export default {
 .archive-select { width: 100%; padding: 6px 10px; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 0.8rem; background: #fff; outline: none; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
 .archive-select:focus { border-color: #6b7280; box-shadow: 0 0 0 2px rgba(107,114,128,0.1); }
 .archive-select:disabled { opacity: 0.6; cursor: not-allowed; }
-
 .archive-hint { display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: #fef3c7; border: 1px solid #fcd34d; border-radius: 4px; font-size: 0.7rem; color: #92400e; margin-top: 4px; }
 .archive-hint i { color: #d97706; }
 
@@ -2304,57 +2506,33 @@ export default {
 .system-datetime-footer { padding: 8px 16px; background: rgba(37, 99, 235, 0.05); border-top: 1px solid #bfdbfe; display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: #64748b; }
 .system-datetime-footer i { color: #2563eb; }
 
-/* ===== FORWARD MODAL ===== */
-.forward-doc-info { display: flex; gap: 16px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 6px; padding: 8px 14px; margin-bottom: 12px; flex-wrap: wrap; }
-.forward-doc-row { display: flex; align-items: center; gap: 6px; }
-.forward-doc-label { font-size: 0.7rem; font-weight: 600; color: #64748b; text-transform: uppercase; }
-.forward-doc-value { font-size: 0.85rem; font-weight: 600; color: #1e293b; }
-.forward-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.forward-col { display: flex; flex-direction: column; }
+/* ===== ATTACHMENT SECTION ===== */
+.attachment-section { margin-top: 4px; }
+.dropzone { border: 2px dashed #d1d5db; border-radius: 8px; padding: 20px 16px; text-align: center; cursor: pointer; transition: all 0.3s ease; background: #fafafa; }
+.dropzone:hover { border-color: #2d6a4f; background: #f0fdf4; }
+.dropzone-content { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.dropzone-icon { font-size: 2rem; color: #9ca3af; margin-bottom: 4px; transition: all 0.3s ease; }
+.dropzone:hover .dropzone-icon { color: #2d6a4f; transform: translateY(-2px); }
+.dropzone h6 { font-size: 0.85rem; color: #1e293b; margin-bottom: 2px; }
+.dropzone .text-muted { font-size: 0.7rem; color: #94a3b8; }
 
-.office-search-box { position: relative; margin-bottom: 8px; }
-.office-search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #9ca3af; font-size: 0.85rem; }
-.office-search-input { width: 100%; padding: 6px 30px 6px 32px; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 0.8rem; outline: none; background: #fff; transition: all 0.3s ease; }
-.office-search-input:focus { border-color: #2d6a4f; box-shadow: 0 0 0 2px rgba(45,106,79,0.1); }
-.office-search-clear { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #9ca3af; cursor: pointer; padding: 2px; }
-.office-search-clear:hover { color: #ef4444; }
-
-.office-list-container { max-height: 180px; overflow-y: auto; border: 1px solid #e5e7eb; border-radius: 6px; background: #fff; }
-.office-list-container::-webkit-scrollbar { width: 4px; }
-.office-list-container::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 2px; }
-
-.office-select-item { display: flex; align-items: center; gap: 8px; padding: 6px 10px; cursor: pointer; transition: all 0.15s ease; border-bottom: 1px solid #f3f4f6; position: relative; }
-.office-select-item:last-child { border-bottom: none; }
-.office-select-item:hover { background: #f0fdf4; }
-.office-select-item.selected { background: #f0fdf4; border-left: 2px solid #059669; }
-.office-checkbox { font-size: 1rem; color: #059669; min-width: 18px; display: flex; align-items: center; justify-content: center; }
-.office-select-item:not(.selected) .office-checkbox { color: #d1d5db; }
-.office-icon-wrapper { width: 28px; height: 28px; min-width: 28px; border-radius: 6px; background: #e0e7ff; display: flex; align-items: center; justify-content: center; color: #3730a3; font-size: 0.8rem; }
-.office-select-item.selected .office-icon-wrapper { background: #d1fae5; color: #059669; }
-.office-details { flex: 1; min-width: 0; }
-.office-name-text { display: block; font-size: 0.8rem; font-weight: 600; color: #1e293b; line-height: 1.2; }
-.office-code { display: block; font-size: 0.6rem; color: #64748b; }
-.selected-indicator { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); color: #059669; font-size: 0.9rem; }
-
-.selection-counter { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: #f0fdf4; border: 1px solid #86efac; border-radius: 16px; font-size: 0.75rem; font-weight: 600; color: #166534; margin-top: 6px; }
-
-.duration-select { width: 100%; padding: 6px 10px; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 0.8rem; background: #fff; outline: none; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
-.duration-select:focus { border-color: #2d6a4f; box-shadow: 0 0 0 2px rgba(45,106,79,0.1); }
-.duration-select:disabled { opacity: 0.6; cursor: not-allowed; }
-
-.remarks-textarea { width: 100%; padding: 6px 10px; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 0.8rem; outline: none; background: #fff; transition: all 0.3s ease; resize: vertical; font-family: inherit; min-height: 60px; }
-.remarks-textarea:focus { border-color: #2d6a4f; box-shadow: 0 0 0 2px rgba(45,106,79,0.1); }
-.remarks-textarea:disabled { opacity: 0.6; cursor: not-allowed; }
-.remarks-counter { text-align: right; font-size: 0.65rem; color: #94a3b8; margin-top: 2px; }
-.remarks-counter.text-danger { color: #dc2626; }
-
-.selected-offices-summary { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 8px 12px; margin-top: 8px; }
-.selected-offices-header { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 0.75rem; color: #166534; }
-.selected-offices-list { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
-.selected-office-tag { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; background: #fff; border: 1px solid #86efac; border-radius: 12px; font-size: 0.7rem; font-weight: 600; color: #166534; }
-.remove-office-btn { background: none; border: none; color: #6b7280; cursor: pointer; padding: 0; font-size: 0.8rem; transition: color 0.2s; }
-.remove-office-btn:hover { color: #dc2626; }
-.remove-office-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.single-file-card { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: #f8fafc; border: 2px solid #e5e7eb; border-radius: 8px; gap: 12px; transition: all 0.3s ease; }
+.single-file-card:hover { border-color: #2d6a4f; background: #f0fdf4; }
+.file-info { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+.file-icon-wrap { width: 40px; height: 40px; min-width: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+.file-icon-wrap.file-pdf { background: #fee2e2; color: #dc2626; }
+.file-details { flex: 1; min-width: 0; }
+.file-name { font-size: 0.8rem; font-weight: 600; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.file-size { font-size: 0.65rem; color: #94a3b8; }
+.file-actions { display: flex; gap: 4px; }
+.btn-icon { width: 30px; height: 30px; border: none; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 0.8rem; }
+.btn-icon-view { background: #dbeafe; color: #2563eb; }
+.btn-icon-view:hover { background: #bfdbfe; transform: scale(1.05); }
+.btn-icon-replace { background: #fef3c7; color: #d97706; }
+.btn-icon-replace:hover { background: #fde68a; transform: scale(1.05); }
+.btn-icon-remove { background: #fee2e2; color: #dc2626; }
+.btn-icon-remove:hover { background: #fecaca; transform: scale(1.05); }
+.field-error { display: flex; align-items: center; gap: 6px; margin-top: 4px; padding: 6px 10px; background: #fef0ef; border: 1px solid #f5c6c3; border-radius: 4px; font-size: 0.7rem; color: #c0392b; }
 
 /* ===== DOCUMENT VIEWER ===== */
 .document-view-modal { max-width: 1600px; width: 98vw; max-height: 95vh; }
@@ -2533,22 +2711,44 @@ export default {
   .document-view-modal { max-width: 100vw; width: 100vw; }
   .document-viewer-layout { grid-template-columns: 260px 1fr; } 
 }
+@media (max-width: 1024px) {
+  .forward-main-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .details-col {
+    grid-column: span 2;
+  }
+}
 @media (max-width: 992px) {
   .document-viewer-layout { grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: calc(95vh - 140px); }
   .details-panel { border-right: none; border-bottom: 1px solid #e5e7eb; max-height: 300px; }
   .pdf-viewer-wrapper { min-height: 500px; }
-  .forward-grid { grid-template-columns: 1fr; }
   .info-grid-enhanced { grid-template-columns: 1fr; }
   .flow-container { flex-direction: column; gap: 6px; }
   .flow-node { width: 100%; min-width: unset; }
   .flow-arrow { transform: rotate(90deg); padding: 0; }
   .arrow-line { width: 24px; }
-  .forward-doc-info { flex-direction: column; gap: 4px; }
+}
+@media (max-width: 768px) {
+  .forward-modal-large { max-width: 100vw; width: 100vw; margin: 0; border-radius: 0; max-height: 100vh; }
+  .forward-modal-body { padding: 12px 16px; max-height: calc(100vh - 70px); }
+  .forward-main-grid {
+    grid-template-columns: 1fr;
+  }
+  .details-col {
+    grid-column: span 1;
+  }
+  .forward-doc-info-bar { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .doc-info-divider { display: none; }
+  .doc-info-subject { width: 100%; min-width: unset; }
+  .subject-truncate { max-width: 100%; }
+  .office-list, .memo-list { max-height: 200px; }
   .modal-actions { flex-direction: column; gap: 8px; align-items: stretch; }
   .modal-actions .d-flex { justify-content: center; }
   .square-btn { width: 100%; justify-content: center; }
-}
-@media (max-width: 768px) {
+  .col-header { padding: 8px 12px; }
+  .office-item, .memo-item { padding: 4px 10px; }
+  
   .document-view-modal { max-width: 100vw; width: 100vw; margin: 0; border-radius: 0; max-height: 100vh; }
   .document-viewer-tabs { padding: 6px 10px; gap: 3px; }
   .viewer-tab-btn { padding: 6px 12px; font-size: 11px; }
@@ -2567,10 +2767,27 @@ export default {
   .flow-section { padding: 8px 10px; }
   .confidential-notice { padding: 20px; }
   .confidential-title { font-size: 1.2rem; }
-  .forward-grid { grid-template-columns: 1fr; gap: 10px; }
-  .office-list-container { max-height: 140px; }
 }
 @media (max-width: 576px) {
+  .forward-header { padding: 10px 14px; }
+  .forward-header .modal-title { font-size: 0.9rem; }
+  .forward-header .modal-subtitle { font-size: 0.65rem; }
+  .forward-doc-info-bar { padding: 8px 12px; }
+  .doc-info-item { font-size: 0.7rem; }
+  .office-search-box { padding: 6px 10px; }
+  .office-search-input { font-size: 0.7rem; padding: 4px 24px 4px 24px; }
+  .selected-tags { max-height: 60px; }
+  .selected-tag { font-size: 0.6rem; }
+  .dropzone-compact-content { gap: 8px; }
+  .dropzone-compact-content i { font-size: 1.2rem; }
+  .dropzone-title { font-size: 0.65rem; }
+  .file-card-compact { padding: 6px 10px; }
+  .file-card-name { font-size: 0.6rem; }
+  .memo-actions { padding: 4px 10px; }
+  .memo-action-btn { font-size: 0.6rem; padding: 2px 8px; }
+  .detail-section { padding: 8px 10px; }
+  .remarks-textarea { min-height: 40px; font-size: 0.7rem; }
+  
   .document-header { padding: 10px 14px; }
   .viewer-tab-btn span { display: none; }
   .viewer-tab-btn i { font-size: 14px; }
