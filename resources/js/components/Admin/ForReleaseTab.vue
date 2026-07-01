@@ -204,10 +204,7 @@
     >
       <div class="modal-dialog enhanced-modal" style="max-width: 700px">
         <div class="modal-content square-modal">
-          <div
-            class="modal-header-enhanced square-header"
-            style="background: #2563eb"
-          >
+         <div class="modal-header-enhanced square-header document-header">
             <div class="d-flex align-items-center">
               <div
                 class="modal-icon-wrapper square-icon"
@@ -1103,87 +1100,6 @@
                               </div>
                             </div>
                           </div>
-
-                          <div
-                            v-if="route.date_document_out"
-                            class="info-card completed-card"
-                          >
-                            <div class="info-card-header">
-                              <div class="info-card-icon completed-icon">
-                                <i class="bi bi-check2-all"></i>
-                              </div>
-                              <span class="info-card-title"
-                                >Completion Information</span
-                              >
-                              <span
-                                v-if="route.status === 'Completed'"
-                                class="info-card-status completed-status"
-                              >
-                                <i class="bi bi-check-circle-fill"></i> Done
-                              </span>
-                            </div>
-
-                            <div class="info-card-body">
-                              <div class="info-field">
-                                <div class="field-icon">
-                                  <i class="bi bi-calendar-check"></i>
-                                </div>
-                                <div class="field-content">
-                                  <span class="field-label">Completed On</span>
-                                  <span class="field-value completed-date">
-                                    <i class="bi bi-check-circle me-1"></i>
-                                    {{
-                                      formatDateTime(route.date_document_out)
-                                    }}
-                                  </span>
-                                </div>
-                              </div>
-
-                              <div
-                                v-if="
-                                  route.completed_by || route.completed_by_name
-                                "
-                                class="info-field"
-                              >
-                                <div class="field-icon">
-                                  <i class="bi bi-person-check"></i>
-                                </div>
-                                <div class="field-content">
-                                  <span class="field-label">Completed By</span>
-                                  <span class="field-value">
-                                    <template v-if="route.completed_by">
-                                      {{ route.completed_by.firstname || "" }}
-                                      {{
-                                        route.completed_by.middlename
-                                          ? route.completed_by.middlename + " "
-                                          : ""
-                                      }}
-                                      {{ route.completed_by.lastname || "" }}
-                                    </template>
-                                    <template
-                                      v-else-if="route.completed_by_name"
-                                    >
-                                      {{ route.completed_by_name }}
-                                    </template>
-                                  </span>
-                                </div>
-                              </div>
-
-                              <div v-if="route.remarks" class="info-field">
-                                <div class="field-icon notes-icon">
-                                  <i class="bi bi-sticky"></i>
-                                </div>
-                                <div class="field-content">
-                                  <span class="field-label"
-                                    >Completion Notes</span
-                                  >
-                                  <span class="field-value notes-text">{{
-                                    route.remarks
-                                  }}</span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
                         </div>
 
                         <div
@@ -1306,9 +1222,7 @@
                       <i class="bi bi-eye"></i>
                     </button>
                     <a
-                      :href="
-                        getAttachmentUrl(selectedDocument.draft_attachment)
-                      "
+                      :href="getAttachmentUrl(selectedDocument.draft_attachment)"
                       download
                       class="btn-attachment-download"
                       title="Download"
@@ -1318,38 +1232,26 @@
                   </div>
                 </div>
 
-                <!-- Acted Documents - Loop through acted_documents -->
+                <!-- Released Attachment -->
                 <div
-                  v-for="(actedDoc, index) in getActedDocuments()"
-                  :key="'acted-' + index"
+                  v-if="selectedDocument?.released_attachment"
                   class="attachment-item"
-                  @click="openActedDocumentViewer(actedDoc)"
+                  @click="openAttachmentViewer('released')"
                 >
-                  <div class="attachment-icon-wrapper">
+                  <div class="attachment-icon-wrapper released-icon">
                     <i class="bi bi-file-earmark-pdf"></i>
                   </div>
                   <div class="attachment-details">
                     <div class="attachment-name">
-                      {{ getActedFileName(actedDoc) }}
-                      <span class="attachment-badge acted-badge">Acted</span>
+                      {{ selectedDocument.tracking_number }}_released.pdf
+                      <span class="attachment-badge released-badge">Released</span>
                     </div>
                     <div class="attachment-meta">
                       <span class="attachment-size">PDF Document</span>
                       <span class="attachment-separator">•</span>
-                      <span class="attachment-date">
-                        {{
-                          formatDate(
-                            actedDoc.created_at || actedDoc.date_created
-                          )
-                        }}
-                      </span>
-                      <span v-if="actedDoc.remarks" class="attachment-separator"
-                        >•</span
-                      >
-                      <span
-                        v-if="actedDoc.remarks"
-                        class="attachment-remarks"
-                        >{{ actedDoc.remarks }}</span
+                      <span class="attachment-date"
+                        >Released:
+                        {{ formatDate(selectedDocument.date_released || selectedDocument.updated_at) }}</span
                       >
                     </div>
                   </div>
@@ -1357,12 +1259,12 @@
                     <button
                       class="btn-attachment-view"
                       title="View"
-                      @click="openActedDocumentViewer(actedDoc)"
+                      @click="openAttachmentViewer('released')"
                     >
                       <i class="bi bi-eye"></i>
                     </button>
                     <a
-                      :href="getActedDocumentUrl(actedDoc)"
+                      :href="getAttachmentUrl(selectedDocument.released_attachment)"
                       download
                       class="btn-attachment-download"
                       title="Download"
@@ -1372,9 +1274,62 @@
                   </div>
                 </div>
 
+                <!-- Acted Documents from Document Route - Display ALL -->
+                <div v-if="getAllActedDocuments().length > 0">
+                  <div class="acted-section-header">
+                    <i class="bi bi-file-earmark-pdf"></i>
+                    <span>Acted Documents ({{ getAllActedDocuments().length }})</span>
+                  </div>
+                  
+                  <div
+                    v-for="(actedDoc, index) in getAllActedDocuments()"
+                    :key="'acted-' + index"
+                    class="attachment-item acted-item"
+                    @click="openActedDocumentViewer(actedDoc)"
+                  >
+                    <div class="attachment-icon-wrapper acted-icon">
+                      <i class="bi bi-file-earmark-pdf"></i>
+                    </div>
+                    <div class="attachment-details">
+                      <div class="attachment-name">
+                        {{ getActedFileName(actedDoc) }}
+                        <span class="attachment-badge acted-badge">Acted</span>
+                      </div>
+                      <div class="attachment-meta">
+                        <span class="attachment-size">PDF Document</span>
+                        <span class="attachment-separator">•</span>
+                        <span class="attachment-date">
+                          {{ formatDate(actedDoc.date_receive || actedDoc.created_at || new Date()) }}
+                        </span>
+                        <span v-if="actedDoc.office_name" class="attachment-separator">•</span>
+                        <span v-if="actedDoc.office_name" class="attachment-office">
+                          <i class="bi bi-building"></i> {{ actedDoc.office_name }}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="attachment-actions" @click.stop>
+                      <button
+                        class="btn-attachment-view"
+                        title="View Acted Document"
+                        @click="openActedDocumentViewer(actedDoc)"
+                      >
+                        <i class="bi bi-eye"></i>
+                      </button>
+                      <a
+                        :href="getActedDocumentUrl(actedDoc)"
+                        download
+                        class="btn-attachment-download"
+                        title="Download"
+                      >
+                        <i class="bi bi-download"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
                 <!-- No Attachments -->
                 <div
-                  v-if="!hasAttachments() && getActedDocuments().length === 0"
+                  v-if="!hasAttachments() && getAllActedDocuments().length === 0"
                   class="no-attachments"
                 >
                   <i
@@ -2139,28 +2094,62 @@ export default {
       this.pdfViewerHeight = Math.round(700 / this.pdfZoom);
     },
 
-    // Acted Documents Methods
-    getActedDocuments() {
+    // === METHODS FOR ACTED DOCUMENTS ===
+    
+    // Get ALL acted documents from document_route
+    getAllActedDocuments() {
       if (!this.selectedDocument) return [];
-
-      // Check if document has acted_documents array
-      if (
-        this.selectedDocument.acted_documents &&
-        Array.isArray(this.selectedDocument.acted_documents)
-      ) {
-        return this.selectedDocument.acted_documents;
+      
+      const actedDocs = [];
+      
+      // Check if document has document_route array
+      if (this.selectedDocument.document_route && 
+          Array.isArray(this.selectedDocument.document_route)) {
+        // Loop through all routes and collect acted_documents
+        this.selectedDocument.document_route.forEach(route => {
+          if (route.acted_documents && route.acted_documents.trim() !== '') {
+            actedDocs.push({
+              id: route.id,
+              file_path: route.acted_documents,
+              tracking_number: this.selectedDocument.tracking_number,
+              date_receive: route.date_receive,
+              created_at: route.created_at,
+              office_name: route.office?.sub_office_name || route.to_office || 'Unknown',
+              status: route.status,
+              remarks: route.remarks,
+              route_id: route.id
+            });
+          }
+        });
       }
-
-      // If there's a single acted_document field
+      
+      // Also check if there's a single acted_document on the main document
       if (this.selectedDocument.acted_document) {
-        return [this.selectedDocument.acted_document];
+        actedDocs.push({
+          id: 'main',
+          file_path: this.selectedDocument.acted_document,
+          tracking_number: this.selectedDocument.tracking_number,
+          date_receive: this.selectedDocument.date_receive,
+          created_at: this.selectedDocument.created_at,
+          office_name: this.selectedDocument.office_name || 'Main',
+          status: this.selectedDocument.status,
+          remarks: this.selectedDocument.remarks
+        });
       }
-
-      return [];
+      
+      return actedDocs;
     },
 
+    // Get acted filename
     getActedFileName(actedDoc) {
       if (!actedDoc) return "acted_document.pdf";
+
+      // If there's a file_path, extract filename
+      if (actedDoc.file_path) {
+        const parts = actedDoc.file_path.split('/');
+        const filename = parts[parts.length - 1];
+        if (filename) return filename;
+      }
 
       // Check if there's a file name field
       if (actedDoc.file_name) return actedDoc.file_name;
@@ -2168,43 +2157,43 @@ export default {
       if (actedDoc.name) return actedDoc.name;
 
       // Generate from tracking number
-      const tracking = this.selectedDocument?.tracking_number || "document";
-      return `${tracking}_acted_${actedDoc.id || "1"}.pdf`;
+      const tracking = actedDoc.tracking_number || this.selectedDocument?.tracking_number || "document";
+      return `${tracking}_acted_${actedDoc.id || '1'}.pdf`;
     },
 
+    // Get full URL for acted document
     getActedDocumentUrl(actedDoc) {
-      if (!actedDoc) return "#";
+      if (!actedDoc) return '#';
 
-      // If there's a direct path
+      // If there's a file_path, use it
       if (actedDoc.file_path) {
-        if (actedDoc.file_path.startsWith("http")) return actedDoc.file_path;
+        if (actedDoc.file_path.startsWith('http')) return actedDoc.file_path;
         return `/dts_denr/storage/app/public/${actedDoc.file_path}`;
       }
 
+      // If there's a direct path
       if (actedDoc.path) {
-        if (actedDoc.path.startsWith("http")) return actedDoc.path;
+        if (actedDoc.path.startsWith('http')) return actedDoc.path;
         return `/dts_denr/storage/app/public/${actedDoc.path}`;
       }
 
       // If there's a file name, construct path
       if (actedDoc.file_name || actedDoc.filename) {
         const fileName = actedDoc.file_name || actedDoc.filename;
-        const tracking = this.selectedDocument?.tracking_number || "unknown";
-        return `/dts_denr/storage/app/public/attachments/${tracking}/ACTED_DOCUMENTS/${fileName}`;
-      }
-
-      // Try to use the acted_document column value
-      if (actedDoc.acted_document) {
-        return `/dts_denr/storage/app/public/${actedDoc.acted_document}`;
+        const tracking = actedDoc.tracking_number || this.selectedDocument?.tracking_number || 'unknown';
+        return `/dts_denr/storage/app/public/attachments/${tracking}/${fileName}`;
       }
 
       // Fallback: construct from tracking number
-      const tracking = this.selectedDocument?.tracking_number || "unknown";
-      const fileName = `${tracking}_acted_${actedDoc.id || "1"}.pdf`;
-      return `/dts_denr/storage/app/public/attachments/${tracking}/ACTED_DOCUMENTS/${fileName}`;
+      const tracking = actedDoc.tracking_number || this.selectedDocument?.tracking_number || 'unknown';
+      const fileName = `${tracking}_acted_${actedDoc.id || '1'}.pdf`;
+      return `/dts_denr/storage/app/public/attachments/${tracking}/${fileName}`;
     },
 
+    // Open acted document viewer
     openActedDocumentViewer(actedDoc) {
+      if (!actedDoc) return;
+      
       this.selectedActedDocument = actedDoc;
       this.showActedViewer = true;
       this.actedLoading = true;
@@ -2213,6 +2202,7 @@ export default {
       this.actedViewerHeight = 700;
     },
 
+    // Close acted viewer
     closeActedViewer() {
       this.showActedViewer = false;
       this.selectedActedDocument = null;
@@ -2258,6 +2248,28 @@ export default {
     actedZoomReset() {
       this.actedZoom = 1;
       this.actedViewerHeight = 700;
+    },
+
+    // Update getAttachmentsCount to include all acted documents
+    getAttachmentsCount() {
+      let count = 0;
+      if (this.selectedDocument?.draft_attachment) count++;
+      if (this.selectedDocument?.released_attachment) count++;
+      
+      // Count all acted documents
+      const actedDocs = this.getAllActedDocuments();
+      count += actedDocs.length;
+      
+      return count;
+    },
+
+    // Update hasAttachments to check all acted documents
+    hasAttachments() {
+      return !!(
+        this.selectedDocument?.draft_attachment ||
+        this.selectedDocument?.released_attachment ||
+        this.getAllActedDocuments().length > 0
+      );
     },
 
     // Attachment Viewer methods
@@ -2323,25 +2335,6 @@ export default {
     },
     adjustAttachmentViewerHeight() {
       this.attachmentViewerHeight = Math.round(700 / this.attachmentZoom);
-    },
-
-    // Attachments methods
-    hasAttachments() {
-      return !!(
-        this.selectedDocument?.draft_attachment ||
-        this.selectedDocument?.released_attachment
-      );
-    },
-    getAttachmentsCount() {
-      let count = 0;
-      if (this.selectedDocument?.draft_attachment) count++;
-      if (this.selectedDocument?.released_attachment) count++;
-
-      // Count acted documents
-      const actedDocs = this.getActedDocuments();
-      count += actedDocs.length;
-
-      return count;
     },
 
     // Route history helpers
@@ -2411,8 +2404,6 @@ export default {
   },
 };
 </script>
-
-
 
 <style scoped>
 /* Modal overlay */
@@ -2880,18 +2871,6 @@ export default {
   opacity: 0.7;
   cursor: not-allowed;
   transform: none;
-}
-
-/* Button release */
-.btn-release {
-  color: #059669;
-  border-color: #86efac;
-  background: #ecfdf5;
-}
-
-.btn-release:hover {
-  background: #86efac;
-  transform: scale(1.05);
 }
 
 /* Table */
@@ -4402,6 +4381,26 @@ export default {
   background: #f9fafb;
 }
 
+/* Acted section header */
+.acted-section-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  margin-top: 4px;
+  background: #f3f4f6;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: #374151;
+}
+
+.acted-section-header i {
+  color: #7c3aed;
+  font-size: 1rem;
+}
+
 .attachment-item {
   display: flex;
   align-items: center;
@@ -4436,6 +4435,18 @@ export default {
   justify-content: center;
   font-size: 1.3rem;
   color: #dc2626;
+}
+
+/* Released icon */
+.attachment-icon-wrapper.released-icon {
+  background: #d1fae5;
+  color: #059669;
+}
+
+/* Acted icon */
+.attachment-icon-wrapper.acted-icon {
+  background: #ede9fe;
+  color: #7c3aed;
 }
 
 .attachment-details {
@@ -4474,6 +4485,12 @@ export default {
   border: 1px solid #a7f3d0;
 }
 
+.acted-badge {
+  background: #ede9fe;
+  color: #7c3aed;
+  border: 1px solid #c4b5fd;
+}
+
 .attachment-meta {
   display: flex;
   align-items: center;
@@ -4481,10 +4498,20 @@ export default {
   font-size: 0.7rem;
   color: #64748b;
   margin-top: 2px;
+  flex-wrap: wrap;
 }
 
 .attachment-separator {
   color: #d1d5db;
+}
+
+.attachment-office {
+  color: #475569;
+  font-weight: 500;
+}
+
+.attachment-office i {
+  font-size: 0.6rem;
 }
 
 .attachment-actions {

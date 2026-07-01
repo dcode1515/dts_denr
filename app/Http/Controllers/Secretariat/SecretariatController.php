@@ -12,6 +12,7 @@ use App\Models\MemoSlip;
 use Illuminate\Support\Facades\Validator;
 use DB;
 use Illuminate\Support\Facades\Log;  // ← ADD THIS LINE
+use Illuminate\Validation\Rule;
 
 
 class SecretariatController extends Controller
@@ -177,6 +178,7 @@ public function forward_other_office(Request $request, $id)
         'selectedDuration' => 'required|string|max:255',
         'remarks' => 'nullable|string|max:500',
         'attachments.*' => 'nullable|file|mimes:pdf|max:20480', // 20MB max per file
+        'memoSlips' => 'nullable|json',
     ]);
 
     try {
@@ -189,6 +191,15 @@ public function forward_other_office(Request $request, $id)
                 'message' => 'No offices selected. Please select at least one office to forward the document.',
             ], 422);
         }
+
+        $memoSlips = json_decode($request->memoSlips, true) ?? [];
+        
+        // Extract memo slip NAMES instead of IDs
+        $memoSlipNames = array_column($memoSlips, 'memo_slip_name');
+        
+        // Store as JSON array of names
+        $memoSlipNamesJson = !empty($memoSlipNames) ? json_encode($memoSlipNames) : null;
+        
 
         // Find the current document route using the $id parameter
         // $id here is the route ID (IncomingDocumentRoute ID)
@@ -247,6 +258,7 @@ public function forward_other_office(Request $request, $id)
         $currentRoute->status = "FORWARDED";
         $currentRoute->date_document_out = now();
         $currentRoute->acted_documents = $attachmentString;
+      
         $currentRoute->save();
 
         // CREATE: Create new routes for each selected office
@@ -265,6 +277,7 @@ public function forward_other_office(Request $request, $id)
                 'from_office_id' => $userOfficeId, // Source office ID (current user's office)
                 'date_forwarded' => $now,
                 'status' => 'PENDING',
+                'memo_slip_action' => $memoSlipNamesJson, // Store the memo slip IDs as a comma-separated string
                 'remarks' => $request->remarks,
              
             ]);
@@ -423,12 +436,22 @@ public function for_release_document(Request $request)
     }
 }
  public function store_memo_slip(Request $request){
-    $request->validate([
-             'memo_slip' => 'required|string|max:255|unique:memo_slip_tbl,memo_slip_name',
-             'status' => 'required|in:Active,Inactive'
-        ]);
+        $officeId = Auth::user()->sub_office_id;
+
+     $request->validate([
+        'memo_slip' => [
+            'required',
+            'string',
+            'max:255',
+              Rule::unique('memo_slip_tbl', 'memo_slip_name')
+                ->where('office_id', $officeId)
+                ->whereNull('deleted_at') // Only check non-deleted records
+        ],
+        'status' => 'required|in:Active,Inactive'
+    ]);
 
         try {
+            
             // Create a new DocumentType instance and save it to the database
             $memoSlip = new MemoSlip();
             $memoSlip->memo_slip_name = $request->input('memo_slip');
@@ -443,14 +466,30 @@ public function for_release_document(Request $request)
         }
  }
   public function update_memo_slip(Request $request,$id){
+        $officeId = Auth::user()->sub_office_id;
+
     $request->validate([
-             'memo_slip' => 'required|string|max:255|unique:memo_slip_tbl,memo_slip_name,'.$id,
-             'status' => 'required|in:Active,Inactive'
-        ]);
+        'memo_slip' => [
+            'required',
+            'string',
+            'max:255',
+            Rule::unique('memo_slip_tbl', 'memo_slip_name')
+                ->where('office_id', $officeId)
+                ->whereNull('deleted_at') // Only check non-deleted records
+                ->ignore($id)
+        ],
+        'status' => 'required|in:Active,Inactive'
+    ]);
 
         try {
             // Create a new DocumentType instance and save it to the database
             $memoSlip =  MemoSlip::find($id);
+             if (!$memoSlip) {
+            return response()->json(['message' => 'Memo Slip not found'], 404);
+        }
+         if ($memoSlip->office_id != $officeId) {
+            return response()->json(['message' => 'You are not authorized to update this memo slip'], 403);
+        }
             $memoSlip->memo_slip_name = $request->input('memo_slip');
             $memoSlip->date_created = now();
             $memoSlip->office_id = Auth::user()->sub_office_id;
@@ -488,7 +527,7 @@ public function for_release_document(Request $request)
         $perPage = $request->query('per_page', 10); // Default to 10 if not provided
     
         // Query promotions with optional search and sorting by 'date_original_appointment'
-        $documentType = MemoSlip::query()
+        $documentType = MemoSlip::where('office_id', Auth::user()->sub_office_id)
             ->when($search, function ($query, $search) {
                 return $query
                     ->where('memo_slip_name', 'like', '%' . $search . '%');

@@ -139,9 +139,9 @@
                 <button class="btn-action btn-release" @click="openReleaseModal(document)" title="For Release">
                   <i class="bi bi-check2-circle"></i>
                 </button>
-                <button class="btn-action btn-archive" @click="openArchiveModal(document)" title="Archive">
+                <!-- <button class="btn-action btn-archive" @click="openArchiveModal(document)" title="Archive">
                   <i class="bi bi-archive"></i>
-                </button>
+                </button> -->
               </div>
             </td>
           </tr>
@@ -953,6 +953,10 @@
                 <i class="bi bi-clock-history"></i>
                 <span>Route History</span>
               </button>
+               <button class="viewer-tab-btn" :class="{ active: viewerActiveTab === 'progress' }" @click="viewerActiveTab = 'progress'">
+                <i class="bi bi-clipboard-check"></i>
+                <span>Progress Notes</span>
+              </button>
             </div>
 
             <!-- Document Information Tab -->
@@ -1316,6 +1320,83 @@
                 </div>
               </div>
             </div>
+             <!-- ==================== PROGRESS NOTES TAB ==================== -->
+            <div v-show="viewerActiveTab === 'progress'" class="progress-notes-panel">
+              <div class="progress-notes-header">
+                <div class="progress-notes-title">
+                  <i class="bi bi-clipboard-check"></i>
+                  <span>Progress Notes</span>
+                </div>
+                <div class="progress-notes-badge" v-if="getMemoSlips().length > 0 || selectedDocument?.remarks">
+                  <i class="bi bi-info-circle"></i>
+                  <span>{{ (getMemoSlips().length > 0 ? getMemoSlips().length + ' Memo(s)' : '') }} 
+                    {{ (getMemoSlips().length > 0 && selectedDocument?.remarks ? ' | ' : '') }}
+                    {{ selectedDocument?.remarks ? 'With Remarks' : '' }}</span>
+                </div>
+              </div>
+
+              <div class="progress-notes-content">
+                <!-- Memo Slips Section -->
+                <div class="progress-section memo-section">
+                  <div class="section-header">
+                    <div class="section-header-left">
+                      <i class="bi bi-envelope-paper"></i>
+                      <span>Memo Slip(s)</span>
+                    </div>
+                    <span class="section-badge">{{ getMemoSlips().length }} record(s)</span>
+                  </div>
+                  
+                  <div v-if="getMemoSlips().length === 0" class="empty-state-compact">
+                    <i class="bi bi-envelope-paper"></i>
+                    <p>No memo slips attached to this document.</p>
+                  </div>
+                  
+                  <div v-else class="memo-slips-grid">
+                    <div 
+                      v-for="(memo, index) in getMemoSlips()" 
+                      :key="index" 
+                      class="memo-slip-card"
+                    >
+                      <div class="memo-slip-number">{{ index + 1 }}</div>
+                      <div class="memo-slip-content">
+                        <i class="bi bi-file-text"></i>
+                        <span>{{ memo }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Remarks Section -->
+                <div class="progress-section remarks-section">
+                  <div class="section-header">
+                    <div class="section-header-left">
+                      <i class="bi bi-chat-left-text"></i>
+                      <span>Remarks / Instructions</span>
+                    </div>
+                    <span class="section-badge">{{ selectedDocument?.remarks ? 'Has Remarks' : 'No Remarks' }}</span>
+                  </div>
+                  
+                  <div v-if="!selectedDocument?.remarks" class="empty-state-compact">
+                    <i class="bi bi-chat-left-text"></i>
+                    <p>No remarks or instructions added for this document.</p>
+                  </div>
+                  
+                  <div v-else class="remarks-card">
+                    <div class="remarks-content">
+                      <i class="bi bi-quote"></i>
+                      <p>{{ selectedDocument.remarks }}</p>
+                    </div>
+                    <div class="remarks-meta" v-if="selectedDocument.updated_at">
+                      <i class="bi bi-clock"></i>
+                      <span>Last updated: {{ formatDateTime(selectedDocument.updated_at) }}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Route Progress Summary -->
+               
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1443,6 +1524,7 @@ export default {
     },
   },
   mounted() {
+    this.getMemoSlips();
     this.getDataReceived();
     this.updatePstDateTime();
     this.pstClockInterval = setInterval(() => {
@@ -1455,6 +1537,27 @@ export default {
     }
   },
   methods: {
+    getMemoSlips() {
+      if (!this.selectedDocument) return [];
+      
+      const route = this.selectedDocument;
+      
+      if (route.memo_slip_action) {
+        try {
+          const parsed = JSON.parse(route.memo_slip_action);
+          if (Array.isArray(parsed)) {
+            return parsed;
+          }
+        } catch {
+          if (typeof route.memo_slip_action === 'string') {
+            const memos = route.memo_slip_action.split(',').map(m => m.trim()).filter(m => m !== '');
+            return memos;
+          }
+        }
+      }
+      
+      return [];
+    },
     // ===== PST CLOCK =====
     updatePstDateTime() {
       const now = new Date();
@@ -2801,4 +2904,234 @@ export default {
   .btn-action { padding: 4px 8px; font-size: 0.8rem; }
 }
 .d-none { display: none !important; }
+/* ===== PROGRESS NOTES PANEL ===== */
+.progress-notes-panel {
+  display: flex;
+  flex-direction: column;
+  height: calc(90vh - 140px);
+  background: #ffffff;
+  min-height: 500px;
+}
+
+.progress-notes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background: #f8fafc;
+  border-bottom: 2px solid #e5e7eb;
+  flex-shrink: 0;
+}
+
+.progress-notes-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 1rem;
+}
+
+.progress-notes-title i {
+  color: #7c3aed;
+  font-size: 1.2rem;
+}
+
+.progress-notes-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: #ede9fe;
+  border: 1px solid #c4b5fd;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #5b21b6;
+}
+
+.progress-notes-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  background: #f9fafb;
+}
+
+.progress-notes-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.progress-notes-content::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.progress-notes-content::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 4px;
+}
+
+.progress-section {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+}
+
+.progress-section:last-child {
+  margin-bottom: 0;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #f3f4f6;
+}
+
+.section-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 0.9rem;
+}
+
+.section-header-left i {
+  font-size: 1rem;
+  color: #7c3aed;
+}
+
+.section-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 10px;
+  background: #f3f4f6;
+  color: #6b7280;
+  border-radius: 12px;
+}
+
+.empty-state-compact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  color: #94a3b8;
+}
+
+.empty-state-compact i {
+  font-size: 2rem;
+  margin-bottom: 8px;
+  color: #d1d5db;
+}
+
+.empty-state-compact p {
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+/* ===== MEMO SLIPS GRID ===== */
+.memo-slips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.memo-slip-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.memo-slip-card:hover {
+  border-color: #f59e0b;
+  background: #fef3c7;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+}
+
+.memo-slip-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  border-radius: 50%;
+  background: #f59e0b;
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+.memo-slip-content {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #78350f;
+}
+
+.memo-slip-content i {
+  color: #d97706;
+  font-size: 0.85rem;
+}
+
+/* ===== REMARKS CARD ===== */
+.remarks-card {
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.remarks-content {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.remarks-content i {
+  font-size: 1.2rem;
+  color: #16a34a;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.remarks-content p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #1e293b;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.remarks-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #bbf7d0;
+  font-size: 0.7rem;
+  color: #6b7280;
+}
+
+.remarks-meta i {
+  font-size: 0.7rem;
+  color: #16a34a;
+}
+
 </style>

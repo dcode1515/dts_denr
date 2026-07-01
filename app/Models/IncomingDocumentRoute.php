@@ -21,6 +21,7 @@ class IncomingDocumentRoute extends Model
             'date_receive',
             'date_document_out',
             'date_acted',
+            'memo_slip_action',
             'acted_documents',
             'memo_slip_action',
             'user_acted_id',
